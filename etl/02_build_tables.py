@@ -296,7 +296,7 @@ def build_season_stats(players: pl.DataFrame) -> tuple[pl.DataFrame, pl.DataFram
           ["pass_rush_snaps", "avg_get_off", "get_off_p10", "pressures", "quick_pressures", "avg_time_to_pressure", "pressure_rate",
            "sacks", "tackles", "assists", "tfl", "forced_fumbles", "coverage_snaps", "man_coverage_snaps", "blitzes"]],
     )
-    align = pp.group_by("nfl_id", "season", "lined_up_position").agg(pl.len().alias("plays")).sort("nfl_id", "season", "plays", descending=[False, False, True])
+    align = pp.with_columns(pl.col("lined_up_position").fill_null("NA")).group_by("nfl_id", "season", "lined_up_position").agg(pl.len().alias("plays")).sort("nfl_id", "season", "plays", descending=[False, False, True])
     return stats, align
 
 
