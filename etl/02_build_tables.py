@@ -133,7 +133,9 @@ def build_combine(players: pl.DataFrame) -> tuple[pl.DataFrame, pl.DataFrame]:
                 "nfl_id": sub["nfl_id"], "metric": metric, "value": vals,
                 "pct_cohort": cohort, "pct_hist": hp, "n_hist": n_hist,
             }))
-    pcts = pl.concat(rows).filter(pl.col("value").is_not_null())
+    pcts = pl.concat(rows).filter(pl.col("value").is_not_null()).with_columns(
+        pl.col("pct_cohort").fill_nan(None), pl.col("pct_hist").fill_nan(None)
+    )
     return cr, pcts
 
 
@@ -188,7 +190,11 @@ def build_combine_tracking(players: pl.DataFrame) -> tuple[pl.DataFrame, pl.Data
         vals = events[d["key_metric"]].cast(pl.Float64).to_numpy()[idx]
         km_val[idx] = vals
         km_pct[idx] = pct_better(vals, vals.copy(), d["lower_is_better"])
-    events = events.with_columns(pl.Series("key_metric_value", km_val), pl.Series("key_metric_pct", km_pct))
+    events = events.with_columns(
+        pl.Series("key_metric_value", km_val).fill_nan(None), pl.Series("key_metric_pct", km_pct).fill_nan(None)
+    )
+    # any remaining float NaN (e.g. straightness on zero-length paths) becomes null
+    events = events.with_columns([pl.col(c).fill_nan(None) for c, t in events.schema.items() if t == pl.Float64])
     return out_frames, events, dropped
 
 
@@ -373,24 +379,33 @@ def build_game_sample(players: pl.DataFrame, per_player: int = 12) -> tuple[pl.D
     return sample, fr
 
 
+def nan_to_null(df: pl.DataFrame) -> pl.DataFrame:
+    """Postgres accepts float NaN and PostgREST then emits it as a string; store nulls instead."""
+    return df.with_columns([pl.col(c).fill_nan(None) for c, t in df.schema.items() if t in (pl.Float64, pl.Float32)])
+
+
+def write(df: pl.DataFrame, name: str) -> None:
+    nan_to_null(df).write_parquet(OUT / f"{name}.parquet")
+
+
 if __name__ == "__main__":
     t0 = time.time()
     players = build_players()
-    players.write_parquet(OUT / "players.parquet"); log(f"players {players.height}")
+    write(players, "players"); log(f"players {players.height}")
     cr, pcts = build_combine(players)
-    cr.write_parquet(OUT / "combine_results.parquet"); pcts.write_parquet(OUT / "combine_percentiles.parquet")
+    write(cr, "combine_results"); write(pcts, "combine_percentiles")
     log(f"combine percentiles {pcts.height}")
     frames, events, dropped = build_combine_tracking(players)
-    frames.write_parquet(OUT / "combine_frames.parquet"); events.write_parquet(OUT / "combine_events.parquet")
-    dropped.write_parquet(OUT / "combine_dropped_events.parquet")
+    write(frames, "combine_frames"); write(events, "combine_events")
+    write(dropped, "combine_dropped_events")
     log(f"combine events {events.height}, frames {frames.height:,}")
     drills = build_drills(events, frames)
-    drills.write_parquet(OUT / "drills.parquet"); log(f"drills {drills.height}")
+    write(drills, "drills"); log(f"drills {drills.height}")
     stats, align = build_season_stats(players)
-    stats.write_parquet(OUT / "player_season_stats.parquet"); align.write_parquet(OUT / "player_season_alignment.parquet")
+    write(stats, "player_season_stats"); write(align, "player_season_alignment")
     log(f"season stats {stats.height}, alignment rows {align.height}")
     career = build_career(players)
-    career.write_parquet(OUT / "player_career.parquet"); log(f"career {career.height}")
+    write(career, "player_career"); log(f"career {career.height}")
     sample, fr = build_game_sample(players)
-    sample.write_parquet(OUT / "game_plays_sample.parquet"); fr.write_parquet(OUT / "game_frames_sample.parquet")
+    write(sample, "game_plays_sample"); write(fr, "game_frames_sample")
     log(f"done in {time.time()-t0:.0f}s")
