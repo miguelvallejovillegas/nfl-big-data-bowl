@@ -1,0 +1,5932 @@
+[
+ {
+  "id": "draft_pays",
+  "title": "What the draft market pays for",
+  "section": "market",
+  "summary": "Spearman rank correlation between each Combine number and draft slot (UDFA = pick 262), signed so that positive means 'better number, earlier pick'. Strongest links: NGS final for DB (\u03c1=0.76, n=122); NGS final for WR (\u03c1=0.75, n=106); NGS final for DL (\u03c1=0.74, n=118); NGS final for OL (\u03c1=0.74, n=121); NGS final for TE (\u03c1=0.72, n=42).",
+  "method": "Spearman \u03c1 per position group; p-values two-sided; n = players with both values.",
+  "chart": {
+   "type": "heatmap",
+   "rows": [
+    "Height",
+    "Weight",
+    "Arm length",
+    "Hand size",
+    "Wingspan",
+    "40-yard",
+    "10-yd split",
+    "Vertical",
+    "Broad jump",
+    "3-cone",
+    "Shuttle",
+    "Bench",
+    "NGS athleticism",
+    "NGS production",
+    "NGS final"
+   ],
+   "cols": [
+    "DB",
+    "DL",
+    "OL",
+    "TE",
+    "WR"
+   ],
+   "values": [
+    [
+     -0.1,
+     0.1,
+     0.05,
+     0.12,
+     -0.09
+    ],
+    [
+     -0.05,
+     -0.06,
+     0.29,
+     0.16,
+     -0.03
+    ],
+    [
+     -0.06,
+     0.14,
+     0.14,
+     -0.08,
+     -0.12
+    ],
+    [
+     0.01,
+     0.01,
+     0.14,
+     -0.01,
+     -0.12
+    ],
+    [
+     -0.08,
+     0.12,
+     0.12,
+     -0.07,
+     -0.18
+    ],
+    [
+     0.48,
+     0.18,
+     0.35,
+     0.22,
+     0.41
+    ],
+    [
+     0.33,
+     0.17,
+     0.21,
+     0.22,
+     0.16
+    ],
+    [
+     0.39,
+     0.26,
+     0.26,
+     0.09,
+     0.43
+    ],
+    [
+     0.53,
+     0.22,
+     0.2,
+     0.21,
+     0.29
+    ],
+    [
+     0.1,
+     0.2,
+     0.23,
+     0.2,
+     0.49
+    ],
+    [
+     0.15,
+     0.39,
+     0.22,
+     0.3,
+     0.49
+    ],
+    [
+     0.08,
+     0.02,
+     0.3,
+     0.17,
+     0.05
+    ],
+    [
+     0.44,
+     0.36,
+     0.38,
+     0.36,
+     0.46
+    ],
+    [
+     0.52,
+     0.67,
+     0.62,
+     0.38,
+     0.57
+    ],
+    [
+     0.76,
+     0.74,
+     0.74,
+     0.72,
+     0.75
+    ]
+   ],
+   "scale": [
+    -0.6,
+    0.6
+   ],
+   "fmt": "rho"
+  },
+  "table": [
+   {
+    "group": "DB",
+    "metric": "NGS final",
+    "rho": 0.761,
+    "p": 0.0,
+    "n": 122
+   },
+   {
+    "group": "WR",
+    "metric": "NGS final",
+    "rho": 0.75,
+    "p": 0.0,
+    "n": 106
+   },
+   {
+    "group": "DL",
+    "metric": "NGS final",
+    "rho": 0.743,
+    "p": 0.0,
+    "n": 118
+   },
+   {
+    "group": "OL",
+    "metric": "NGS final",
+    "rho": 0.742,
+    "p": 0.0,
+    "n": 121
+   },
+   {
+    "group": "TE",
+    "metric": "NGS final",
+    "rho": 0.719,
+    "p": 0.0,
+    "n": 42
+   },
+   {
+    "group": "DL",
+    "metric": "NGS production",
+    "rho": 0.673,
+    "p": 0.0,
+    "n": 118
+   },
+   {
+    "group": "OL",
+    "metric": "NGS production",
+    "rho": 0.619,
+    "p": 0.0,
+    "n": 121
+   },
+   {
+    "group": "WR",
+    "metric": "NGS production",
+    "rho": 0.567,
+    "p": 0.0,
+    "n": 106
+   },
+   {
+    "group": "DB",
+    "metric": "Broad jump",
+    "rho": 0.529,
+    "p": 0.0,
+    "n": 98
+   },
+   {
+    "group": "DB",
+    "metric": "NGS production",
+    "rho": 0.521,
+    "p": 0.0,
+    "n": 122
+   },
+   {
+    "group": "WR",
+    "metric": "3-cone",
+    "rho": 0.494,
+    "p": 0.0041,
+    "n": 32
+   },
+   {
+    "group": "WR",
+    "metric": "Shuttle",
+    "rho": 0.494,
+    "p": 0.0016,
+    "n": 38
+   }
+  ]
+ },
+ {
+  "id": "predicts_nfl",
+  "title": "What actually correlates with NFL production",
+  "section": "nfl",
+  "summary": "Rank correlation between pre-draft numbers and a per-position production rate (WR/TE yards per route, OL pressure rate allowed, DL pressure rate, DB solo tackles per 100 snaps), signed so positive = better number, better outcome. Draft slot is the strongest signal of opportunity everywhere (\u03c1 with snaps per season from -0.85 to -0.70), but of production only in some groups. Statistically clear links (p<0.05): 3-cone\u2192Pressure rate for DL (\u03c1=0.61, n=27); 40-yard\u2192Pressure rate for DL (\u03c1=0.50, n=54); Shuttle\u2192Pressure rate for DL (\u03c1=0.50, n=26); NGS final\u2192Pressure rate for DL (\u03c1=0.49, n=69); 10-yd split\u2192Pressure rate for DL (\u03c1=0.48, n=54); Tracked top speed\u2192Pressure rate for DL (\u03c1=0.47, n=53); Draft pick (log)\u2192Yards per route run for WR (\u03c1=0.43, n=58); Broad jump\u2192Pressure rate for DL (\u03c1=0.41, n=61).",
+  "method": "Spearman \u03c1; players above a minimum sample (WR 150 routes, OL 150 pass blocks, DL 100 rush snaps, DB 150 plays). Production is aggregated over all regular seasons played.",
+  "chart": {
+   "type": "heatmap",
+   "rows": [
+    "Draft pick (log)",
+    "40-yard",
+    "10-yd split",
+    "3-cone",
+    "Shuttle",
+    "Vertical",
+    "Broad jump",
+    "Weight",
+    "NGS athleticism",
+    "NGS production",
+    "NGS final",
+    "Tracked top speed",
+    "Tracked peak accel (40)",
+    "Avg drill percentile"
+   ],
+   "cols": [
+    "DB",
+    "DL",
+    "OL",
+    "TE",
+    "WR"
+   ],
+   "values": [
+    [
+     -0.08,
+     0.34,
+     0.12,
+     0.24,
+     0.43
+    ],
+    [
+     -0.17,
+     0.5,
+     -0.08,
+     0.08,
+     0.08
+    ],
+    [
+     -0.15,
+     0.48,
+     -0.01,
+     0.21,
+     -0.13
+    ],
+    [
+     -0.17,
+     0.61,
+     0.13,
+     null,
+     0.34
+    ],
+    [
+     0.02,
+     0.5,
+     0.05,
+     null,
+     0.15
+    ],
+    [
+     -0.01,
+     0.29,
+     0.07,
+     -0.35,
+     0.08
+    ],
+    [
+     -0.05,
+     0.41,
+     -0.13,
+     -0.09,
+     -0.01
+    ],
+    [
+     0.21,
+     -0.38,
+     -0.04,
+     -0.24,
+     0.07
+    ],
+    [
+     -0.15,
+     0.34,
+     0.13,
+     -0.04,
+     0.01
+    ],
+    [
+     0.17,
+     0.39,
+     0.29,
+     0.43,
+     0.4
+    ],
+    [
+     -0.06,
+     0.49,
+     0.25,
+     0.34,
+     0.35
+    ],
+    [
+     -0.26,
+     0.47,
+     -0.09,
+     0.02,
+     -0.03
+    ],
+    [
+     0.14,
+     0.33,
+     -0.04,
+     -0.36,
+     -0.15
+    ],
+    [
+     0.04,
+     0.35,
+     -0.02,
+     -0.13,
+     -0.14
+    ]
+   ],
+   "scale": [
+    -0.5,
+    0.5
+   ],
+   "fmt": "rho"
+  },
+  "table": [
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "3-cone",
+    "rho": 0.606,
+    "p": 0.0008,
+    "n": 27
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "40-yard",
+    "rho": 0.498,
+    "p": 0.0001,
+    "n": 54
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Shuttle",
+    "rho": 0.496,
+    "p": 0.01,
+    "n": 26
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "NGS final",
+    "rho": 0.489,
+    "p": 0.0,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "10-yd split",
+    "rho": 0.477,
+    "p": 0.0003,
+    "n": 54
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Tracked top speed",
+    "rho": 0.473,
+    "p": 0.0003,
+    "n": 53
+   },
+   {
+    "group": "WR",
+    "outcome": "Yards per route run",
+    "predictor": "Draft pick (log)",
+    "rho": 0.434,
+    "p": 0.0007,
+    "n": 58
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Broad jump",
+    "rho": 0.406,
+    "p": 0.0012,
+    "n": 61
+   },
+   {
+    "group": "WR",
+    "outcome": "Yards per route run",
+    "predictor": "NGS production",
+    "rho": 0.4,
+    "p": 0.0019,
+    "n": 58
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "NGS production",
+    "rho": 0.386,
+    "p": 0.0011,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Weight",
+    "rho": -0.38,
+    "p": 0.0013,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Avg drill percentile",
+    "rho": 0.354,
+    "p": 0.0035,
+    "n": 66
+   },
+   {
+    "group": "WR",
+    "outcome": "Yards per route run",
+    "predictor": "NGS final",
+    "rho": 0.348,
+    "p": 0.0074,
+    "n": 58
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "Draft pick (log)",
+    "rho": 0.343,
+    "p": 0.0039,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "outcome": "Pressure rate",
+    "predictor": "NGS athleticism",
+    "rho": 0.335,
+    "p": 0.005,
+    "n": 69
+   }
+  ]
+ },
+ {
+  "id": "tracked_vs_official",
+  "title": "The sensor sees the finish, not the start",
+  "section": "data",
+  "summary": "Elapsed time from the first tracked frame to 40 yards correlates r=0.91 with the official laser time (n=381), but is 0.32 s longer on average (sd 0.13): the clip includes the stance and the first rock before the timer starts on forward movement, and that pre-start window varies by player. The 10-yard split agrees far worse (r=0.47, n=418) because it sits entirely inside that noisy start, while tracked top speed alone predicts the official 40 at |r|=0.98 (n=418). Use the tracking for the shape of the run (where top speed is reached, how it decays), never as a replacement for the stopwatch, and treat the first 10 yards with suspicion.",
+  "method": "Best attempt per player; 40-yard elapsed from x displacement; Pearson r.",
+  "chart": {
+   "type": "scatter",
+   "x": "Tracked 40 (s, from first frame)",
+   "y": "Official 40 (s)",
+   "points": [
+    {
+     "x": 4.87,
+     "y": 4.59,
+     "g": "DB",
+     "label": "Andre' Sam"
+    },
+    {
+     "x": 4.83,
+     "y": 4.54,
+     "g": "WR",
+     "label": "Javon Baker"
+    },
+    {
+     "x": 4.68,
+     "y": 4.33,
+     "g": "DB",
+     "label": "Caleb Ransaw"
+    },
+    {
+     "x": 4.88,
+     "y": 4.62,
+     "g": "TE",
+     "label": "Jared Wiley"
+    },
+    {
+     "x": 5.64,
+     "y": 5.22,
+     "g": "OL",
+     "label": "Garret Greenfield"
+    },
+    {
+     "x": 4.86,
+     "y": 4.36,
+     "g": "DB",
+     "label": "Zah Frazier"
+    },
+    {
+     "x": 5.49,
+     "y": 4.95,
+     "g": "DL",
+     "label": "Darius Robinson"
+    },
+    {
+     "x": 5.89,
+     "y": 5.24,
+     "g": "OL",
+     "label": "Trevor Keegan"
+    },
+    {
+     "x": 5.06,
+     "y": 4.81,
+     "g": "DL",
+     "label": "Jalen Redmond"
+    },
+    {
+     "x": 5.39,
+     "y": 5.11,
+     "g": "DL",
+     "label": "Joshua Farmer"
+    },
+    {
+     "x": 5.51,
+     "y": 5.38,
+     "g": "OL",
+     "label": "K.T. Leveston"
+    },
+    {
+     "x": 4.86,
+     "y": 4.46,
+     "g": "WR",
+     "label": "Kaden Prather"
+    },
+    {
+     "x": 5.34,
+     "y": 5.01,
+     "g": "OL",
+     "label": "Gottlieb Ayedze"
+    },
+    {
+     "x": 5.47,
+     "y": 5.06,
+     "g": "DL",
+     "label": "Marcus Harris"
+    },
+    {
+     "x": 5.08,
+     "y": 4.87,
+     "g": "TE",
+     "label": "Payne Durham"
+    },
+    {
+     "x": 5.0,
+     "y": 4.62,
+     "g": "DB",
+     "label": "Sione Vaki"
+    },
+    {
+     "x": 4.91,
+     "y": 4.62,
+     "g": "DB",
+     "label": "Kaevon Merriweather"
+    },
+    {
+     "x": 5.03,
+     "y": 4.69,
+     "g": "WR",
+     "label": "Jalen Brooks"
+    },
+    {
+     "x": 5.18,
+     "y": 4.98,
+     "g": "OL",
+     "label": "Anton Harrison"
+    },
+    {
+     "x": 5.58,
+     "y": 5.19,
+     "g": "OL",
+     "label": "Tyler Guyton"
+    },
+    {
+     "x": 5.37,
+     "y": 5.03,
+     "g": "DL",
+     "label": "Junior Tafuna"
+    },
+    {
+     "x": 4.81,
+     "y": 4.43,
+     "g": "DB",
+     "label": "Bilhal Kone"
+    },
+    {
+     "x": 5.56,
+     "y": 5.14,
+     "g": "DL",
+     "label": "Zeek Biggers"
+    },
+    {
+     "x": 5.19,
+     "y": 5.03,
+     "g": "OL",
+     "label": "Cooper Beebe"
+    },
+    {
+     "x": 5.05,
+     "y": 4.7,
+     "g": "TE",
+     "label": "Michael Mayer"
+    },
+    {
+     "x": 5.08,
+     "y": 4.82,
+     "g": "DL",
+     "label": "Brenton Cox"
+    },
+    {
+     "x": 4.78,
+     "y": 4.47,
+     "g": "TE",
+     "label": "Devin Culp"
+    },
+    {
+     "x": 5.59,
+     "y": 5.44,
+     "g": "OL",
+     "label": "Mark Evans"
+    },
+    {
+     "x": 4.56,
+     "y": 4.42,
+     "g": "DB",
+     "label": "Millard Bradford"
+    },
+    {
+     "x": 4.6,
+     "y": 4.35,
+     "g": "DB",
+     "label": "Deonte Banks"
+    },
+    {
+     "x": 4.55,
+     "y": 4.3,
+     "g": "DB",
+     "label": "Darien Porter"
+    },
+    {
+     "x": 5.68,
+     "y": 5.24,
+     "g": "OL",
+     "label": "McClendon Curtis"
+    },
+    {
+     "x": 5.49,
+     "y": 5.04,
+     "g": "OL",
+     "label": "Joshua Gray"
+    },
+    {
+     "x": 4.95,
+     "y": 4.55,
+     "g": "TE",
+     "label": "Zack Kuntz"
+    },
+    {
+     "x": 4.88,
+     "y": 4.61,
+     "g": "DB",
+     "label": "Kalen King"
+    },
+    {
+     "x": 4.86,
+     "y": 4.51,
+     "g": "WR",
+     "label": "Andrew Armstrong"
+    },
+    {
+     "x": 4.76,
+     "y": 4.57,
+     "g": "DB",
+     "label": "Jaylon Jones"
+    },
+    {
+     "x": 5.43,
+     "y": 5.09,
+     "g": "DL",
+     "label": "Tommy Akingbesote"
+    },
+    {
+     "x": 4.8,
+     "y": 4.5,
+     "g": "WR",
+     "label": "Da'Quan Felton"
+    },
+    {
+     "x": 5.54,
+     "y": 5.26,
+     "g": "DL",
+     "label": "McKinnley Jackson"
+    },
+    {
+     "x": 4.92,
+     "y": 4.56,
+     "g": "DB",
+     "label": "Zy Alexander"
+    },
+    {
+     "x": 5.08,
+     "y": 4.68,
+     "g": "DL",
+     "label": "Barryn Sorrell"
+    },
+    {
+     "x": 5.2,
+     "y": 4.88,
+     "g": "DL",
+     "label": "Gervon Dexter"
+    },
+    {
+     "x": 5.09,
+     "y": 4.87,
+     "g": "DL",
+     "label": "Byron Murphy"
+    },
+    {
+     "x": 4.67,
+     "y": 4.42,
+     "g": "DB",
+     "label": "Billy Bowman"
+    },
+    {
+     "x": 5.22,
+     "y": 4.46,
+     "g": "WR",
+     "label": "Luke McCaffrey"
+    },
+    {
+     "x": 4.83,
+     "y": 4.43,
+     "g": "WR",
+     "label": "Lideatrick Griffin"
+    },
+    {
+     "x": 4.74,
+     "y": 4.44,
+     "g": "WR",
+     "label": "Demario Douglas"
+    },
+    {
+     "x": 4.83,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Nick Nash"
+    },
+    {
+     "x": 4.99,
+     "y": 4.49,
+     "g": "DB",
+     "label": "Renardo Green"
+    },
+    {
+     "x": 5.03,
+     "y": 4.84,
+     "g": "TE",
+     "label": "Davis Allen"
+    },
+    {
+     "x": 4.61,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Daniel Scott"
+    },
+    {
+     "x": 4.74,
+     "y": 4.58,
+     "g": "DB",
+     "label": "Brian Branch"
+    },
+    {
+     "x": 4.97,
+     "y": 4.78,
+     "g": "DL",
+     "label": "Tyler Batty"
+    },
+    {
+     "x": 4.68,
+     "y": 4.51,
+     "g": "WR",
+     "label": "Rashee Rice"
+    },
+    {
+     "x": 4.79,
+     "y": 4.88,
+     "g": "TE",
+     "label": "Bryson Nesbit"
+    },
+    {
+     "x": 4.94,
+     "y": 4.46,
+     "g": "WR",
+     "label": "Jimmy Horn"
+    },
+    {
+     "x": 4.78,
+     "y": 4.54,
+     "g": "DB",
+     "label": "Arquon Bush"
+    },
+    {
+     "x": 5.01,
+     "y": 4.62,
+     "g": "DB",
+     "label": "Brandon Joseph"
+    },
+    {
+     "x": 4.94,
+     "y": 4.42,
+     "g": "WR",
+     "label": "Jha'Quan Jackson"
+    },
+    {
+     "x": 5.43,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Delmar Glaze"
+    },
+    {
+     "x": 4.65,
+     "y": 4.41,
+     "g": "DB",
+     "label": "Mac McWilliams"
+    },
+    {
+     "x": 5.45,
+     "y": 5.08,
+     "g": "OL",
+     "label": "Anthony Bradford"
+    },
+    {
+     "x": 4.57,
+     "y": 4.6,
+     "g": "DB",
+     "label": "Jaylen Key"
+    },
+    {
+     "x": 4.75,
+     "y": 4.45,
+     "g": "WR",
+     "label": "Rome Odunze"
+    },
+    {
+     "x": 4.81,
+     "y": 4.54,
+     "g": "WR",
+     "label": "Ronnie Bell"
+    },
+    {
+     "x": 5.08,
+     "y": 4.89,
+     "g": "DL",
+     "label": "Zacch Pickens"
+    },
+    {
+     "x": 4.74,
+     "y": 4.44,
+     "g": "DB",
+     "label": "Upton Stout"
+    },
+    {
+     "x": 5.38,
+     "y": 5.08,
+     "g": "OL",
+     "label": "Cody Mauch"
+    },
+    {
+     "x": 5.58,
+     "y": 5.12,
+     "g": "OL",
+     "label": "Carson Vinson"
+    },
+    {
+     "x": 5.77,
+     "y": 5.36,
+     "g": "OL",
+     "label": "Andrew Coker"
+    },
+    {
+     "x": 5.41,
+     "y": 5.09,
+     "g": "DL",
+     "label": "Warren Brinson"
+    },
+    {
+     "x": 4.76,
+     "y": 4.57,
+     "g": "DB",
+     "label": "Rayuan Lane"
+    },
+    {
+     "x": 5.45,
+     "y": 5.03,
+     "g": "OL",
+     "label": "Christian Haynes"
+    },
+    {
+     "x": 4.87,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Jaylon Carlies"
+    },
+    {
+     "x": 4.59,
+     "y": 4.51,
+     "g": "DB",
+     "label": "Josh Newton"
+    },
+    {
+     "x": 5.06,
+     "y": 4.77,
+     "g": "DL",
+     "label": "Ahmed Hassanein"
+    },
+    {
+     "x": 5.49,
+     "y": 5.15,
+     "g": "DL",
+     "label": "Nazir Stackhouse"
+    },
+    {
+     "x": 4.67,
+     "y": 4.37,
+     "g": "WR",
+     "label": "Tai Felton"
+    },
+    {
+     "x": 4.87,
+     "y": 4.6,
+     "g": "WR",
+     "label": "Jaray Jenkins"
+    },
+    {
+     "x": 4.89,
+     "y": 4.43,
+     "g": "WR",
+     "label": "Elijhah Badger"
+    },
+    {
+     "x": 5.43,
+     "y": 5.17,
+     "g": "OL",
+     "label": "John Williams"
+    },
+    {
+     "x": 4.64,
+     "y": 4.54,
+     "g": "WR",
+     "label": "Cedric Tillman"
+    },
+    {
+     "x": 5.27,
+     "y": 4.73,
+     "g": "DL",
+     "label": "Kyle Kennard"
+    },
+    {
+     "x": 5.13,
+     "y": 4.73,
+     "g": "DL",
+     "label": "Jose Ramirez"
+    },
+    {
+     "x": 4.67,
+     "y": 4.43,
+     "g": "DB",
+     "label": "Brandon Hill"
+    },
+    {
+     "x": 5.45,
+     "y": 5.26,
+     "g": "DL",
+     "label": "D.J. Dale"
+    },
+    {
+     "x": 6.07,
+     "y": 5.48,
+     "g": "OL",
+     "label": "T.J. Bass"
+    },
+    {
+     "x": 4.83,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Grant DuBose"
+    },
+    {
+     "x": 5.09,
+     "y": 4.68,
+     "g": "DL",
+     "label": "Landon Jackson"
+    },
+    {
+     "x": 5.15,
+     "y": 4.74,
+     "g": "TE",
+     "label": "Mitchell Evans"
+    },
+    {
+     "x": 5.23,
+     "y": 4.7,
+     "g": "TE",
+     "label": "Gavin Bartholomew"
+    },
+    {
+     "x": 5.44,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Karsen Barnhart"
+    },
+    {
+     "x": 4.72,
+     "y": 4.41,
+     "g": "DB",
+     "label": "Kitan Crawford"
+    },
+    {
+     "x": 4.74,
+     "y": 4.36,
+     "g": "DB",
+     "label": "Kelee Ringo"
+    },
+    {
+     "x": 5.06,
+     "y": 4.72,
+     "g": "DL",
+     "label": "Princely Umanmielen"
+    },
+    {
+     "x": 5.12,
+     "y": 4.67,
+     "g": "DL",
+     "label": "Jordan Burch"
+    },
+    {
+     "x": 5.8,
+     "y": 5.19,
+     "g": "OL",
+     "label": "Nathan Thomas"
+    },
+    {
+     "x": 4.91,
+     "y": 4.57,
+     "g": "DB",
+     "label": "Hunter Wohler"
+    },
+    {
+     "x": 4.86,
+     "y": 4.55,
+     "g": "WR",
+     "label": "Justin Shorter"
+    },
+    {
+     "x": 4.65,
+     "y": 4.46,
+     "g": "DB",
+     "label": "Quan Martin"
+    },
+    {
+     "x": 5.12,
+     "y": 4.69,
+     "g": "DL",
+     "label": "David Walker"
+    },
+    {
+     "x": 4.55,
+     "y": 4.28,
+     "g": "DB",
+     "label": "Maxwell Hairston"
+    },
+    {
+     "x": 4.85,
+     "y": 4.55,
+     "g": "DB",
+     "label": "Alex Austin"
+    },
+    {
+     "x": 4.97,
+     "y": 4.59,
+     "g": "DB",
+     "label": "Mello Dotson"
+    },
+    {
+     "x": 4.99,
+     "y": 4.7,
+     "g": "WR",
+     "label": "Josh Kelly"
+    },
+    {
+     "x": 5.01,
+     "y": 4.61,
+     "g": "WR",
+     "label": "Pat Bryant"
+    },
+    {
+     "x": 4.96,
+     "y": 4.69,
+     "g": "TE",
+     "label": "Tucker Kraft"
+    },
+    {
+     "x": 5.54,
+     "y": 5.16,
+     "g": "DL",
+     "label": "Nesta Jade Silvera"
+    },
+    {
+     "x": 4.97,
+     "y": 4.69,
+     "g": "TE",
+     "label": "Josh Whyle"
+    },
+    {
+     "x": 4.97,
+     "y": 4.38,
+     "g": "DB",
+     "label": "Daequan Hardy"
+    },
+    {
+     "x": 5.47,
+     "y": 5.15,
+     "g": "OL",
+     "label": "Caedan Wallace"
+    },
+    {
+     "x": 5.1,
+     "y": 4.69,
+     "g": "DL",
+     "label": "Trajan Jeffcoat"
+    },
+    {
+     "x": 5.73,
+     "y": 5.35,
+     "g": "OL",
+     "label": "Dominick Puni"
+    },
+    {
+     "x": 4.94,
+     "y": 4.69,
+     "g": "TE",
+     "label": "C.J. Dippre"
+    },
+    {
+     "x": 5.1,
+     "y": 4.65,
+     "g": "DB",
+     "label": "James Williams"
+    },
+    {
+     "x": 4.88,
+     "y": 4.81,
+     "g": "TE",
+     "label": "Moliki Matavao"
+    },
+    {
+     "x": 4.8,
+     "y": 4.44,
+     "g": "WR",
+     "label": "Elic Ayomanor"
+    },
+    {
+     "x": 5.58,
+     "y": 5.2,
+     "g": "OL",
+     "label": "Sedrick Van Pran-Granger"
+    },
+    {
+     "x": 5.69,
+     "y": 5.41,
+     "g": "DL",
+     "label": "P.J. Mustipher"
+    },
+    {
+     "x": 4.79,
+     "y": 4.47,
+     "g": "WR",
+     "label": "Antoine Green"
+    },
+    {
+     "x": 4.78,
+     "y": 4.54,
+     "g": "DB",
+     "label": "Anthony Johnson"
+    },
+    {
+     "x": 5.4,
+     "y": 5.2,
+     "g": "DL",
+     "label": "Myles Murphy"
+    },
+    {
+     "x": 4.89,
+     "y": 4.59,
+     "g": "WR",
+     "label": "Konata Mumpfield"
+    },
+    {
+     "x": 4.58,
+     "y": 4.44,
+     "g": "WR",
+     "label": "Rakim Jarrett"
+    },
+    {
+     "x": 5.55,
+     "y": 5.39,
+     "g": "DL",
+     "label": "Yahya Black"
+    },
+    {
+     "x": 5.22,
+     "y": 4.98,
+     "g": "OL",
+     "label": "Will Campbell"
+    },
+    {
+     "x": 4.93,
+     "y": 4.47,
+     "g": "DB",
+     "label": "Mike Sainristil"
+    },
+    {
+     "x": 5.46,
+     "y": 5.08,
+     "g": "DL",
+     "label": "Keeanu Benton"
+    },
+    {
+     "x": 5.47,
+     "y": 5.27,
+     "g": "DL",
+     "label": "T'Vondre Sweat"
+    },
+    {
+     "x": 5.0,
+     "y": 4.81,
+     "g": "DL",
+     "label": "Caleb Murphy"
+    },
+    {
+     "x": 4.8,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Dontay Demus"
+    },
+    {
+     "x": 5.04,
+     "y": 4.76,
+     "g": "DL",
+     "label": "Isaiah McGuire"
+    },
+    {
+     "x": 4.73,
+     "y": 4.54,
+     "g": "WR",
+     "label": "Joseph Ngata"
+    },
+    {
+     "x": 4.85,
+     "y": 4.58,
+     "g": "DL",
+     "label": "Isaiah Foskey"
+    },
+    {
+     "x": 4.85,
+     "y": 4.47,
+     "g": "WR",
+     "label": "Devaughn Vele"
+    },
+    {
+     "x": 4.66,
+     "y": 4.43,
+     "g": "DB",
+     "label": "Cam Smith"
+    },
+    {
+     "x": 4.9,
+     "y": 4.72,
+     "g": "DL",
+     "label": "Bralen Trice"
+    },
+    {
+     "x": 5.01,
+     "y": 4.6,
+     "g": "DL",
+     "label": "Will Anderson"
+    },
+    {
+     "x": 4.96,
+     "y": 4.66,
+     "g": "DL",
+     "label": "Thomas Incoom"
+    },
+    {
+     "x": 4.49,
+     "y": 4.37,
+     "g": "DB",
+     "label": "Marques Sigle"
+    },
+    {
+     "x": 5.28,
+     "y": 4.86,
+     "g": "DL",
+     "label": "Tyrion Ingram-Dawkins"
+    },
+    {
+     "x": 5.33,
+     "y": 5.14,
+     "g": "OL",
+     "label": "Luke Wypler"
+    },
+    {
+     "x": 5.39,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Nick Saldiveri"
+    },
+    {
+     "x": 4.86,
+     "y": 4.65,
+     "g": "DB",
+     "label": "Kamren Kinchens"
+    },
+    {
+     "x": 5.88,
+     "y": 5.45,
+     "g": "OL",
+     "label": "Torricelli Simpkins"
+    },
+    {
+     "x": 4.88,
+     "y": 4.52,
+     "g": "WR",
+     "label": "Ja'Lynn Polk"
+    },
+    {
+     "x": 4.71,
+     "y": 4.49,
+     "g": "DL",
+     "label": "Adetomiwa Adebawore"
+    },
+    {
+     "x": 5.57,
+     "y": 5.1,
+     "g": "OL",
+     "label": "Dylan McMahon"
+    },
+    {
+     "x": 5.35,
+     "y": 4.95,
+     "g": "OL",
+     "label": "Jonah Savaiinaea"
+    },
+    {
+     "x": 5.43,
+     "y": 5.04,
+     "g": "OL",
+     "label": "Christian Jones"
+    },
+    {
+     "x": 5.16,
+     "y": 4.69,
+     "g": "TE",
+     "label": "Ja'Tavion Sanders"
+    },
+    {
+     "x": 5.46,
+     "y": 5.11,
+     "g": "OL",
+     "label": "Clay Webb"
+    },
+    {
+     "x": 4.64,
+     "y": 4.43,
+     "g": "WR",
+     "label": "Isaac TeSlaa"
+    },
+    {
+     "x": 5.42,
+     "y": 4.99,
+     "g": "DL",
+     "label": "DeWayne Carter"
+    },
+    {
+     "x": 4.94,
+     "y": 4.78,
+     "g": "DL",
+     "label": "Braden Fiske"
+    },
+    {
+     "x": 5.23,
+     "y": 4.85,
+     "g": "DL",
+     "label": "Brandon Dorlus"
+    },
+    {
+     "x": 4.95,
+     "y": 4.65,
+     "g": "DL",
+     "label": "Tyrus Wheat"
+    },
+    {
+     "x": 4.76,
+     "y": 4.55,
+     "g": "DB",
+     "label": "Jordan Battle"
+    },
+    {
+     "x": 4.92,
+     "y": 4.52,
+     "g": "DB",
+     "label": "Tyreque Jones"
+    },
+    {
+     "x": 5.4,
+     "y": 5.03,
+     "g": "OL",
+     "label": "Matt Lee"
+    },
+    {
+     "x": 5.0,
+     "y": 4.48,
+     "g": "DL",
+     "label": "Chop Robinson"
+    },
+    {
+     "x": 4.95,
+     "y": 4.75,
+     "g": "TE",
+     "label": "Jake Briningstool"
+    },
+    {
+     "x": 4.75,
+     "y": 4.47,
+     "g": "DB",
+     "label": "Javon Bullard"
+    },
+    {
+     "x": 5.59,
+     "y": 5.35,
+     "g": "OL",
+     "label": "John Michael Schmitz"
+    },
+    {
+     "x": 4.88,
+     "y": 4.58,
+     "g": "WR",
+     "label": "Antwane Wells"
+    },
+    {
+     "x": 5.18,
+     "y": 5.04,
+     "g": "OL",
+     "label": "Kingsley Suamataia"
+    },
+    {
+     "x": 4.86,
+     "y": 4.48,
+     "g": "DB",
+     "label": "Quincy Riley"
+    },
+    {
+     "x": 4.77,
+     "y": 4.51,
+     "g": "DB",
+     "label": "Clark Phillips"
+    },
+    {
+     "x": 4.79,
+     "y": 4.47,
+     "g": "WR",
+     "label": "Jayden Higgins"
+    },
+    {
+     "x": 5.25,
+     "y": 4.44,
+     "g": "WR",
+     "label": "Ryan Flournoy"
+    },
+    {
+     "x": 5.26,
+     "y": 5.0,
+     "g": "OL",
+     "label": "C.J. Hanson"
+    },
+    {
+     "x": 4.83,
+     "y": 4.63,
+     "g": "DB",
+     "label": "Anthony Johnson"
+    },
+    {
+     "x": 4.96,
+     "y": 4.69,
+     "g": "DL",
+     "label": "Antwaun Powell-Ryland"
+    },
+    {
+     "x": 4.64,
+     "y": 4.47,
+     "g": "WR",
+     "label": "Jalen McMillan"
+    },
+    {
+     "x": 5.14,
+     "y": 4.85,
+     "g": "DL",
+     "label": "Dante Stills"
+    },
+    {
+     "x": 4.99,
+     "y": 4.69,
+     "g": "DL",
+     "label": "Ethan Downs"
+    },
+    {
+     "x": 5.07,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Jalen Coker"
+    },
+    {
+     "x": 4.62,
+     "y": 4.46,
+     "g": "WR",
+     "label": "Jonathan Mingo"
+    },
+    {
+     "x": 4.73,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Cam Hart"
+    },
+    {
+     "x": 5.67,
+     "y": 5.48,
+     "g": "OL",
+     "label": "Connor Galvin"
+    },
+    {
+     "x": 4.99,
+     "y": 4.7,
+     "g": "TE",
+     "label": "Thomas Fidone"
+    },
+    {
+     "x": 5.64,
+     "y": 5.33,
+     "g": "OL",
+     "label": "Brandon Crenshaw-Dickson"
+    },
+    {
+     "x": 5.56,
+     "y": 5.17,
+     "g": "DL",
+     "label": "Cam Jackson"
+    },
+    {
+     "x": 4.79,
+     "y": 4.43,
+     "g": "DL",
+     "label": "Byron Young"
+    },
+    {
+     "x": 4.78,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Riley Moss"
+    },
+    {
+     "x": 4.66,
+     "y": 4.36,
+     "g": "DB",
+     "label": "Darius Rush"
+    },
+    {
+     "x": 5.21,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Kobe Hudson"
+    },
+    {
+     "x": 4.94,
+     "y": 4.64,
+     "g": "TE",
+     "label": "Darnell Washington"
+    },
+    {
+     "x": 4.94,
+     "y": 4.63,
+     "g": "TE",
+     "label": "Terrance Ferguson"
+    },
+    {
+     "x": 5.46,
+     "y": 5.1,
+     "g": "DL",
+     "label": "Cameron Young"
+    },
+    {
+     "x": 5.61,
+     "y": 5.24,
+     "g": "OL",
+     "label": "Miles Frazier"
+    },
+    {
+     "x": 5.05,
+     "y": 4.71,
+     "g": "TE",
+     "label": "Harold Fannin"
+    },
+    {
+     "x": 4.83,
+     "y": 4.58,
+     "g": "WR",
+     "label": "Michael Wilson"
+    },
+    {
+     "x": 4.9,
+     "y": 4.67,
+     "g": "DL",
+     "label": "Eric Watts"
+    },
+    {
+     "x": 5.53,
+     "y": 5.26,
+     "g": "OL",
+     "label": "Ricky Stromberg"
+    },
+    {
+     "x": 4.64,
+     "y": 4.3,
+     "g": "WR",
+     "label": "Dont'e Thornton"
+    },
+    {
+     "x": 4.84,
+     "y": 4.54,
+     "g": "TE",
+     "label": "Will Mallory"
+    },
+    {
+     "x": 5.29,
+     "y": 4.92,
+     "g": "OL",
+     "label": "Roger Rosengarten"
+    },
+    {
+     "x": 4.99,
+     "y": 4.72,
+     "g": "DB",
+     "label": "Rashad Torrence"
+    },
+    {
+     "x": 5.28,
+     "y": 4.99,
+     "g": "OL",
+     "label": "Braeden Daniels"
+    },
+    {
+     "x": 4.83,
+     "y": 4.48,
+     "g": "DL",
+     "label": "Robert Beal"
+    },
+    {
+     "x": 4.94,
+     "y": 4.64,
+     "g": "DB",
+     "label": "Isaiah Johnson"
+    },
+    {
+     "x": 4.75,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Dorian Strong"
+    },
+    {
+     "x": 4.97,
+     "y": 4.42,
+     "g": "DB",
+     "label": "D.J. James"
+    },
+    {
+     "x": 4.92,
+     "y": 4.59,
+     "g": "DB",
+     "label": "Sebastian Castro"
+    },
+    {
+     "x": 4.88,
+     "y": 4.57,
+     "g": "WR",
+     "label": "Traeshon Holden"
+    },
+    {
+     "x": 5.62,
+     "y": 5.29,
+     "g": "OL",
+     "label": "Jalen Rivers"
+    },
+    {
+     "x": 5.27,
+     "y": 5.07,
+     "g": "OL",
+     "label": "Sidy Sow"
+    },
+    {
+     "x": 4.9,
+     "y": 4.52,
+     "g": "WR",
+     "label": "Johnny Wilson"
+    },
+    {
+     "x": 4.66,
+     "y": 4.46,
+     "g": "DB",
+     "label": "Tykee Smith"
+    },
+    {
+     "x": 4.81,
+     "y": 4.39,
+     "g": "DB",
+     "label": "Robert Longerbeam"
+    },
+    {
+     "x": 5.21,
+     "y": 5.01,
+     "g": "OL",
+     "label": "Jon Gaines"
+    },
+    {
+     "x": 5.64,
+     "y": 5.25,
+     "g": "DL",
+     "label": "Jerrod Clark"
+    },
+    {
+     "x": 5.3,
+     "y": 5.18,
+     "g": "DL",
+     "label": "Justin Eboigbe"
+    },
+    {
+     "x": 5.15,
+     "y": 4.83,
+     "g": "DL",
+     "label": "Ty Robinson"
+    },
+    {
+     "x": 5.22,
+     "y": 4.98,
+     "g": "OL",
+     "label": "Blake Freeland"
+    },
+    {
+     "x": 5.43,
+     "y": 5.22,
+     "g": "OL",
+     "label": "Juice Scruggs"
+    },
+    {
+     "x": 4.91,
+     "y": 4.66,
+     "g": "WR",
+     "label": "Jadon Haselwood"
+    },
+    {
+     "x": 4.81,
+     "y": 4.45,
+     "g": "WR",
+     "label": "Jermaine Burton"
+    },
+    {
+     "x": 4.77,
+     "y": 4.5,
+     "g": "WR",
+     "label": "Kayshon Boutte"
+    },
+    {
+     "x": 4.84,
+     "y": 4.55,
+     "g": "DB",
+     "label": "Jay Ward"
+    },
+    {
+     "x": 4.83,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Jaylin Simpson"
+    },
+    {
+     "x": 5.5,
+     "y": 5.14,
+     "g": "OL",
+     "label": "Jalen Travis"
+    },
+    {
+     "x": 4.75,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Terrion Arnold"
+    },
+    {
+     "x": 4.74,
+     "y": 4.47,
+     "g": "DB",
+     "label": "Sydney Brown"
+    },
+    {
+     "x": 5.0,
+     "y": 4.37,
+     "g": "WR",
+     "label": "KeAndre Lambert-Smith"
+    },
+    {
+     "x": 4.37,
+     "y": 4.38,
+     "g": "WR",
+     "label": "Jacob Cowing"
+    },
+    {
+     "x": 4.83,
+     "y": 5.08,
+     "g": "OL",
+     "label": "Mason McCormick"
+    },
+    {
+     "x": 4.84,
+     "y": 4.47,
+     "g": "WR",
+     "label": "Malik Washington"
+    },
+    {
+     "x": 5.09,
+     "y": 5.01,
+     "g": "OL",
+     "label": "Troy Fautanu"
+    },
+    {
+     "x": 4.74,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Craig Woodson"
+    },
+    {
+     "x": 4.74,
+     "y": 4.64,
+     "g": "WR",
+     "label": "Malik Heath"
+    },
+    {
+     "x": 5.8,
+     "y": 5.02,
+     "g": "OL",
+     "label": "Jarrett Kingston"
+    },
+    {
+     "x": 5.62,
+     "y": 5.37,
+     "g": "DL",
+     "label": "Elijah Simmons"
+    },
+    {
+     "x": 5.16,
+     "y": 4.61,
+     "g": "WR",
+     "label": "Keon Coleman"
+    },
+    {
+     "x": 4.93,
+     "y": 4.46,
+     "g": "WR",
+     "label": "LaJohntay Wester"
+    },
+    {
+     "x": 5.34,
+     "y": 5.13,
+     "g": "OL",
+     "label": "Christian Mahogany"
+    },
+    {
+     "x": 5.1,
+     "y": 4.77,
+     "g": "TE",
+     "label": "Brevyn Spann-Ford"
+    },
+    {
+     "x": 5.26,
+     "y": 5.12,
+     "g": "DL",
+     "label": "Leonard Taylor"
+    },
+    {
+     "x": 5.24,
+     "y": 4.84,
+     "g": "TE",
+     "label": "Gunnar Helm"
+    },
+    {
+     "x": 4.98,
+     "y": 4.61,
+     "g": "TE",
+     "label": "Jaheim Bell"
+    },
+    {
+     "x": 4.68,
+     "y": 4.47,
+     "g": "DB",
+     "label": "Cameron Mitchell"
+    },
+    {
+     "x": 5.2,
+     "y": 4.99,
+     "g": "OL",
+     "label": "Jordan McFadden"
+    },
+    {
+     "x": 5.05,
+     "y": 4.42,
+     "g": "WR",
+     "label": "Jalen Royals"
+    },
+    {
+     "x": 5.52,
+     "y": 5.27,
+     "g": "OL",
+     "label": "Wyatt Milum"
+    },
+    {
+     "x": 5.5,
+     "y": 5.2,
+     "g": "OL",
+     "label": "Joe Huber"
+    },
+    {
+     "x": 5.53,
+     "y": 5.27,
+     "g": "OL",
+     "label": "Nick Broeker"
+    },
+    {
+     "x": 4.88,
+     "y": 4.6,
+     "g": "DB",
+     "label": "Evan Williams"
+    },
+    {
+     "x": 4.9,
+     "y": 4.59,
+     "g": "WR",
+     "label": "Jason Brownlee"
+    },
+    {
+     "x": 4.96,
+     "y": 4.78,
+     "g": "DL",
+     "label": "Habakkuk Baldonado"
+    },
+    {
+     "x": 5.01,
+     "y": 4.49,
+     "g": "WR",
+     "label": "Roc Taylor"
+    },
+    {
+     "x": 5.07,
+     "y": 4.57,
+     "g": "DL",
+     "label": "Fadil Diggs"
+    },
+    {
+     "x": 5.67,
+     "y": 5.25,
+     "g": "OL",
+     "label": "Nick Gargiulo"
+    },
+    {
+     "x": 5.03,
+     "y": 4.49,
+     "g": "DB",
+     "label": "Jaylen Reed"
+    },
+    {
+     "x": 5.35,
+     "y": 5.01,
+     "g": "OL",
+     "label": "Aireontae Ersery"
+    },
+    {
+     "x": 5.59,
+     "y": 5.34,
+     "g": "OL",
+     "label": "Tashawn Manning"
+    },
+    {
+     "x": 4.75,
+     "y": 4.34,
+     "g": "WR",
+     "label": "Chimere Dike"
+    },
+    {
+     "x": 4.96,
+     "y": 4.64,
+     "g": "DL",
+     "label": "Jalyx Hunt"
+    },
+    {
+     "x": 5.14,
+     "y": 4.94,
+     "g": "DL",
+     "label": "Aeneas Peebles"
+    },
+    {
+     "x": 4.86,
+     "y": 4.47,
+     "g": "DL",
+     "label": "Yasir Abdullah"
+    },
+    {
+     "x": 4.86,
+     "y": 4.41,
+     "g": "WR",
+     "label": "Troy Franklin"
+    },
+    {
+     "x": 4.9,
+     "y": 4.46,
+     "g": "WR",
+     "label": "Jamari Thrash"
+    },
+    {
+     "x": 5.2,
+     "y": 5.09,
+     "g": "OL",
+     "label": "Jacob Monk"
+    },
+    {
+     "x": 4.66,
+     "y": 4.36,
+     "g": "WR",
+     "label": "Devontez Walker"
+    },
+    {
+     "x": 4.98,
+     "y": 4.62,
+     "g": "DL",
+     "label": "Isaiah Land"
+    },
+    {
+     "x": 5.05,
+     "y": 4.67,
+     "g": "DL",
+     "label": "Myles Cole"
+    },
+    {
+     "x": 5.05,
+     "y": 5.05,
+     "g": "OL",
+     "label": "Joe Alt"
+    },
+    {
+     "x": 4.78,
+     "y": 4.39,
+     "g": "WR",
+     "label": "Jaylin Noel"
+    },
+    {
+     "x": 4.69,
+     "y": 4.46,
+     "g": "DB",
+     "label": "Darrell Luter"
+    },
+    {
+     "x": 4.97,
+     "y": 4.75,
+     "g": "DB",
+     "label": "Trey Dean"
+    },
+    {
+     "x": 4.7,
+     "y": 4.38,
+     "g": "DB",
+     "label": "Deantre Prince"
+    },
+    {
+     "x": 4.53,
+     "y": 4.41,
+     "g": "WR",
+     "label": "Ricky Pearsall"
+    },
+    {
+     "x": 4.8,
+     "y": 4.39,
+     "g": "DB",
+     "label": "Max Melton"
+    },
+    {
+     "x": 5.19,
+     "y": 5.05,
+     "g": "DL",
+     "label": "Logan Lee"
+    },
+    {
+     "x": 5.37,
+     "y": 5.13,
+     "g": "OL",
+     "label": "Patrick Paul"
+    },
+    {
+     "x": 4.96,
+     "y": 4.53,
+     "g": "DB",
+     "label": "Julius Brents"
+    },
+    {
+     "x": 5.22,
+     "y": 4.4,
+     "g": "WR",
+     "label": "Kyle Williams"
+    },
+    {
+     "x": 4.73,
+     "y": 4.38,
+     "g": "WR",
+     "label": "Bryce Ford-Wheaton"
+    },
+    {
+     "x": 4.67,
+     "y": 4.53,
+     "g": "DB",
+     "label": "Ryan Watts"
+    },
+    {
+     "x": 5.24,
+     "y": 4.94,
+     "g": "OL",
+     "label": "Frank Crum"
+    },
+    {
+     "x": 4.87,
+     "y": 4.59,
+     "g": "DB",
+     "label": "Jammie Robinson"
+    },
+    {
+     "x": 5.36,
+     "y": 4.95,
+     "g": "DL",
+     "label": "C.J. West"
+    },
+    {
+     "x": 5.55,
+     "y": 5.39,
+     "g": "DL",
+     "label": "Siaki Ika"
+    },
+    {
+     "x": 5.56,
+     "y": 5.11,
+     "g": "OL",
+     "label": "Connor Colby"
+    },
+    {
+     "x": 5.59,
+     "y": 5.31,
+     "g": "OL",
+     "label": "O'Cyrus Torrence"
+    },
+    {
+     "x": 5.01,
+     "y": 4.61,
+     "g": "WR",
+     "label": "Ricky White"
+    },
+    {
+     "x": 5.57,
+     "y": 5.33,
+     "g": "OL",
+     "label": "Jarrett Patterson"
+    },
+    {
+     "x": 4.93,
+     "y": 4.43,
+     "g": "WR",
+     "label": "Bub Means"
+    },
+    {
+     "x": 4.66,
+     "y": 4.43,
+     "g": "WR",
+     "label": "Andrei Iosivas"
+    },
+    {
+     "x": 5.71,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Ozzy Trapilo"
+    },
+    {
+     "x": 4.83,
+     "y": 4.4,
+     "g": "WR",
+     "label": "Isaiah Neyor"
+    },
+    {
+     "x": 5.26,
+     "y": 5.01,
+     "g": "DL",
+     "label": "Maason Smith"
+    },
+    {
+     "x": 5.55,
+     "y": 5.14,
+     "g": "DL",
+     "label": "Eric Gregory"
+    },
+    {
+     "x": 4.99,
+     "y": 4.58,
+     "g": "DL",
+     "label": "Lukas Van Ness"
+    },
+    {
+     "x": 5.3,
+     "y": 5.11,
+     "g": "DL",
+     "label": "Tyler Lacy"
+    },
+    {
+     "x": 5.44,
+     "y": 5.26,
+     "g": "OL",
+     "label": "Anthony Belton"
+    },
+    {
+     "x": 5.28,
+     "y": 5.16,
+     "g": "OL",
+     "label": "Kelvin Banks"
+    },
+    {
+     "x": 5.02,
+     "y": 4.41,
+     "g": "WR",
+     "label": "Luther Burden"
+    },
+    {
+     "x": 5.19,
+     "y": 4.94,
+     "g": "OL",
+     "label": "Tanor Bortolini"
+    },
+    {
+     "x": 4.79,
+     "y": 4.34,
+     "g": "WR",
+     "label": "Adonai Mitchell"
+    },
+    {
+     "x": 4.97,
+     "y": 4.65,
+     "g": "TE",
+     "label": "Joshua Simon"
+    },
+    {
+     "x": 4.85,
+     "y": 4.37,
+     "g": "WR",
+     "label": "Jordan Watkins"
+    },
+    {
+     "x": 4.89,
+     "y": 4.44,
+     "g": "DB",
+     "label": "Kris Abrams-Draine"
+    },
+    {
+     "x": 4.63,
+     "y": 4.54,
+     "g": "TE",
+     "label": "Elijah Higgins"
+    },
+    {
+     "x": 4.87,
+     "y": 4.63,
+     "g": "WR",
+     "label": "Isaiah Williams"
+    },
+    {
+     "x": 4.98,
+     "y": 4.74,
+     "g": "TE",
+     "label": "Jalin Conyers"
+    },
+    {
+     "x": 5.43,
+     "y": 5.18,
+     "g": "OL",
+     "label": "Ryan Hayes"
+    },
+    {
+     "x": 5.75,
+     "y": 5.38,
+     "g": "OL",
+     "label": "Keaton Bills"
+    },
+    {
+     "x": 4.52,
+     "y": 4.39,
+     "g": "WR",
+     "label": "Ladd McConkey"
+    },
+    {
+     "x": 5.12,
+     "y": 4.91,
+     "g": "TE",
+     "label": "Robbie Ouzts"
+    },
+    {
+     "x": 5.44,
+     "y": 4.95,
+     "g": "DL",
+     "label": "Darius Alexander"
+    },
+    {
+     "x": 4.8,
+     "y": 4.36,
+     "g": "WR",
+     "label": "Arian Smith"
+    },
+    {
+     "x": 4.41,
+     "y": 4.33,
+     "g": "WR",
+     "label": "Brian Thomas"
+    },
+    {
+     "x": 4.8,
+     "y": 4.39,
+     "g": "WR",
+     "label": "Roman Wilson"
+    },
+    {
+     "x": 4.87,
+     "y": 4.57,
+     "g": "DB",
+     "label": "DeMarcco Hellams"
+    },
+    {
+     "x": 4.79,
+     "y": 4.4,
+     "g": "WR",
+     "label": "Dominic Lovett"
+    },
+    {
+     "x": 5.61,
+     "y": 5.2,
+     "g": "OL",
+     "label": "Blake Fisher"
+    },
+    {
+     "x": 5.03,
+     "y": 4.48,
+     "g": "DB",
+     "label": "Jonas Sanker"
+    },
+    {
+     "x": 5.59,
+     "y": 5.24,
+     "g": "OL",
+     "label": "John Ojukwu"
+    },
+    {
+     "x": 5.09,
+     "y": 4.54,
+     "g": "DB",
+     "label": "Chau Smith-Wade"
+    },
+    {
+     "x": 4.79,
+     "y": 4.43,
+     "g": "DB",
+     "label": "Trey Amos"
+    },
+    {
+     "x": 5.42,
+     "y": 5.24,
+     "g": "OL",
+     "label": "Xavier Truss"
+    },
+    {
+     "x": 4.74,
+     "y": 4.42,
+     "g": "WR",
+     "label": "Jacob Copeland"
+    },
+    {
+     "x": 4.96,
+     "y": 4.75,
+     "g": "DL",
+     "label": "Marshawn Kneeland"
+    },
+    {
+     "x": 5.3,
+     "y": 5.1,
+     "g": "OL",
+     "label": "Caleb Rogers"
+    },
+    {
+     "x": 4.85,
+     "y": 4.44,
+     "g": "WR",
+     "label": "Cornelius Johnson"
+    },
+    {
+     "x": 4.77,
+     "y": 4.49,
+     "g": "WR",
+     "label": "Tank Dell"
+    },
+    {
+     "x": 4.78,
+     "y": 4.51,
+     "g": "DB",
+     "label": "Dominique Hampton"
+    },
+    {
+     "x": 4.95,
+     "y": 4.62,
+     "g": "DB",
+     "label": "Christopher Smith"
+    },
+    {
+     "x": 4.83,
+     "y": 4.45,
+     "g": "WR",
+     "label": "Jayden Reed"
+    },
+    {
+     "x": 5.01,
+     "y": 4.34,
+     "g": "WR",
+     "label": "Jaylin Lane"
+    },
+    {
+     "x": 5.13,
+     "y": 5.05,
+     "g": "OL",
+     "label": "Earl Bostick"
+    },
+    {
+     "x": 5.06,
+     "y": 4.78,
+     "g": "DL",
+     "label": "Elijah Roberts"
+    },
+    {
+     "x": 4.67,
+     "y": 4.4,
+     "g": "WR",
+     "label": "Jalin Hyatt"
+    },
+    {
+     "x": 4.87,
+     "y": 4.53,
+     "g": "WR",
+     "label": "Xavier Hutchinson"
+    },
+    {
+     "x": 5.47,
+     "y": 5.35,
+     "g": "OL",
+     "label": "Dawand Jones"
+    },
+    {
+     "x": 5.03,
+     "y": 4.84,
+     "g": "OL",
+     "label": "Jared Wilson"
+    },
+    {
+     "x": 4.81,
+     "y": 4.49,
+     "g": "WR",
+     "label": "Jordan Addison"
+    },
+    {
+     "x": 4.97,
+     "y": 4.6,
+     "g": "DL",
+     "label": "Jah Joyner"
+    },
+    {
+     "x": 4.86,
+     "y": 4.66,
+     "g": "DL",
+     "label": "Tavius Robinson"
+    },
+    {
+     "x": 4.92,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Alijah Clark"
+    },
+    {
+     "x": 4.77,
+     "y": 4.51,
+     "g": "DL",
+     "label": "YaYa Diaby"
+    },
+    {
+     "x": 4.91,
+     "y": 4.55,
+     "g": "DL",
+     "label": "Lonnie Phelps"
+    },
+    {
+     "x": 4.83,
+     "y": 4.6,
+     "g": "WR",
+     "label": "Mitch Tinsley"
+    },
+    {
+     "x": 5.71,
+     "y": 5.18,
+     "g": "OL",
+     "label": "Logan Brown"
+    },
+    {
+     "x": 4.95,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Myles Harden"
+    },
+    {
+     "x": 5.38,
+     "y": 4.97,
+     "g": "OL",
+     "label": "Tate Ratledge"
+    },
+    {
+     "x": 5.23,
+     "y": 4.61,
+     "g": "TE",
+     "label": "Tanner McLachlan"
+    },
+    {
+     "x": 5.05,
+     "y": 4.82,
+     "g": "TE",
+     "label": "Jackson Hawes"
+    },
+    {
+     "x": 5.27,
+     "y": 5.01,
+     "g": "OL",
+     "label": "Darnell Wright"
+    },
+    {
+     "x": 5.24,
+     "y": 5.05,
+     "g": "OL",
+     "label": "Drew Kendall"
+    },
+    {
+     "x": 4.71,
+     "y": 4.38,
+     "g": "WR",
+     "label": "Marvin Mims"
+    },
+    {
+     "x": 4.8,
+     "y": 4.48,
+     "g": "DB",
+     "label": "Denzel Burke"
+    },
+    {
+     "x": 5.06,
+     "y": 4.62,
+     "g": "DL",
+     "label": "Tyler Baron"
+    },
+    {
+     "x": 5.38,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Steve Avila"
+    },
+    {
+     "x": 4.79,
+     "y": 4.39,
+     "g": "WR",
+     "label": "Xavier Legette"
+    },
+    {
+     "x": 4.69,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Jason Taylor"
+    },
+    {
+     "x": 5.18,
+     "y": 5.02,
+     "g": "OL",
+     "label": "Eli Cox"
+    },
+    {
+     "x": 4.89,
+     "y": 4.6,
+     "g": "DB",
+     "label": "Demani Richardson"
+    },
+    {
+     "x": 4.92,
+     "y": 4.5,
+     "g": "WR",
+     "label": "Brenden Rice"
+    },
+    {
+     "x": 4.8,
+     "y": 4.42,
+     "g": "DB",
+     "label": "Kei'Trel Clark"
+    },
+    {
+     "x": 4.59,
+     "y": 4.36,
+     "g": "WR",
+     "label": "Derius Davis"
+    },
+    {
+     "x": 4.93,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Cole Bishop"
+    },
+    {
+     "x": 5.26,
+     "y": 4.91,
+     "g": "OL",
+     "label": "Armand Membou"
+    },
+    {
+     "x": 4.75,
+     "y": 4.39,
+     "g": "WR",
+     "label": "Isaiah Bond"
+    },
+    {
+     "x": 5.64,
+     "y": 5.38,
+     "g": "OL",
+     "label": "Tyler Booker"
+    },
+    {
+     "x": 4.95,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Nohl Williams"
+    },
+    {
+     "x": 4.8,
+     "y": 4.57,
+     "g": "TE",
+     "label": "Theo Johnson"
+    },
+    {
+     "x": 4.73,
+     "y": 4.45,
+     "g": "DB",
+     "label": "Jaylin Smith"
+    },
+    {
+     "x": 5.6,
+     "y": 5.21,
+     "g": "OL",
+     "label": "Matthew Jones"
+    },
+    {
+     "x": 4.68,
+     "y": 4.33,
+     "g": "WR",
+     "label": "Trey Palmer"
+    },
+    {
+     "x": 5.16,
+     "y": 4.7,
+     "g": "TE",
+     "label": "Blake Whiteheart"
+    },
+    {
+     "x": 5.36,
+     "y": 4.89,
+     "g": "DL",
+     "label": "Ruke Orhorhoro"
+    },
+    {
+     "x": 4.99,
+     "y": 4.51,
+     "g": "WR",
+     "label": "Tez Johnson"
+    },
+    {
+     "x": 4.94,
+     "y": 4.58,
+     "g": "DL",
+     "label": "Jared Verse"
+    },
+    {
+     "x": 4.75,
+     "y": 4.46,
+     "g": "DB",
+     "label": "Marcellas Dial"
+    },
+    {
+     "x": 4.92,
+     "y": 4.5,
+     "g": "DB",
+     "label": "Malaki Starks"
+    },
+    {
+     "x": 4.78,
+     "y": 4.47,
+     "g": "WR",
+     "label": "A.T. Perry"
+    },
+    {
+     "x": 5.73,
+     "y": 5.31,
+     "g": "OL",
+     "label": "Brady Latham"
+    },
+    {
+     "x": 4.63,
+     "y": 4.4,
+     "g": "WR",
+     "label": "Tre Tucker"
+    }
+   ],
+   "identity": true
+  },
+  "table": [
+   {
+    "comparison": "40-yd elapsed vs official 40",
+    "r": 0.912,
+    "n": 381
+   },
+   {
+    "comparison": "10-yd elapsed vs official 10 split",
+    "r": 0.465,
+    "n": 418
+   },
+   {
+    "comparison": "Tracked top speed vs official 40",
+    "r": -0.978,
+    "n": 418
+   }
+  ]
+ },
+ {
+  "id": "year_effect",
+  "title": "Drills are not comparable across Combine years without adjustment",
+  "section": "data",
+  "summary": "Median of each drill's key metric by Combine year. The spread is expressed in within-drill standard deviations; anything above ~0.5 means a player's percentile depends more on which year he attended than on how he moved. Largest gaps: Slant (2.9 sd); Wheel (2.0 sd); Backpedal & 45\u00b0 Transition (1.9 sd); Run and Club (1.5 sd); Corner Route (1.5 sd); Wave Drill & Lateral Reaction (1.4 sd). Every cross-class comparison in the analysis is therefore made on year-standardized values.",
+  "method": "Median key metric per draft year; spread = (max \u2212 min) / pooled sd.",
+  "chart": {
+   "type": "table"
+  },
+  "table": [
+   {
+    "drill": "Slant",
+    "group": "WR",
+    "metric": "break_speed_min",
+    "2023": 0.09,
+    "2024": 0.31,
+    "2025": 0.63,
+    "spread_sd": 2.86,
+    "n": 110
+   },
+   {
+    "drill": "Wheel",
+    "group": "TE",
+    "metric": "top_speed",
+    "2023": 9.25,
+    "2024": 9.02,
+    "2025": 8.22,
+    "spread_sd": 1.98,
+    "n": 45
+   },
+   {
+    "drill": "Backpedal & 45\u00b0 Transition",
+    "group": "DB",
+    "metric": "break_speed_out",
+    "2023": 6.59,
+    "2024": 4.64,
+    "2025": 6.68,
+    "spread_sd": 1.92,
+    "n": 241
+   },
+   {
+    "drill": "Run and Club",
+    "group": "DL",
+    "metric": "mean_speed",
+    "2023": 3.43,
+    "2024": 3.5,
+    "2025": 3.79,
+    "spread_sd": 1.49,
+    "n": 113
+   },
+   {
+    "drill": "Corner Route",
+    "group": "TE",
+    "metric": "break_speed_min",
+    "2023": 0.25,
+    "2024": 0.26,
+    "2025": 0.68,
+    "spread_sd": 1.48,
+    "n": 61
+   },
+   {
+    "drill": "Wave Drill & Lateral Reaction",
+    "group": "DL",
+    "metric": "n_breaks",
+    "2023": 4.5,
+    "2024": 5.0,
+    "2025": 4.0,
+    "spread_sd": 1.44,
+    "n": 112
+   },
+   {
+    "drill": "Box Drill",
+    "group": "DB",
+    "metric": "mean_speed",
+    "2023": 3.74,
+    "2024": 3.41,
+    "2025": 3.47,
+    "spread_sd": 1.31,
+    "n": 125
+   },
+   {
+    "drill": "Post-Corner (double move)",
+    "group": "WR",
+    "metric": "n_breaks",
+    "2023": 1.0,
+    "2024": 0.0,
+    "2025": null,
+    "spread_sd": 1.29,
+    "n": 80
+   },
+   {
+    "drill": "In Route",
+    "group": "TE",
+    "metric": "sharpest_break_deg",
+    "2023": 69.1,
+    "2024": 97.2,
+    "2025": 77.25,
+    "spread_sd": 1.25,
+    "n": 43
+   },
+   {
+    "drill": "Four-Bag Agility",
+    "group": "DL",
+    "metric": "duration_s",
+    "2023": 10.8,
+    "2024": 11.0,
+    "2025": 9.3,
+    "spread_sd": 1.2,
+    "n": 112
+   },
+   {
+    "drill": "Comeback",
+    "group": "WR",
+    "metric": "break_decel",
+    "2023": 5.52,
+    "2024": 5.8,
+    "2025": 8.44,
+    "spread_sd": 1.15,
+    "n": 110
+   },
+   {
+    "drill": "5-Yard Wave (Slide & Shuffle)",
+    "group": "OL",
+    "metric": "n_breaks",
+    "2023": 5.5,
+    "2024": 5.0,
+    "2025": 4.0,
+    "spread_sd": 1.13,
+    "n": 120
+   },
+   {
+    "drill": "Gauntlet",
+    "group": "WR",
+    "metric": "mean_speed",
+    "2023": 6.8,
+    "2024": 6.35,
+    "2025": 6.3,
+    "spread_sd": 0.87,
+    "n": 404
+   },
+   {
+    "drill": "Run the Hoop",
+    "group": "DL",
+    "metric": "mean_speed",
+    "2023": 3.53,
+    "2024": 3.45,
+    "2025": 3.38,
+    "spread_sd": 0.84,
+    "n": 119
+   },
+   {
+    "drill": "Speed Out",
+    "group": "WR",
+    "metric": "break_speed_min",
+    "2023": 5.69,
+    "2024": 5.96,
+    "2025": 4.25,
+    "spread_sd": 0.82,
+    "n": 124
+   },
+   {
+    "drill": "End Zone Fade",
+    "group": "TE",
+    "metric": "top_speed",
+    "2023": null,
+    "2024": 6.48,
+    "2025": 6.86,
+    "spread_sd": 0.8,
+    "n": 35
+   },
+   {
+    "drill": "Backpedal & React",
+    "group": "DL",
+    "metric": "break_speed_out",
+    "2023": 5.58,
+    "2024": 5.0,
+    "2025": 5.51,
+    "spread_sd": 0.78,
+    "n": 58
+   },
+   {
+    "drill": "Deep/Short Pull (Left)",
+    "group": "OL",
+    "metric": "peak_accel",
+    "2023": 3.44,
+    "2024": 3.7,
+    "2025": 3.23,
+    "spread_sd": 0.75,
+    "n": 98
+   },
+   {
+    "drill": "Backpedal & 90\u00b0 Break",
+    "group": "DB",
+    "metric": "break_speed_out",
+    "2023": 6.68,
+    "2024": 6.28,
+    "2025": 6.34,
+    "spread_sd": 0.72,
+    "n": 124
+   },
+   {
+    "drill": "Flat Route",
+    "group": "TE",
+    "metric": "peak_accel",
+    "2023": 4.48,
+    "2024": 4.39,
+    "2025": 4.12,
+    "spread_sd": 0.7,
+    "n": 42
+   }
+  ]
+ },
+ {
+  "id": "reliability",
+  "title": "Most position drills are single-attempt, and the repeats barely agree",
+  "section": "data",
+  "summary": "Only 9 drills have at least 15 players with two attempts. Where they exist, the rank correlation between attempt 1 and attempt 2 of the key metric ranges from -0.03 to 0.98. The 40 and the timed agility drills repeat well; reaction-based position drills do not, so any single-attempt drill metric carries large measurement error and must be shrunk toward the position mean before it is used to rank prospects.",
+  "method": "Spearman \u03c1 between attempt 1 and attempt 2 of the key metric; drills with \u226515 such players.",
+  "chart": {
+   "type": "bar",
+   "x": "drill",
+   "y": "rho_attempts",
+   "label": "\u03c1 attempt 1 vs 2",
+   "domain": [
+    -0.2,
+    1
+   ]
+  },
+  "table": [
+   {
+    "drill": "40-Yard Dash",
+    "group": "SPEED",
+    "metric": "top_speed",
+    "rho_attempts": 0.98,
+    "players_with_2": 375
+   },
+   {
+    "drill": "Gauntlet",
+    "group": "WR",
+    "metric": "mean_speed",
+    "rho_attempts": 0.7,
+    "players_with_2": 137
+   },
+   {
+    "drill": "3-Cone Drill (L-Drill)",
+    "group": "AGILITY",
+    "metric": "duration_s",
+    "rho_attempts": 0.66,
+    "players_with_2": 38
+   },
+   {
+    "drill": "Post-Corner (double move)",
+    "group": "WR",
+    "metric": "n_breaks",
+    "rho_attempts": 0.63,
+    "players_with_2": 15
+   },
+   {
+    "drill": "Pass Set (Kick Slide)",
+    "group": "OL",
+    "metric": "top_speed",
+    "rho_attempts": 0.58,
+    "players_with_2": 118
+   },
+   {
+    "drill": "Pass Rush Drill",
+    "group": "DL",
+    "metric": "peak_accel",
+    "rho_attempts": 0.34,
+    "players_with_2": 106
+   },
+   {
+    "drill": "Short Shuttle (5-10-5)",
+    "group": "AGILITY",
+    "metric": "duration_s",
+    "rho_attempts": 0.34,
+    "players_with_2": 39
+   },
+   {
+    "drill": "Backpedal & 45\u00b0 Transition",
+    "group": "DB",
+    "metric": "break_speed_out",
+    "rho_attempts": 0.04,
+    "players_with_2": 66
+   },
+   {
+    "drill": "Short Zone Breaks",
+    "group": "DL",
+    "metric": "break_speed_out",
+    "rho_attempts": -0.03,
+    "players_with_2": 35
+   }
+  ]
+ },
+ {
+  "id": "pass_rush",
+  "title": "Edge/DL: does the pass-rush drill get-off show up in games?",
+  "section": "nfl",
+  "summary": "Among 69 DL/EDGE with 100+ pass-rush snaps, peak acceleration in the Combine pass-rush drill correlates \u03c1=-0.31 (p=0.011, n=69) with in-game get-off time (negative = quicker off the ball). The heatmap compares every drill-derived number against get-off, pressure rate and opportunity; the official 10-yard split is the benchmark to beat.",
+  "method": "Spearman \u03c1; DL/EDGE with \u2265100 regular-season pass-rush snaps; drill values are the best attempt.",
+  "chart": {
+   "type": "heatmap",
+   "rows": [
+    "Draft pick (log)",
+    "Official 10-yd split",
+    "Official 40",
+    "Pass rush drill: peak accel",
+    "Pass rush drill: time to 5 yd/s",
+    "Pass rush drill: top speed",
+    "Run the hoop: avg speed",
+    "Run the hoop: duration",
+    "Weight"
+   ],
+   "cols": [
+    "Avg get-off (s)",
+    "Pressure rate",
+    "Snaps per season"
+   ],
+   "values": [
+    [
+     0.22,
+     -0.34,
+     -0.62
+    ],
+    [
+     0.68,
+     -0.48,
+     -0.02
+    ],
+    [
+     0.72,
+     -0.5,
+     -0.1
+    ],
+    [
+     -0.31,
+     0.19,
+     -0.02
+    ],
+    [
+     0.26,
+     -0.23,
+     0.03
+    ],
+    [
+     -0.56,
+     0.34,
+     0.08
+    ],
+    [
+     -0.35,
+     0.14,
+     -0.21
+    ],
+    [
+     0.54,
+     -0.39,
+     -0.07
+    ],
+    [
+     0.71,
+     -0.38,
+     0.06
+    ]
+   ],
+   "scale": [
+    -0.5,
+    0.5
+   ],
+   "fmt": "rho"
+  },
+  "table": [
+   {
+    "x": 4.82,
+    "y": 0.841,
+    "label": "Will Anderson"
+   },
+   {
+    "x": 5.17,
+    "y": 0.958,
+    "label": "Lukas Van Ness"
+   },
+   {
+    "x": 4.35,
+    "y": 0.949,
+    "label": "Will McDonald"
+   },
+   {
+    "x": 4.98,
+    "y": 0.888,
+    "label": "Isaiah Foskey"
+   },
+   {
+    "x": 4.05,
+    "y": 1.03,
+    "label": "Keion White"
+   },
+   {
+    "x": 4.24,
+    "y": 1.113,
+    "label": "Keeanu Benton"
+   },
+   {
+    "x": 4.51,
+    "y": 1.093,
+    "label": "Gervon Dexter"
+   },
+   {
+    "x": 4.4,
+    "y": 0.986,
+    "label": "Tuli Tuipulotu"
+   },
+   {
+    "x": 4.58,
+    "y": 1.106,
+    "label": "Zacch Pickens"
+   },
+   {
+    "x": 4.46,
+    "y": 0.985,
+    "label": "Byron Young"
+   },
+   {
+    "x": 5.11,
+    "y": 0.951,
+    "label": "YaYa Diaby"
+   },
+   {
+    "x": 4.58,
+    "y": 0.934,
+    "label": "Dylan Horton"
+   },
+   {
+    "x": 4.68,
+    "y": 0.986,
+    "label": "Adetomiwa Adebawore"
+   },
+   {
+    "x": 4.52,
+    "y": 1.094,
+    "label": "Tavius Robinson"
+   },
+   {
+    "x": 4.97,
+    "y": 0.9,
+    "label": "Isaiah McGuire"
+   },
+   {
+    "x": 4.3,
+    "y": 1.133,
+    "label": "Tyler Lacy"
+   },
+   {
+    "x": 3.99,
+    "y": 0.905,
+    "label": "Yasir Abdullah"
+   },
+   {
+    "x": 5.04,
+    "y": 0.993,
+    "label": "Robert Beal"
+   },
+   {
+    "x": 4.31,
+    "y": 1.206,
+    "label": "Keondre Coburn"
+   },
+   {
+    "x": 4.76,
+    "y": 1.074,
+    "label": "Dante Stills"
+   },
+   {
+    "x": 5.03,
+    "y": 1.128,
+    "label": "Tyrus Wheat"
+   },
+   {
+    "x": 5.56,
+    "y": 1.105,
+    "label": "Jalen Redmond"
+   },
+   {
+    "x": 5.13,
+    "y": 0.936,
+    "label": "Brenton Cox"
+   },
+   {
+    "x": 4.79,
+    "y": 0.996,
+    "label": "Caleb Murphy"
+   },
+   {
+    "x": 4.97,
+    "y": 1.193,
+    "label": "P.J. Mustipher"
+   },
+   {
+    "x": 4.48,
+    "y": 0.938,
+    "label": "Laiatu Latu"
+   },
+   {
+    "x": 4.37,
+    "y": 1.155,
+    "label": "Byron Murphy"
+   },
+   {
+    "x": 4.17,
+    "y": 0.91,
+    "label": "Jared Verse"
+   },
+   {
+    "x": 4.82,
+    "y": 0.845,
+    "label": "Chop Robinson"
+   },
+   {
+    "x": 4.12,
+    "y": 1.035,
+    "label": "Darius Robinson"
+   },
+   {
+    "x": 4.41,
+    "y": 1.008,
+    "label": "Ruke Orhorhoro"
+   },
+   {
+    "x": 4.18,
+    "y": 1.145,
+    "label": "T'Vondre Sweat"
+   },
+   {
+    "x": 3.94,
+    "y": 0.989,
+    "label": "Braden Fiske"
+   },
+   {
+    "x": 5.1,
+    "y": 1.034,
+    "label": "Maason Smith"
+   },
+   {
+    "x": 4.76,
+    "y": 0.989,
+    "label": "Marshawn Kneeland"
+   },
+   {
+    "x": 5.35,
+    "y": 0.972,
+    "label": "Jalyx Hunt"
+   },
+   {
+    "x": 3.83,
+    "y": 1.137,
+    "label": "DeWayne Carter"
+   },
+   {
+    "x": 3.86,
+    "y": 1.189,
+    "label": "McKinnley Jackson"
+   },
+   {
+    "x": 4.49,
+    "y": 1.1,
+    "label": "Justin Eboigbe"
+   },
+   {
+    "x": 4.15,
+    "y": 0.92,
+    "label": "Brandon Dorlus"
+   },
+   {
+    "x": 5.44,
+    "y": 1.047,
+    "label": "Austin Booker"
+   },
+   {
+    "x": 4.03,
+    "y": 0.956,
+    "label": "Javon Solomon"
+   },
+   {
+    "x": 4.44,
+    "y": 1.057,
+    "label": "Mekhi Wingo"
+   },
+   {
+    "x": 4.63,
+    "y": 0.956,
+    "label": "Cedric Johnson"
+   },
+   {
+    "x": 5.46,
+    "y": 0.994,
+    "label": "Javontae Jean-Baptiste"
+   },
+   {
+    "x": 4.21,
+    "y": 0.994,
+    "label": "Jaylen Harrell"
+   },
+   {
+    "x": 4.19,
+    "y": 1.137,
+    "label": "Leonard Taylor"
+   },
+   {
+    "x": 4.11,
+    "y": 1.085,
+    "label": "Eric Watts"
+   },
+   {
+    "x": 4.0,
+    "y": 1.171,
+    "label": "Tyleik Williams"
+   },
+   {
+    "x": 4.43,
+    "y": 1.135,
+    "label": "Alfred Collins"
+   },
+   {
+    "x": 5.1,
+    "y": 1.02,
+    "label": "Donovan Ezeiruaku"
+   },
+   {
+    "x": 4.34,
+    "y": 0.996,
+    "label": "Nic Scourton"
+   },
+   {
+    "x": 4.45,
+    "y": 0.962,
+    "label": "Oluwafemi Oladejo"
+   },
+   {
+    "x": 4.09,
+    "y": 1.096,
+    "label": "Darius Alexander"
+   },
+   {
+    "x": 5.2,
+    "y": 1.022,
+    "label": "Ashton Gillotte"
+   },
+   {
+    "x": 4.36,
+    "y": 0.946,
+    "label": "Princely Umanmielen"
+   },
+   {
+    "x": 3.82,
+    "y": 1.085,
+    "label": "Jordan Burch"
+   },
+   {
+    "x": 3.46,
+    "y": 1.166,
+    "label": "Deone Walker"
+   },
+   {
+    "x": 4.05,
+    "y": 1.114,
+    "label": "C.J. West"
+   },
+   {
+    "x": 5.0,
+    "y": 0.987,
+    "label": "Jack Sawyer"
+   },
+   {
+    "x": 4.18,
+    "y": 0.972,
+    "label": "Barryn Sorrell"
+   },
+   {
+    "x": 4.31,
+    "y": 1.024,
+    "label": "Tonka Hemingway"
+   },
+   {
+    "x": 4.08,
+    "y": 1.145,
+    "label": "Joshua Farmer"
+   },
+   {
+    "x": 3.64,
+    "y": 1.201,
+    "label": "Tyrion Ingram-Dawkins"
+   },
+   {
+    "x": 5.3,
+    "y": 1.17,
+    "label": "Jordan Phillips"
+   },
+   {
+    "x": 4.12,
+    "y": 1.036,
+    "label": "Elijah Roberts"
+   },
+   {
+    "x": 3.67,
+    "y": 1.174,
+    "label": "Yahya Black"
+   },
+   {
+    "x": 4.39,
+    "y": 0.985,
+    "label": "Warren Brinson"
+   },
+   {
+    "x": 3.79,
+    "y": 0.995,
+    "label": "Zeek Biggers"
+   }
+  ],
+  "scatter": {
+   "x": "Pass-rush drill peak accel (yd/s\u00b2)",
+   "y": "In-game avg get-off (s)",
+   "points": [
+    {
+     "x": 4.82,
+     "y": 0.841,
+     "g": "DL",
+     "label": "Will Anderson"
+    },
+    {
+     "x": 5.17,
+     "y": 0.958,
+     "g": "DL",
+     "label": "Lukas Van Ness"
+    },
+    {
+     "x": 4.35,
+     "y": 0.949,
+     "g": "DL",
+     "label": "Will McDonald"
+    },
+    {
+     "x": 4.98,
+     "y": 0.888,
+     "g": "DL",
+     "label": "Isaiah Foskey"
+    },
+    {
+     "x": 4.05,
+     "y": 1.03,
+     "g": "DL",
+     "label": "Keion White"
+    },
+    {
+     "x": 4.24,
+     "y": 1.113,
+     "g": "DL",
+     "label": "Keeanu Benton"
+    },
+    {
+     "x": 4.51,
+     "y": 1.093,
+     "g": "DL",
+     "label": "Gervon Dexter"
+    },
+    {
+     "x": 4.4,
+     "y": 0.986,
+     "g": "DL",
+     "label": "Tuli Tuipulotu"
+    },
+    {
+     "x": 4.58,
+     "y": 1.106,
+     "g": "DL",
+     "label": "Zacch Pickens"
+    },
+    {
+     "x": 4.46,
+     "y": 0.985,
+     "g": "DL",
+     "label": "Byron Young"
+    },
+    {
+     "x": 5.11,
+     "y": 0.951,
+     "g": "DL",
+     "label": "YaYa Diaby"
+    },
+    {
+     "x": 4.58,
+     "y": 0.934,
+     "g": "DL",
+     "label": "Dylan Horton"
+    },
+    {
+     "x": 4.68,
+     "y": 0.986,
+     "g": "DL",
+     "label": "Adetomiwa Adebawore"
+    },
+    {
+     "x": 4.52,
+     "y": 1.094,
+     "g": "DL",
+     "label": "Tavius Robinson"
+    },
+    {
+     "x": 4.97,
+     "y": 0.9,
+     "g": "DL",
+     "label": "Isaiah McGuire"
+    },
+    {
+     "x": 4.3,
+     "y": 1.133,
+     "g": "DL",
+     "label": "Tyler Lacy"
+    },
+    {
+     "x": 3.99,
+     "y": 0.905,
+     "g": "DL",
+     "label": "Yasir Abdullah"
+    },
+    {
+     "x": 5.04,
+     "y": 0.993,
+     "g": "DL",
+     "label": "Robert Beal"
+    },
+    {
+     "x": 4.31,
+     "y": 1.206,
+     "g": "DL",
+     "label": "Keondre Coburn"
+    },
+    {
+     "x": 4.76,
+     "y": 1.074,
+     "g": "DL",
+     "label": "Dante Stills"
+    },
+    {
+     "x": 5.03,
+     "y": 1.128,
+     "g": "DL",
+     "label": "Tyrus Wheat"
+    },
+    {
+     "x": 5.56,
+     "y": 1.105,
+     "g": "DL",
+     "label": "Jalen Redmond"
+    },
+    {
+     "x": 5.13,
+     "y": 0.936,
+     "g": "DL",
+     "label": "Brenton Cox"
+    },
+    {
+     "x": 4.79,
+     "y": 0.996,
+     "g": "DL",
+     "label": "Caleb Murphy"
+    },
+    {
+     "x": 4.97,
+     "y": 1.193,
+     "g": "DL",
+     "label": "P.J. Mustipher"
+    },
+    {
+     "x": 4.48,
+     "y": 0.938,
+     "g": "DL",
+     "label": "Laiatu Latu"
+    },
+    {
+     "x": 4.37,
+     "y": 1.155,
+     "g": "DL",
+     "label": "Byron Murphy"
+    },
+    {
+     "x": 4.17,
+     "y": 0.91,
+     "g": "DL",
+     "label": "Jared Verse"
+    },
+    {
+     "x": 4.82,
+     "y": 0.845,
+     "g": "DL",
+     "label": "Chop Robinson"
+    },
+    {
+     "x": 4.12,
+     "y": 1.035,
+     "g": "DL",
+     "label": "Darius Robinson"
+    },
+    {
+     "x": 4.41,
+     "y": 1.008,
+     "g": "DL",
+     "label": "Ruke Orhorhoro"
+    },
+    {
+     "x": 4.18,
+     "y": 1.145,
+     "g": "DL",
+     "label": "T'Vondre Sweat"
+    },
+    {
+     "x": 3.94,
+     "y": 0.989,
+     "g": "DL",
+     "label": "Braden Fiske"
+    },
+    {
+     "x": 5.1,
+     "y": 1.034,
+     "g": "DL",
+     "label": "Maason Smith"
+    },
+    {
+     "x": 4.76,
+     "y": 0.989,
+     "g": "DL",
+     "label": "Marshawn Kneeland"
+    },
+    {
+     "x": 5.35,
+     "y": 0.972,
+     "g": "DL",
+     "label": "Jalyx Hunt"
+    },
+    {
+     "x": 3.83,
+     "y": 1.137,
+     "g": "DL",
+     "label": "DeWayne Carter"
+    },
+    {
+     "x": 3.86,
+     "y": 1.189,
+     "g": "DL",
+     "label": "McKinnley Jackson"
+    },
+    {
+     "x": 4.49,
+     "y": 1.1,
+     "g": "DL",
+     "label": "Justin Eboigbe"
+    },
+    {
+     "x": 4.15,
+     "y": 0.92,
+     "g": "DL",
+     "label": "Brandon Dorlus"
+    },
+    {
+     "x": 5.44,
+     "y": 1.047,
+     "g": "DL",
+     "label": "Austin Booker"
+    },
+    {
+     "x": 4.03,
+     "y": 0.956,
+     "g": "DL",
+     "label": "Javon Solomon"
+    },
+    {
+     "x": 4.44,
+     "y": 1.057,
+     "g": "DL",
+     "label": "Mekhi Wingo"
+    },
+    {
+     "x": 4.63,
+     "y": 0.956,
+     "g": "DL",
+     "label": "Cedric Johnson"
+    },
+    {
+     "x": 5.46,
+     "y": 0.994,
+     "g": "DL",
+     "label": "Javontae Jean-Baptiste"
+    },
+    {
+     "x": 4.21,
+     "y": 0.994,
+     "g": "DL",
+     "label": "Jaylen Harrell"
+    },
+    {
+     "x": 4.19,
+     "y": 1.137,
+     "g": "DL",
+     "label": "Leonard Taylor"
+    },
+    {
+     "x": 4.11,
+     "y": 1.085,
+     "g": "DL",
+     "label": "Eric Watts"
+    },
+    {
+     "x": 4.0,
+     "y": 1.171,
+     "g": "DL",
+     "label": "Tyleik Williams"
+    },
+    {
+     "x": 4.43,
+     "y": 1.135,
+     "g": "DL",
+     "label": "Alfred Collins"
+    },
+    {
+     "x": 5.1,
+     "y": 1.02,
+     "g": "DL",
+     "label": "Donovan Ezeiruaku"
+    },
+    {
+     "x": 4.34,
+     "y": 0.996,
+     "g": "DL",
+     "label": "Nic Scourton"
+    },
+    {
+     "x": 4.45,
+     "y": 0.962,
+     "g": "DL",
+     "label": "Oluwafemi Oladejo"
+    },
+    {
+     "x": 4.09,
+     "y": 1.096,
+     "g": "DL",
+     "label": "Darius Alexander"
+    },
+    {
+     "x": 5.2,
+     "y": 1.022,
+     "g": "DL",
+     "label": "Ashton Gillotte"
+    },
+    {
+     "x": 4.36,
+     "y": 0.946,
+     "g": "DL",
+     "label": "Princely Umanmielen"
+    },
+    {
+     "x": 3.82,
+     "y": 1.085,
+     "g": "DL",
+     "label": "Jordan Burch"
+    },
+    {
+     "x": 3.46,
+     "y": 1.166,
+     "g": "DL",
+     "label": "Deone Walker"
+    },
+    {
+     "x": 4.05,
+     "y": 1.114,
+     "g": "DL",
+     "label": "C.J. West"
+    },
+    {
+     "x": 5.0,
+     "y": 0.987,
+     "g": "DL",
+     "label": "Jack Sawyer"
+    },
+    {
+     "x": 4.18,
+     "y": 0.972,
+     "g": "DL",
+     "label": "Barryn Sorrell"
+    },
+    {
+     "x": 4.31,
+     "y": 1.024,
+     "g": "DL",
+     "label": "Tonka Hemingway"
+    },
+    {
+     "x": 4.08,
+     "y": 1.145,
+     "g": "DL",
+     "label": "Joshua Farmer"
+    },
+    {
+     "x": 3.64,
+     "y": 1.201,
+     "g": "DL",
+     "label": "Tyrion Ingram-Dawkins"
+    },
+    {
+     "x": 5.3,
+     "y": 1.17,
+     "g": "DL",
+     "label": "Jordan Phillips"
+    },
+    {
+     "x": 4.12,
+     "y": 1.036,
+     "g": "DL",
+     "label": "Elijah Roberts"
+    },
+    {
+     "x": 3.67,
+     "y": 1.174,
+     "g": "DL",
+     "label": "Yahya Black"
+    },
+    {
+     "x": 4.39,
+     "y": 0.985,
+     "g": "DL",
+     "label": "Warren Brinson"
+    },
+    {
+     "x": 3.79,
+     "y": 0.995,
+     "g": "DL",
+     "label": "Zeek Biggers"
+    }
+   ]
+  }
+ },
+ {
+  "id": "wr_breaks",
+  "title": "WR: route-drill break mechanics vs in-game separation",
+  "section": "nfl",
+  "summary": "For wide receivers with 150+ routes (n\u224852 per drill), rank correlations between break metrics from each route drill and NFL separation / yards per route. Largest: Slant burst out of break\u2192Yards per route \u03c1=0.38 (p=0.08); Go Route decel into break\u2192Avg separation \u03c1=0.31 (p=0.28); Go Route burst out of break\u2192Yards per route \u03c1=0.29 (p=0.31); Slant break angle\u2192Yards per route \u03c1=-0.27 (p=0.22); Go Route decel into break\u2192Yards per route \u03c1=0.24 (p=0.41); Go Route top speed\u2192Avg separation \u03c1=0.24 (p=0.09); Slant speed through break\u2192Yards per route \u03c1=0.23 (p=0.30); Go Route burst out of break\u2192Avg separation \u03c1=0.22 (p=0.45). With one attempt per drill and ~60 players, few of these clear p<0.05; this is the baseline the translation analysis has to improve on.",
+  "method": "Spearman \u03c1 on best attempt per drill; separation is route-weighted across seasons.",
+  "chart": {
+   "type": "table"
+  },
+  "table": [
+   {
+    "drill": "Comeback",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": -0.003,
+    "p": 0.9839,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": 0.038,
+    "p": 0.7878,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": 0.019,
+    "p": 0.8946,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.047,
+    "p": 0.7419,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": 0.027,
+    "p": 0.8505,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": -0.133,
+    "p": 0.3456,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": -0.014,
+    "p": 0.9218,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": 0.054,
+    "p": 0.7031,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.151,
+    "p": 0.2839,
+    "n": 52
+   },
+   {
+    "drill": "Comeback",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.162,
+    "p": 0.2502,
+    "n": 52
+   },
+   {
+    "drill": "Curl",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": 0.037,
+    "p": 0.7881,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": 0.193,
+    "p": 0.1588,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": -0.031,
+    "p": 0.8235,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.208,
+    "p": 0.1285,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": -0.023,
+    "p": 0.8704,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": -0.117,
+    "p": 0.3942,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": -0.031,
+    "p": 0.8225,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": -0.138,
+    "p": 0.3159,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.051,
+    "p": 0.7142,
+    "n": 55
+   },
+   {
+    "drill": "Curl",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.157,
+    "p": 0.2518,
+    "n": 55
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": -0.112,
+    "p": 0.4651,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": -0.138,
+    "p": 0.3665,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": -0.152,
+    "p": 0.3189,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.147,
+    "p": 0.3344,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": -0.196,
+    "p": 0.1963,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": -0.212,
+    "p": 0.1618,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": -0.011,
+    "p": 0.9442,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": 0.074,
+    "p": 0.6291,
+    "n": 45
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": -0.118,
+    "p": 0.3767,
+    "n": 58
+   },
+   {
+    "drill": "Dagger (Deep In)",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.191,
+    "p": 0.1503,
+    "n": 58
+   },
+   {
+    "drill": "Go Route",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": 0.156,
+    "p": 0.5942,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": -0.051,
+    "p": 0.8637,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": 0.22,
+    "p": 0.4498,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.29,
+    "p": 0.3138,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": 0.31,
+    "p": 0.2814,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": 0.241,
+    "p": 0.4069,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": 0.099,
+    "p": 0.7363,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": 0.189,
+    "p": 0.5171,
+    "n": 14
+   },
+   {
+    "drill": "Go Route",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.24,
+    "p": 0.0864,
+    "n": 52
+   },
+   {
+    "drill": "Go Route",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.144,
+    "p": 0.3068,
+    "n": 52
+   },
+   {
+    "drill": "Post-Corner (double move)",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.104,
+    "p": 0.4692,
+    "n": 51
+   },
+   {
+    "drill": "Post-Corner (double move)",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.002,
+    "p": 0.9864,
+    "n": 51
+   },
+   {
+    "drill": "Slant",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": 0.163,
+    "p": 0.4681,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": -0.27,
+    "p": 0.2234,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": 0.092,
+    "p": 0.6837,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.378,
+    "p": 0.083,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": -0.076,
+    "p": 0.7384,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": 0.139,
+    "p": 0.5364,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": -0.173,
+    "p": 0.4404,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": 0.231,
+    "p": 0.3011,
+    "n": 22
+   },
+   {
+    "drill": "Slant",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.025,
+    "p": 0.8503,
+    "n": 58
+   },
+   {
+    "drill": "Slant",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.104,
+    "p": 0.4379,
+    "n": 58
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "break angle",
+    "outcome": "Avg separation",
+    "rho": -0.021,
+    "p": 0.8754,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "break angle",
+    "outcome": "Yards per route",
+    "rho": -0.123,
+    "p": 0.3623,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "burst out of break",
+    "outcome": "Avg separation",
+    "rho": 0.031,
+    "p": 0.819,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "burst out of break",
+    "outcome": "Yards per route",
+    "rho": 0.071,
+    "p": 0.5993,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "decel into break",
+    "outcome": "Avg separation",
+    "rho": -0.021,
+    "p": 0.8761,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "decel into break",
+    "outcome": "Yards per route",
+    "rho": 0.017,
+    "p": 0.9001,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "speed through break",
+    "outcome": "Avg separation",
+    "rho": -0.048,
+    "p": 0.7205,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "speed through break",
+    "outcome": "Yards per route",
+    "rho": 0.1,
+    "p": 0.4582,
+    "n": 57
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "top speed",
+    "outcome": "Avg separation",
+    "rho": 0.03,
+    "p": 0.8204,
+    "n": 58
+   },
+   {
+    "drill": "Speed Out",
+    "feature": "top speed",
+    "outcome": "Yards per route",
+    "rho": 0.049,
+    "p": 0.7152,
+    "n": 58
+   }
+  ]
+ },
+ {
+  "id": "value_model",
+  "title": "Expected vs actual: who beat his draft slot",
+  "section": "value",
+  "summary": "Ridge regression (5-fold CV) of two outcomes on draft slot alone, then adding Combine numbers, then adding tracking features. Opportunity (snaps per season) is well explained by the pick (CV R\u00b2 0.46\u20130.62); Combine numbers add between -0.20 and +0.14 R\u00b2, and tracking features add -0.05 to +0.06. The residual of the pick + Combine model is the player's 'value over draft slot': positive means more snaps or better production than a prospect with his pick and his numbers normally gets. The tables below list the largest residuals per group; the same number is shown on every player card.",
+  "method": "RidgeCV on standardized features, median-imputed; CV R\u00b2 = 1 \u2212 SSE/SST on out-of-fold predictions. Production targets use the same thresholds as the correlation table.",
+  "chart": {
+   "type": "table"
+  },
+  "table": [
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "features": "pick only",
+    "cv_r2": 0.457,
+    "n": 106
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.359,
+    "n": 106
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "features": "+ tracking features",
+    "cv_r2": 0.345,
+    "n": 106
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "features": "pick only",
+    "cv_r2": 0.116,
+    "n": 58
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.022,
+    "n": 58
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "features": "+ tracking features",
+    "cv_r2": 0.082,
+    "n": 58
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "features": "pick only",
+    "cv_r2": 0.458,
+    "n": 43
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.258,
+    "n": 43
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "features": "+ tracking features",
+    "cv_r2": 0.206,
+    "n": 43
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "features": "pick only",
+    "cv_r2": 0.617,
+    "n": 121
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.625,
+    "n": 121
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "features": "+ tracking features",
+    "cv_r2": 0.597,
+    "n": 121
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "features": "pick only",
+    "cv_r2": -0.056,
+    "n": 64
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "features": "+ Combine numbers",
+    "cv_r2": -0.034,
+    "n": 64
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "features": "+ tracking features",
+    "cv_r2": -0.043,
+    "n": 64
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "features": "pick only",
+    "cv_r2": 0.469,
+    "n": 118
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.431,
+    "n": 118
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "features": "+ tracking features",
+    "cv_r2": 0.417,
+    "n": 118
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "features": "pick only",
+    "cv_r2": 0.125,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.26,
+    "n": 69
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "features": "+ tracking features",
+    "cv_r2": 0.258,
+    "n": 69
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "features": "pick only",
+    "cv_r2": 0.505,
+    "n": 122
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.479,
+    "n": 122
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "features": "+ tracking features",
+    "cv_r2": 0.469,
+    "n": 122
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "features": "pick only",
+    "cv_r2": -0.013,
+    "n": 67
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "features": "+ Combine numbers",
+    "cv_r2": 0.065,
+    "n": 67
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "features": "+ tracking features",
+    "cv_r2": 0.05,
+    "n": 67
+   }
+  ]
+ },
+ {
+  "id": "value_lists",
+  "title": "Largest over- and under-performers vs expectation",
+  "section": "value",
+  "summary": "Top five and bottom five residuals per group for opportunity (snaps per season) and for production. Positive z = did more than the model expected from pick and Combine numbers. Early picks dominate the 'under' lists by construction: the model expects a lot of them.",
+  "method": "Residual z-score within group from the pick + Combine ridge model.",
+  "chart": {
+   "type": "table"
+  },
+  "table": [
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58311,
+    "player": "Craig Woodson",
+    "pos": "SS",
+    "class": 2025,
+    "pick": "R4 #106",
+    "label": "Snaps per season",
+    "actual": 949.0,
+    "expected": 297.3407,
+    "z": 2.92
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 56086,
+    "player": "Jaylon Jones",
+    "pos": "CB",
+    "class": 2023,
+    "pick": "R7 #221",
+    "label": "Snaps per season",
+    "actual": 713.0,
+    "expected": 164.8397,
+    "z": 2.46
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57199,
+    "player": "Calen Bullock",
+    "pos": "FS",
+    "class": 2024,
+    "pick": "R3 #78",
+    "label": "Snaps per season",
+    "actual": 984.5,
+    "expected": 475.8722,
+    "z": 2.28
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58298,
+    "player": "Jonas Sanker",
+    "pos": "SS",
+    "class": 2025,
+    "pick": "R3 #93",
+    "label": "Snaps per season",
+    "actual": 977.0,
+    "expected": 476.7872,
+    "z": 2.25
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58379,
+    "player": "Denzel Burke",
+    "pos": "CB",
+    "class": 2025,
+    "pick": "R5 #174",
+    "label": "Snaps per season",
+    "actual": 679.0,
+    "expected": 201.557,
+    "z": 2.15
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 55916,
+    "player": "Cam Smith",
+    "pos": "CB",
+    "class": 2023,
+    "pick": "R2 #51",
+    "label": "Snaps per season",
+    "actual": 51.0,
+    "expected": 633.068,
+    "z": -2.59
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57253,
+    "player": "Sione Vaki",
+    "pos": "RB",
+    "class": 2024,
+    "pick": "R4 #132",
+    "label": "Snaps per season",
+    "actual": 13.5,
+    "expected": 514.257,
+    "z": -2.23
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58232,
+    "player": "Maxwell Hairston",
+    "pos": "CB",
+    "class": 2025,
+    "pick": "R1 #30",
+    "label": "Snaps per season",
+    "actual": 348.0,
+    "expected": 784.7659,
+    "z": -1.94
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 55931,
+    "player": "Sydney Brown",
+    "pos": "SS",
+    "class": 2023,
+    "pick": "R3 #66",
+    "label": "Snaps per season",
+    "actual": 220.6667,
+    "expected": 631.4564,
+    "z": -1.83
+   },
+   {
+    "group": "DB",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 55909,
+    "player": "Julius Brents",
+    "pos": "CB",
+    "class": 2023,
+    "pick": "R2 #44",
+    "label": "Snaps per season",
+    "actual": 225.0,
+    "expected": 620.9173,
+    "z": -1.76
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57362,
+    "player": "James Williams",
+    "pos": "ILB",
+    "class": 2024,
+    "pick": "R7 #242",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 14.5946,
+    "expected": 7.1996,
+    "z": 4.53
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57272,
+    "player": "Jaylon Carlies",
+    "pos": "MLB",
+    "class": 2024,
+    "pick": "R5 #151",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 10.2128,
+    "expected": 6.1609,
+    "z": 2.48
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57478,
+    "player": "Christian Roland-Wallace",
+    "pos": "CB",
+    "class": 2024,
+    "pick": "UDFA",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 9.6419,
+    "expected": 6.2504,
+    "z": 2.07
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 56045,
+    "player": "Kei'Trel Clark",
+    "pos": "CB",
+    "class": 2023,
+    "pick": "R6 #180",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 7.2306,
+    "expected": 5.1054,
+    "z": 1.29
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57225,
+    "player": "Dadrion Taylor-Demerson",
+    "pos": "FS",
+    "class": 2024,
+    "pick": "R4 #104",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 7.8519,
+    "expected": 5.7417,
+    "z": 1.28
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 56117,
+    "player": "Alex Austin",
+    "pos": "CB",
+    "class": 2023,
+    "pick": "R7 #252",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 3.8664,
+    "expected": 6.32,
+    "z": -1.52
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 56543,
+    "player": "Kaevon Merriweather",
+    "pos": "SS",
+    "class": 2023,
+    "pick": "UDFA",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 4.5131,
+    "expected": 6.8636,
+    "z": -1.45
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58266,
+    "player": "Trey Amos",
+    "pos": "CB",
+    "class": 2025,
+    "pick": "R2 #61",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 3.9337,
+    "expected": 6.1848,
+    "z": -1.39
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58278,
+    "player": "Azareye'h Thomas",
+    "pos": "CB",
+    "class": 2025,
+    "pick": "R3 #73",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 3.9867,
+    "expected": 6.1565,
+    "z": -1.34
+   },
+   {
+    "group": "DB",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 57143,
+    "player": "Quinyon Mitchell",
+    "pos": "CB",
+    "class": 2024,
+    "pick": "R1 #22",
+    "label": "Solo tackles per 100 snaps",
+    "actual": 3.8627,
+    "expected": 5.9082,
+    "z": -1.27
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 55942,
+    "player": "Byron Young",
+    "pos": "OLB",
+    "class": 2023,
+    "pick": "R3 #77",
+    "label": "Snaps per season",
+    "actual": 888.6667,
+    "expected": 216.5205,
+    "z": 3.93
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 55919,
+    "player": "Tuli Tuipulotu",
+    "pos": "OLB",
+    "class": 2023,
+    "pick": "R2 #54",
+    "label": "Snaps per season",
+    "actual": 773.3333,
+    "expected": 281.7294,
+    "z": 2.87
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 55947,
+    "player": "YaYa Diaby",
+    "pos": "OLB",
+    "class": 2023,
+    "pick": "R3 #82",
+    "label": "Snaps per season",
+    "actual": 694.3333,
+    "expected": 289.281,
+    "z": 2.36
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 56078,
+    "player": "Dante Stills",
+    "pos": "DE",
+    "class": 2023,
+    "pick": "R6 #213",
+    "label": "Snaps per season",
+    "actual": 538.0,
+    "expected": 137.8291,
+    "z": 2.33
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58256,
+    "player": "Nic Scourton",
+    "pos": "OLB",
+    "class": 2025,
+    "pick": "R2 #51",
+    "label": "Snaps per season",
+    "actual": 717.0,
+    "expected": 330.3824,
+    "z": 2.26
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 55905,
+    "player": "Isaiah Foskey",
+    "pos": "DE",
+    "class": 2023,
+    "pick": "R2 #40",
+    "label": "Snaps per season",
+    "actual": 60.3333,
+    "expected": 445.0591,
+    "z": -2.26
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58277,
+    "player": "Landon Jackson",
+    "pos": "DE",
+    "class": 2025,
+    "pick": "R3 #72",
+    "label": "Snaps per season",
+    "actual": 30.0,
+    "expected": 376.4728,
+    "z": -2.04
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58326,
+    "player": "David Walker",
+    "pos": "OLB",
+    "class": 2025,
+    "pick": "R4 #121",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 250.6508,
+    "z": -1.47
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 55877,
+    "player": "Lukas Van Ness",
+    "pos": "DE",
+    "class": 2023,
+    "pick": "R1 #13",
+    "label": "Snaps per season",
+    "actual": 352.0,
+    "expected": 597.2151,
+    "z": -1.44
+   },
+   {
+    "group": "DL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57195,
+    "player": "Bralen Trice",
+    "pos": "OLB",
+    "class": 2024,
+    "pick": "R3 #74",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 239.0156,
+    "z": -1.41
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57334,
+    "player": "Cedric Johnson",
+    "pos": "DE",
+    "class": 2024,
+    "pick": "R6 #214",
+    "label": "Pressure rate",
+    "actual": 0.1296,
+    "expected": 0.0683,
+    "z": 2.73
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57289,
+    "player": "Javon Solomon",
+    "pos": "DE",
+    "class": 2024,
+    "pick": "R5 #168",
+    "label": "Pressure rate",
+    "actual": 0.1232,
+    "expected": 0.0757,
+    "z": 2.12
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 55918,
+    "player": "Gervon Dexter",
+    "pos": "DT",
+    "class": 2023,
+    "pick": "R2 #53",
+    "label": "Pressure rate",
+    "actual": 0.0999,
+    "expected": 0.0631,
+    "z": 1.63
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 55867,
+    "player": "Will Anderson",
+    "pos": "DE",
+    "class": 2023,
+    "pick": "R1 #3",
+    "label": "Pressure rate",
+    "actual": 0.1299,
+    "expected": 0.0966,
+    "z": 1.48
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57215,
+    "player": "Jalyx Hunt",
+    "pos": "OLB",
+    "class": 2024,
+    "pick": "R3 #94",
+    "label": "Pressure rate",
+    "actual": 0.1034,
+    "expected": 0.0713,
+    "z": 1.43
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58348,
+    "player": "Jordan Phillips",
+    "pos": "DT",
+    "class": 2025,
+    "pick": "R5 #143",
+    "label": "Pressure rate",
+    "actual": 0.0186,
+    "expected": 0.0657,
+    "z": -2.13
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 57148,
+    "player": "Darius Robinson",
+    "pos": "DT",
+    "class": 2024,
+    "pick": "R1 #27",
+    "label": "Pressure rate",
+    "actual": 0.024,
+    "expected": 0.0705,
+    "z": -2.11
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 56001,
+    "player": "Yasir Abdullah",
+    "pos": "OLB",
+    "class": 2023,
+    "pick": "R5 #136",
+    "label": "Pressure rate",
+    "actual": 0.0604,
+    "expected": 0.096,
+    "z": -1.62
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58282,
+    "player": "Princely Umanmielen",
+    "pos": "OLB",
+    "class": 2025,
+    "pick": "R3 #77",
+    "label": "Pressure rate",
+    "actual": 0.0503,
+    "expected": 0.0833,
+    "z": -1.5
+   },
+   {
+    "group": "DL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58257,
+    "player": "Oluwafemi Oladejo",
+    "pos": "OLB",
+    "class": 2025,
+    "pick": "R2 #52",
+    "label": "Pressure rate",
+    "actual": 0.0441,
+    "expected": 0.0756,
+    "z": -1.43
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57207,
+    "player": "Dominick Puni",
+    "pos": "G",
+    "class": 2024,
+    "pick": "R3 #86",
+    "label": "Snaps per season",
+    "actual": 1098.5,
+    "expected": 384.379,
+    "z": 2.93
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57240,
+    "player": "Mason McCormick",
+    "pos": "G",
+    "class": 2024,
+    "pick": "R4 #119",
+    "label": "Snaps per season",
+    "actual": 983.5,
+    "expected": 337.4973,
+    "z": 2.65
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57198,
+    "player": "Delmar Glaze",
+    "pos": "T",
+    "class": 2024,
+    "pick": "R3 #77",
+    "label": "Snaps per season",
+    "actual": 995.0,
+    "expected": 355.974,
+    "z": 2.62
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58262,
+    "player": "Tate Ratledge",
+    "pos": "G",
+    "class": 2025,
+    "pick": "R2 #57",
+    "label": "Snaps per season",
+    "actual": 1088.0,
+    "expected": 541.1036,
+    "z": 2.25
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57183,
+    "player": "Roger Rosengarten",
+    "pos": "T",
+    "class": 2024,
+    "pick": "R2 #62",
+    "label": "Snaps per season",
+    "actual": 973.5,
+    "expected": 429.0807,
+    "z": 2.24
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57126,
+    "player": "Joe Alt",
+    "pos": "T",
+    "class": 2024,
+    "pick": "R1 #5",
+    "label": "Snaps per season",
+    "actual": 661.0,
+    "expected": 1300.2848,
+    "z": -2.62
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57202,
+    "player": "Christian Haynes",
+    "pos": "G",
+    "class": 2024,
+    "pick": "R3 #81",
+    "label": "Snaps per season",
+    "actual": 99.5,
+    "expected": 653.2238,
+    "z": -2.27
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58898,
+    "player": "Clay Webb",
+    "pos": "G",
+    "class": 2025,
+    "pick": "UDFA",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 456.2721,
+    "z": -1.87
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58294,
+    "player": "Wyatt Milum",
+    "pos": "G",
+    "class": 2025,
+    "pick": "R3 #89",
+    "label": "Snaps per season",
+    "actual": 96.0,
+    "expected": 497.4786,
+    "z": -1.64
+   },
+   {
+    "group": "OL",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58206,
+    "player": "Will Campbell",
+    "pos": "T",
+    "class": 2025,
+    "pick": "R1 #4",
+    "label": "Snaps per season",
+    "actual": 782.0,
+    "expected": 1165.5075,
+    "z": -1.57
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57172,
+    "player": "Zach Frazier",
+    "pos": "C",
+    "class": 2024,
+    "pick": "R2 #51",
+    "label": "Pressure rate allowed",
+    "actual": 0.038,
+    "expected": 0.0871,
+    "z": 1.83
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 58262,
+    "player": "Tate Ratledge",
+    "pos": "G",
+    "class": 2025,
+    "pick": "R2 #57",
+    "label": "Pressure rate allowed",
+    "actual": 0.0486,
+    "expected": 0.0938,
+    "z": 1.69
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 56450,
+    "player": "T.J. Bass",
+    "pos": "G",
+    "class": 2023,
+    "pick": "UDFA",
+    "label": "Pressure rate allowed",
+    "actual": 0.0502,
+    "expected": 0.0933,
+    "z": 1.61
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 56066,
+    "player": "Jarrett Patterson",
+    "pos": "C",
+    "class": 2023,
+    "pick": "R6 #201",
+    "label": "Pressure rate allowed",
+    "actual": 0.0534,
+    "expected": 0.0884,
+    "z": 1.31
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 58286,
+    "player": "Dylan Fairchild",
+    "pos": "G",
+    "class": 2025,
+    "pick": "R3 #81",
+    "label": "Pressure rate allowed",
+    "actual": 0.0575,
+    "expected": 0.0913,
+    "z": 1.26
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58359,
+    "player": "Marcus Mbow",
+    "pos": "T",
+    "class": 2025,
+    "pick": "R5 #154",
+    "label": "Pressure rate allowed",
+    "actual": 0.1827,
+    "expected": 0.0871,
+    "z": -3.51
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 56572,
+    "player": "John Ojukwu",
+    "pos": "T",
+    "class": 2023,
+    "pick": "UDFA",
+    "label": "Pressure rate allowed",
+    "actual": 0.1476,
+    "expected": 0.0913,
+    "z": -2.06
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 55971,
+    "player": "Blake Freeland",
+    "pos": "T",
+    "class": 2023,
+    "pick": "R4 #106",
+    "label": "Pressure rate allowed",
+    "actual": 0.129,
+    "expected": 0.083,
+    "z": -1.68
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 57353,
+    "player": "Nathan Thomas",
+    "pos": "T",
+    "class": 2024,
+    "pick": "R7 #233",
+    "label": "Pressure rate allowed",
+    "actual": 0.1337,
+    "expected": 0.0891,
+    "z": -1.63
+   },
+   {
+    "group": "OL",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 57374,
+    "player": "K.T. Leveston",
+    "pos": "T",
+    "class": 2024,
+    "pick": "R7 #254",
+    "label": "Pressure rate allowed",
+    "actual": 0.1392,
+    "expected": 0.0983,
+    "z": -1.49
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57228,
+    "player": "Theo Johnson",
+    "pos": "TE",
+    "class": 2024,
+    "pick": "R4 #107",
+    "label": "Snaps per season",
+    "actual": 776.5,
+    "expected": 269.4314,
+    "z": 2.37
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 56062,
+    "player": "Elijah Higgins",
+    "pos": "TE",
+    "class": 2023,
+    "pick": "R6 #197",
+    "label": "Snaps per season",
+    "actual": 359.0,
+    "expected": -39.7605,
+    "z": 1.86
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 57242,
+    "player": "A.J. Barner",
+    "pos": "TE",
+    "class": 2024,
+    "pick": "R4 #121",
+    "label": "Snaps per season",
+    "actual": 663.5,
+    "expected": 294.1501,
+    "z": 1.73
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58370,
+    "player": "Oronde Gadsden",
+    "pos": "TE",
+    "class": 2025,
+    "pick": "R5 #165",
+    "label": "Snaps per season",
+    "actual": 627.0,
+    "expected": 263.4287,
+    "z": 1.7
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58272,
+    "player": "Harold Fannin",
+    "pos": "TE",
+    "class": 2025,
+    "pick": "R3 #67",
+    "label": "Snaps per season",
+    "actual": 786.0,
+    "expected": 434.7883,
+    "z": 1.64
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 56085,
+    "player": "Zack Kuntz",
+    "pos": "TE",
+    "class": 2023,
+    "pick": "R7 #220",
+    "label": "Snaps per season",
+    "actual": 1.0,
+    "expected": 305.0995,
+    "z": -1.41
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58515,
+    "player": "Jake Briningstool",
+    "pos": "TE",
+    "class": 2025,
+    "pick": "UDFA",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 259.0451,
+    "z": -1.2
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58407,
+    "player": "Gavin Bartholomew",
+    "pos": "TE",
+    "class": 2025,
+    "pick": "R6 #202",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 226.4966,
+    "z": -1.05
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 56363,
+    "player": "Leonard Taylor",
+    "pos": "TE",
+    "class": 2023,
+    "pick": "UDFA",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 219.9611,
+    "z": -1.02
+   },
+   {
+    "group": "TE",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57874,
+    "player": "Trey Knox",
+    "pos": "TE",
+    "class": 2024,
+    "pick": "UDFA",
+    "label": "Snaps per season",
+    "actual": 0.0,
+    "expected": 214.2444,
+    "z": -0.99
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 58341,
+    "player": "Elic Ayomanor",
+    "pos": "WR",
+    "class": 2025,
+    "pick": "R4 #136",
+    "label": "Snaps per season",
+    "actual": 787.0,
+    "expected": 237.6737,
+    "z": 2.63
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 56042,
+    "player": "Puka Nacua",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R5 #177",
+    "label": "Snaps per season",
+    "actual": 737.0,
+    "expected": 196.1838,
+    "z": 2.59
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 55965,
+    "player": "Tre Tucker",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R3 #100",
+    "label": "Snaps per season",
+    "actual": 753.3333,
+    "expected": 219.1251,
+    "z": 2.55
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 55959,
+    "player": "Michael Wilson",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R3 #94",
+    "label": "Snaps per season",
+    "actual": 818.0,
+    "expected": 293.4088,
+    "z": 2.51
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "over",
+    "nfl_id": 56052,
+    "player": "Kayshon Boutte",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R6 #187",
+    "label": "Snaps per season",
+    "actual": 494.6667,
+    "expected": 38.1327,
+    "z": 2.18
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58307,
+    "player": "Tai Felton",
+    "pos": "WR",
+    "class": 2025,
+    "pick": "R3 #102",
+    "label": "Snaps per season",
+    "actual": 46.0,
+    "expected": 420.8881,
+    "z": -1.82
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57201,
+    "player": "Jermaine Burton",
+    "pos": "WR",
+    "class": 2024,
+    "pick": "R3 #80",
+    "label": "Snaps per season",
+    "actual": 65.5,
+    "expected": 388.4941,
+    "z": -1.57
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 58338,
+    "player": "Jalen Royals",
+    "pos": "WR",
+    "class": 2025,
+    "pick": "R4 #133",
+    "label": "Snaps per season",
+    "actual": 86.0,
+    "expected": 404.4196,
+    "z": -1.55
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57231,
+    "player": "Javon Baker",
+    "pos": "WR",
+    "class": 2024,
+    "pick": "R4 #110",
+    "label": "Snaps per season",
+    "actual": 45.0,
+    "expected": 320.0463,
+    "z": -1.34
+   },
+   {
+    "group": "WR",
+    "target": "opportunity",
+    "kind": "under",
+    "nfl_id": 57158,
+    "player": "Ja'Lynn Polk",
+    "pos": "WR",
+    "class": 2024,
+    "pick": "R2 #37",
+    "label": "Snaps per season",
+    "actual": 218.0,
+    "expected": 476.5657,
+    "z": -1.26
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 56042,
+    "player": "Puka Nacua",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R5 #177",
+    "label": "Yards per route run",
+    "actual": 3.2564,
+    "expected": 1.2354,
+    "z": 3.45
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 58244,
+    "player": "Luther Burden",
+    "pos": "WR",
+    "class": 2025,
+    "pick": "R2 #39",
+    "label": "Yards per route run",
+    "actual": 2.7983,
+    "expected": 1.466,
+    "z": 2.25
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 55920,
+    "player": "Rashee Rice",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R2 #55",
+    "label": "Yards per route run",
+    "actual": 2.5417,
+    "expected": 1.3137,
+    "z": 2.07
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 57355,
+    "player": "Devaughn Vele",
+    "pos": "WR",
+    "class": 2024,
+    "pick": "R7 #235",
+    "label": "Yards per route run",
+    "actual": 1.5029,
+    "expected": 0.5513,
+    "z": 1.59
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "over",
+    "nfl_id": 55915,
+    "player": "Jayden Reed",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R2 #50",
+    "label": "Yards per route run",
+    "actual": 2.1847,
+    "expected": 1.3184,
+    "z": 1.45
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 57158,
+    "player": "Ja'Lynn Polk",
+    "pos": "WR",
+    "class": 2024,
+    "pick": "R2 #37",
+    "label": "Yards per route run",
+    "actual": 0.3671,
+    "expected": 1.3819,
+    "z": -1.82
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 58315,
+    "player": "Arian Smith",
+    "pos": "WR",
+    "class": 2025,
+    "pick": "R4 #110",
+    "label": "Yards per route run",
+    "actual": 0.2251,
+    "expected": 1.171,
+    "z": -1.7
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 56248,
+    "player": "Jason Brownlee",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "UDFA",
+    "label": "Yards per route run",
+    "actual": 0.2995,
+    "expected": 1.1832,
+    "z": -1.6
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 55938,
+    "player": "Jalin Hyatt",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R3 #73",
+    "label": "Yards per route run",
+    "actual": 0.6922,
+    "expected": 1.4426,
+    "z": -1.36
+   },
+   {
+    "group": "WR",
+    "target": "production",
+    "kind": "under",
+    "nfl_id": 55904,
+    "player": "Jonathan Mingo",
+    "pos": "WR",
+    "class": 2023,
+    "pick": "R2 #39",
+    "label": "Yards per route run",
+    "actual": 0.7531,
+    "expected": 1.4424,
+    "z": -1.26
+   }
+  ]
+ }
+]
