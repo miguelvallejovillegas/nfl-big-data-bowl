@@ -15,9 +15,9 @@ import polars as pl
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from bdb.clean import NFL_POS_TO_GROUP, clean_combine_tracking, regular_season_games  # noqa: E402
-from bdb.drills import DRILLS  # noqa: E402
-from bdb.kinematics import event_features, frame_kinematics  # noqa: E402
+from bdb27.clean import NFL_POS_TO_GROUP, clean_combine_tracking, regular_season_games  # noqa: E402
+from bdb27.drills import DRILLS  # noqa: E402
+from bdb27.kinematics import event_features, frame_kinematics  # noqa: E402
 
 PQ = ROOT / "data" / "parquet"
 EXT = ROOT / "data" / "external" / "nflverse"

@@ -9,7 +9,7 @@ Analysis for the [2027 Big Data Bowl](https://www.kaggle.com/competitions/nfl-bi
 ```
 etl/            01_to_parquet.py  (CSV → parquet, once)
                 02_build_tables.py (clean, kinematics, aggregates → data/processed)
-src/bdb/        clean.py (drill aliases, dropped events, REG filter)
+src/bdb27/        clean.py (drill aliases, dropped events, REG filter)
                 kinematics.py (Savitzky–Golay velocities, signed accel, break detection, splits)
                 drills.py (drill catalog with plain-language descriptions)
 notebooks/      numbered exploration notebooks

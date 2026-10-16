@@ -5,9 +5,9 @@ import numpy as np
 import polars as pl
 import pytest
 
-from bdb.clean import DRILL_ALIASES, clean_combine_tracking
-from bdb.drills import DRILL_BY_NAME
-from bdb.kinematics import detect_breaks, event_features
+from bdb27.clean import DRILL_ALIASES, clean_combine_tracking
+from bdb27.drills import DRILL_BY_NAME
+from bdb27.kinematics import detect_breaks, event_features
 
 ROOT = Path(__file__).resolve().parents[1]
 PQ = ROOT / "data" / "parquet"
