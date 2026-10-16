@@ -5,6 +5,8 @@ data/external/
 data/processed/*.parquet
 data/processed/*.csv
 !data/processed/.gitkeep
+!data/snapshot/
+!data/snapshot/processed.tar.zst
 
 # python
 .venv/

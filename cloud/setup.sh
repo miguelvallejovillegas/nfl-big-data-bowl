@@ -13,13 +13,25 @@ BASE="${DATA_SNAPSHOT_BASE:-https://houjxgqtzxfgccxspsje.supabase.co/storage/v1/
 mkdir -p data/raw data/processed data/external data/parquet
 
 if [ ! -f data/processed/combine_events.parquet ]; then
-  echo "== data snapshot from $BASE"
-  curl -fsSL "$BASE/processed.tar.zst" -o /tmp/processed.tar.zst
-  tar --use-compress-program=unzstd -xf /tmp/processed.tar.zst -C data
-  for f in players combine_results games player_career_successes combine_tracking player_play; do
-    curl -fsSL "$BASE/$f.csv.zst" | unzstd -q -o "data/raw/$f.csv" -f
-  done
-  echo "   processed tables + raw CSVs (no game tracking) restored"
+  if [ -f data/snapshot/processed.tar.zst ]; then
+    echo "== processed tables from the in-repo snapshot"
+    tar --use-compress-program=unzstd -xf data/snapshot/processed.tar.zst -C data
+  else
+    echo "== processed tables from $BASE"
+    curl -fsSL "$BASE/processed.tar.zst" -o /tmp/processed.tar.zst
+    tar --use-compress-program=unzstd -xf /tmp/processed.tar.zst -C data
+  fi
+fi
+# raw CSVs (competition data, not in git): only if the snapshot host is reachable
+if [ ! -f data/raw/player_play.csv ]; then
+  if curl -fsS --max-time 10 -o /dev/null "$BASE/games.csv.zst" 2>/dev/null; then
+    echo "== raw CSVs from $BASE"
+    for f in players combine_results games player_career_successes combine_tracking player_play; do
+      curl -fsSL "$BASE/$f.csv.zst" | unzstd -q -o "data/raw/$f.csv" -f
+    done
+  else
+    echo "   raw CSVs not reachable (network allowlist); processed tables are enough for most work"
+  fi
 fi
 
 if [ -n "${KAGGLE_API_TOKEN:-}${KAGGLE_KEY:-}" ] && [ ! -f data/raw/game_tracking_2025.csv ]; then
@@ -30,7 +42,7 @@ if [ -n "${KAGGLE_API_TOKEN:-}${KAGGLE_KEY:-}" ] && [ ! -f data/raw/game_trackin
   rm -rf /tmp/kaggle
 fi
 
-if [ ! -f data/parquet/combine_tracking.parquet ]; then
+if [ -f data/raw/player_play.csv ] && [ ! -f data/parquet/combine_tracking.parquet ]; then
   echo "== parquet (small files only unless game tracking is present)"
   uv run python - <<'PY'
 import polars as pl, pathlib
