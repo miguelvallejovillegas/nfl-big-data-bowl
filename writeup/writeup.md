@@ -1,78 +1,108 @@
-# Bend Shows Up on Sundays; Drill Burst Can't Be Measured Yet
+# Bend Is a Lead, Not a Grade: Run-the-Hoop "Hoop G" and NFL Pass-Rush Pressure
 
-A pass rusher who is a tenth of a second slow off the ball reaches the quarterback later, and NFL get-off goes with pressure even after size, speed and draft slot are accounted for (ρ = 0.36 [0.16, 0.55], n = 69). Teams therefore want the Combine to tell them who will get off and who will bend. We tracked both traits through the 10 Hz Combine drills for 118 defensive linemen from the 2023–2025 classes. **Bend reappears:** Run-the-Hoop "Hoop G" goes with NFL pressure beyond a no-tracking baseline (partial ρ = 0.32 [0.06, 0.57], n = 63) and improves rank forecasts for held-out classes. **Burst does not, but this sample cannot settle it.** With two noisy reps, the pass-rush drill's first second could only reveal a true link of 0.78 or more, so its null tells you about the drill, not the player.
+Defensive linemen who turn tighter at speed in the Combine's Run-the-Hoop drill earned more NFL pressure than their size, athletic score, alignment and draft slot predicted (63 linemen, 2023–2025 classes). Once we correct for having tried 14 drill-and-outcome pairs, the edge is under one extra pressure a season, and chance can still explain it. Use it to break ties. The pass-rush drill's burst cannot be judged from two noisy reps.
 
-![Figure 1. The three highest and three lowest Hoop G values among DL with 250+ NFL rushes, chosen by rule. Every card shows one hoop run, the 0.5 s turning window and the player's Combine numbers.](figures/fig1_hero_cards.png)
+**Why this matters.** Pressure is the most valuable thing a defensive lineman produces, and the Combine's tracked DL drills are almost unused. The 3-cone is already priced into the draft, but Hoop G is not (ρ = 0.02 with draft slot). Tracked drills are new, so the 2026 and 2027 classes give a clean test, and we pre-register one below.
 
-## The two traits and how we measure them
+![Figure 1. Takeaway: on Sundays, high-bend and low-bend rushers look alike. High-bend pressure rates run 7.7–11.8%, low-bend 2.4–7.7%, and the game paths share one shape. The six players are the three highest and three lowest Hoop G among DL with 250+ NFL rushes, chosen by rule. Each card ends with a scout's call.](figures/fig1_drill_vs_game.png)
 
-**Bend: Hoop G.** In Run-the-Hoop, the player sprints a figure-eight around two hoops on the ground. Turning at speed *v* on a radius *r* takes a sideways (centripetal) force of *v²/r*. Hoop G is the largest sideways acceleration a player holds for half a second, in g. Tight and fast scores high; wide or slow scores low. The 119 runs have a median of 0.62 g (10th–90th percentile 0.57–0.68).
+## What we measure, in football terms
 
-**Burst: first-second distance.** This is how many yards a player covers in the first second after he starts moving. In the pass-rush drill the clock starts at his first movement, so reaction time is excluded. On NFL snaps it starts at the snap.
+**Hoop G is the hardest sideways push a rusher holds for half a second while rounding the hoops, in g.** It is the drill version of turning the corner: dipping under a tackle's hands without drifting wide or slowing down. A typical run peaks at 0.62 g, about 3.5 yd/s on a 1.8-yard radius. **NFL Arc G** applies the same formula to a player's 20 random sampled NFL pass rushes, from the snap to the throw or sack. It needs no ball or opponents.
 
-**NFL get-off** is the Next Gen Stats time from the snap until the rusher gets going, recorded on every pass rush. It is the full-season version of our burst measure: on the 3,539 sampled DL rushes where we have both, the tracked first-second distance correlates −0.80 with NGS get-off on the same snap (Figure 2, right).
+## Data and baseline
 
-**NFL pressure** comes from the league's play-level charting, which flags whether a rusher pressured the passer and how quickly. We cannot rebuild it from the tracking sample, which has no ball and no opponents. Pressure rate is pressures per pass-rush snap, filtered to regular-season games. It is shrunk toward one pooled DL mean (8.1%, prior weight 117 rushes). We deliberately do not use separate EDGE and interior priors, because those would build alignment into the outcome.
+The cohort is the 69 DL with 100+ regular-season pass rushes (36 EDGE, 33 interior, median 297 rushes); 63 of them ran the hoop. Pressure comes from play-level charting, shrunk toward the DL mean (8.1%). Drill numbers are standardized within Combine year. **Exclusions:** 46 of 109 hoop runners have fewer than 100 rushes (injury, depth, or rookies without snaps). Hoop G is unrelated to playing time (ρ = 0.05 with rushes per season), so the cut does not select on bend.
 
-All drill numbers are standardized within Combine year. The main cohort is the 69 DL with 100+ NFL rushes (36 EDGE, 33 interior, median 297 rushes).
+**Baseline without tracking:** log draft pick, weight, NGS athleticism score and NFL EDGE share. All four are recorded for every player, so nothing is imputed. Every "out-of-class" number is fit on two Combine classes and predicts the third.
 
-## Why round 1's burst null was uninformative, and what fixes it
+## Finding 1: the stopwatch carries most of the signal
 
-![Figure 2. Left: reliability of each measure. Open dot = one rep, half a hoop run or one season; filled = what a player actually has. Right: per-snap tracked first-second distance against NGS get-off on DL pass rushes.](figures/fig2_measurement.png)
+![Figure 2. Each Combine number against three NFL outcomes. Purple arrows show what is left of a tracking metric after the no-tracking baseline. Hoop G keeps a pressure link but loses most of its link to game bend once size and alignment are removed.](figures/fig2_signal_map.png)
 
-Round 1 measured NFL burst from about six tracked snaps per player, and a single tracked snap is mostly noise (reliability 0.18 for first-second distance), so a null there meant little. NGS get-off removes that limit. It covers every rush, it repeats season to season at 0.84 (40 player pairs), and it reaches 0.91 over a typical career here. Pressure rate repeats at 0.64. **The outcomes are measurable. The drills are the weak side.** One pass-rush-drill rep has reliability 0.13 (101 players with two reps), and the 1.9 reps a player has give 0.22. It would take 16 reps to reach the 0.7 needed to rank players. Hoop G is better: 0.41 from a single run, and 4 runs would reach 0.7.
+The 3-cone (ρ = 0.63, n = 27), 40 and weight track pressure, as teams know. Only Hoop G, among tracking metrics, clears the too-small-to-detect band, and only for pressure. Hoop G and NFL Arc G correlate at 0.37, but that falls to 0.10 once weight and EDGE share are removed: bend in the drill is not "turns tighter on Sundays." Hoop G's pressure link is unchanged with Arc G in the baseline (0.30). Balance through contact, which this tracking cannot see, is a plausible carrier.
 
-## Finding 1: the stopwatch already carries most of the DL signal
+## Finding 2: bend adds to pressure, and honest checks shrink it
 
-![Figure 3. Each Combine number against NFL get-off and pressure among DL with 100+ rushes. Grey = the band an effect must clear to be detected at that n (80% power). Diamonds = tracking metrics after the baseline.](figures/fig3_signal_map.png)
+![Figure 3. Top left: pressure above the baseline's expectation against Hoop G; rings mark rushers without an official 40. Top right: the effect and held-out R² gain under every baseline. Bottom: chance's best of 14 drill-and-outcome pairs.](figures/fig3_hoop_pressure.png)
 
-The known signal holds. For pressure, the 3-cone gives ρ = 0.63 (n = 27), the shuttle 0.51 (n = 26), the 40 0.50 and the 10-yard split 0.47 (n = 54). For get-off it is mostly a size story: lighter players get off faster (ρ = 0.69). The tracked 40 top speed is as strong as the official 40, but adds nothing beyond it (out-of-class ΔR² −0.092, n = 53). Teams have the stopwatch already, so the question is what tracking adds on top of it.
-
-**Baseline without tracking:** Combine weight and the 10-yard split and 3-cone (all year-standardized), the NGS athleticism score, log draft pick and NFL EDGE share. Missing times (3-cone missing for 42 of 69) are imputed from weight and EDGE share inside each training fold, never from the outcome. Validation is leave-one-class-out: fit on two classes, predict the third.
-
-## Finding 2: bend adds to pressure; drill burst adds nothing detectable
-
-![Figure 4. Left: pressure rate above the baseline's expectation against Hoop G (line = fit, band = 95% bootstrap). Right: rank correlation of held-out forecasts with actual pressure, by held-out class.](figures/fig4_hoop_pressure.png)
-
-| Test (cohort, 100+ rushes) | Partial ρ after baseline [95% CI] | Smallest detectable, observed / true | Out-of-class ΔR² [95% CI], permutation p | Verdict |
+| Test | n | Effect after baseline [95% CI] | Out-of-class R² gain | Verdict |
 |---|---|---|---|---|
-| Hoop G → pressure (n = 63) | 0.32 [0.06, 0.57] | 0.36 / 0.64 | +0.073 [−0.086, 0.214], p = 0.022 | lead |
-| Drill first second → NGS get-off (n = 68) | −0.11 [−0.33, 0.13] | 0.35 / 0.78 | −0.006 [−0.040, 0.026], p = 0.405 | cannot detect |
-| Drill first second → pressure (n = 68) | −0.05 [−0.33, 0.19] | 0.35 / 0.84 | not run | cannot detect |
-| Hoop G → NGS get-off (n = 63) | 0.10 [−0.20, 0.38] | 0.36 / 0.59 | not run | weight explains it |
+| Hoop G → pressure | 63 | 0.32 [0.06, 0.54] | +0.103 | lead |
+| Same, only the 49 who ran the 40 (+ official 10-yd) | 49 | 0.18 [−0.14, 0.45] | −0.002 | no forecast gain |
+| Best of 14, re-chosen inside each fold | 63 | shrunk: 0.09 | +0.024 (p = 0.091) | not significant |
+| Hoop G → NFL Arc G | 79 | 0.10 [−0.11, 0.32] | — | not through game bend |
+| Drill first second → NGS get-off | 68 | −0.10 [−0.31, 0.13] | — | cannot detect |
 
-*"True" is the smallest real effect we could detect after measurement noise on both sides attenuates it.*
+**Bend.** One sd of Hoop G goes with +0.69 pressure points beyond the baseline, about 3.1 extra pressures in a 450-rush season. The baseline's held-out R² rises from 0.085 to 0.188 on the same 63 rows. The gain is positive in all three held-out classes, and still positive in 3 of 3 when we train on one class and predict the other two.
 
-**Bend.** One sd of Hoop G is worth +0.64 pressure-rate points (95% CI 0.17 to 1.12) beyond the baseline, or about 2.9 extra pressures over a 450-rush season. The effect is the same for EDGE and interior players (0.33 each, n = 33 and 30). It holds at a 50-rush cut (0.26, n = 75) and a 200-rush cut (0.33, n = 47). It also holds without EDGE share in the baseline (partial 0.31; out-of-class ΔR² +0.103). Out of class, R² rises from 0.07 to 0.14 and improves in all three held-out classes. Rank correlation improves in two of three: 2023 0.35 → 0.53, 2024 0.63 → 0.61, 2025 0.35 → 0.44. Across the four tests in the table, Holm-adjusted p = 0.063. Hoop G is unrelated to draft slot (ρ = 0.01, n = 109), so the draft has not priced it in. Lighter players bend better (ρ = −0.44 with weight), which is why weight is in the baseline.
+**Selection, the headline check.** Hoop G was the best of seven drill metrics screened against pressure and get-off: 14 tests. Shuffling outcomes within class 10,000 times, chance produced a best-of-14 lead this large 12.1% of the time (**p = 0.121**). Re-choosing the pair on two classes and testing on the third, Hoop G-on-pressure wins 2 of 3 folds and the held-out gain shrinks to +0.024. Shrinking all 14 estimates toward their mean takes Hoop G from 0.32 to 0.09, or about 0.8 extra pressures a season.
 
-**Burst.** Drill first-second distance does not move NGS get-off or pressure beyond the baseline. We cannot rule out a real link. The equivalence test against |ρ| < 0.30 only reaches p = 0.060, and any real effect below about 0.78 would be invisible with drill reliability at 0.22. The verdict is conditional: *with two reps, the drill cannot detect a link.* One exploratory lead turned up after looking, so treat it as a hypothesis. The drill's first second does track the **tracked** first second on 20 random NFL snaps (partial ρ = 0.33 [0.09, 0.54], n = 68). The link is concentrated in EDGE players (0.42, n = 42; interior 0.03, n = 43). NGS get-off weights the snap reaction, which the drill excludes. So the drill may capture post-start acceleration rather than get-off.
+**Imputation, the share that survives.** 14 of the 63 rushers have no official 40 or 10-yard split (10 EDGE, 9 from 2025). They carry much of the link: ρ = 0.51 inside that group versus 0.14 among the 49 who ran. On those 49, adding the official 10-yard split leaves Hoop G at 0.18, about 56% of the full-sample effect. The forecast gain is gone: held-out R² is 0.102 for the baseline alone and 0.101 with Hoop G on identical rows. Filling the splits by multiple imputation instead gives 0.32 and +0.084. **So the in-sample link half survives, and the forecast gain survives only where the 40 is missing.** A hypothesis to test: the hoop matters most for rushers who skip the 40.
 
-**Opportunity and injury.** Pressure rate is only defined for players who get on the field. Hoop G does not predict NFL rush snaps per season (ρ = 0.05, n = 109) or games per season (0.04), while draft pick does (0.71). Among hoop runners, 57% of above-average benders and 58% of below-average benders reached 100 rushes. The data have no injury list, so games missed for injury and games missed for being benched look the same. Neither is related to bend.
+## Rush type and down
 
-## A 2025 draft-room card, built blind
+The effect is not just wide-9 arc: 0.30 for EDGE players, 0.37 for interior players. On the 1260 random sampled snaps of the hoop runners, the odds of pressure per sd of Hoop G are ×1.03 [0.76, 1.46] when he aligns on the edge and ×1.16 [0.85, 1.50] inside, ×1.14 on true passing downs (2nd and 8+, 3rd or 4th and 5+) and ×1.05 on other downs. Every interval includes no effect, and only 37% of the sampled pressures came on passing downs, so the snaps cannot say where the edge lives.
 
-![Figure 5. The 2025 DL class, forecast only from 2023–24 data. Open = baseline forecast; green = with Hoop G (80% band from held-out residuals); red × = actual rookie pressure rate. ▲/▼ = Hoop G moves him 3+ spots.](figures/fig5_draft_card_2025.png)
+## How sure is the drill?
 
-This is the card a team would have had in April 2025. Adding Hoop G lifts the forecast-to-actual rank correlation from 0.35 to 0.44 (n = 20). It moves 12 rushers by three or more spots, and 7 of them move toward where they finished. Warren Brinson (pick 198) and Zeek Biggers (pick 253) are bend-up late picks. Ashton Gillotte, Oluwafemi Oladejo and Jordan Phillips are bend-down, and all three finished below their baseline forecast. Levels run high, because rookies pressure less than the 2023–24 average (forecast mean 7.6% vs actual 6.7%), so **use the card for order, not for levels**. Fold R² for 2025 is negative for both models (baseline −1.18) for the same reason.
-
-Named examples from the full cohort (Figure 1): Chop Robinson (pick 21, 0.72 g) is the first-round case where bend and pick agreed, at 11.8% pressure. Tuli Tuipulotu (pick 54, 0.67 g) sustained 9.8% over 1,486 rushes. Darius Robinson (pick 27, 0.55 g) is the low-bend first-rounder, at 2.4%. Javon Solomon (pick 168) has the largest gain over his baseline expectation in Figure 4.
+A single hoop run has reliability 0.41 [0.14, 0.60]; the 10 players who ran twice give 0.37. Corrected for that noise, the true-score effect is 0.57 [0.15, 1.00]: compatible with a modest trait or a strong one. For a ranking, the shrunk 2025 board agrees with plausible true orders at ρ = 0.65 [0.31, 0.82], and its top five stay in the true top five 46% of the time.
 
 ## What a team can use
 
-1. **Run the hoop, then shrink it.** Read one Hoop G run as reliability 0.41, so a +2 sd run counts as about +0.8 sd of true bend. Use it as a tiebreaker among rushers with similar size and times, for EDGE and interior alike. About 4 timed runs per prospect would make it a ranking number.
-2. **Do not read get-off off the Combine pass-rush drill.** It needs 16 reps to reach usable reliability. For college players, use the stopwatch (10-yard split, 3-cone) and film. For NFL players, NGS get-off is reliable after one season.
-3. **What would change my mind.** Hoop G has been tested only on these three classes. If the 2026 class (about 20 rushers with 100+ snaps) shows a partial ρ of −0.18 or lower, the pooled interval includes zero and Hoop G should come off the board.
+![Figure 4. The 2025 rookies with 100+ rushes. Left: shrunk Hoop G. Right: the no-tracking forecast (fit on 2023–24 only, open) against the actual rate (filled); the green tick adds Hoop G. Honest null: bend moves 11 of 20 forecasts closer (p = 0.41).](figures/fig4_rookies_2025.png)
+
+1. **Ask for 3–4 hoop runs.** One run is mostly noise; three runs reach reliability 0.68 and four 0.74, enough to rank.
+2. **Shrink one run before using it, and re-test outliers.** Ethan Downs (undrafted, 269 lb) ran 0.70 g, z = +2.3, the best in his class. Shrunk, that is 0.41 × 2.3 = +0.94 [0.31, 1.57]. With 7 NFL rushes, he is a free look: get a second run before moving him up.
+3. **Use it as a tiebreaker, and send disagreements to film.** Rookie pressure contradicted a clear drill score for 5 players (Figure 4), most clearly Donovan Ezeiruaku: a top-three hoop, 7.7% pressure against a 9.5% forecast. Jordan Phillips (312 lb) ran last, at −0.80, and produced 1.9% against 6.8%. He fits a gap-control role, not a pass-rush bet.
+
+**2025 board, top 8 and bottom 4 of 42** (full board in `board_2025.csv`; 80% intervals):
+
+| # | Player | Role | Wt | Pick | Runs | Shrunk Hoop G z | Rookie pressure (rushes) |
+|---|---|---|---|---|---|---|---|
+| 1 | Ethan Downs | EDGE | 269 | UDFA | 1 | +0.94 [+0.31, +1.57] | 7 rushes |
+| 2 | Warren Brinson | Interior | 315 | 198 | 2 | +0.77 [+0.14, +1.41] | 6.9% on 173 |
+| 3 | Donovan Ezeiruaku | EDGE | 248 | 44 | 1 | +0.77 [+0.14, +1.40] | 7.7% on 402 |
+| 4 | Jah Joyner | EDGE | 262 | UDFA | 1 | +0.60 [−0.03, +1.23] | no NFL rushes |
+| 5 | Tyrion Ingram-Dawkins | EDGE | 276 | 139 | 2 | +0.58 [−0.06, +1.21] | 5.3% on 113 |
+| 6 | Jack Sawyer | EDGE | 260 | 123 | 1 | +0.56 [−0.07, +1.19] | 9.7% on 176 |
+| 7 | Kyle Kennard | EDGE | 254 | 125 | 1 | +0.51 [−0.12, +1.14] | 50 rushes |
+| 8 | Jordan Burch | EDGE | 279 | 78 | 1 | +0.49 [−0.14, +1.12] | 5.8% on 344 |
+| 39 | Ashton Gillotte | EDGE | 264 | 66 | 2 | −0.55 [−1.18, +0.08] | 6.4% on 342 |
+| 40 | Tyler Baron | EDGE | 258 | 176 | 1 | −0.62 [−1.26, +0.01] | 68 rushes |
+| 41 | Yahya Black | Interior | 336 | 164 | 1 | −0.75 [−1.38, −0.12] | 5.8% on 189 |
+| 42 | Jordan Phillips | Interior | 312 | 143 | 1 | −0.80 [−1.43, −0.17] | 1.9% on 215 |
+
+## Why drill burst is hard to measure
+
+NGS get-off is a sound outcome (ρ = −0.80 with tracked first-second distance per snap). The drill is the weak side: a player's 1.9 pass-rush reps have reliability 0.22, and ranking would take about 16 reps.
+
+## Pre-registered test
+
+**Among 2026- and 2027-class DL with 100+ rushes by the end of the 2027 season (about 40 players), Hoop G's effect on shrunk pressure rate after the four-covariate baseline is above zero (one-sided α = 0.05).** No other metric, outcome or cohort rule will be tested. An estimate at or below zero takes Hoop G off the board.
 
 ## Limitations
 
-- **Not an independent replication.** Hoop G was the strongest of six drill metrics screened in round 1 on these same players. The stricter outcome and the added sensitivity checks do not remove that selection. The permutation p (0.022) does not correct for it, and the Holm p (0.063) does not clear 0.05. The 2026 class is the real test.
-- **Small n.** 63 players, about 20 per held-out class. The out-of-class ΔR² interval includes zero.
-- **Thin drill data.** Only 10 players ran the hoop twice, so its reliability comes from split halves of single runs. The 3-cone exists for 27 of the 69 cohort players, so most baseline 3-cones are imputed.
-- **No ball or opponents in the tracking.** Pressure comes from league charting and mixes in scheme, stunts and blocker quality. The burst lead uses 20 random snaps per player and was found after looking.
-- **Short careers.** The 2025 class has one season, which is why its level forecasts are off.
+- **Selection.** The best-of-14 p (0.121) does not clear 0.05, and the nested re-selection does not either. This is a lead.
+- **Missing 40s.** The forecast gain comes from 14 players without an official 40; those who skip it are not a random group.
+- **Small n.** About 20 players per held-out class; every out-of-class interval includes zero. Only 10 players ran the hoop twice.
+- **Game tracking is a sample.** Arc G and the snap splits use 20 random rushes per player, with no blockers, ball or opponents. Scheme and quarterback timing are not in the data.
+- **Short careers.** The 2025 class has one season: its board is for order, not levels.
 
-## Appendix: methods
+## Appendix: statistics
 
-Positions are Savitzky–Golay smoothed (window 7, order 2). Sideways acceleration is |v × a|/|v|, averaged over a rolling 0.5 s, and Hoop G is its maximum. Movement onset is the first frame at or above 1.0 yd/s, backed up by up to 0.3 s while speed is at least 0.5 yd/s. Reps already moving at clip start are dropped. Partial ρ is Spearman computed on baseline-residualized ranks, with 2,000 player bootstraps. Smallest detectable effects use Fisher z at 80% power and two-sided α = 0.05, with six covariates. True-scale values divide by √(drill reliability × outcome reliability). Out-of-class models are OLS with imputation fit on the training classes only. The permutation test uses 1,000 within-class shuffles. The 2026 rule pools Fisher z with weights n − 9.
+| Check (Hoop G → pressure unless noted) | n | Estimate [95% CI] | Out-of-class R² gain [95% CI] |
+|---|---|---|---|
+| Main baseline | 63 | 0.32 [0.06, 0.54] | +0.103 [−0.161, 0.357] |
+| No athletic score (pick, weight, EDGE share) | 63 | 0.38 [0.15, 0.57] | +0.107 [−0.183, 0.369] |
+| + 10-yd split, multiple imputation (20 draws) | 63 | 0.32 [0.03, 0.55] | +0.084 [−0.209, 0.318] |
+| Ran the 40: main / + official 40 | 49 | 0.19 / 0.15 | 0.002 / −0.067 |
+| Mixed model, class intercept (pp per sd) | 63 | 0.66 [0.22, 1.10] | — |
+| Train on one class, predict two | 42 per split | — | +0.141 (range 0.078 to 0.206) |
+| Hoop G alone / best of 7 for pressure | 63 | p = 0.009 / 0.070 | — |
+| True-score effect, 10 repeat runners | 63 | 0.61 [0.15, 1.00] | — |
+| NFL Arc G reliability; within-player pressure odds per sd | 86 | 0.70; ×1.90 [1.65, 2.20] | — |
 
-*Reproducible: `uv run python writeup/candidates/round_02/cand_1/analysis.py` writes every number to `numbers.json` and draws every figure.*
+Methods: Savitzky–Golay smoothing (window 7, order 2); sideways acceleration |v × a|/|v| averaged over 0.5 s, identical for drill and NFL snaps. Effects are Spearman partial correlations of baseline-residualized ranks (2000 player bootstraps); out-of-class intervals refit the whole loop. Imputation draws parameters and residuals from weight, EDGE share, NGS score and Hoop G, never the outcome. Snap odds: logit with the player's baseline expectation and play length, whole-player bootstrap.
+
+*Reproducible: `uv run python writeup/candidates/round_03/revised/analysis.py` writes every number to `numbers.json` and draws every figure.*

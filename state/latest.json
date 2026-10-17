@@ -1,137 +1,142 @@
 {
-  "round": 2,
+  "round": 3,
   "candidates": [
     {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_02/cand_1",
-      "angle": "DL Hoop G (bend) vs NFL pressure rate; drill as measurement problem; blind 2025 draft card",
-      "score": 7.51,
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_1",
+      "angle": "DL Hoop G (sideways g) vs NFL pressure rate; Arc G translation chain; 2025 board",
+      "score": 7.76,
       "per_judge": {
-        "football": 7.2,
+        "football": 7.4,
+        "datascience": 8.2,
+        "writeup": 7.4,
+        "viz": 8.0
+      },
+      "fatal_flaws": []
+    },
+    {
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_3",
+      "angle": "DL Launch translation (drill to NFL launch) and gap vs pressure",
+      "score": 7.45,
+      "per_judge": {
+        "football": 7.0,
         "datascience": 7.9,
         "writeup": 7.0,
         "viz": 7.9
       },
-      "fatal_flaws": [
-        "No fatal flaws. Fig 3 title says only bend survives baseline but its get-off panel shows Hoop G after-baseline diamond (~0.10) inside the undetectable band.",
-        "Fig 1 title ('out-rushed') draws causal-sounding conclusion from six rule-chosen extremes; Adebawore contradicts it.",
-        "Fig 5 legend covers data points."
-      ]
+      "fatal_flaws": []
     },
     {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_02/cand_3",
-      "angle": "WR Speed Realization: does he play to his 40 (drill top speed vs route top speed, ball-contamination trap)",
-      "score": 7.36,
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_2",
+      "angle": "WR/TE Break Redirect Rate, man vs zone, drill-to-game translation",
+      "score": 7.44,
       "per_judge": {
-        "football": 6.9,
-        "datascience": 7.7,
-        "writeup": 7.3,
-        "viz": 7.6
+        "football": 6.6,
+        "datascience": 8.0,
+        "writeup": 7.4,
+        "viz": 7.9
       },
       "fatal_flaws": [
-        "Headline production link (rho 0.40) shown ball-contaminated; clean estimate 0.22 underpowered and zero out of class",
-        "Tracked top speed adds nothing over official 40",
-        "Named players only in 2025 blind test and Fig 1; no man/zone or slot-vs-wide split",
-        "TE (n=20) and DB unusable; DL pressure trap claim weak (0.23 [-0.01, 0.45])",
-        "Fig 1 title says 62 WRs vs n=63; Fig 2 title overclaims; ~2,010 words may exceed cap"
-      ]
-    },
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_02/cand_2",
-      "angle": "WR Break Redirect Rate: Combine route drills vs NFL man/zone separation over expected",
-      "score": 7.34,
-      "per_judge": {
-        "football": 6.7,
-        "datascience": 7.7,
-        "writeup": 7.3,
-        "viz": 7.8
-      },
-      "fatal_flaws": [
-        "No fatal flaw; risks: Fig 2 headline 'positive in 5 of 5 families' when every man CI includes 0; Fig 1 single-rep cards imply certainty",
-        "Lead is best of 18 contrasts (snap rho 0.09, within-player 0.03), no out-of-sample test",
-        "Fig 4 descriptive, no uncertainty"
+        "Headline effect does not replicate under the blind re-screen (held-out 0.02, p = 0.333), and BRR has zero split-half validity against man.",
+        "Combine-to-game link is null, and power for a true 0.3 is only 25%."
       ]
     }
   ],
   "winner": {
-    "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_02/cand_1",
-    "score": 7.51
+    "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/revised",
+    "score": 7.86,
+    "verdicts_summary": {
+      "judge-football": 7.5,
+      "judge-datascience": 8.3,
+      "judge-writeup": 7.4,
+      "judge-viz": 8.2
+    }
   },
   "winner_feedback": {
     "judge-football": {
-      "score": 7.2,
+      "score": 7.5,
       "subscores": {
-        "usable": 7,
-        "football_difficulty": 7.8,
-        "unique": 7.2,
-        "terminology": 6.8
+        "usable": 7.7,
+        "confounders": 8.3,
+        "unique": 7.4,
+        "terminology": 7.6
       },
-      "justification": "Usable (7.0): clear tiebreaker rule (shrink a Hoop G run to about 0.4 reliability), blind 2025 draft card with named players, falsifiable 2026 kill rule. Lead is thin (partial rho 0.32, n=63, out-of-class dR2 interval includes zero, Holm p=0.063); card fold R2 is -1.18, order only; not a full ranked board. Difficulty (7.8): covers reliability both sides, MDE and TOST, snap opportunity and games played, no injury data, year-standardization, pooled-mean prior for pressure, EDGE vs interior, weight confounding. Gaps: scheme, stunts, blocker quality; pressure from charting; 42 of 69 cohort 3-cones imputed; selection from six metrics acknowledged not fixed. Unique (7.2): drill-as-measurement-problem reframe, Hoop G centripetal turning metric, blind-class draft card; burst-to-NFL idea ends in a null attributed to drill noise. Terminology (6.8): football language mostly correct; Hoop G in g unfamiliar to scouts; some players named without snap context; 'not priced in by draft' rests on rho=0.01.",
       "top_changes": [
-        "Add a full 2027 draft-room board: rank every current-class DL with a hoop run by shrunk Hoop G, with intervals, weight, EDGE/interior labels and film-vs-drill disagreement flags; show shrinkage arithmetic for 2-3 named prospects.",
-        "Deal with selection and the soft baseline: pre-register the 2026 test as one hypothesis; show result with imputed 3-cone/10-yd split players dropped; report a shrunk effect corrected for best-of-six selection.",
-        "Cut number of tests and add football mechanism: drop/shorten exploratory EDGE-only burst lead, Finding 1 correlation list and opportunity paragraph; explain Hoop G in football terms (turning the corner at speed) with stance, alignment, scheme caveats."
+        "Resolve the 'does it matter' question for a GM: show what the 14 no-40 players tell us, state the Hoop G-helps-mainly-for-players-who-skip-the-40 claim as one pre-registered subgroup hypothesis, and state the pick-slot cost of under one pressure a season.",
+        "Publish the full 42-player 2025 board plus 2023-24 players with intervals, weight, EDGE/interior and a film-vs-drill flag, with a three-line decision rule per row.",
+        "Tie Hoop G to technique and scheme (dip, rip, bend); add film-level snap overlays for Ezeiruaku and Phillips; add pressure by alignment/blocker type and a games-played/injury caveat for the 100+ rush cut."
       ],
-      "fatal_flaws": []
+      "justification": "Usable 7.7: concrete advice (3-4 hoop runs, shrink one run, Hoop G only as tiebreaker), 42-player 2025 board, pre-registered 2026/27 test; effect under one pressure a season and forecast gain vanishes among players who ran the 40. Confounders 8.3: draft slot, weight, alignment, sample size, best-of-14 permutation (p=0.121), nested re-selection, imputation, single-rep reliability 0.41, EDGE vs interior; injuries only touched. Unique 7.4: same formula on drill and game; honest that bend does not translate (0.10); still a null-leaning Combine-to-production link. Terminology 7.6: mostly correct, Hoop G has coach-level definition; some stats shorthand; 'sideways g' not tied to dip-and-rip/ghost rush."
     },
     "judge-datascience": {
-      "score": 7.9,
+      "score": 8.3,
       "subscores": {
-        "correctness": 8.2,
-        "evidence": 8.2,
-        "model": 7.8,
-        "innovation": 7.4
+        "correctness": 8.3,
+        "evidence": 8.6,
+        "model": 8.2,
+        "innovation": 7.9
       },
-      "justification": "Re-ran analysis.py (~100 s); numbers.json regenerated with no differences across 407 keys. Independent checks on player_season_stats matched (DL 33,417 rush snaps, 2,704 pressures, 8.1% pooled, 69 players with 100+ rushes, median 297). Text matches numbers.json: Hoop G partial rho 0.32 (n=63), out-of-class dR2 +0.073 perm p 0.022, Holm 0.063, TOST 0.060, MDE true effects 0.78 and 0.84. Strengths: no-tracking baseline (weight, 10-yd, 3-cone, NGS athleticism, log pick, EDGE share), leave-one-class-out with in-fold imputer, blind 2025 card, year-standardized drills, ICC/Spearman-Brown reliability, power/TOST nulls, opportunity/injury checks, pooled-prior shrinkage, honest selection limitation. Innovation genuine: Hoop G from Savitzky-Golay smoothed positions with onset detection; drill first-second distance vs game get-off r=-0.80. Weaknesses: post-hoc headline lead, n=63 (~20/fold), dR2 CI [-0.086, 0.214] includes zero, Holm 0.063; 'Bend reappears' and 'improves rank forecasts' overstate (2024 rank 0.63 to 0.61, 2025 R2 -0.88); 42 of 69 3-cone imputed; OLS 6 covariates at n~63; 2026 stopping rule is Fisher z arithmetic not pre-registered; wide bootstrap CIs; Hoop G reliability 0.41 rests on 10 repeaters via split-half Spearman-Brown (0.26 split-half), not stated; EDGE 0.42 vs interior 0.03 untested contrast.",
       "top_changes": [
-        "Selection-honest test: rerun full metric screen inside nested LOCO, permutation p for best-of-k, report out-of-class dR2 under it; soften 'Bend reappears' to 'a lead'.",
-        "Check baseline overfit/imputation leakage: ridge or smaller baseline, with and without imputed 3-cone, class random-effect model, bootstrap resampling whole classes/players.",
-        "Tighten Hoop G reliability (bootstrap CI, MDE over 0.26-0.41) and EDGE-vs-interior claim (interaction test or label descriptive); replicate burst lead on top-EPA half."
+        "Reconcile inconsistent figures (0.18 vs 0.19 for 40-complete subset, 0.57 vs 0.61 true-score effect, 0.32 vs 0.38 across baseline rows); generate in-text numbers from numbers.json keys; state whether raw 3.1 or shrunk 0.8 pressures per season is the headline.",
+        "Resolve missing-40 dependence: Hoop G x has-40 interaction or Bayesian partial pooling with class random effect; report interval and implication for +0.10 vs ~0.00 on the 49 players with a 40.",
+        "Pre-specified symmetric leave-one-class-out of the whole pipeline with distribution of delta R2 across class-resampled splits; add a placebo outcome such as run-stop rate."
       ],
-      "fatal_flaws": []
+      "justification": "Re-ran analysis.py with fewer draws; deterministic numbers matched numbers.json exactly, permutation p within MC noise. Strong design: no-tracking baseline (log pick, weight, NGS, EDGE share), leave-one-class-out with refit bootstrap, best-of-14 permutation, nested re-selection, 40-complete subset and multiple imputation, class-intercept mixed model, reliability-corrected effect, pre-registration. Honest: best-of-14 p 0.121, nested p 0.091, forecast gain vanishes on 49 players with a 40. Weaknesses: main effect not distinguishable from chance; every out-of-class R2 interval includes zero; delta R2 +0.103 driven by the 14 no-40 players; numeric inconsistencies between sections; baseline imputation wording."
     },
     "judge-writeup": {
-      "score": 7.0,
+      "score": 7.4,
       "subscores": {
-        "clarity": 6.5,
-        "structure": 7.5,
+        "clarity": 7,
+        "structure": 8,
         "motivation": 7,
         "density": 6.5
       },
-      "justification": "check.py passes (1,946 words, 5 figures plus 1 table). Structure follows finalist pattern; title two-sided; lede quantified and honest. Weaknesses: density and plain language. Opening paragraph packs partial rho, two CIs and unexplained 'true link of 0.78'; jargon (partial rho, dR2, Holm, TOST, Fisher z) in main text; 1,946 words near cap; Finding 2 run-on of numbers; Hoop G definition begins with physics; 'Why round 1's burst null was uninformative' references internal history; 'reappears' oversells given Holm 0.063 and dR2 CI including zero.",
       "top_changes": [
-        "Rewrite opening into ~70 plain words (Combine bend predicts NFL pressure rate beyond size, 10-yd split, 3-cone, draft slot, n=63; drill burst cannot be judged); move rho/CIs/0.78 to table; soften 'Bend reappears' to 'Bend is a lead'.",
-        "Move sensitivity cuts, per-class ranks, Holm, equivalence, Fisher z to appendix table; replace jargon with plain phrases; recast the round-1 heading as 'Why drill burst is hard to measure'.",
-        "Give Hoop G a one-sentence coach definition; move 'What a team can use' after Finding 2; shorten methods paragraphs to free ~200 words."
+        "Rewrite opening to about 60 plain words with the football finding first; drop 'chance can still explain it' and the burst sentence; add a line on why DL and why now.",
+        "Cut Finding 2 prose to about 120 words; move p-values, R2 pairs, fold counts and MI figures to the appendix; collapse 'Rush type and down'; replace jargon (best-of-14, shrunk z, held-out R2 gain) with plain language.",
+        "Fix numeric inconsistencies (49-player R2 gain -0.002 vs +0.002; 'Lead' vs p=0.121); merge 'Why drill burst is hard to measure' into the framing; place pre-registered test before Limitations; give the coach-repeatable Hoop G definition first."
       ],
-      "fatal_flaws": []
+      "justification": "check.py passes: 1,885 words, 4 figures plus 3 tables. Structure near finalist pattern. Opening honest but about 95 words and a hedge stack, leads with the corrected-away claim. Motivation short. Density weakest: Finding 2 stacks rho/R2/p/fold/imputation numbers; jargon not scout language. Board table strong. Inconsistency on 49-player R2 gain."
     },
     "judge-viz": {
-      "score": 7.9,
+      "score": 8.2,
       "subscores": {
-        "accessible": 8,
-        "accurate": 8.2,
-        "innovative": 7.8,
+        "accessible": 7.8,
+        "accurate": 8.6,
+        "innovative": 8.6,
         "economy": 8
       },
-      "justification": "Per figure: fig1_hero_cards strong tracking-native hero but traces tiny, colourbar misplaced, 8-9 pt text, 'not run' rows, no NFL snap path, 'out-rushed' title overreaches for 6 extremes, Adebawore counterexample. fig2_measurement useful reliability dumbbell plus NGS hexbin (rho -0.80, n=3,539); no CIs. fig3_signal_map honest forest plot with detectable-effect band; title 'only bend survives' contradicted by get-off diamond inside band; small text. fig4_hoop_pressure good scatter, label overlap; right bar chart n=20-22 without uncertainty. fig5_draft_card_2025 best decision-ready graphic; legend overlaps data, constant-width band, 7 of 12 not significant. All keep.",
       "top_changes": [
-        "Rebuild Fig 1 as drill-vs-game card: 3 high-bend and 3 low-bend DL with snap overlay, bigger traces, colourbar beside, drop 'not run' rows, neutral title.",
-        "Fix Fig 4 and 5: de-overlap labels, dot plot with intervals per held-out class; Fig 5 legend outside, add '7 of 12 move closer' count, per-player intervals, top 12 movers at >=10 pt.",
-        "Cut to 5-6 figures/tables by merging: fold Fig 2 reliability into strip/table, sort Fig 3 rows, label grey band, make title consistent with get-off diamond, raise text to 10 pt."
+        "Split or cut Fig 3 to scatter plus forest; fix label collisions; add held-out dR2 CIs; reconcile 'one in 8' (p=0.121) with p=0.091 nested value.",
+        "Fig 1 at about 7 in wide with fonts >=9 pt; replace 'Hoop G'/'Arc G' headers with plain words; print n plays per card; single-message title.",
+        "Add binomial or shrunk intervals to actual pressure rate in Fig 4; flag only when outside interval and state the rule; cut Fig 2 to 4-5 decisive metrics or move to appendix."
       ],
-      "fatal_flaws": [
-        "No fatal flaws. Fig 3 title says only bend survives baseline but its get-off panel shows Hoop G after-baseline diamond (~0.10) inside the undetectable band.",
-        "Fig 1 title ('out-rushed') draws causal-sounding conclusion from six rule-chosen extremes; Adebawore contradicts it.",
-        "Fig 5 legend covers data points."
+      "justification": "Fig1 hero drill-vs-game card strongest; Fig2 dense correlation chart; Fig3 accurate but overloaded; Fig4 rookie board good but no per-player intervals. All figures keep=true. Palette colour-vision-safe.",
+      "per_figure": [
+        {
+          "file": "fig1_drill_vs_game.png",
+          "keep": true
+        },
+        {
+          "file": "fig2_signal_map.png",
+          "keep": true
+        },
+        {
+          "file": "fig3_hoop_pressure.png",
+          "keep": true
+        },
+        {
+          "file": "fig4_rookies_2025.png",
+          "keep": true
+        }
       ]
     }
   },
   "changelog": [
-    "Angle moved from round-1 breadth to one DL question: Combine Hoop G (bend) vs NFL pressure rate, framed as a measurement-reliability problem.",
-    "Baseline without tracking (weight, 10-yd, 3-cone, NGS athleticism, log pick, EDGE share) with leave-one-class-out validation and in-fold imputation.",
-    "Added honest-power machinery: ICC/Spearman-Brown reliability, MDE, TOST, Holm; round-1 burst null recast as underpowered.",
-    "Added blind 2025 draft card, 2026 kill rule, opportunity/injury checks and pooled-prior pressure shrinkage.",
-    "Five figures plus one table (1,946 words); all 407 numbers.json keys reproduce under judge re-run."
+    "Revised cand_1 (DL Hoop G vs NFL pressure) into a 4-figure, 3-table, 1,885-word writeup.",
+    "Added best-of-14 permutation, nested re-selection, 40-complete subset and multiple imputation checks.",
+    "Added 42-player 2025 board with pre-registered 2026/27 test and drill-protocol advice.",
+    "Figures rebuilt: drill-vs-game cards, signal map, Hoop G pressure, 2025 rookies board.",
+    "Remaining: numeric inconsistencies, dense Finding 2 prose, opening length, Fig 3 overload."
   ],
   "history": [
     {
@@ -141,6 +146,10 @@
     {
       "round": 2,
       "score": 7.51
+    },
+    {
+      "round": 3,
+      "score": 7.86
     }
   ]
 }

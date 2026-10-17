@@ -1,0 +1,155 @@
+{
+  "round": 3,
+  "candidates": [
+    {
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_1",
+      "angle": "DL Hoop G (sideways g) vs NFL pressure rate; Arc G translation chain; 2025 board",
+      "score": 7.76,
+      "per_judge": {
+        "football": 7.4,
+        "datascience": 8.2,
+        "writeup": 7.4,
+        "viz": 8.0
+      },
+      "fatal_flaws": []
+    },
+    {
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_3",
+      "angle": "DL Launch translation (drill to NFL launch) and gap vs pressure",
+      "score": 7.45,
+      "per_judge": {
+        "football": 7.0,
+        "datascience": 7.9,
+        "writeup": 7.0,
+        "viz": 7.9
+      },
+      "fatal_flaws": []
+    },
+    {
+      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/cand_2",
+      "angle": "WR/TE Break Redirect Rate, man vs zone, drill-to-game translation",
+      "score": 7.44,
+      "per_judge": {
+        "football": 6.6,
+        "datascience": 8.0,
+        "writeup": 7.4,
+        "viz": 7.9
+      },
+      "fatal_flaws": [
+        "Headline effect does not replicate under the blind re-screen (held-out 0.02, p = 0.333), and BRR has zero split-half validity against man.",
+        "Combine-to-game link is null, and power for a true 0.3 is only 25%."
+      ]
+    }
+  ],
+  "winner": {
+    "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_03/revised",
+    "score": 7.86,
+    "verdicts_summary": {
+      "judge-football": 7.5,
+      "judge-datascience": 8.3,
+      "judge-writeup": 7.4,
+      "judge-viz": 8.2
+    }
+  },
+  "winner_feedback": {
+    "judge-football": {
+      "score": 7.5,
+      "subscores": {
+        "usable": 7.7,
+        "confounders": 8.3,
+        "unique": 7.4,
+        "terminology": 7.6
+      },
+      "top_changes": [
+        "Resolve the 'does it matter' question for a GM: show what the 14 no-40 players tell us, state the Hoop G-helps-mainly-for-players-who-skip-the-40 claim as one pre-registered subgroup hypothesis, and state the pick-slot cost of under one pressure a season.",
+        "Publish the full 42-player 2025 board plus 2023-24 players with intervals, weight, EDGE/interior and a film-vs-drill flag, with a three-line decision rule per row.",
+        "Tie Hoop G to technique and scheme (dip, rip, bend); add film-level snap overlays for Ezeiruaku and Phillips; add pressure by alignment/blocker type and a games-played/injury caveat for the 100+ rush cut."
+      ],
+      "justification": "Usable 7.7: concrete advice (3-4 hoop runs, shrink one run, Hoop G only as tiebreaker), 42-player 2025 board, pre-registered 2026/27 test; effect under one pressure a season and forecast gain vanishes among players who ran the 40. Confounders 8.3: draft slot, weight, alignment, sample size, best-of-14 permutation (p=0.121), nested re-selection, imputation, single-rep reliability 0.41, EDGE vs interior; injuries only touched. Unique 7.4: same formula on drill and game; honest that bend does not translate (0.10); still a null-leaning Combine-to-production link. Terminology 7.6: mostly correct, Hoop G has coach-level definition; some stats shorthand; 'sideways g' not tied to dip-and-rip/ghost rush."
+    },
+    "judge-datascience": {
+      "score": 8.3,
+      "subscores": {
+        "correctness": 8.3,
+        "evidence": 8.6,
+        "model": 8.2,
+        "innovation": 7.9
+      },
+      "top_changes": [
+        "Reconcile inconsistent figures (0.18 vs 0.19 for 40-complete subset, 0.57 vs 0.61 true-score effect, 0.32 vs 0.38 across baseline rows); generate in-text numbers from numbers.json keys; state whether raw 3.1 or shrunk 0.8 pressures per season is the headline.",
+        "Resolve missing-40 dependence: Hoop G x has-40 interaction or Bayesian partial pooling with class random effect; report interval and implication for +0.10 vs ~0.00 on the 49 players with a 40.",
+        "Pre-specified symmetric leave-one-class-out of the whole pipeline with distribution of delta R2 across class-resampled splits; add a placebo outcome such as run-stop rate."
+      ],
+      "justification": "Re-ran analysis.py with fewer draws; deterministic numbers matched numbers.json exactly, permutation p within MC noise. Strong design: no-tracking baseline (log pick, weight, NGS, EDGE share), leave-one-class-out with refit bootstrap, best-of-14 permutation, nested re-selection, 40-complete subset and multiple imputation, class-intercept mixed model, reliability-corrected effect, pre-registration. Honest: best-of-14 p 0.121, nested p 0.091, forecast gain vanishes on 49 players with a 40. Weaknesses: main effect not distinguishable from chance; every out-of-class R2 interval includes zero; delta R2 +0.103 driven by the 14 no-40 players; numeric inconsistencies between sections; baseline imputation wording."
+    },
+    "judge-writeup": {
+      "score": 7.4,
+      "subscores": {
+        "clarity": 7,
+        "structure": 8,
+        "motivation": 7,
+        "density": 6.5
+      },
+      "top_changes": [
+        "Rewrite opening to about 60 plain words with the football finding first; drop 'chance can still explain it' and the burst sentence; add a line on why DL and why now.",
+        "Cut Finding 2 prose to about 120 words; move p-values, R2 pairs, fold counts and MI figures to the appendix; collapse 'Rush type and down'; replace jargon (best-of-14, shrunk z, held-out R2 gain) with plain language.",
+        "Fix numeric inconsistencies (49-player R2 gain -0.002 vs +0.002; 'Lead' vs p=0.121); merge 'Why drill burst is hard to measure' into the framing; place pre-registered test before Limitations; give the coach-repeatable Hoop G definition first."
+      ],
+      "justification": "check.py passes: 1,885 words, 4 figures plus 3 tables. Structure near finalist pattern. Opening honest but about 95 words and a hedge stack, leads with the corrected-away claim. Motivation short. Density weakest: Finding 2 stacks rho/R2/p/fold/imputation numbers; jargon not scout language. Board table strong. Inconsistency on 49-player R2 gain."
+    },
+    "judge-viz": {
+      "score": 8.2,
+      "subscores": {
+        "accessible": 7.8,
+        "accurate": 8.6,
+        "innovative": 8.6,
+        "economy": 8
+      },
+      "top_changes": [
+        "Split or cut Fig 3 to scatter plus forest; fix label collisions; add held-out dR2 CIs; reconcile 'one in 8' (p=0.121) with p=0.091 nested value.",
+        "Fig 1 at about 7 in wide with fonts >=9 pt; replace 'Hoop G'/'Arc G' headers with plain words; print n plays per card; single-message title.",
+        "Add binomial or shrunk intervals to actual pressure rate in Fig 4; flag only when outside interval and state the rule; cut Fig 2 to 4-5 decisive metrics or move to appendix."
+      ],
+      "justification": "Fig1 hero drill-vs-game card strongest; Fig2 dense correlation chart; Fig3 accurate but overloaded; Fig4 rookie board good but no per-player intervals. All figures keep=true. Palette colour-vision-safe.",
+      "per_figure": [
+        {
+          "file": "fig1_drill_vs_game.png",
+          "keep": true
+        },
+        {
+          "file": "fig2_signal_map.png",
+          "keep": true
+        },
+        {
+          "file": "fig3_hoop_pressure.png",
+          "keep": true
+        },
+        {
+          "file": "fig4_rookies_2025.png",
+          "keep": true
+        }
+      ]
+    }
+  },
+  "changelog": [
+    "Revised cand_1 (DL Hoop G vs NFL pressure) into a 4-figure, 3-table, 1,885-word writeup.",
+    "Added best-of-14 permutation, nested re-selection, 40-complete subset and multiple imputation checks.",
+    "Added 42-player 2025 board with pre-registered 2026/27 test and drill-protocol advice.",
+    "Figures rebuilt: drill-vs-game cards, signal map, Hoop G pressure, 2025 rookies board.",
+    "Remaining: numeric inconsistencies, dense Finding 2 prose, opening length, Fig 3 overload."
+  ],
+  "history": [
+    {
+      "round": 1,
+      "score": 7.01
+    },
+    {
+      "round": 2,
+      "score": 7.51
+    },
+    {
+      "round": 3,
+      "score": 7.86
+    }
+  ]
+}
