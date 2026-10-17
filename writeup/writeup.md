@@ -1,100 +1,104 @@
-# Bend as a Tiebreaker: Run-the-Hoop "Hoop G" and NFL Pass-Rush Pressure
+# Hoop G: A Lateral-Force Tiebreaker for Pass Rushers, Worth 0.6 Pressures a Season and Unproven Out of Class
 
-Defensive linemen who turned tighter at speed in the Combine's Run-the-Hoop drill produced more NFL pressure than their draft slot, size and athletic score predicted (63 linemen, 2023–2025 classes). After correcting for the 14 drill-and-outcome pairs we screened, plan on about 0.8 extra pressures a season per standard deviation of bend. That is what moving up from pick 100 to pick 76 buys. Use it to break ties.
+**Hoop G is the hardest sideways push a defensive lineman holds while rounding the Combine's Run-the-Hoop drill. Beyond a no-tracking baseline, one sd more is worth 0.6 pressures per 450-rush season (90% interval −0.4 to 1.7). Predicting each class from the other two, it adds no R². Use it to break ties, never to move a player up a board.**
 
-**Why DL, and why now.** Pressure is what a defensive lineman is paid for, and DL is the one position where Combine numbers already predict NFL production (3-cone ρ = 0.63). If tracked drills add anything, it should show here first. The 2023 Combine was the first with tracked position drills, and three classes now have NFL snaps.
+| Test | Players | Estimate | Read |
+|---|---|---|---|
+| **Headline**, in sample: pressures per 450-rush season per sd (Bayesian, 90%) | 90 hoop runners with an NFL rush | **0.6** [−0.4, 1.7] | small, uncertain |
+| Out of class, fully nested: held-out R² change (95%) | 63 with 100+ rushes | −0.026 [−0.286, 0.185] | no gain |
+| Same, each held-out class 2023 / 2024 / 2025 | 21 / 22 / 20 | −0.042 / −0.014 / −0.151 | no gain in any |
+| Out of class, log score: held-out log predictive density gain (± SE) | 90 | +1.36 ± 0.50 nats; positive in 3 of 3 classes | small gain, not fully nested |
+| Nested R² change, observed official 10-yd in the baseline (95%) | 49 | −0.002 [−0.645, 0.278] | no gain |
 
-## Hoop G in coaching terms
+The two sample sizes are deliberate: the Bayesian model weights every rusher by his rushes, so it can use all 90; the R² test needs a stable observed rate, so it keeps the 63 with 100+ rushes.
 
-**Hoop G is the hardest sideways push a rusher holds for half a second while rounding the hoops, measured in g.** It is the drill version of bending the corner: dip the inside shoulder, keep speed through the turn around the tackle's outside hip, and rip through without drifting wide. A typical run peaks at 0.62 g, about 3.5 yd/s on a 1.8-yard radius. **NFL rush-path bend** applies the same formula to a player's 20 random sampled NFL pass rushes, from the snap to the throw or sack. It needs no ball or opponents.
+## Why this question
 
-We also tested the pass-rush drill's first-second burst, but it cannot rank players. A player's 1.9 reps have reliability 0.22, and ranking would take about 16 reps. The NGS get-off it should predict is sound (ρ = −0.80 with tracked first-second distance per snap), so the limit is the drill.
+Bend, turning the corner without losing speed, is a trait EDGE scouting reports routinely grade, and the Combine never scores it. Run-the-Hoop is the drill built to show it, yet it has no published time. Between picks 80 and 130, boards stack rushers with similar film grades, so a cheap tiebreaker on pressure has value if it is real. Three tracked classes (2023–25) allow a test on classes the metric was not fit on.
 
-![Figure 1. On Sundays, high-bend and low-bend rushers look alike. The six players are the three highest and three lowest Hoop G among DL with 250+ NFL rushes, chosen by rule. High-bend pressure rates run 7.7–11.8%, low-bend 2.4–7.7%. Each card ends with a scout's call.](figures/fig1_drill_vs_game.png)
+## What Hoop G measures, and what it does not
+
+Hoop G is the peak sideways acceleration held for half a second while rounding the hoops, in g, standardized within Combine year. A typical run peaks at 0.62 g.
+
+![Figure 1. Takeaway: Hoop G is not corner bend on Sundays. Three plus-bend EDGEs run outside paths on 8%, 15% and 12% of classified rushes, close to the 9% cohort rate, and across 79 DL drill bend barely predicts game bend (ρ = 0.10 after weight and role).](figures/fig1_four_rushers.png)
+
+We ran two in-game tests of the corner mechanism. Both fail. First, plus-bend EDGEs do not rush wider (Figure 1). Second, if hoop bend were a corner skill, its link to pressure should be strongest on EDGE-aligned snaps. On 1541 random sampled rushes by 79 hoop runners, the odds of a pressure per sd of Hoop G are 1.05 [0.85, 1.32] on EDGE-aligned snaps and 1.20 [0.96, 1.45] on interior snaps (90%). The season-level slopes agree: 0.6 pressures for EDGEs and 0.7 for interior linemen.
+
+**So we read Hoop G as a general lateral-force (change-of-direction) marker, not as bend.** The board relies only on its association with pressure, not on any corner mechanism.
 
 ## Data and baseline
 
-The cohort is the 69 DL with 100+ regular-season pass rushes (36 EDGE, 33 interior, median 297 rushes); 63 of them ran the hoop. Pressure rate comes from play-level charting, pulled toward the DL mean (8.1%) for small samples. Drill numbers are standardized within Combine year.
+**Outcome:** regular-season pressures per pass rush, 2023–25.
 
-**Who is left out.** 46 of 109 hoop runners have fewer than 100 rushes. They played a median 1.0 games a season against 14.0 for the cohort, so injury, depth and rookie snap counts drive the cut. Bend is unrelated to playing time (ρ = 0.05). Adding games per season to the baseline leaves the effect at 0.32.
+**Main model:** a beta-binomial regression of pressures on rushes with a class random intercept. The no-tracking covariates are log draft pick, weight, NFL EDGE share, NGS athleticism score, games per season and the official 10-yd split and 3-cone. Only 71 of 90 ran the 10-yd and 34 the 3-cone, so missing times are imputed from weight, role and NGS score, with a missing flag. Hoop G enters corrected for its one-run reliability (0.41). The "official times" baseline is tested directly on observed times only (Table 1, last row; 3-cone in the appendix).
 
-**Baseline without tracking:** log draft pick, weight, NGS athleticism score and NFL EDGE share. All four exist for every player, so nothing is imputed. The 10-yard split and 3-cone are missing for many rushers, so they enter as imputed variants (Figure 4). With both added, the link weakens to 0.26 [−0.04, 0.51]. Every "held-out" number is fit on two Combine classes and tested on the third.
+## Finding 1: burst carries over to games, but not to pressure
 
-## Finding 1: the stopwatch carries most of the signal
+![Figure 2. Takeaway: the 40 tracks pressure and get-off. Drill burst carries over to the same player's NFL get-off but not to pressure, and only bend keeps a pressure link after pick, weight, NGS score and role. Each row has its own n and its own grey no-power band.](figures/fig2_signal_map.png)
 
-![Figure 2. Five Combine numbers against three NFL outcomes. Purple diamonds show what is left of a tracked drill number after the no-tracking baseline.](figures/fig2_signal_map.png)
+Get-off burst (yards covered in the rush drill's first second) tracks the same player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). But reps are unreliable (0.22) and burst says nothing about pressure (−0.03).
 
-The 3-cone and 40 track pressure, as teams already know. Among tracked drill numbers, only bend keeps a pressure link after the baseline. Drill bend is not "turns tighter on Sundays", though: its link to NFL rush-path bend (0.37) falls to 0.10 once weight and alignment are removed. Balance through contact, which this tracking cannot see, is a plausible carrier.
+## Finding 2: 0.6 pressures a season, prior-dependent, no out-of-class R²
 
-## Finding 2: bend adds pressure, but less than one a season
+![Figure 3. Takeaway: plan on 0.6 pressures a season per sd. Larger priors give larger effects, the nested out-of-class R² change is null in every class, and the log score leans positive but is not fully nested.](figures/fig3_headline.png)
 
-![Figure 3. Pressure above the no-tracking forecast against Hoop G, split by whether the player ran the 40. The two slopes are statistically indistinguishable.](figures/fig3_hoop_pressure.png)
+On our draft-slot model, 0.6 pressures is the gap between pick 100 and pick 80 (80% range 47 to 106). The estimate depends on the prior. Our prior on the bend slope is skeptical by design. Doubling it gives 1.5 [0.0, 3.1]; a wide prior gives 2.0 [0.1, 4.0]. We plan on the smallest.
 
-| Test | n | Estimate [95% CI] | Read |
-|---|---|---|---|
-| Bend → pressure, after baseline | 63 | ρ 0.32 [0.06, 0.54] | real in-sample link |
-| Per sd of bend: ran the 40 / skipped it | 49 / 14 | +0.58 / +0.73 pp | same slope (p = 0.74) |
-| Corrected for screening 14 pairs | 63 | 0.8 pressures a season | planning number |
-| Placebo: tackle rate | 63 | ρ −0.21 [−0.43, 0.02] | no positive link, as expected |
-| Placebo: get-off | 63 | ρ 0.13 [−0.15, 0.41] | no link, as expected |
-
-One standard deviation of bend goes with +0.69 pressure points above the forecast, or 3.1 pressures in a 450-rush season. That is the best of 14 drill-and-outcome pairs we screened, and chance alone produces a lead this large about one time in eight. Pulling all 14 estimates toward their common mean leaves **0.8 pressures a season, our headline.** Bend does not predict tackles or get-off, which it should not, so a general "good athlete" effect is unlikely.
-
-## Does it matter to a GM?
-
-The obvious worry: the forecast gain comes almost entirely from the 14 rushers who skipped the 40 (10 EDGE, 9 from 2025, median pick 60 against 110). An interaction model settles the cause. The bend slope is +0.58 pp [0.01, 1.11] for players with a 40 and +0.73 pp [−0.04, 1.39] without, so the link does not depend on the 40. What does depend on it is the forecast: among the 49 who ran, adding bend leaves held-out accuracy flat, and the gain is positive in only 36% of bootstrap samples. A sub-one-pressure effect is too small to show up in three folds of about 16 players.
-
-![Figure 4. Left: the bend link under every baseline, including the 10-yard split and 3-cone. Right: how much bend improves a forecast of an unseen class, across class-stratified bootstrap refits; the share above zero is printed.](figures/fig4_robustness.png)
-
-In draft terms, the planning effect (0.8 pressures) equals moving from pick 100 to pick 76. Even the uncorrected effect equals 100 → 37. **So bend is a tiebreaker between rushers in the same tier, never a reason to jump a round.** The no-40 group is where it matters most in practice: there, bend is one of the few movement numbers a team has.
-
-## Technique and scheme
-
-If bend is the dip-and-rip, it should show on edge snaps and late pressures. It does not show clearly. Bend does not change when pressure arrives (time to pressure ρ = 0.06), the share of quick pressures (0.00) or sacks per pressure (0.10). The player-level effect is 0.30 for EDGE and 0.37 for interior rushers. On sampled snaps, pressure odds per sd are ×1.03 when aligned outside and ×1.16 inside, both with intervals spanning 1. Blocker type is not in the data. Our read: bend is a general change-of-direction trait, not only the wide-9 arc.
-
-![Figure 5. Film check on two 2025 rookies. Ezeiruaku turns the corner on Sundays but under-produced his forecast; Phillips neither bends in the drill nor on Sundays.](figures/fig5_film_check.png)
-
-**Donovan Ezeiruaku** ranks #3 in 2025 bend, and his NFL rush paths sit at the 90th percentile of DL. Yet he produced 7.7% [6.2, 9.6] against a 9.5% forecast. He wins the corner, so the film question is hands and the rip at the top of the arc. **Jordan Phillips** (42 of 42) shows no bend in the drill or in games and produced 1.9% against 6.8%. He fits a gap-control role, not a pass-rush bet.
+Out of class, the R² test on 63 rushers (about 20 per class) finds nothing. The log score uses every rusher's full pressure count and is less noisy. It favours the bend model by 1.36 ± 0.50 nats (wide prior: 1.63 ± 1.28). But the hoop was chosen on all three classes before that test, so it is not a confirmation.
 
 ## What a team can use
 
-![Figure 6. The full 2025 board: every hoop runner with shrunk bend (80% interval), rookie pressure (80% interval) against the no-tracking forecast, and the call from the rule below.](figures/fig6_board_2025.png)
+**2025 class: every call** (bend interval = 80%, shrunk for number of runs; tie-break range = EDGEs picked within 30% of his slot):
 
-**Decision rule, applied to every row:**
-1. **Bend plus** (80% interval above zero): break ties his way.
-2. **Bend minus** (80% interval below zero): he must win with power or get-off; check that on film.
-3. **Film first**: if a rusher with 100+ NFL rushes has a pressure interval wholly on the wrong side of his forecast, trust the film over the drill.
+| # of 42 | Player | Pick | Role | Bend, sd [80%] | Tie-break range | Use |
+|---|---|---|---|---|---|---|
+| 1 | Ethan Downs | UDFA | EDGE | 0.94 [0.31, 1.57] | day 3 / UDFA EDGEs | break ties his way |
+| 2 | Warren Brinson | 198 | Int | 0.77 [0.14, 1.41] | — | agility note (stunts) |
+| 3 | Donovan Ezeiruaku | 44 | EDGE | 0.77 [0.14, 1.40] | EDGEs picked 34–57 | break ties his way |
+| 8 | Jordan Burch | 78 | EDGE | 0.49 [−0.14, 1.12] | EDGEs picked 60–101 | film first: rookie year below forecast |
+| 41 | Yahya Black | 164 | Int | −0.75 [−1.38, −0.12] | — | no call: size, priced by baseline |
+| 42 | Jordan Phillips | 143 | Int | −0.80 [−1.43, −0.17] | — | no call: size, priced by baseline |
 
-In 2025 this marks 3 rushers plus, 2 minus and 1 film-first (Jordan Burch). Across all 109 runners from 2023–25, it gives 10 plus, 8 minus and 2 film-first; the other film-first player, Byron Murphy, out-produced a low hoop. The full board with weight, role, pick, intervals and call is in `board_2023_2025.csv`.
+**Head-to-head, same class, picks within 30%:** the three closest-pick EDGE pairs with a 0.4+ sd bend gap, scored on pressure minus out-of-class forecast:
 
-**Ask for 3–4 hoop runs.** One run has reliability 0.41 [0.14, 0.60]. Three runs reach 0.68 and four 0.74, enough to rank. Undrafted Ethan Downs ran the best hoop in his class (z = +2.3), which shrinks to +0.94 [0.31, 1.57]. With 7 NFL rushes, he is worth a second run before moving him up.
+| Class | Higher bend (pick, sd) | Lower bend (pick, sd) | Pressure − forecast, pp (rushes) | Tie-break |
+|---|---|---|---|---|
+| 2025 | Jack Sawyer (123, +0.56) | Barryn Sorrell (124, +0.06) | +1.1 (176) vs −0.6 (119) | right |
+| 2023 | Tavius Robinson (124, +0.06) | Isaiah McGuire (126, −0.48) | −2.7 (795) vs +1.3 (824) | wrong |
+| 2024 | Cedric Johnson (214, +0.66) | Javontae Jean-Baptiste (222, +0.00) | +5.8 (216) vs −1.9 (180) | right |
+
+Across all 14 such pairs in 2023–25, the higher-bend rusher came out ahead 8 times (57%, 90% [25, 83]). Shuffling bend within class gives 50% (p = 0.33). Head-to-head, the tiebreaker is unproven. It costs little, which is why it remains a tiebreaker and nothing more.
+
+![Figure 4. Every 2023–25 call against the out-of-class no-tracking forecast, with pressure rate and rushes beside each name. Takeaway: of 18 calls with a forecast, 6 land clearly above and 3 clearly below; the rest sit inside noise.](figures/fig4_calls.png)
+
+**Ask for 3–4 hoop runs.** One run has reliability 0.41 [0.12, 0.59]; three reach 0.68 and four 0.74. A run lasts about 7.5 s inside a workout that is already tracked, so the cost is a few minutes of drill time and fatigue, not equipment. Undrafted Ethan Downs ran 2025's best hoop on one run: retest before moving him.
 
 ## Pre-registered test
 
-**Primary:** among 2026- and 2027-class DL with 100+ rushes by the end of 2027 (about 40), the bend effect on pressure after the four-item baseline is above zero (one-sided α = 0.05). **Subgroup:** the bend slope is larger for rushers without an official 40. Our data say no difference (p = 0.74), so we expect this to fail. Power is 0.61 if the uncorrected effect is true and only 0.13 at the planning effect, so the test will rule out a large effect, not prove a small one. An estimate at or below zero takes bend off the board.
+Among 2026–27 DL with 100+ rushes by the end of 2027 (about 40), bend's pressure effect after the full baseline must be above zero (one-sided α = 0.05). Power is 0.12, so a miss will not disprove a small effect. A negative estimate would retire the tiebreaker.
 
 ## Limitations
 
-- **Baseline choice.** With the 10-yard split and 3-cone imputed, the interval reaches zero.
-- **Selection.** Corrected for 14 screened pairs, the main result does not clear p = 0.05 (best-of-14 p = 0.121; re-selecting inside each held-out fold, p = 0.091). It is a lead.
-- **Small n.** About 20 players per class; every held-out interval includes zero. Only 10 players ran the hoop twice.
-- **Game tracking is a sample.** Rush-path bend and snap splits use 20 random rushes per player, with no blockers, ball or opponents. Scheme, stunts and quarterback timing are not in the data.
-- **Availability.** The 100+ rush cut drops injured and buried players; we show it is not related to bend, but cannot rule out that the cut changes the effect.
-- **Short careers.** The 2025 class has one season: its board is for order, not levels.
+- **Not confirmed out of class.** The nested R² test is null, and the positive log score did not re-select the hoop inside each fold.
+- **Prior-dependent.** The planning number is the smallest of three prior scales.
+- **Mechanism unknown.** Path direction and alignment come from tracking, not film. With no blockers or ball, we cannot tell what the hoop captures; we call it lateral force, not bend.
+- **Injuries and snap role.** Pressure rate ignores injuries and how a rusher is used (passing downs, rotation). We adjust only for games per season and EDGE share.
+- **Small n and missing times.** About 30 hoop runners with NFL rushes per class; most lack a 3-cone.
+- **Sampled game tracking:** 20 random rushes per player, no scheme labels.
+- **Short careers.** 2025 has one season; its board ranks, it does not set levels.
 
-## Appendix: statistics
+## Appendix: method notes and checks
 
-| Check (bend → pressure unless noted) | n | Estimate [95% CI] | Held-out R² gain [95% CI] |
-|---|---|---|---|
-| Main baseline | 63 | 0.32 [0.06, 0.54] | +0.103 [−0.161, 0.357] |
-| Angle baseline: + 10-yd and 3-cone, imputed | 63 | 0.26 [−0.04, 0.51] | +0.017 [−0.362, 0.441] |
-| Ran the 40: main / + official 10-yd | 49 | 0.19 / 0.18 | +0.002 / −0.002 |
-| Mixed model, class intercept (pp per sd) | 63 | 0.66 [0.22, 1.10] | — |
-| Train on one class, predict two | — | — | +0.141, positive in 3 of 3 |
-| Bend alone, unadjusted for selection | 63 | p = 0.013 | — |
-| True-score effect (one-run reliability) | 63 | 0.57 [0.15, 1.00] | — |
-| Bend → NFL rush-path bend, after weight, alignment | 79 | 0.10 [−0.11, 0.32] | — |
+The bend-slope prior is scaled to the typical effect of 14 screened drill-outcome pairs. In the nested loop, the hoop is the screen's top pick in 47% of folds. Path direction uses the position 3 yd upfield on 925 EDGE-aligned rushes. Drill bend does not raise the outside share (partial ρ = 0.04 [−0.25, 0.32], n = 41). Of the 2023–25 plus calls with 100+ rushes, 7 of 8 beat their forecast (88%, 90% bootstrap [62, 100]; shuffled-bend null 44%, p = 0.03). Calls never see pressure, but 2023–24 helped choose the hoop. In 2025, the class that did not, the count is 1 of 2. **This is not evidence.**
 
-Main-baseline held-out R² rises from 0.085 to 0.188; the class-stratified bootstrap puts the gain above zero 75% of the time. Methods: Savitzky–Golay smoothing (window 7, order 2); sideways acceleration |v × a|/|v| averaged over 0.5 s, identical for drill and NFL snaps. Effects are Spearman partial correlations of baseline-residualized ranks (2000 player bootstraps); held-out intervals refit the whole loop. Imputation draws from weight, EDGE share, NGS score and bend, never the outcome. Interaction: OLS with class fixed effects, class-stratified bootstrap.
+| Check (Laplace unless noted) | n | Pressures per season per sd [90%] or as stated |
+|---|---|---|
+| Laplace version of the headline (MCMC: 0.6; R-hat 1.02) | 90 | 0.7 [−0.2, 1.8] |
+| Observed 10-yd / 3-cone only, time in the baseline | 71 / 34 | 0.5 [−0.4, 1.6] / 0.1 [−1.0, 1.2] |
+| Multiple imputation of both times (20 draws) | 90 | 0.6 [−0.3, 1.7] |
+| Per class, fit without it / inside it only | 28 / 27 / 35 | 2023: 0.4 / 0.6; 2024: 0.6 / 0.2; 2025: 0.7 / 0.1 |
+| Leave one rusher out (posterior mode) | 90 | 0.5 to 0.8 |
+| Nested R² change, observed 3-cone in the baseline (95%) | 27 | −0.225 [−5.157, 1.411]: uninformative |
+| Placebo, run-stop proxy / back-pedal drill, partial ρ (95%) | 60 / 38 | 0.02 [−0.22, 0.26] / 0.09 [−0.28, 0.44] |
 
-*Reproducible: `uv run python writeup/candidates/round_04/cand_1/analysis.py` writes every number to `numbers.json`, draws every figure and fills this text from `writeup_template.md`.*
+*Reproducible: `uv run python writeup/candidates/round_06/revised/analysis.py` writes `numbers.json`, draws every figure and fills this text from `writeup_template.md`.*
