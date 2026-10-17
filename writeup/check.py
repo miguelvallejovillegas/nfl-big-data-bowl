@@ -31,10 +31,23 @@ def main(path: str = "writeup/writeup.md") -> int:
     if numbers_file.exists():
         known = json.loads(numbers_file.read_text())
         known_vals = {str(v) for v in flatten(known)}
+        known_vals |= {v.lstrip("-") for v in known_vals}  # the regex below reads digits without the sign
         for n in set(re.findall(r"(?<![\w.])(\d+\.\d{2,3})(?![\w.])", body)):
             if n not in known_vals and n.lstrip("0") not in known_vals:
                 missing.append(n)
+    # optional claim-to-key map (claims.json next to the writeup): every numbers.json key must be claimed by a
+    # sentence, and its value must appear in the text
+    orphans = []
+    claims_file = p.parent / "claims.json"
+    if numbers_file.exists() and claims_file.exists():
+        claims = json.loads(claims_file.read_text())
+        plain = re.sub(r"```.*?```", "", text, flags=re.S).replace("−", "-")  # captions count here
+        for k, v in json.loads(numbers_file.read_text()).items():
+            if k not in claims or str(v).lstrip("-") not in plain:
+                orphans.append(k)
     problems = []
+    if orphans:
+        problems.append(f"{len(orphans)} numbers.json keys not claimed in the text: {sorted(orphans)[:12]}")
     if words > WORD_LIMIT:
         problems.append(f"{words} words > {WORD_LIMIT}")
     if figures + tables > FIGURE_LIMIT:
