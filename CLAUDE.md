@@ -25,4 +25,5 @@ Goal: a finalist-quality Kaggle writeup (≤2,000 words, <10 figures, English) l
 - Iteration state lives in `state/round_*.json` and `state/latest.json` (scores per rubric component, judge feedback, what changed). Read `state/latest.json` before starting a round.
 
 ## Git
+- Before any commit, set the repo identity so commits belong to the repo owner: `git config user.name "Miguel Vallejo" && git config user.email "175945028+miguelvallejovillegas@users.noreply.github.com"`.
 - Work on the current branch; commit with clear messages; no Co-Authored-By trailers. Push only when the task says so.
