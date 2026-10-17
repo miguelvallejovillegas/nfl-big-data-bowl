@@ -1,0 +1,122 @@
+[
+ {
+  "name": "Kayshon Boutte",
+  "cls": 2023,
+  "pick": "187",
+  "bg": "1.8",
+  "lo": "1.0",
+  "hi": "2.6",
+  "routes": 873,
+  "tprr": "13.9",
+  "fc": "18.7",
+  "call": "plus"
+ },
+ {
+  "name": "Adonai Mitchell",
+  "cls": 2024,
+  "pick": "52",
+  "bg": "1.7",
+  "lo": "0.9",
+  "hi": "2.5",
+  "routes": 486,
+  "tprr": "26.5",
+  "fc": "17.9",
+  "call": "plus"
+ },
+ {
+  "name": "Arian Smith",
+  "cls": 2025,
+  "pick": "110",
+  "bg": "1.7",
+  "lo": "0.9",
+  "hi": "2.5",
+  "routes": 231,
+  "tprr": "6.9",
+  "fc": "16.7",
+  "call": "plus"
+ },
+ {
+  "name": "Tre Tucker",
+  "cls": 2023,
+  "pick": "100",
+  "bg": "1.7",
+  "lo": "0.8",
+  "hi": "2.5",
+  "routes": 1388,
+  "tprr": "14.9",
+  "fc": "17.9",
+  "call": "plus"
+ },
+ {
+  "name": "Puka Nacua",
+  "cls": 2023,
+  "pick": "177",
+  "bg": "1.6",
+  "lo": "0.8",
+  "hi": "2.4",
+  "routes": 1287,
+  "tprr": "33.6",
+  "fc": "19.1",
+  "call": "plus"
+ },
+ {
+  "name": "Trey Palmer",
+  "cls": 2023,
+  "pick": "191",
+  "bg": "1.3",
+  "lo": "0.5",
+  "hi": "2.2",
+  "routes": 601,
+  "tprr": "15.0",
+  "fc": "18.0",
+  "call": "plus"
+ },
+ {
+  "name": "Johnny Wilson",
+  "cls": 2024,
+  "pick": "185",
+  "bg": "-1.2",
+  "lo": "-2.1",
+  "hi": "-0.2",
+  "routes": 138,
+  "tprr": "10.9",
+  "fc": "14.3",
+  "call": "minus"
+ },
+ {
+  "name": "A.T. Perry",
+  "cls": 2023,
+  "pick": "195",
+  "bg": "-1.3",
+  "lo": "-2.1",
+  "hi": "-0.4",
+  "routes": 192,
+  "tprr": "9.4",
+  "fc": "16.2",
+  "call": "minus"
+ },
+ {
+  "name": "Isaiah Bond",
+  "cls": 2025,
+  "pick": "UDFA",
+  "bg": "-1.3",
+  "lo": "-2.1",
+  "hi": "-0.5",
+  "routes": 333,
+  "tprr": "13.2",
+  "fc": "15.9",
+  "call": "minus"
+ },
+ {
+  "name": "Jake Bobo",
+  "cls": 2023,
+  "pick": "UDFA",
+  "bg": "-1.4",
+  "lo": "-2.2",
+  "hi": "-0.5",
+  "routes": 306,
+  "tprr": "14.4",
+  "fc": "19.1",
+  "call": "minus"
+ }
+]
