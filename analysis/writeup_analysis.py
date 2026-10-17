@@ -1,311 +1,488 @@
-"""Burst Translation, revised (round 1 revision of cand_3).
+"""Bend vs burst for DL/EDGE: Combine pass-rush-drill first-second distance and Run-the-Hoop bend (Hoop G)
+against NFL get-off (NGS, every pass-rush snap) and pressure rate, beyond a no-tracking baseline.
 
-Question: does a defensive lineman's first second of movement in the Combine pass-rush drill show up on his NFL
-pass-rush snaps, and does the gap explain pressure beyond what a front office already has? Positive control: the 40's
-top speed vs NFL peak speed, validated class by class.
+Run from the repo root:
+    uv run python writeup/candidates/round_02/cand_1/analysis.py
 
-Changes vs cand_3: random-snap half is the primary game sample; rep-level burst is modelled with fixed effects
-(drill x year; alignment, man/zone and press/off) and player random effects (empirical-Bayes posterior means);
-true-score (disattenuated) correlations with bootstrap CIs; pressure rate is beta-binomial shrunk by rush snaps
-(no hard cut); leave-one-class-out with repeated bootstrap draws, a within-class permutation test and Holm/BH
-correction across every reported test; OL/TE burst composites (negative reliability) dropped.
-
-Reads data/processed/*.parquet (career outcomes through analysis/insights.py:load). Writes numbers.json, tables.json
-and figures/*.png next to this file.
-
-Usage: uv run python writeup/candidates/round_01/revised/analysis.py
+Reads data/processed/*.parquet only. Writes numbers.json, tables.json and figures/*.png next to this file.
+Every decimal quoted in writeup.md is produced here.
 """
 from __future__ import annotations
 
 import json
-import sys
-import warnings
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-from scipy import stats  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.collections import LineCollection
+from scipy import stats
+from scipy.signal import savgol_filter
 
-warnings.filterwarnings("ignore")
-HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 PROC = ROOT / "data" / "processed"
-FIG = HERE / "figures"
-FIG.mkdir(exist_ok=True)
-sys.path.insert(0, str(ROOT / "analysis"))
-import insights  # noqa: E402
+OUT = Path(__file__).resolve().parent
+FIG = OUT / "figures"
+FIG.mkdir(parents=True, exist_ok=True)
 
 RNG = np.random.default_rng(2027)
-DT = 0.1
-T = 16                 # frames kept after onset (0.0-1.5 s)
-BURST = 11             # first-second window: frames 0..10 (0.0-1.0 s)
-PRECONTACT = 6         # pre-contact window: frames 0..5 (0.0-0.5 s)
-ON, PRE = 1.0, 0.5     # onset threshold (yd/s) and back-off threshold
-GROUPS = ["DL", "OL", "WR", "TE", "DB"]
-BURST_GROUPS = ["DL", "WR", "DB"]     # OL and TE drill composites have negative reliability (dropped)
 NBOOT = 2000
-NREP = 500
 NPERM = 1000
-PRESS_CUSHION = 3.0    # yards: cushion at the snap at or below this = press / tight
-MATCHED = {
-    "DL": ["PASS_RUSH_DRILL"],
-    "OL": ["PASS_RUSH_DROP", "PASS_PRO_MIRROR_DRILL"],
-    "WR": ["GO_ROUTE_RIGHT", "SLANT_ROUTE_LEFT", "COMEBACK_ROUTE_RIGHT", "CURL_ROUTE_RIGHT", "DAGGER_ROUTE_LEFT",
-           "SPEED_OUT_ROUTE_LEFT", "POST_CORNER_ROUTE_RIGHT", "SLOT_SAIL_ROUTE_RIGHT"],
-    "TE": ["CORNER_ROUTE", "IN_ROUTE_LEFT", "HOOK_ROUTE_RIGHT", "FLAT_ROUTE_LEFT", "WHEEL_ROUTE_LEFT"],
-    "DB": ["BACK_PEDAL_AND_TRANSITION_45_DEGREE_REACTION", "BACK_PEDAL_AND_90_DEGREE_BREAK_TO_BALL", "LINE_DRILL"],
-}
-GAME_TYPE = {"DL": "pass rushes", "OL": "pass sets", "WR": "routes", "TE": "routes", "DB": "coverage snaps"}
-DRILL_LABEL = {"DL": "pass-rush drill", "OL": "drop + mirror drills", "WR": "8 route drills", "TE": "5 route drills",
-               "DB": "3 backpedal drills"}
-# Okabe-Ito
+MIN_SNAPS = 100
+UDFA_PICK = 262
+DT = 0.1
+YD_PER_G = 9.80665 / 0.9144
+ON, PRE = 1.0, 0.5            # onset threshold and back-off threshold (yd/s)
+W1 = 10                       # first second = 10 frames after onset / snap
 OI = {"blue": "#0072B2", "orange": "#E69F00", "green": "#009E73", "red": "#D55E00", "purple": "#CC79A7",
       "sky": "#56B4E9", "yellow": "#F0E442", "grey": "#7F7F7F", "black": "#000000"}
-GCOL = {"DL": OI["red"], "OL": OI["orange"], "WR": OI["blue"], "TE": OI["green"], "DB": OI["purple"]}
-plt.rcParams.update({"font.size": 12, "axes.titlesize": 12, "axes.labelsize": 12, "xtick.labelsize": 11,
+plt.rcParams.update({"font.size": 12, "axes.titlesize": 13, "axes.labelsize": 12, "xtick.labelsize": 11,
                      "ytick.labelsize": 11, "legend.fontsize": 11, "axes.spines.top": False,
                      "axes.spines.right": False, "figure.dpi": 150})
 FIGW = 1600 / 150
 
 NUM: dict = {}
+TABLES: dict = {}
 
 
-def put(key: str, value, fmt: str = "{:.2f}") -> str:
-    s = fmt.format(value) if not isinstance(value, str) else value
+def put(key, v, nd=2):
+    """Store a number exactly as written in the text (and its absolute value, since the checker drops the sign)."""
+    if isinstance(v, (int, np.integer)):
+        NUM[key] = int(v)
+        return int(v)
+    s = f"{float(v):.{nd}f}"
     NUM[key] = s
+    if s.startswith("-"):
+        NUM[key + "_abs"] = s[1:]
     return s
 
 
-def log(m: str) -> None:
-    print(m, flush=True)
+def save(fig, name):
+    fig.set_size_inches(FIGW, fig.get_size_inches()[1])
+    fig.savefig(FIG / name, dpi=150)
+    plt.close(fig)
 
 
-# ----------------------------------------------------------------------------- curves
-def onset_curve(s: np.ndarray, start: int = 0):
-    """Speed for T frames from movement onset (first frame >= ON yd/s, backed up <=3 frames while >= PRE)."""
-    s = np.asarray(s, float)[start:]
-    if not len(s) or s[0] >= ON:
-        return None
-    hit = np.flatnonzero(s >= ON)
+def yz(s: pd.Series, year: pd.Series) -> pd.Series:
+    return s.groupby(year).transform(lambda v: (v - v.mean()) / v.std())
+
+
+# ----------------------------------------------------------------------------- drill kinematics
+def onset(s: np.ndarray, start: int = 0):
+    s = np.asarray(s, float)
+    hit = np.flatnonzero(s[start:] >= ON)
     if not len(hit):
         return None
-    i = j = int(hit[0])
-    while j > 0 and s[j - 1] >= PRE and i - j < 3:
+    i = j = start + int(hit[0])
+    while j > start and s[j - 1] >= PRE and i - j < 3:
         j -= 1
-    c = s[j:j + T]
-    return c if len(c) == T else None
+    return j
 
 
-def zscore(v: pd.Series) -> pd.Series:
-    sd = v.std()
-    return (v - v.mean()) / sd if sd and sd > 0 else v * np.nan
+def attempt_features(g: pd.DataFrame) -> dict | None:
+    x, y, s = g.x.to_numpy(), g.y.to_numpy(), g.s.to_numpy()
+    n = len(x)
+    if n < 15:
+        return None
+    xs, ys = savgol_filter(x, 7, 2), savgol_filter(y, 7, 2)
+    vx, vy = savgol_filter(xs, 7, 2, deriv=1, delta=DT), savgol_filter(ys, 7, 2, deriv=1, delta=DT)
+    ax, ay = savgol_filter(xs, 7, 2, deriv=2, delta=DT), savgol_filter(ys, 7, 2, deriv=2, delta=DT)
+    v = np.hypot(vx, vy)
+    alat = np.abs(vx * ay - vy * ax) / np.maximum(v, 0.5)
+    roll = pd.Series(alat).rolling(5, center=True).mean().to_numpy()
+    k = int(np.nanargmax(roll))
+    o = onset(s)
+    d1 = np.nan
+    if o is not None and s[0] < ON and o + W1 < n:
+        d1 = float(np.hypot(x[o + W1] - x[o], y[o + W1] - y[o]))
+    half = n // 2
+    return {"bend_g": np.nanmax(roll) / YD_PER_G, "bend_g_h1": np.nanmax(roll[:half]) / YD_PER_G,
+            "bend_g_h2": np.nanmax(roll[half:]) / YD_PER_G, "speed_at_bend": v[k], "d1": d1,
+            "_alat": alat / YD_PER_G, "_x": xs, "_y": ys, "_k": k, "_o": o}
 
 
-def build_curves(p: pd.DataFrame):
-    ev = pd.read_parquet(PROC / "combine_events.parquet")
-    cf = pd.read_parquet(PROC / "combine_frames.parquet", columns=["event_id", "frame", "entity_type", "s"])
-    cf = cf[cf.entity_type == "PLAYER"].sort_values(["event_id", "frame"])
-    sp = dict(tuple(cf.groupby("event_id").s))
-    rows = []
-    for g, drills in MATCHED.items():
-        e = ev[(ev.position_group == g) & ev.drill_name.isin(drills)]
-        for r in e.itertuples():
-            c = onset_curve(sp[r.event_id].values)
-            if c is not None:
-                rows.append((g, r.nfl_id, r.drill_name, r.draft_year, r.attempt_no, *c))
-    D = pd.DataFrame(rows, columns=["grp", "nfl_id", "drill", "yr", "att"] + [f"c{i}" for i in range(T)])
-    f40 = ev[ev.drill_type == "FORTY_YARD_DASH"]
-    top40 = f40.groupby(["nfl_id", "draft_year"]).top_speed.max().reset_index()
-    top40["top40_z"] = top40.groupby("draft_year").top_speed.transform(zscore)
-    t40_pairs = f40.sort_values("attempt_no").groupby("nfl_id").top_speed.apply(
-        lambda v: v.values[:2] if len(v) >= 2 else None).dropna()
-
-    gp = pd.read_parquet(PROC / "game_plays_sample.parquet")
-    gf = pd.read_parquet(PROC / "game_frames_sample.parquet", columns=["game_id", "play_id", "nfl_id", "frame", "s"])
-    gf = gf.sort_values(["game_id", "play_id", "nfl_id", "frame"])
-    k = ["game_id", "play_id", "nfl_id"]
-    snapf = gp.set_index(k).snap_frame
-    grows, peaks = [], []
-    for key, d in gf.groupby(k, sort=False):
-        sf = snapf.get(key, np.nan)
-        if np.isnan(sf):
-            continue
-        s = d.s.values
-        st = int(np.searchsorted(d.frame.values, sf))
-        peaks.append((*key, float(s[st:].max()) if len(s) > st else np.nan))
-        c = onset_curve(s, st)
-        if c is not None:
-            grows.append((*key, *c))
-    G = pd.DataFrame(grows, columns=k + [f"c{i}" for i in range(T)])
-    PK = pd.DataFrame(peaks, columns=k + ["peak"])
-    meta = gp[k + ["season", "lined_up_position", "expected_points_added", "team_coverage_type", "cushion"]].copy()
-    # The ETL took each player's 6 highest-|EPA| snaps, then 6 random snaps from the rest. Every random snap therefore
-    # has |EPA| <= the 6th-highest, so the 6 lowest-|EPA| of the 12 are exactly the random draw.
-    meta["ae"] = meta.expected_points_added.abs()
-    meta["rk"] = meta.groupby("nfl_id").ae.rank(ascending=False, method="first")
-    meta["nn"] = meta.groupby("nfl_id").ae.transform("size")
-    meta["random_half"] = (meta.nn < 12) | (meta.rk > 6)
-    meta["man"] = meta.team_coverage_type.fillna("").str.contains("MAN").map({True: "man", False: "zone"})
-    meta["press"] = np.where(meta.cushion.isna(), "na", np.where(meta.cushion <= PRESS_CUSHION, "press", "off"))
-    meta = meta.merge(p[["nfl_id", "position_group"]], on="nfl_id")
-    G = G.merge(meta, on=k)
-    PK = PK.merge(meta, on=k)
-    G["grp"] = G.position_group
-    PK["grp"] = PK.position_group
-    return D, G, PK, top40, t40_pairs, gp
-
-
-# ----------------------------------------------------------------------------- stats helpers
-def residualize(df: pd.DataFrame, val: str, fe: list[str]) -> pd.Series:
-    """Remove fixed effects (categorical) by OLS; return residual scaled to unit SD."""
-    X = pd.get_dummies(df[fe].astype(str), drop_first=True).astype(float)
-    A = np.c_[np.ones(len(df)), X.values]
-    y = df[val].values
-    r = y - A @ np.linalg.lstsq(A, y, rcond=None)[0]
-    return pd.Series(r / r.std(), index=df.index)
-
-
-def var_components(ids: np.ndarray, v: np.ndarray):
-    """One-way random-effects ANOVA: between-player tau2 and within sigma2 (players with >=2 reps)."""
-    d = pd.DataFrame({"i": ids, "v": v}).dropna()
-    k = d.groupby("i").v.transform("size")
-    d = d[k >= 2]
+def icc(ids, vals):
+    """One-way random-effects single-rep reliability (players with >= 2 reps)."""
+    d = pd.DataFrame({"i": ids, "v": vals}).dropna()
+    d = d[d.groupby("i").v.transform("size") >= 2]
     g = d.groupby("i").v
     n, N = g.ngroups, len(d)
     kk = g.size()
     k0 = (N - (kk ** 2).sum() / N) / (n - 1)
-    grand = d.v.mean()
-    msb = (kk * (g.mean() - grand) ** 2).sum() / (n - 1)
+    msb = (kk * (g.mean() - d.v.mean()) ** 2).sum() / (n - 1)
     msw = ((d.v - g.transform("mean")) ** 2).sum() / (N - n)
-    tau2 = (msb - msw) / k0
-    return float(tau2), float(msw), float(tau2 / (tau2 + msw))
+    return float((msb - msw) / (msb + (k0 - 1) * msw)), int(n)
 
 
-def eb_means(df: pd.DataFrame, val: str):
-    """Empirical-Bayes posterior player means (random intercept model), in true-score SD units."""
-    tau2, s2, r1 = var_components(df.nfl_id.values, df[val].values)
-    g = df.groupby("nfl_id")[val].agg(["mean", "size"])
-    grand = df[val].mean()
-    lam = tau2 / (tau2 + s2 / g["size"]) if tau2 > 0 else g["mean"] * np.nan
-    post = grand + lam * (g["mean"] - grand)
-    out = pd.DataFrame({"raw": g["mean"], "k": g["size"], "lam": lam,
-                        "true": (post - grand) / np.sqrt(tau2) if tau2 > 0 else np.nan})
-    return out, dict(tau2=tau2, s2=s2, r1=r1, kbar=float(g["size"].mean()))
-
-
-def sb(r1: float, k: float) -> float:
+def sb(r1, k):
     return k * r1 / (1 + (k - 1) * r1)
 
 
-def reps_for(r1: float, target: float) -> float:
-    return target * (1 - r1) / (r1 * (1 - target))
-
-
-def spearman_ci(x, y):
+def sp_ci(x, y):
     m = pd.notna(x) & pd.notna(y)
-    x, y = np.asarray(x)[m], np.asarray(y)[m]
-    r, pv = stats.spearmanr(x, y)
+    x, y = np.asarray(x, float)[m], np.asarray(y, float)[m]
     n = len(x)
+    r, p = stats.spearmanr(x, y)
     b = [stats.spearmanr(x[i], y[i])[0] for i in (RNG.integers(0, n, n) for _ in range(NBOOT))]
     lo, hi = np.nanpercentile(b, [2.5, 97.5])
-    return float(r), float(lo), float(hi), int(n), float(pv)
+    return float(r), float(lo), float(hi), n, float(p)
 
 
-def true_corr(Dg: pd.DataFrame, Gg: pd.DataFrame, ids: np.ndarray):
-    """Disattenuated Pearson correlation between drill and game player means; player bootstrap recomputes reliability."""
-    def agg(R):
-        a = R.groupby("nfl_id").z.agg(["sum", "size", lambda v: ((v - v.mean()) ** 2).sum()])
-        a.columns = ["s", "k", "ss"]
-        return a
-    ad, ag = agg(Dg).reindex(ids), agg(Gg).reindex(ids)
-
-    def comp(a):
-        a = a.dropna()
-        m = a.s / a.k
-        a2 = a[a.k >= 2]
-        N, n = a2.k.sum(), len(a2)
-        k0 = (N - (a2.k ** 2).sum() / N) / (n - 1)
-        m2 = a2.s / a2.k
-        grand = a2.s.sum() / N
-        msb = (a2.k * (m2 - grand) ** 2).sum() / (n - 1)
-        msw = a2.ss.sum() / (N - n)
-        r1 = (msb - msw) / (msb + (k0 - 1) * msw)
-        return m, sb(r1, a.k.mean())
-
-    def one(idx):
-        md, rd = comp(ad.iloc[idx].reset_index(drop=True))
-        mg, rg = comp(ag.iloc[idx].reset_index(drop=True))
-        ok = md.index.intersection(mg.index)
-        r = np.corrcoef(md[ok], mg[ok])[0, 1]
-        return r, r / np.sqrt(max(rd, 1e-3) * max(rg, 1e-3)), rd, rg
-    n = len(ids)
-    r, rt, rd, rg = one(np.arange(n))
-    bs = np.array([one(RNG.integers(0, n, n))[1] for _ in range(1000)])
-    lo, hi = np.nanpercentile(bs, [2.5, 97.5])
-    return float(r), float(rt), float(lo), float(hi), float(rd), float(rg)
+def partial_sp(df, x, y, Z):
+    d = df[[x, y] + Z].dropna()
+    R = d.rank()
+    A = np.c_[np.ones(len(R)), R[Z].values]
+    rx = R[x] - A @ np.linalg.lstsq(A, R[x], rcond=None)[0]
+    ry = R[y] - A @ np.linalg.lstsq(A, R[y], rcond=None)[0]
+    r = float(np.corrcoef(rx, ry)[0, 1])
+    n = len(d)
+    b = []
+    for _ in range(NBOOT):
+        i = RNG.integers(0, n, n)
+        Ai = A[i]
+        bx = R[x].values[i] - Ai @ np.linalg.lstsq(Ai, R[x].values[i], rcond=None)[0]
+        by = R[y].values[i] - Ai @ np.linalg.lstsq(Ai, R[y].values[i], rcond=None)[0]
+        b.append(np.corrcoef(bx, by)[0, 1])
+    lo, hi = np.nanpercentile(b, [2.5, 97.5])
+    t = r * np.sqrt((n - 2 - len(Z)) / (1 - r ** 2))
+    p = 2 * stats.t.sf(abs(t), n - 2 - len(Z))
+    return r, float(lo), float(hi), n, float(p)
 
 
-def partial_spearman(x, y, Z: pd.DataFrame):
-    df = pd.concat([pd.Series(np.asarray(x), name="x", index=Z.index), pd.Series(np.asarray(y), name="y", index=Z.index), Z], axis=1).dropna()
-    R = df.rank()
-    zc = [c for c in R.columns if c not in ("x", "y")]
-    A = np.c_[np.ones(len(R)), R[zc].values]
-    rx = R.x - A @ np.linalg.lstsq(A, R.x, rcond=None)[0]
-    ry = R.y - A @ np.linalg.lstsq(A, R.y, rcond=None)[0]
-    r, pv = stats.pearsonr(rx, ry)
-    return float(r), float(pv), int(len(R))
+def mde(n, k=0, power=0.8, alpha=0.05):
+    """Smallest |rho| detectable with given power (Fisher z), k partialled covariates."""
+    return float(np.tanh((stats.norm.ppf(1 - alpha / 2) + stats.norm.ppf(power)) / np.sqrt(n - 3 - k)))
 
 
-def r2(yy, pp):
-    return 1 - ((yy - pp) ** 2).sum() / ((yy - yy.mean()) ** 2).sum()
+def tost_p(r, n, bound, k=0):
+    """Two one-sided tests that |rho| < bound (Fisher z). Small p = effect is smaller than bound."""
+    se = 1 / np.sqrt(n - 3 - k)
+    z, zb = np.arctanh(r), np.arctanh(bound)
+    return float(max(stats.norm.sf((z + zb) / se), stats.norm.cdf((z - zb) / se)))
 
 
-def fit_pred(tr, te, cols, y, w):
+# ----------------------------------------------------------------------------- load
+players = pd.read_parquet(PROC / "players.parquet")
+cres = pd.read_parquet(PROC / "combine_results.parquet")
+events = pd.read_parquet(PROC / "combine_events.parquet")
+seasons = pd.read_parquet(PROC / "player_season_stats.parquet")
+align = pd.read_parquet(PROC / "player_season_alignment.parquet")
+gp = pd.read_parquet(PROC / "game_plays_sample.parquet")
+
+dl = players[players.position_group == "DL"][["nfl_id", "display_name", "draft_year", "nfl_position",
+                                               "draft_overall_pick"]].copy()
+dl["pick"] = dl.draft_overall_pick.fillna(UDFA_PICK)
+dl["log_pick"] = np.log(dl.pick)
+dl = dl.merge(cres.drop(columns=["draft_year", "combine_position"]), on="nfl_id", how="left")
+put("n_dl", len(dl))
+for c in ["combine_weight", "ten_yd_split", "forty", "three_cone", "short_shuttle"]:
+    dl[c + "_z"] = yz(dl[c], dl.draft_year)
+put("n_3cone", int(dl.three_cone.notna().sum()))
+put("n_shuttle", int(dl.short_shuttle.notna().sum()))
+put("n_10yd", int(dl.ten_yd_split.notna().sum()))
+
+# EDGE share of NFL snaps (alignment table); fallback to listed position when no snaps
+a = align.merge(dl[["nfl_id"]], on="nfl_id")
+a["edge_pl"] = np.where(a.lined_up_position.isin(["EDGE", "OLB"]), a.plays, 0)
+es = a.groupby("nfl_id").agg(edge_pl=("edge_pl", "sum"), pl=("plays", "sum"))
+dl = dl.merge((es.edge_pl / es.pl).rename("edge_share").reset_index(), on="nfl_id", how="left")
+dl["edge_share"] = dl.edge_share.fillna(dl.nfl_position.isin(["DE", "OLB"]).astype(float))
+dl["edge"] = (dl.edge_share >= 0.5).astype(float)
+dl["role"] = np.where(dl.edge == 1, "EDGE", "interior")
+
+# ----------------------------------------------------------------------------- Combine drills
+ev = events[(events.position_group == "DL") & events.drill_name.isin(["PASS_RUSH_DRILL", "RUN_THE_HOOP_DRILL"])]
+ev = ev[["event_id", "nfl_id", "draft_year", "drill_name", "attempt_no", "start_speed", "peak_accel"]]
+fr = pd.read_parquet(PROC / "combine_frames.parquet", filters=[("event_id", "in", list(ev.event_id))],
+                     columns=["event_id", "frame", "entity_type", "x", "y", "s"])
+fr = fr[fr.entity_type == "PLAYER"].sort_values(["event_id", "frame"])
+rows, traces = [], {}
+for eid, g in fr.groupby("event_id", sort=False):
+    f = attempt_features(g)
+    if f is None:
+        continue
+    traces[eid] = {k: f.pop(k) for k in ["_alat", "_x", "_y", "_k", "_o"]}
+    rows.append({"event_id": eid, **f})
+att = pd.DataFrame(rows).merge(ev, on="event_id")
+hoop_att = att[att.drill_name == "RUN_THE_HOOP_DRILL"].copy()
+rush_att = att[att.drill_name == "PASS_RUSH_DRILL"].copy()
+hoop_att["hoop_z"] = yz(hoop_att.bend_g, hoop_att.draft_year)
+rush_att["d1_z"] = yz(rush_att.d1, rush_att.draft_year)
+put("n_hoop_att", len(hoop_att))
+put("n_rush_att", len(rush_att))
+put("n_rush_att_d1", int(rush_att.d1.notna().sum()))
+put("hoop_g_median", hoop_att.bend_g.median())
+put("hoop_g_p10", hoop_att.bend_g.quantile(0.1))
+put("hoop_g_p90", hoop_att.bend_g.quantile(0.9))
+put("rush_d1_median", rush_att.d1.median(), 1)
+yr_med = hoop_att.groupby("draft_year").bend_g.median()
+put("hoop_year_range", yr_med.max() - yr_med.min())
+yr_d1 = rush_att.groupby("draft_year").d1.median()
+put("d1_year_range", yr_d1.max() - yr_d1.min(), 1)
+
+# reliability of each drill measure
+r1_d1, n_d1pairs = icc(rush_att.nfl_id, rush_att.d1_z)
+put("rel1_drill_d1", r1_d1); put("n_drill_d1_pairs", n_d1pairs)
+r1_hoop_sh = stats.spearmanr(hoop_att.bend_g_h1, hoop_att.bend_g_h2)[0]
+put("rel_hoop_splithalf", r1_hoop_sh)
+rel_hoop = 2 * r1_hoop_sh / (1 + r1_hoop_sh)
+put("rel_hoop_sb", rel_hoop)
+k_rush = rush_att.dropna(subset=["d1"]).groupby("nfl_id").size().mean()
+rel_d1_player = sb(r1_d1, k_rush)
+put("rel_drill_d1_player", rel_d1_player)
+put("k_rush_mean", k_rush, 1)
+put("n_hoop_two", int((hoop_att.groupby("nfl_id").size() >= 2).sum()))
+
+hoop = hoop_att.groupby("nfl_id").agg(hoop_g=("bend_g", "mean"), hoop_z=("hoop_z", "mean"),
+                                      hoop_k=("bend_g", "size"), hoop_eid=("event_id", "first")).reset_index()
+rush = rush_att.groupby("nfl_id").agg(d1=("d1", "mean"), d1_z=("d1_z", "mean"),
+                                      rush_k=("d1", "count")).reset_index()
+dl = dl.merge(hoop, on="nfl_id", how="left").merge(rush, on="nfl_id", how="left")
+put("n_hoop_players", int(dl.hoop_z.notna().sum()))
+put("n_rush_players", int(dl.d1_z.notna().sum()))
+# EB-shrunk Hoop z and posterior sd, in true-score sd units (reliability rel_hoop per rep)
+lam = dl.hoop_k * rel_hoop / (1 + (dl.hoop_k - 1) * rel_hoop)
+dl["hoop_shr"] = lam * dl.hoop_z / np.sqrt(rel_hoop)
+dl["hoop_shr_sd"] = np.sqrt(1 - lam)
+put("hoop_lambda_1rep", rel_hoop)
+
+# tracked 40 top speed (needed for "does tracking add over the stopwatch")
+f40 = events[(events.position_group == "DL") & (events.drill_type == "FORTY_YARD_DASH")]
+t40 = f40.groupby("nfl_id").top_speed.max().rename("top40").reset_index()
+dl = dl.merge(t40, on="nfl_id", how="left")
+dl["top40_z"] = yz(dl.top40, dl.draft_year)
+
+# ----------------------------------------------------------------------------- NFL outcomes
+s = seasons[seasons.position_group == "DL"].copy()
+s["w_go"] = s.pass_rush_snaps * s.avg_get_off
+agg = s.groupby("nfl_id").agg(rush_snaps=("pass_rush_snaps", "sum"), pressures=("pressures", "sum"),
+                              w_go=("w_go", "sum"), n_seasons=("season", "count"), games=("games", "sum")).reset_index()
+agg["get_off"] = agg.w_go / agg.rush_snaps
+agg["press_rate"] = agg.pressures / agg.rush_snaps
+dl = dl.merge(agg, on="nfl_id", how="left")
+dl["rush_snaps"] = dl.rush_snaps.fillna(0)
+dl["games"] = dl.games.fillna(0)
+dl["seasons_avail"] = 2026 - dl.draft_year
+dl["snaps_per_season"] = dl.rush_snaps / dl.seasons_avail
+dl["games_per_season"] = dl.games / dl.seasons_avail
+put("n_any_snaps", int((dl.rush_snaps > 0).sum()))
+put("n_zero_snaps", int((dl.rush_snaps == 0).sum()))
+put("total_rush_snaps", int(dl.rush_snaps.sum()))
+put("total_pressures", int(dl.pressures.fillna(0).sum()))
+
+# beta-binomial EB pressure rate, ONE pooled DL prior (a role-specific prior would build EDGE into the outcome).
+# Method of moments (Kleinman): tau2 = (sum n_i (p_i - mu)^2 - (k - 1) mu (1 - mu)) / (N - sum n_i^2 / N)
+m = dl.rush_snaps >= 20
+n_, k_ = dl.loc[m, "rush_snaps"], dl.loc[m, "pressures"]
+p_ = k_ / n_
+mu = k_.sum() / n_.sum()
+N_ = n_.sum()
+tau2 = ((n_ * (p_ - mu) ** 2).sum() - (len(n_) - 1) * mu * (1 - mu)) / (N_ - (n_ ** 2).sum() / N_)
+M = mu * (1 - mu) / tau2 - 1
+put("prior_weight", int(round(M)))
+put("prior_mean", 100 * mu, 1)
+put("press_true_sd_pp", 100 * np.sqrt(tau2), 1)
+mm = dl.rush_snaps > 0
+dl.loc[mm, "press_eb"] = (dl.loc[mm, "pressures"] + M * mu) / (dl.loc[mm, "rush_snaps"] + M)
+
+# outcome reliability: season to season (>= MIN_SNAPS both seasons)
+s2 = s[s.pass_rush_snaps >= MIN_SNAPS][["nfl_id", "season", "pressures", "pass_rush_snaps", "avg_get_off"]].copy()
+s2["pr"] = s2.pressures / s2.pass_rush_snaps
+pr2 = s2.merge(s2.assign(season=s2.season - 1), on=["nfl_id", "season"], suffixes=("", "_n"))
+put("yoy_n", len(pr2))
+rel_press_season = stats.spearmanr(pr2.pr, pr2.pr_n)[0]
+rel_getoff_season = stats.spearmanr(pr2.avg_get_off, pr2.avg_get_off_n)[0]
+put("yoy_press", rel_press_season)
+put("yoy_getoff", rel_getoff_season)
+put("median_snaps_season", int(s2.pass_rush_snaps.median()))
+
+# ----------------------------------------------------------------------------- game tracking check of get-off
+dlids = set(dl.nfl_id)
+g = gp[gp.nfl_id.isin(dlids)]
+gf = pd.read_parquet(PROC / "game_frames_sample.parquet", columns=["game_id", "play_id", "nfl_id", "frame", "x", "y"])
+gf = gf[gf.nfl_id.isin(dlids)]
+K = ["game_id", "play_id", "nfl_id"]
+gf = gf.merge(g[K + ["snap_frame"]], on=K)
+gf["rel"] = gf.frame - gf.snap_frame
+p0 = gf[gf.rel == 0].set_index(K)[["x", "y"]]
+p1 = gf[gf.rel == W1].set_index(K)[["x", "y"]]
+gd = np.hypot(p1.x - p0.x.reindex(p1.index), p1.y - p0.y.reindex(p1.index)).rename("g_d1").reset_index()
+gd = gd.merge(g[K + ["player_get_off", "sample_kind", "lined_up_position"]], on=K).dropna()
+put("n_game_plays", len(gd))
+put("n_game_players", gd.nfl_id.nunique())
+put("rho_play_d1_getoff", stats.spearmanr(gd.g_d1, gd.player_get_off)[0])
+put("game_d1_median", gd.g_d1.median(), 1)
+rnd = gd[gd.sample_kind == "random"].copy()
+put("n_random_plays", len(rnd))
+put("random_per_player", rnd.groupby("nfl_id").size().median(), 0)
+rnd["g_d1_z"] = (rnd.g_d1 - rnd.g_d1.mean()) / rnd.g_d1.std()
+r1_game, _ = icc(rnd.nfl_id, rnd.g_d1_z)
+put("rel1_game_d1", r1_game)
+r1_go, _ = icc(rnd.nfl_id, rnd.player_get_off)
+put("rel1_play_getoff", r1_go)
+gpl = rnd.groupby("nfl_id").agg(g_d1=("g_d1", "mean")).reset_index()
+dl = dl.merge(gpl, on="nfl_id", how="left")
+
+# ----------------------------------------------------------------------------- cohort and raw signals
+co = dl[dl.rush_snaps >= MIN_SNAPS].copy()
+put("n_cohort", len(co))
+put("n_cohort_edge", int((co.role == "EDGE").sum()))
+put("n_cohort_int", int((co.role == "interior").sum()))
+put("cohort_median_snaps", int(co.rush_snaps.median()))
+put("cohort_press_median", 100 * co.press_rate.median(), 1)
+put("cohort_getoff_median", co.get_off.median())
+put("rho_play_vs_season_getoff", stats.spearmanr(co.g_d1, co.get_off, nan_policy="omit")[0])
+
+# signs: higher = better athlete. get-off: lower seconds = quicker -> use negative
+co["quick"] = -co.get_off
+MEAS = [  # col, label, kind, sign
+    ("forty_z", "40-yard time", "official", -1), ("ten_yd_split_z", "10-yd split", "official", -1),
+    ("three_cone_z", "3-cone", "official", -1), ("short_shuttle_z", "Short shuttle", "official", -1),
+    ("combine_weight_z", "Lighter weight", "official", -1), ("ngs_athleticism_score", "NGS athleticism", "official", 1),
+    ("log_pick", "Draft pick", "official", -1),
+    ("top40_z", "40 top speed (tracked)", "tracking", 1),
+    ("d1_z", "Rush-drill first-second distance", "tracking", 1),
+    ("hoop_z", "Hoop G (bend)", "tracking", 1),
+]
+OUTC = [("quick", "NFL get-off (quicker)"), ("press_eb", "NFL pressure rate")]
+sig = []
+for col, lab, kind, sgn in MEAS:
+    for oc, olab in OUTC:
+        r, lo, hi, n, p = sp_ci(sgn * co[col], co[oc])
+        sig.append(dict(col=col, label=lab, kind=kind, outcome=oc, olab=olab, rho=r, lo=lo, hi=hi, n=n, p=p,
+                        mde=mde(n)))
+sig = pd.DataFrame(sig)
+for r_ in sig.itertuples():
+    put(f"rho_{r_.col}_{r_.outcome}", r_.rho)
+    put(f"lo_{r_.col}_{r_.outcome}", r_.lo)
+    put(f"hi_{r_.col}_{r_.outcome}", r_.hi)
+    put(f"n_{r_.col}_{r_.outcome}", int(r_.n))
+    put(f"mde_{r_.col}_{r_.outcome}", r_.mde)
+TABLES["signals"] = sig.round(3).to_dict("records")
+
+# weight is the get-off story
+put("rho_weight_getoff_raw", stats.spearmanr(co.combine_weight, co.get_off)[0])
+put("rho_d1_weight", stats.spearmanr(dl.d1_z, dl.combine_weight, nan_policy="omit")[0])
+put("rho_hoop_weight", stats.spearmanr(dl.hoop_z, dl.combine_weight, nan_policy="omit")[0])
+put("rho_hoop_pick", stats.spearmanr(dl.hoop_z, -dl.log_pick, nan_policy="omit")[0])
+put("n_hoop_pick", int(dl.hoop_z.notna().sum()))
+put("rho_hoop_d1", stats.spearmanr(dl.hoop_z, dl.d1_z, nan_policy="omit")[0])
+
+# ----------------------------------------------------------------------------- partial after baseline + power
+BASE = ["combine_weight_z", "edge_share", "ten_yd_split_z", "three_cone_z", "ngs_athleticism_score", "log_pick"]
+BASE_NOEDGE = [c for c in BASE if c != "edge_share"]
+
+
+def impute(tr: pd.DataFrame, te: pd.DataFrame, cols=("ten_yd_split_z", "three_cone_z")):
+    """Fill missing official times from weight + EDGE share, fit on training rows only (no outcome)."""
+    tr, te = tr.copy(), te.copy()
+    for c in cols:
+        m = tr[c].notna()
+        A = np.c_[np.ones(m.sum()), tr.loc[m, ["combine_weight_z", "edge_share"]].values]
+        b = np.linalg.lstsq(A, tr.loc[m, c].values, rcond=None)[0]
+        for d in (tr, te):
+            mm = d[c].isna()
+            d.loc[mm, c] = np.c_[np.ones(mm.sum()), d.loc[mm, ["combine_weight_z", "edge_share"]].values] @ b
+    return tr, te
+
+
+coi, _ = impute(co, co)
+put("n_missing_3cone_cohort", int(co.three_cone_z.isna().sum()))
+put("n_missing_10yd_cohort", int(co.ten_yd_split_z.isna().sum()))
+REL_OUT = {"quick": sb(rel_getoff_season, co.n_seasons.mean()), "press_eb": sb(rel_press_season, co.n_seasons.mean())}
+put("rel_getoff_career", REL_OUT["quick"])
+put("rel_press_career", REL_OUT["press_eb"])
+REL_X = {"d1_z": rel_d1_player, "hoop_z": rel_hoop}
+PRIMARY = [("d1_z", "quick"), ("hoop_z", "press_eb"), ("d1_z", "press_eb"), ("hoop_z", "quick")]
+prim = {}
+for x, y in PRIMARY:
+    r, lo, hi, n, p = partial_sp(coi, x, y, BASE)
+    m_obs = mde(n, len(BASE))
+    ceil = np.sqrt(REL_X[x] * REL_OUT[y])
+    m_true = min(m_obs / ceil, 1.0)
+    tp = tost_p(r, n, 0.30, len(BASE))
+    rn, lon, hin, nn, pn = partial_sp(coi, x, y, BASE_NOEDGE)
+    prim[(x, y)] = dict(r=r, lo=lo, hi=hi, n=n, p=p, mde=m_obs, ceil=ceil, mde_true=m_true, tost=tp, r_noedge=rn,
+                        p_noedge=pn)
+    key = f"{x}_{y}"
+    put(f"pr_{key}", r); put(f"pr_lo_{key}", lo); put(f"pr_hi_{key}", hi); put(f"pr_n_{key}", n)
+    put(f"pr_p_{key}", p, 3); put(f"pmde_{key}", m_obs); put(f"ceil_{key}", ceil); put(f"mdetrue_{key}", m_true)
+    put(f"tost_{key}", tp, 3); put(f"pr_noedge_{key}", rn); put(f"pr_p_noedge_{key}", pn, 3)
+# Holm over the four primary tests
+ps = np.array([prim[k]["p"] for k in PRIMARY])
+o = np.argsort(ps)
+holm = np.empty(4)
+run = 0
+for rank, i in enumerate(o):
+    run = max(run, (4 - rank) * ps[i])
+    holm[i] = min(1, run)
+for (x, y), h in zip(PRIMARY, holm):
+    put(f"holm_{x}_{y}", h, 3)
+
+# by role, for the two headline tests
+for role in ["EDGE", "interior"]:
+    c = coi[coi.role == role]
+    for x, y in PRIMARY[:2]:
+        r, lo, hi, n, p = partial_sp(c, x, y, [b for b in BASE if b != "edge_share"])
+        put(f"pr_{x}_{y}_{role}", r); put(f"pr_n_{x}_{y}_{role}", n)
+
+# snap thresholds sensitivity for Hoop G -> pressure
+for thr in [50, 200]:
+    c = dl[dl.rush_snaps >= thr].copy()
+    c, _ = impute(c, c)
+    r, lo, hi, n, p = partial_sp(c, "hoop_z", "press_eb", BASE)
+    put(f"pr_hoop_press_snaps{thr}", r); put(f"pr_n_hoop_press_snaps{thr}", n)
+
+# ----------------------------------------------------------------------------- opportunity / survival
+oc_ = dl.copy()
+for col, lab in [("hoop_z", "hoop"), ("d1_z", "d1"), ("three_cone_z", "3cone")]:
+    r, lo, hi, n, p = sp_ci(oc_[col], oc_.snaps_per_season)
+    put(f"rho_{lab}_opp", r); put(f"lo_{lab}_opp", lo); put(f"hi_{lab}_opp", hi); put(f"n_{lab}_opp", n)
+    r2_, _, _, n2, _ = sp_ci(oc_[col], oc_.games_per_season)
+    put(f"rho_{lab}_games", r2_)
+put("rho_pick_opp", stats.spearmanr(-oc_.log_pick, oc_.snaps_per_season)[0])
+reach = oc_.dropna(subset=["hoop_z"])
+put("reach100_hoop_top", 100 * (reach[reach.hoop_z > 0].rush_snaps >= MIN_SNAPS).mean(), 0)
+put("reach100_hoop_bot", 100 * (reach[reach.hoop_z <= 0].rush_snaps >= MIN_SNAPS).mean(), 0)
+
+
+# ----------------------------------------------------------------------------- leave-one-class-out
+def r2(y, p):
+    return 1 - ((y - p) ** 2).sum() / ((y - y.mean()) ** 2).sum()
+
+
+def ols_pred(tr, te, cols, y):
     A = np.c_[np.ones(len(tr)), tr[cols].values]
-    sw = np.sqrt(tr[w].values)
-    beta = np.linalg.lstsq(A * sw[:, None], tr[y].values * sw, rcond=None)[0]
-    return np.c_[np.ones(len(te)), te[cols].values] @ beta
+    b = np.linalg.lstsq(A, tr[y].values, rcond=None)[0]
+    return np.c_[np.ones(len(te)), te[cols].values] @ b
 
 
-def loco(df: pd.DataFrame, base: list[str], extra: list[str], y: str, w: str = "w", perm: bool = True):
-    """Leave-one-class-out (weighted LS fit, unweighted scoring). Returns pooled and fold-wise R2/RMSE, repeated-draw
-    interval (bootstrap of the training classes), player-bootstrap CI and within-class permutation p for the gain."""
+def loco(df, base, extra, y, perm=True):
     classes = sorted(df.draft_year.unique())
 
-    def run(d, boot_train=False):
-        yv, pb, pa, cl = [], [], [], []
+    def run(d):
+        Y, PB, PA, CL, ID = [], [], [], [], []
         for c in classes:
-            tr, te = d[d.draft_year != c], d[d.draft_year == c]
-            if boot_train:
-                tr = tr.iloc[RNG.integers(0, len(tr), len(tr))]
-            pb.append(fit_pred(tr, te, base, y, w))
-            pa.append(fit_pred(tr, te, base + extra, y, w))
-            yv.append(te[y].values)
-            cl.append(np.full(len(te), c))
-        return tuple(map(np.concatenate, (yv, pb, pa, cl)))
-    yv, pb, pa, cl = run(df)
-    out = dict(n=len(yv), r2_base=r2(yv, pb), r2_aug=r2(yv, pa))
+            tr, te = impute(d[d.draft_year != c], d[d.draft_year == c])
+            PB.append(ols_pred(tr, te, base, y))
+            PA.append(ols_pred(tr, te, base + extra, y))
+            Y.append(te[y].values); CL.append(np.full(len(te), c)); ID.append(te.nfl_id.values)
+        return tuple(map(np.concatenate, (Y, PB, PA, CL, ID)))
+    Y, PB, PA, CL, ID = run(df)
+    out = dict(n=len(Y), r2_base=r2(Y, PB), r2_aug=r2(Y, PA))
     out["delta"] = out["r2_aug"] - out["r2_base"]
-    out["folds"] = {int(c): dict(n=int((cl == c).sum()), r2_base=float(r2(yv[cl == c], pb[cl == c])),
-                                 r2_aug=float(r2(yv[cl == c], pa[cl == c])),
-                                 rmse_base=float(np.sqrt(((yv - pb)[cl == c] ** 2).mean())),
-                                 rmse_aug=float(np.sqrt(((yv - pa)[cl == c] ** 2).mean()))) for c in classes}
-    out["folds_pos"] = sum(f["r2_aug"] > f["r2_base"] for f in out["folds"].values())
-    n = len(yv)
+    out["folds"] = {int(c): dict(n=int((CL == c).sum()), base=float(r2(Y[CL == c], PB[CL == c])),
+                                 aug=float(r2(Y[CL == c], PA[CL == c]))) for c in classes}
+    out["folds_pos"] = int(sum(f["aug"] > f["base"] for f in out["folds"].values()))
+    n = len(Y)
     bd = []
     for _ in range(NBOOT):
         i = RNG.integers(0, n, n)
-        bd.append(r2(yv[i], pa[i]) - r2(yv[i], pb[i]))
-    out["lo"], out["hi"] = np.percentile(bd, [2.5, 97.5])
-    rep = []
-    for _ in range(NREP):
-        a, b_, c_, _ = run(df, boot_train=True)
-        rep.append(r2(a, c_) - r2(a, b_))
-    out["rep_med"], out["rep_lo"], out["rep_hi"] = np.percentile(rep, [50, 2.5, 97.5])
+        bd.append(r2(Y[i], PA[i]) - r2(Y[i], PB[i]))
+    out["lo"], out["hi"] = (float(v) for v in np.percentile(bd, [2.5, 97.5]))
     if perm:
         null = []
         for _ in range(NPERM):
@@ -313,481 +490,304 @@ def loco(df: pd.DataFrame, base: list[str], extra: list[str], y: str, w: str = "
             for c in classes:
                 m = (dp.draft_year == c).values
                 dp.loc[m, extra] = dp.loc[m, extra].values[RNG.permutation(m.sum())]
-            a, b_, c_, _ = run(dp)
-            null.append(r2(a, c_) - r2(a, b_))
+            a_, b_, c_, _, _ = run(dp)
+            null.append(r2(a_, c_) - r2(a_, b_))
         out["perm_p"] = float((1 + np.sum(np.array(null) >= out["delta"])) / (1 + NPERM))
+        out["null"] = np.array(null)
+    out["pred"] = pd.DataFrame({"nfl_id": ID, "y": Y, "pb": PB, "pa": PA, "cl": CL})
     return out
 
 
-def holm_bh(pvals: dict):
-    keys = list(pvals)
-    p = np.array([pvals[k] for k in keys])
-    m = len(p)
-    o = np.argsort(p)
-    holm = np.empty(m)
-    run_max = 0
-    for rank, i in enumerate(o):
-        run_max = max(run_max, (m - rank) * p[i])
-        holm[i] = min(1, run_max)
-    bh = np.empty(m)
-    prev = 1
-    for rank in range(m - 1, -1, -1):
-        i = o[rank]
-        prev = min(prev, p[i] * m / (rank + 1))
-        bh[i] = prev
-    return {k: dict(p=float(pvals[k]), holm=float(h), bh=float(b)) for k, h, b in zip(keys, holm, bh)}
+LO = {}
+for x, y in PRIMARY[:2]:
+    d = co.dropna(subset=[x, y]).copy()
+    for tag, base in [("", BASE), ("_noedge", BASE_NOEDGE)]:
+        res = loco(d, base, [x], y, perm=(tag == ""))
+        LO[(x, y, tag)] = res
+        k = f"{x}_{y}{tag}"
+        put(f"lo_n_{k}", res["n"]); put(f"r2b_{k}", res["r2_base"]); put(f"r2a_{k}", res["r2_aug"])
+        put(f"dr2_{k}", res["delta"], 3); put(f"dr2lo_{k}", res["lo"], 3); put(f"dr2hi_{k}", res["hi"], 3)
+        put(f"foldspos_{k}", res["folds_pos"])
+        for c, f in res["folds"].items():
+            put(f"r2b_{k}_{c}", f["base"]); put(f"r2a_{k}_{c}", f["aug"]); put(f"fn_{k}_{c}", f["n"])
+        if "perm_p" in res:
+            put(f"perm_{k}", res["perm_p"], 3)
+# baseline-only references (pressure): pick only, pick+edge
+d = co.dropna(subset=["hoop_z", "press_eb"]).copy()
+put("r2_pick_only_press", loco(d, ["log_pick"], [], "press_eb", perm=False)["r2_base"])
+put("r2_pick_edge_press", loco(d, ["log_pick", "edge_share"], [], "press_eb", perm=False)["r2_base"])
+d = co.dropna(subset=["d1_z", "quick"]).copy()
+put("r2_weight_edge_getoff", loco(d, ["combine_weight_z", "edge_share"], [], "quick", perm=False)["r2_base"])
+# does tracked 40 top speed add over the official 40 for pressure?
+d = co.dropna(subset=["top40_z", "forty_z", "press_eb"]).copy()
+t = loco(d, ["combine_weight_z", "edge_share", "forty_z", "log_pick"], ["top40_z"], "press_eb", perm=False)
+put("dr2_top40_over40", t["delta"], 3); put("n_top40_over40", t["n"])
+
+# effect size in pressures: in-sample OLS slope of shrunk pressure on hoop_z with baseline
+d = coi.dropna(subset=["hoop_z", "press_eb"])
+A = np.c_[np.ones(len(d)), d[BASE + ["hoop_z"]].values]
+beta, res_, *_ = np.linalg.lstsq(A, d.press_eb.values, rcond=None)
+resid = d.press_eb.values - A @ beta
+sig2 = (resid ** 2).sum() / (len(d) - A.shape[1])
+cov = sig2 * np.linalg.inv(A.T @ A)
+b_h, se_h = beta[-1], np.sqrt(cov[-1, -1])
+put("slope_hoop_pp", 100 * b_h); put("slope_hoop_pp_lo", 100 * (b_h - 1.96 * se_h)); put("slope_hoop_pp_hi", 100 * (b_h + 1.96 * se_h))
+put("pressures_per_450", 450 * b_h, 1)
+
+# ----------------------------------------------------------------------------- 2025 draft-room card (held-out class)
+res = LO[("hoop_z", "press_eb", "")]
+pr = res["pred"]
+pr = pr[pr.cl == 2025].merge(dl[["nfl_id", "display_name", "pick", "role", "hoop_g", "hoop_shr", "hoop_shr_sd",
+                                 "three_cone", "rush_snaps", "press_rate"]], on="nfl_id")
+# residual sd from 2023-24 out-of-class residuals -> 80% interval on predicted rate
+oth = res["pred"][res["pred"].cl != 2025]
+rsd = float(np.std(oth.y - oth.pa))
+pr["lo80"], pr["hi80"] = pr.pa - 1.2816 * rsd, pr.pa + 1.2816 * rsd
+pr["move"] = 100 * (pr.pa - pr.pb)
+pr["rank_b"] = pr.pb.rank(ascending=False).astype(int)
+pr["rank_a"] = pr.pa.rank(ascending=False).astype(int)
+pr["rank_y"] = pr.y.rank(ascending=False).astype(int)
+pr["shift"] = pr.rank_b - pr.rank_a           # + = bend moves him up the board
+pr["flag"] = np.where(pr["shift"] >= 3, "bend up", np.where(pr["shift"] <= -3, "bend down", ""))
+pr = pr.sort_values("pa", ascending=False).reset_index(drop=True)
+put("card_n", len(pr)); put("card_rsd_pp", 100 * rsd, 1)
+put("card_rho_base", stats.spearmanr(pr.pb, pr.y)[0]); put("card_rho_aug", stats.spearmanr(pr.pa, pr.y)[0])
+fl = pr[pr.flag != ""]
+put("card_n_flag", len(fl))
+closer = (fl.rank_a - fl.rank_y).abs() < (fl.rank_b - fl.rank_y).abs()
+put("card_flag_closer", int(closer.sum()))
+TABLES["card_2025"] = pr.round(4).to_dict("records")
+
+# per-fold rank correlation of predictions (robust to the 2025 level shift)
+for (x, y) in PRIMARY[:2]:
+    res_ = LO[(x, y, "")]["pred"]
+    for c, d_ in res_.groupby("cl"):
+        put(f"frho_b_{x}_{y}_{c}", stats.spearmanr(d_.pb, d_.y)[0]); put(f"frho_a_{x}_{y}_{c}", stats.spearmanr(d_.pa, d_.y)[0])
+yb = LO[("hoop_z", "press_eb", "")]["pred"]
+put("mean_pred_2025_pp", 100 * yb[yb.cl == 2025].pa.mean(), 1); put("mean_y_2025_pp", 100 * yb[yb.cl == 2025].y.mean(), 1)
+
+# what would change my mind: 2026 partial rho (n=20) that would pull the pooled 95% CI to include zero
+k_ = len(BASE)
+n1, z1 = prim[("hoop_z", "press_eb")]["n"], np.arctanh(prim[("hoop_z", "press_eb")]["r"])
+n2 = 20
+w1, w2 = n1 - 3 - k_, n2 - 3 - k_
+z2 = (1.96 * np.sqrt(w1 + w2) - w1 * z1) / w2
+put("cmm_n2026", n2); put("cmm_r2026", float(np.tanh(z2)))
+# game-side reliability: random snaps needed for 0.7 on per-play NGS get-off
+put("snaps_for_07_getoff", int(np.ceil(0.7 * (1 - r1_go) / (r1_go * 0.3))))
+put("snaps_for_07_drill", int(np.ceil(0.7 * (1 - r1_d1) / (r1_d1 * 0.3))))
+put("snaps_for_07_hoop", int(np.ceil(0.7 * (1 - rel_hoop) / (rel_hoop * 0.3))))
+# same-metric translation: drill first-second distance vs tracked game first-second distance (random snaps)
+r, lo, hi, n, p = sp_ci(dl.d1_z, dl.g_d1)
+put("rho_d1_drill_game", r); put("lo_d1_drill_game", lo); put("hi_d1_drill_game", hi); put("n_d1_drill_game", n)
+# exploratory (found after looking): same-metric link in the cohort, after baseline, and by role
+r, lo, hi, n, p = partial_sp(coi, "d1_z", "g_d1", BASE)
+put("pr_d1_gamed1", r); put("pr_lo_d1_gamed1", lo); put("pr_hi_d1_gamed1", hi); put("pr_n_d1_gamed1", n)
+for role in ["EDGE", "interior"]:
+    c = dl[dl.role == role]
+    r, lo, hi, n, p = sp_ci(c.d1_z, c.g_d1)
+    put(f"rho_d1_gamed1_{role}", r); put(f"n_d1_gamed1_{role}", n)
+r, lo, hi, n, p = sp_ci(co.g_d1, co.press_eb)
+put("rho_gamed1_press", r); put("n_gamed1_press", n)
+r, lo, hi, n, p = sp_ci(co.quick, co.press_eb)
+put("rho_getoff_press", r)
+r, lo, hi, n, p = partial_sp(coi, "quick", "press_eb", BASE)
+put("pr_getoff_press", r); put("pr_lo_getoff_press", lo); put("pr_hi_getoff_press", hi)
+
+# ============================================================================= FIGURES
+ROLEC = {"EDGE": OI["orange"], "interior": OI["blue"]}
 
 
-# ----------------------------------------------------------------------------- main
-def main() -> None:
-    d = insights.load()
-    p = d["p"].copy()
-    D, G, PK, top40, t40_pairs, gp = build_curves(p)
-    cb = [f"c{i}" for i in range(BURST)]
-    cp = [f"c{i}" for i in range(PRECONTACT)]
-    cc = [f"c{i}" for i in range(T)]
-    tt = np.arange(T) * DT
-    for X in (D, G):
-        X["burst"] = X[cb].mean(axis=1)
-        X["pre"] = X[cp].mean(axis=1)
-    # Drill fixed effect: drill x Combine year
-    D["z"] = D.groupby(["grp", "drill", "yr"]).burst.transform(zscore)
-    D["zpre"] = D.groupby(["grp", "drill", "yr"]).pre.transform(zscore)
-    # Game fixed effects: alignment (+ man/zone + press/off for WR, TE, DB); primary sample = random snaps
-    GR = G[G.random_half].copy()
-    PKR = PK[PK.random_half].copy()
-    fe = {"DL": ["lined_up_position"], "OL": ["lined_up_position"], "WR": ["lined_up_position", "man", "press"],
-          "TE": ["lined_up_position", "man", "press"], "DB": ["lined_up_position", "man", "press"]}
-    for X in (GR, G):
-        X["z"] = np.nan
-        X["zpre"] = np.nan
-        for g in GROUPS:
-            m = X.grp == g
-            X.loc[m, "z"] = residualize(X[m], "burst", fe[g])
-            X.loc[m, "zpre"] = residualize(X[m], "pre", fe[g])
-    for g in GROUPS:
-        m = PKR.grp == g
-        PKR.loc[m, "peak_z"] = residualize(PKR[m].dropna(subset=["peak"]), "peak", fe[g])
-
-    put("n_players", len(p), "{:d}")
-    put("n_game_plays", len(gp), "{:,}")
-    put("n_drill_reps", len(D), "{:,}")
-    put("n_game_curves_rand", len(GR), "{:,}")
-    put("n_game_curves_all", len(G), "{:,}")
-
-    # alignment share from season alignment table (DL: EDGE share)
-    al = pd.read_parquet(PROC / "player_season_alignment.parquet")
-    tot = al.groupby("nfl_id").plays.sum()
-    edge = al[al.lined_up_position.isin(["EDGE", "OLB"])].groupby("nfl_id").plays.sum().reindex(tot.index).fillna(0)
-    p = p.merge((edge / tot).rename("edge_share").reset_index(), on="nfl_id", how="left")
-
-    # ------------------------------------------------------------ per-group translation (table 1, fig 3)
-    rows, rel, EB = [], {}, {}
-    for g in GROUPS:
-        Dg, Gg = D[D.grp == g], GR[GR.grp == g]
-        ebd, cd = eb_means(Dg, "z")
-        ebg, cg = eb_means(Gg, "z")
-        EB[g] = (ebd, ebg)
-        rd, rg = sb(cd["r1"], cd["kbar"]), sb(cg["r1"], cg["kbar"])
-        rel[g] = dict(r1_d=cd["r1"], r1_g=cg["r1"], k_d=cd["kbar"], k_g=cg["kbar"], rel_d=rd, rel_g=rg)
-        ids = np.intersect1d(ebd.index, ebg.index)
-        rho, lo, hi, n, pv = spearman_ci(ebd.raw.reindex(ids).values, ebg.raw.reindex(ids).values)
-        sub = p[p.position_group == g].merge(top40[["nfl_id", "top40_z"]], on="nfl_id")
-        pk = PKR[PKR.grp == g].groupby("nfl_id").peak_z.mean()
-        sub = sub.merge(pk.rename("peak_z").reset_index(), on="nfl_id")
-        ts, tlo, thi, tn, tp = spearman_ci(sub.top40_z.values, sub.peak_z.values)
-        row = dict(group=g, n=n, rel_d=rd, rel_g=rg, r1_d=cd["r1"], r1_g=cg["r1"], k_d=cd["kbar"], k_g=cg["kbar"],
-                   rho=rho, lo=lo, hi=hi, p=pv, ceiling=float(np.sqrt(max(rd, 0) * max(rg, 0))),
-                   top=ts, top_lo=tlo, top_hi=thi, top_n=tn, top_p=tp)
-        if g in BURST_GROUPS:
-            put(f"reps07_d_{g}", reps_for(cd["r1"], 0.7), "{:.0f}")
-            put(f"reps07_g_{g}", reps_for(cg["r1"], 0.7), "{:.0f}")
-            Dz = Dg[["nfl_id", "z"]]
-            Gz = Gg[["nfl_id", "z"]]
-            r_, rt, tlo_, thi_, _, _ = true_corr(Dz, Gz, ids)
-            row.update(true=rt, true_lo=tlo_, true_hi=thi_)
-        rows.append(row)
-        for kk, v in row.items():
-            if kk == "group":
-                continue
-            fmt = "{:d}" if kk in ("n", "top_n") else ("{:.1f}" if kk in ("k_d", "k_g") else ("{:.3f}" if kk in ("p", "top_p") else "{:.2f}"))
-            put(f"{kk}_{g}", v, fmt)
-    T1 = pd.DataFrame(rows)
-    # DL by alignment: EDGE vs interior (players' modal sampled alignment)
-    ebd, ebg = EB["DL"]
-    modal = GR[GR.grp == "DL"].groupby("nfl_id").lined_up_position.agg(lambda v: v.mode().iloc[0])
-    for al_, lab in (("EDGE", "edge"), ("INTERIOR_LINE", "int")):
-        ids = np.intersect1d(ebd.index, modal[modal == al_].index)
-        rho, lo, hi, n, pv = spearman_ci(ebd.raw.reindex(ids).values, ebg.raw.reindex(ids).values)
-        put(f"rho_{lab}", rho); put(f"lo_{lab}", lo); put(f"hi_{lab}", hi); put(f"n_{lab}", n, "{:d}"); put(f"p_{lab}", pv, "{:.3f}")
-        rows.append(dict(group=f"DL-{lab}", rho=rho, lo=lo, hi=hi, n=n, p=pv))
-    # pre-contact window (0-0.5 s): construct-mismatch check for DL
-    ebdp, _ = eb_means(D[D.grp == "DL"], "zpre")
-    ebgp, _ = eb_means(GR[GR.grp == "DL"], "zpre")
-    ids = np.intersect1d(ebdp.index, ebgp.index)
-    rho, lo, hi, n, pv = spearman_ci(ebdp.raw.reindex(ids).values, ebgp.raw.reindex(ids).values)
-    put("rho_pre", rho); put("lo_pre", lo); put("hi_pre", hi); put("n_pre", n, "{:d}"); put("p_pre", pv, "{:.3f}")
-    # all 12 snaps (sensitivity)
-    Ga = G[G.grp == "DL"]
-    _, eba = eb_means(D[D.grp == "DL"], "z")
-    ebga, _ = eb_means(Ga, "z")
-    ids = np.intersect1d(ebd.index, ebga.index)
-    put("rho_all12", stats.spearmanr(ebd.raw.reindex(ids), ebga.raw.reindex(ids))[0])
-    # 40 repeatability; reps needed
-    t40 = np.vstack(t40_pairs.values)
-    put("top40_retest", stats.pearsonr(t40[:, 0], t40[:, 1])[0])
-    put("top40_retest_n", len(t40), "{:d}")
-    rf = rel["DL"]
-    put("reps07_drill_DL", reps_for(rf["r1_d"], 0.7), "{:.0f}")
-    put("reps07_game_DL", reps_for(rf["r1_g"], 0.7), "{:.0f}")
-    put("reps05_drill_DL", reps_for(rf["r1_d"], 0.5), "{:.0f}")
-    put("rel_d3_DL", sb(rf["r1_d"], 3))
-
-    # ------------------------------------------------------------ DL player table + outcome
-    x = p[p.position_group == "DL"].copy()
-    x = x.merge(ebd.add_prefix("d_"), left_on="nfl_id", right_index=True).merge(ebg.add_prefix("g_"), left_on="nfl_id", right_index=True)
-    x["bt"] = x.g_true - x.d_true
-    x["bt_raw"] = zscore(x.g_raw) - zscore(x.d_raw)
-    x["d_rawz"] = zscore(x.d_raw)
-    x["g_rawz"] = zscore(x.g_raw)
-    x["is_edge"] = (x.edge_share >= 0.5).astype(float)
-    # beta-binomial EB pressure rate, prior by EDGE vs interior (method of moments)
-    x["eb_press"] = np.nan
-    x["press_w"] = np.nan
-    for e in (0.0, 1.0):
-        m = (x.is_edge == e) & (x.pass_rush_snaps >= 1)
-        n_, k_ = x.loc[m, "pass_rush_snaps"], x.loc[m, "pressures"]
-        rate = k_ / n_
-        mu = (k_.sum() / n_.sum())
-        var_obs = np.average((rate - mu) ** 2, weights=n_)
-        var_bin = mu * (1 - mu) * len(n_) / n_.sum()
-        tau2 = max(var_obs - var_bin, 1e-5)
-        ab = mu * (1 - mu) / tau2 - 1
-        x.loc[m, "eb_press"] = (k_ + mu * ab) / (n_ + ab)
-        x.loc[m, "press_w"] = n_ / (n_ + ab)
-        put(f"prior_ab_{int(e)}", ab, "{:.0f}")
-    x["y"] = 100 * x.eb_press
-    x["w"] = x.press_w
-    x["forty_z"] = x.groupby("draft_year").forty.transform(zscore).fillna(0.0)
-    x["ngs_z"] = x.groupby("draft_year").ngs_athleticism_score.transform(zscore).fillna(0.0)
-    x["weight_z"] = zscore(x.combine_weight)
-    put("dl_n", len(x), "{:d}")
-    xo = x.dropna(subset=["y"]).copy()
-    put("dl_n_out", len(xo), "{:d}")
-    put("dl_true_rush_snaps_med", xo.pass_rush_snaps.median(), "{:.0f}")
-
-    # partial correlations (beyond pick, edge share, seasons)
-    Z = xo[["log_pick", "edge_share", "seasons_available"]]
-    pc = {}
-    for lab, col in (("game", "g_true"), ("drill", "d_true"), ("bt", "bt")):
-        r_, pv, n_ = partial_spearman(xo[col], xo.y, Z)
-        pc[lab] = (r_, pv)
-        put(f"pc_{lab}", r_); put(f"pc_{lab}_p", pv, "{:.3f}"); put("pc_n", n_, "{:d}")
-    r_, pv, n_ = partial_spearman(xo.avg_get_off, xo.y, Z)
-    put("pc_getoff", -r_); put("pc_getoff_p", pv, "{:.3f}")
-    put("rho_game_getoff", stats.spearmanr(x.g_true, x.avg_get_off, nan_policy="omit")[0])
-    put("rho_weight_getoff", stats.spearmanr(x.combine_weight, x.avg_get_off, nan_policy="omit")[0])
-
-    # leave-one-class-out
-    base = ["log_pick", "edge_share", "weight_z", "forty_z", "ngs_z"]
-    lo_rows = {}
-    xl = xo.dropna(subset=base + ["g_true", "d_true", "bt"]).copy()
-    pick_only = loco(xl, ["log_pick"], ["edge_share"], "y", perm=False)
-    put("r2_pick_only", pick_only["r2_base"]); put("r2_pick_edge", pick_only["r2_aug"])
-    for lab, extra in (("drill", ["d_true"]), ("bt", ["bt"]), ("game", ["g_true"])):
-        lo_rows[lab] = loco(xl, base, extra, "y")
-    xg = xl.dropna(subset=["avg_get_off"])
-    lo_rows["getoff"] = loco(xg, base, ["avg_get_off"], "y")
-    lo_rows["game_over_getoff"] = loco(xg, base + ["avg_get_off"], ["g_true"], "y")
-    for lab, r in lo_rows.items():
-        for kk in ("delta", "lo", "hi", "rep_lo", "rep_hi", "rep_med", "r2_base", "r2_aug"):
-            put(f"loco_{lab}_{kk}", r[kk], "{:.3f}")
-        put(f"loco_{lab}_p", r["perm_p"], "{:.3f}")
-        put(f"loco_{lab}_n", r["n"], "{:d}")
-        put(f"loco_{lab}_folds_pos", r["folds_pos"], "{:d}")
-        for c, f in r["folds"].items():
-            for kk, v in f.items():
-                put(f"loco_{lab}_{c}_{kk}", v, "{:d}" if kk == "n" else "{:.3f}")
-    put("loco_base_r2", lo_rows["bt"]["r2_base"])
-    put("loco_n", lo_rows["bt"]["n"], "{:d}")
-    # sensitivity: hard 100-snap cut and raw rates
-    xs = xl[xl.pass_rush_snaps >= 100].assign(y=lambda v: 100 * v.pressure_rate, w=1.0)
-    s100 = loco(xs, base, ["bt"], "y", perm=False)
-    put("loco_bt_100_delta", s100["delta"], "{:.3f}"); put("loco_bt_100_n", s100["n"], "{:d}")
-
-    # multiplicity: every inferential test in the writeup
-    pv = {f"burst_{g}": float(T1.set_index("group").loc[g, "p"]) for g in BURST_GROUPS}
-    pv.update({f"top_{g}": float(T1.set_index("group").loc[g, "top_p"]) for g in GROUPS})
-    pv.update({"burst_edge": float(NUM["p_edge"]), "burst_int": float(NUM["p_int"]), "burst_pre": float(NUM["p_pre"])})
-    pv.update({f"pc_{k}": v[1] for k, v in pc.items()})
-    pv.update({f"loco_{k}": lo_rows[k]["perm_p"] for k in ("drill", "bt", "game", "game_over_getoff")})
-    MT = holm_bh(pv)
-    put("n_tests", len(MT), "{:d}")
-    for k, v in MT.items():
-        put(f"holm_{k}", v["holm"], "{:.3f}"); put(f"bh_{k}", v["bh"], "{:.3f}")
-    put("n_survive_bh", sum(v["bh"] < 0.05 for v in MT.values()), "{:d}")
-
-    # quartiles of BT vs EB pressure
-    xo["btq"] = pd.qcut(xo.bt, 4, labels=False)
-    qrows = []
-    for q in range(4):
-        v = xo[xo.btq == q].y.values
-        bs = [v[RNG.integers(0, len(v), len(v))].mean() for _ in range(NBOOT)]
-        qrows.append((q, v.mean(), *np.percentile(bs, [2.5, 97.5]), len(v)))
-        put(f"q{q + 1}_press", v.mean(), "{:.1f}"); put(f"q{q + 1}_lo", np.percentile(bs, 2.5), "{:.1f}"); put(f"q{q + 1}_hi", np.percentile(bs, 97.5), "{:.1f}")
-    put("q_n", len(v), "{:d}")
-
-    # ------------------------------------------------------------ ranked DL table
-    xo = xo.sort_values("bt", ascending=False)
-    rank_cols = ["display_name", "pick", "is_edge", "d_rawz", "d_true", "g_rawz", "g_true", "bt", "y", "pass_rush_snaps"]
-    top5, bot5 = xo.head(5), xo.tail(5)
-    rank_tab = pd.concat([top5, bot5])[rank_cols]
-    tab_out = rank_tab.round(2).to_dict("records")
-    for i, r in enumerate(rank_tab.itertuples()):
-        put(f"rk{i}_dz", r.d_rawz, "{:+.1f}"); put(f"rk{i}_dt", r.d_true, "{:+.1f}")
-        put(f"rk{i}_gz", r.g_rawz, "{:+.1f}"); put(f"rk{i}_gt", r.g_true, "{:+.1f}")
-        put(f"rk{i}_bt", r.bt, "{:+.1f}"); put(f"rk{i}_y", r.y, "{:.1f}"); put(f"rk{i}_pick", int(r.pick), "{:d}")
-        put(f"rk{i}_snaps", int(r.pass_rush_snaps), "{:d}")
-    put("lam_d_med", xo.d_lam.median()); put("lam_g_med", xo.g_lam.median())
-    put("sd_bt_raw", xo.bt_raw.std()); put("sd_bt_eb", xo.bt.std())
-
-    # ------------------------------------------------------------ fig 1: hero player cards (2 x 3)
-    hi_bt = list(xo.head(2).nfl_id)
-    lo_bt = list(xo.tail(2).nfl_id)
-    rest = xo[~xo.nfl_id.isin(hi_bt + lo_bt)].sort_values("y", ascending=False)
-    hi_press = list(rest.head(2).nfl_id)
-    cards = hi_bt + lo_bt + hi_press
-    roles = ["Quicker on Sundays"] * 2 + ["Quicker in Indianapolis"] * 2 + ["Top pressure, other 4"] * 2
-    dl_avg = D[D.grp == "DL"][cc].mean().values
-    fig, axes = plt.subplots(2, 3, figsize=(FIGW, 7.6), sharey=True, sharex=True)
-    card_out = []
-    for ax, nid, role in zip(axes.ravel(), cards, roles):
-        r = xo.set_index("nfl_id").loc[nid]
-        dc = D[(D.nfl_id == nid)][cc]
-        gc = GR[(GR.nfl_id == nid)][cc]
-        ax.axvspan(0, 1.0, color=OI["yellow"], alpha=.18, lw=0)
-        for _, row in gc.iterrows():
-            ax.plot(tt, row.values, color=OI["blue"], alpha=.25, lw=1)
-        ax.plot(tt, gc.mean().values, color=OI["blue"], lw=2.8, label="NFL pass rushes (mean; thin = each snap)")
-        ax.plot(tt, dc.mean().values, "--", color=OI["red"], lw=2.8, label="his Combine pass-rush drill")
-        ax.plot(tt, dl_avg, ":", color=OI["grey"], lw=1.8, label="DL drill average")
-        ax.set_title(f"{r.display_name} ({'EDGE' if r.is_edge else 'interior'}, pick {int(r.pick)})\n{role}", fontsize=12)
-        txt = (f"drill {r.d_rawz:+.1f} → {r.d_true:+.1f}\nNFL   {r.g_rawz:+.1f} → {r.g_true:+.1f}\n"
-               f"BT {r.bt:+.1f}   pressure {r.y:.1f}%")
-        ax.text(0.98, 0.04, txt, transform=ax.transAxes, ha="right", va="bottom", fontsize=10.5, family="monospace",
-                bbox=dict(facecolor="white", edgecolor=OI["grey"], alpha=.9, boxstyle="round,pad=0.3"))
-        ci = len(card_out)
-        put(f"card{ci}_bt", r.bt, "{:+.1f}"); put(f"card{ci}_y", r.y, "{:.1f}"); put(f"card{ci}_pick", int(r.pick), "{:d}")
-        put(f"card{ci}_gt", r.g_true, "{:+.1f}"); put(f"card{ci}_dt", r.d_true, "{:+.1f}")
-        card_out.append(dict(name=r.display_name, role=role, pick=int(r.pick), d_raw=round(r.d_rawz, 2), d_true=round(r.d_true, 2),
-                             g_raw=round(r.g_rawz, 2), g_true=round(r.g_true, 2), bt=round(r.bt, 2), press=round(r.y, 1)))
-    for ax in axes[1]:
-        ax.set_xlabel("seconds after first movement")
-    for ax in axes[:, 0]:
-        ax.set_ylabel("speed (yd/s)")
-    axes[0, 0].legend(loc="upper left", fontsize=10, frameon=False)
-    fig.suptitle("Six DL: Combine drill (dashed) vs NFL rushes (blue); box = raw z → shrunk z; yellow = 1-s burst window",
-                 fontsize=12.5)
-    fig.tight_layout()
-    fig.savefig(FIG / "fig1_player_cards.png", dpi=150)
-    plt.close(fig)
-
-    # ------------------------------------------------------------ fig 2: population profiles (2 x 3)
-    fig, axes = plt.subplots(2, 3, figsize=(FIGW, 7.0), sharey=True)
-    pop = {}
-    for ax, g in zip(axes.ravel(), GROUPS):
-        dc = D[D.grp == g][cc]
-        gc = GR[GR.grp == g][cc]
-        ax.axvspan(0, 1.0, color=OI["yellow"], alpha=.18, lw=0)
-        for c, lab, ls in ((dc, "Combine drill", "--"), (gc, "NFL snaps (random)", "-")):
-            ax.plot(tt, c.mean().values, ls, color=GCOL[g], lw=2.6, label=lab)
-            ax.fill_between(tt, c.quantile(.25).values, c.quantile(.75).values, color=GCOL[g], alpha=.14)
-        ax.set_title(f"{g}: {DRILL_LABEL[g]} vs {GAME_TYPE[g]}", fontsize=11.5)
-        ax.set_xlabel("s after first movement")
-        pop[g] = (float(dc[cb].mean(axis=1).mean()), float(gc[cb].mean(axis=1).mean()))
-        ax.legend(frameon=False, fontsize=10, loc="upper left")
-    for ax in axes[:, 0]:
-        ax.set_ylabel("speed (yd/s)")
-    ax = axes[1, 2]
-    ax.axis("off")
-    ax.text(0.02, 0.5, "Dashed = Combine drill\nSolid = NFL snaps (random draw)\nBand = middle 50% of reps\n"
-            "Yellow = 1-s burst window\n\nDL flatten at contact;\nWR and TE curves cross\nthe drill after 1 s.",
-            fontsize=11.5, va="center")
-    fig.suptitle("Average speed from first movement: Combine drill vs NFL snaps", fontsize=13)
-    fig.tight_layout()
-    fig.savefig(FIG / "fig2_profiles.png", dpi=150)
-    plt.close(fig)
-    for g in GROUPS:
-        put(f"pop_drill_{g}", pop[g][0]); put(f"pop_game_{g}", pop[g][1]); put(f"pop_ratio_{g}", 100 * pop[g][1] / pop[g][0], "{:.0f}")
-    gcm = GR[GR.grp == "DL"][cc].mean().values
-    dcm = D[D.grp == "DL"][cc].mean().values
-    put("dl_game_peak_t", tt[int(np.argmax(gcm))], "{:.1f}")
-    put("dl_game_peak_v", gcm.max()); put("dl_drill_v15", dcm[-1])
-
-    # ------------------------------------------------------------ fig 3: group translation dot plot
-    fig, ax = plt.subplots(figsize=(FIGW, 5.2))
-    lab_rows = [("DL", "DL (all)"), ("DL-edge", "DL: EDGE"), ("DL-int", "DL: interior"), ("WR", "WR"), ("DB", "DB"),
-                ("OL", "OL"), ("TE", "TE")]
-    R = pd.DataFrame(rows).set_index("group")
-    yp = np.arange(len(lab_rows))[::-1]
-    for yv, (gk, lab) in zip(yp, lab_rows):
-        base_g = gk.split("-")[0]
-        col = GCOL[base_g]
-        if gk in R.index and not np.isnan(R.loc[gk, "rho"]) and (gk not in ("OL", "TE")):
-            r = R.loc[gk]
-            ax.plot([r.lo, r.hi], [yv + .17] * 2, color=col, lw=3)
-            ax.plot(r.rho, yv + .17, "o", color=col, ms=10, label="First-second burst, drill vs NFL" if gk == "DL" else None)
-            if gk in BURST_GROUPS:
-                ax.plot(r.ceiling, yv + .17, "|", color=OI["black"], ms=20, mew=3, label="Most a noisy pair could show" if gk == "DL" else None)
-        if gk in GROUPS:
-            r = R.loc[gk]
-            ax.plot([r.top_lo, r.top_hi], [yv - .17] * 2, color=OI["grey"], lw=3)
-            ax.plot(r.top, yv - .17, "s", color=OI["black"], ms=9, label="Top speed: 40 vs NFL peak" if gk == "DL" else None)
-        if gk in ("OL", "TE"):
-            ax.text(-0.98, yv + .17, "burst drill unreliable: not tested", fontsize=10, color=OI["grey"], va="center")
-        n_ = int(R.loc[gk, "n"]) if gk in R.index else 0
-        ax.text(1.01, yv, f"n={n_}", transform=ax.get_yaxis_transform(), fontsize=11, va="center")
-    ax.axvline(0, color=OI["black"], lw=.8)
-    ax.set_yticks(yp, [l for _, l in lab_rows])
-    ax.set_xlim(-1.0, 1.0)
-    ax.set_xlabel("Spearman ρ across players (95% bootstrap CI)")
-    ax.set_title("Burst ranks do not carry over from drill to NFL; the 40's top speed does for TE")
-    ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=3, fontsize=11)
-    fig.tight_layout()
-    fig.savefig(FIG / "fig3_translation.png", dpi=150)
-    plt.close(fig)
-
-    # ------------------------------------------------------------ fig 4: DL scatter + BT quartile readout
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(FIGW, 5.4), gridspec_kw=dict(width_ratios=[1.35, 1]))
-    sx = x.copy()
-    for e, mk, lab in ((1.0, "o", "EDGE"), (0.0, "^", "interior")):
-        s_ = sx[sx.is_edge == e]
-        a1.scatter(s_.d_true, s_.g_true, marker=mk, s=46, color=OI["red"] if e else OI["sky"], edgecolor="k", lw=.4, label=lab, alpha=.85)
-    lim = max(sx.d_true.abs().max(), sx.g_true.abs().max()) * 1.1
-    a1.plot([-lim, lim], [-lim, lim], ":", color=OI["grey"])
-    for r in xo.head(2).itertuples():
-        a1.annotate(r.display_name, (r.d_true, r.g_true), xytext=(5, 5), textcoords="offset points", fontsize=10)
-    for r in xo.tail(2).itertuples():
-        a1.annotate(r.display_name, (r.d_true, r.g_true), xytext=(5, -12), textcoords="offset points", fontsize=10)
-    a1.set_xlabel("Combine drill burst (shrunk, true-score z)")
-    a1.set_ylabel("NFL rush burst (shrunk, true-score z)")
-    a1.set_title(f"DL drill vs NFL burst: ρ = {T1.set_index('group').loc['DL', 'rho']:.2f}, n = {int(T1.set_index('group').loc['DL', 'n'])}")
-    a1.legend(frameon=False, loc="upper left")
-    for q, m_, lo_, hi_, n_ in qrows:
-        a2.errorbar(q + 1, m_, yerr=[[m_ - lo_], [hi_ - m_]], fmt="o", color=OI["black"], ms=10, capsize=5, lw=2)
-    a2.axhline(xo.y.mean(), color=OI["grey"], ls=":")
-    a2.set_xticks([1, 2, 3, 4], ["Q1\n(drill > NFL)", "Q2", "Q3", "Q4\n(NFL > drill)"])
-    a2.set_ylabel("shrunk career pressure rate (%)")
-    a2.set_title(f"Pressure by BT quartile (n = {len(xo)})")
-    fig.tight_layout()
-    fig.savefig(FIG / "fig4_dl_scatter.png", dpi=150)
-    plt.close(fig)
-
-    # ------------------------------------------------------------ fig 5: forest plot of out-of-class gains
-    fig, ax = plt.subplots(figsize=(FIGW, 4.6))
-    flab = [("getoff", "NGS get-off (reference)"), ("drill", "+ Combine drill burst"), ("bt", "+ Burst Translation"),
-            ("game", "+ NFL burst"), ("game_over_getoff", "+ NFL burst, after get-off")]
-    ypf = np.arange(len(flab))[::-1]
-    for yv, (k_, lab) in zip(ypf, flab):
-        r = lo_rows[k_]
-        ax.plot([r["rep_lo"], r["rep_hi"]], [yv] * 2, color=OI["blue"] if k_ != "getoff" else OI["grey"], lw=3)
-        ax.plot(r["delta"], yv, "D", color=OI["black"], ms=9)
-        for c, f in r["folds"].items():
-            ax.plot(f["r2_aug"] - f["r2_base"], yv + .22, "|", color=OI["orange"], ms=12, mew=2.5)
-        ax.text(1.01, yv, f"perm p={r['perm_p']:.2f}", transform=ax.get_yaxis_transform(), fontsize=11, va="center")
-    ax.axvline(0, color=OI["black"], lw=1.2)
-    ax.set_yticks(ypf, [l for _, l in flab])
-    ax.set_xlabel("change in out-of-class R² for shrunk pressure rate vs pick + alignment + weight + 40 + NGS\n"
-                  "(diamond = pooled; bar = 95% of 500 repeated draws; orange ticks = each held-out class)")
-    ax.set_title("No burst measure beats the no-tracking baseline out of class")
-    fig.tight_layout()
-    fig.savefig(FIG / "fig5_forest.png", dpi=150)
-    plt.close(fig)
-
-    # ------------------------------------------------------------ top speed: positive control, class by class
-    TS = []
-    for g in GROUPS:
-        sub = p[p.position_group == g].merge(top40[["nfl_id", "top40_z", "top_speed"]], on="nfl_id")
-        pk = PKR[PKR.grp == g].groupby("nfl_id").agg(peak_z=("peak_z", "mean"), peak=("peak", "mean"), k=("peak", "size"))
-        sub = sub.merge(pk.reset_index(), on="nfl_id").dropna(subset=["top40_z", "peak_z"])
-        sub["forty_off_z"] = -sub.groupby("draft_year").forty.transform(zscore)
-        TS.append(sub)
-    TS = pd.concat(TS)
-    te = TS[TS.position_group == "TE"].copy()
-    for c in sorted(te.draft_year.unique()):
-        s_ = te[te.draft_year == c]
-        put(f"te_rho_{c}", stats.spearmanr(s_.top40_z, s_.peak_z)[0]); put(f"te_n_{c}", len(s_), "{:d}")
-    # out-of-class: calibrate peak_z ~ top40_z on two classes, predict the third (pooled across all groups, group FE via z)
-    def oc(df, col):
-        ys, ps = [], []
-        for c in sorted(df.draft_year.unique()):
-            tr, tst = df[df.draft_year != c], df[df.draft_year == c]
-            b = np.polyfit(tr[col], tr.peak_z, 1)
-            ys.append(tst.peak_z.values); ps.append(np.polyval(b, tst[col].values))
-        return r2(np.concatenate(ys), np.concatenate(ps))
-    for g in ("TE", "DL"):
-        s_ = TS[TS.position_group == g].dropna(subset=["forty_off_z"])
-        put(f"oc_r2_top_{g}", oc(s_, "top40_z"), "{:.2f}"); put(f"oc_r2_forty_{g}", oc(s_, "forty_off_z"), "{:.2f}")
-        put(f"rho_top_forty_{g}", stats.spearmanr(s_.top40_z, s_.forty_off_z)[0])
-        put(f"oc_n_{g}", len(s_), "{:d}")
-        reps = []
-        for _ in range(NBOOT):
-            i = RNG.integers(0, len(s_), len(s_))
-            reps.append(oc(s_.iloc[i].reset_index(drop=True), "top40_z"))
-        put(f"oc_r2_top_{g}_lo", np.percentile(reps, 2.5), "{:.2f}"); put(f"oc_r2_top_{g}_hi", np.percentile(reps, 97.5), "{:.2f}")
-    te_named = te.sort_values("top_speed", ascending=False)
-    te_pick = pd.concat([te_named.head(2), te_named.tail(2)])
-    for i, r in enumerate(te_pick.itertuples()):
-        put(f"te{i}_top", r.top_speed * 0.0 + r.top_speed, "{:.1f}")
-        put(f"te{i}_peak", r.peak, "{:.1f}")
-        put(f"te{i}_pick", int(r.pick), "{:d}")
-    te_named_out = te_pick[["display_name", "pick", "top_speed", "peak", "peak_z", "top40_z"]].round(2).to_dict("records")
-
-    fig, ax = plt.subplots(figsize=(FIGW, 5.0))
-    mk = {2023: "o", 2024: "s", 2025: "^"}
-    cl = {2023: OI["blue"], 2024: OI["orange"], 2025: OI["green"]}
-    for c in sorted(te.draft_year.unique()):
-        s_ = te[te.draft_year == c]
-        ax.scatter(s_.top_speed, s_.peak, marker=mk[c], color=cl[c], s=70, edgecolor="k", lw=.4,
-                   label=f"{c} class: ρ = {stats.spearmanr(s_.top40_z, s_.peak_z)[0]:.2f} (n = {len(s_)})")
-    for r in te_pick.itertuples():
-        ax.annotate(r.display_name, (r.top_speed, r.peak), xytext=(6, 4), textcoords="offset points", fontsize=10.5)
-    ax.set_xlabel("Combine 40 top speed (yd/s, tracked)")
-    ax.set_ylabel("mean NFL peak speed on random snaps (yd/s)")
-    ax.set_title("TE: the 40's top speed reappears on NFL snaps in every class")
-    ax.legend(frameon=False, loc="upper left")
-    fig.tight_layout()
-    fig.savefig(FIG / "fig6_te_topspeed.png", dpi=150)
-    plt.close(fig)
-
-    # ------------------------------------------------------------ WR / DB named examples (shrunk BT extremes)
-    named_wd = {}
-    for g in ("WR", "DB"):
-        ebd_, ebg_ = EB[g]
-        s_ = p[p.position_group == g].merge(ebd_.add_prefix("d_"), left_on="nfl_id", right_index=True).merge(
-            ebg_.add_prefix("g_"), left_on="nfl_id", right_index=True)
-        s_["bt"] = s_.g_true - s_.d_true
-        s_ = s_.sort_values("bt")
-        named_wd[g] = s_[["display_name", "pick", "d_true", "g_true", "bt"]].iloc[[0, -1]].round(2).to_dict("records")
-        for j, r in enumerate(s_.iloc[[0, -1]].itertuples()):
-            put(f"{g}{j}_dt", r.d_true, "{:+.1f}"); put(f"{g}{j}_gt", r.g_true, "{:+.1f}"); put(f"{g}{j}_pick", int(r.pick), "{:d}")
-
-    T1.round(3).to_json(HERE / "tables.json", orient="records", indent=1)
-    out = dict(NUM)
-    out["_abs_values"] = sorted({v.lstrip("-+") for v in NUM.values()})   # text writes negatives with a unicode minus
-    out["_cards"] = card_out
-    out["_rank_table"] = tab_out
-    out["_te_named"] = te_named_out
-    out["_wr_db_named"] = named_wd
-    out["_multiplicity"] = MT
-    out["_loco"] = {k: {kk: (vv if not isinstance(vv, np.floating) else float(vv)) for kk, vv in v.items()} for k, v in lo_rows.items()}
-    (HERE / "numbers.json").write_text(json.dumps(out, indent=1, default=float))
-    log(T1.round(2).to_string())
-    log(json.dumps({k: v for k, v in NUM.items() if not k.startswith(("loco_", "holm_", "bh_", "rk", "q"))}, indent=0))
-    log(json.dumps({k: v for k, v in NUM.items() if k.startswith(("loco_bt_", "loco_game_", "loco_drill_", "loco_getoff_")) and "_20" not in k}, indent=0))
-    log(json.dumps(card_out, indent=0)); log(json.dumps(tab_out, indent=0)); log(json.dumps(te_named_out)); log(json.dumps(named_wd))
-    log(json.dumps(MT, indent=0))
+def name_short(n):
+    return n.split(" ")[0][0] + ". " + " ".join(n.split(" ")[1:])
 
 
-if __name__ == "__main__":
-    main()
+# ---- Fig 1: hero cards, chosen by rule: 3 highest and 3 lowest Hoop G among DL with >= 250 rush snaps
+hero_pool = co.dropna(subset=["hoop_z"])
+hero_pool = hero_pool[hero_pool.rush_snaps >= 250].sort_values("hoop_z", ascending=False)
+hero = pd.concat([hero_pool.head(3), hero_pool.tail(3)])
+put("hero_pool_n", len(hero_pool))
+BARS = [("hoop_z", "Hoop G (bend)", 1), ("d1_z", "Drill first second", 1), ("three_cone_z", "3-cone", -1),
+        ("ten_yd_split_z", "10-yd split", -1), ("combine_weight_z", "Lighter weight", -1)]
+fig = plt.figure(figsize=(FIGW, 9.6))
+gs = fig.add_gridspec(4, 3, height_ratios=[1.0, 1, 1.0, 1], hspace=0.95, wspace=0.12, left=0.155, right=0.99,
+                      top=0.835, bottom=0.07)
+norm = plt.Normalize(0, 0.9)
+cmap = plt.get_cmap("cividis")
+for idx, r_ in enumerate(hero.itertuples()):
+    row, col = 2 * (idx // 3), idx % 3
+    ax = fig.add_subplot(gs[row, col])
+    tr = traces[r_.hoop_eid]
+    xs_, ys_ = tr["_x"] - tr["_x"].mean(), tr["_y"] - tr["_y"].mean()
+    if np.ptp(ys_) > np.ptp(xs_):
+        xs_, ys_ = ys_, xs_
+    pts = np.c_[xs_, ys_].reshape(-1, 1, 2)
+    lc = LineCollection(np.concatenate([pts[:-1], pts[1:]], axis=1), cmap=cmap, norm=norm, linewidth=3.2)
+    lc.set_array(tr["_alat"][:-1])
+    ax.add_collection(lc)
+    k = tr["_k"]
+    ax.scatter(xs_[max(k - 2, 0):k + 3], ys_[max(k - 2, 0):k + 3], s=40, facecolor="none", edgecolor=OI["red"], lw=1.6, zorder=3)
+    ax.set_xlim(-6.2, 6.2); ax.set_ylim(-2.7, 2.7); ax.set_aspect("equal"); ax.axis("off")
+    pk = "UDFA" if r_.pick == UDFA_PICK else f"pick {int(r_.pick)}"
+    ax.set_title(f"{r_.display_name}\n{r_.role}, {pk} · Hoop G {r_.hoop_g:.2f} g\nNFL pressure {100 * r_.press_rate:.1f}% on {int(r_.rush_snaps)} rushes",
+                 fontsize=10.5)
+    bx = fig.add_subplot(gs[row + 1, col])
+    vals = [sg * getattr(r_, c) if pd.notna(getattr(r_, c)) else np.nan for c, _, sg in BARS]
+    yy = np.arange(len(BARS))[::-1]
+    cols = [OI["green"] if c in ("hoop_z", "d1_z") else OI["grey"] for c, _, _ in BARS]
+    bx.barh(yy, np.nan_to_num(vals), color=cols, height=0.62)
+    for yv, v in zip(yy, vals):
+        if np.isnan(v):
+            bx.text(0.08, yv, "not run", va="center", fontsize=9.5, color=OI["grey"])
+    bx.axvline(0, color="k", lw=0.8)
+    bx.set_xlim(-2.6, 2.6)
+    bx.set_yticks(yy); bx.set_yticklabels([l for _, l, _ in BARS] if col == 0 else [], fontsize=10)
+    bx.tick_params(axis="x", labelsize=9.5)
+    if row == 2:
+        bx.set_xlabel("z within Combine year (+ = better)", fontsize=10)
+fig.text(0.02, 0.968, "The tightest benders (top) out-rushed the widest (bottom) in the NFL",
+         fontsize=13.5, weight="bold")
+fig.text(0.02, 0.938, "3 highest and 3 lowest Hoop G among DL with 250+ NFL rushes. Trace colour = turning (lateral) acceleration; "
+         "red circles = the 0.5 s\nthat defines Hoop G. Bars = Combine numbers as z within year (green = tracking).", fontsize=10.5, va="top")
+sm_ = plt.cm.ScalarMappable(norm=norm, cmap=cmap)
+cax = fig.add_axes([0.015, 0.035, 0.11, 0.012])
+cb = fig.colorbar(sm_, cax=cax, orientation="horizontal", ticks=[0, 0.3, 0.6, 0.9]); cb.ax.tick_params(labelsize=9)
+fig.text(0.015, 0.05, "lateral g", fontsize=10)
+save(fig, "fig1_hero_cards.png")
+TABLES["hero"] = hero[["display_name", "role", "pick", "hoop_g", "hoop_z", "press_rate", "rush_snaps", "get_off"]].round(3).to_dict("records")
+for i, r_ in enumerate(hero.itertuples()):
+    put(f"hero{i}_hoop", r_.hoop_g); put(f"hero{i}_press", 100 * r_.press_rate, 1); put(f"hero{i}_snaps", int(r_.rush_snaps))
+
+# ---- Fig 2: measurement ladder (left) and per-play validation of NGS get-off (right)
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(FIGW, 5.0), gridspec_kw={"width_ratios": [1.25, 1]})
+lad = [("Drill: first-second distance\n(pass-rush drill)", r1_d1, rel_d1_player, f"{k_rush:.1f} reps"),
+       ("Drill: Hoop G\n(run-the-hoop)", r1_hoop_sh, rel_hoop, "1 rep"),
+       ("NFL: pressure rate", rel_press_season, REL_OUT["press_eb"], f"{co.n_seasons.mean():.1f} seasons"),
+       ("NFL: NGS get-off", rel_getoff_season, REL_OUT["quick"], f"{co.n_seasons.mean():.1f} seasons")]
+yy = np.arange(len(lad))[::-1]
+for yv, (lab, r1v, rpv, unit) in zip(yy, lad):
+    a1.plot([r1v, rpv], [yv, yv], color=OI["grey"], lw=2)
+    a1.scatter([r1v], [yv], color="white", edgecolor=OI["black"], s=70, zorder=3)
+    a1.scatter([rpv], [yv], color=OI["green"] if "Drill" in lab else OI["blue"], s=90, zorder=3)
+    a1.text(rpv + 0.03, yv + 0.18, f"{rpv:.2f} ({unit})", fontsize=10)
+a1.axvline(0.7, color=OI["red"], ls="--", lw=1)
+a1.text(0.71, yy[-1] - 0.45, "0.7 = usable\nfor ranking", color=OI["red"], fontsize=10)
+a1.set_yticks(yy); a1.set_yticklabels([l for l, *_ in lad], fontsize=10.5)
+a1.set_xlim(0, 1.12); a1.set_ylim(-0.8, len(lad) - 0.4)
+a1.set_xlabel("reliability\n(open = one rep, half-hoop or season; filled = player total)")
+a1.set_title("The drills, not the NFL outcomes, are the noisy side", fontsize=12.5)
+hb = a2.hexbin(gd.g_d1, gd.player_get_off, gridsize=32, cmap="cividis", mincnt=1, extent=(0, 4, 0.3, 2.0))
+a2.set_xlabel("tracked distance, first second\nafter the snap (yd)")
+a2.set_ylabel("NGS get-off on the same snap (s)")
+a2.set_title(f"NGS get-off = first-second burst\n(ρ = {NUM['rho_play_d1_getoff']}, {len(gd):,} DL pass rushes)", fontsize=12.5)
+fig.colorbar(hb, ax=a2, label="snaps")
+fig.tight_layout()
+save(fig, "fig2_measurement.png")
+
+# ---- Fig 3: signal map
+fig, axes = plt.subplots(1, 2, figsize=(FIGW, 6.8), sharey=True)
+order = [m[0] for m in MEAS]
+labs = {m[0]: m[1] for m in MEAS}
+yy = np.arange(len(order))[::-1]
+for ax, (oc, olab) in zip(axes, OUTC):
+    d_ = sig[sig.outcome == oc].set_index("col").loc[order]
+    for yv, (c, r_) in zip(yy, d_.iterrows()):
+        ax.fill_betweenx([yv - 0.4, yv + 0.4], -r_.mde, r_.mde, color="#DDDDDD", lw=0)
+        colr = OI["green"] if r_.kind == "tracking" else OI["black"]
+        ax.plot([r_.lo, r_.hi], [yv, yv], color=colr, lw=1.8)
+        ax.scatter([r_.rho], [yv], color=colr, s=55, zorder=3)
+        ax.text(0.97, yv, f"n={int(r_.n)}", fontsize=9.5, va="center", ha="right", transform=ax.get_yaxis_transform())
+    for (x, y), pv in prim.items():
+        if y == oc:
+            ax.scatter([pv["r"]], [yy[order.index(x)] - 0.28], marker="D", facecolor="white", edgecolor=OI["green"],
+                       s=45, zorder=4)
+    ax.axvline(0, color="k", lw=0.8)
+    ax.set_xlim(-0.6, 1.15)
+    ax.set_title(olab + f" (n ≤ {len(co)} DL, 100+ rushes)", fontsize=12)
+axes[0].set_yticks(yy); axes[0].set_yticklabels([labs[c] for c in order], fontsize=10.5)
+axes[1].scatter([], [], color=OI["black"], label="official / draft (raw ρ, 95% CI)")
+axes[1].scatter([], [], color=OI["green"], label="tracking (raw ρ, 95% CI)")
+axes[1].scatter([], [], marker="D", facecolor="white", edgecolor=OI["green"], label="tracking after baseline")
+axes[1].fill_between([], [], color="#DDDDDD", label="too small to detect at this n")
+fig.legend(*axes[1].get_legend_handles_labels(), loc="lower center", ncol=4, fontsize=10, frameon=False)
+fig.supxlabel("Spearman ρ, signed so + = the better Combine number goes with the better NFL result", y=0.075, fontsize=11.5)
+fig.suptitle("Speed and agility times carry the DL signal; of the drills, only bend survives the baseline", fontsize=13.5,
+             weight="bold", x=0.02, ha="left")
+fig.tight_layout(rect=(0, 0.1, 1, 0.95))
+save(fig, "fig3_signal_map.png")
+
+# ---- Fig 4: Hoop G vs pressure (baseline residual) and out-of-class by fold
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(FIGW, 5.4), gridspec_kw={"width_ratios": [1.3, 1]})
+d_ = coi.dropna(subset=["hoop_z", "press_eb"]).copy()
+A = np.c_[np.ones(len(d_)), d_[BASE].values]
+d_["res"] = 100 * (d_.press_eb - A @ np.linalg.lstsq(A, d_.press_eb.values, rcond=None)[0])
+for role, gg in d_.groupby("role"):
+    a1.scatter(gg.hoop_z, gg.res, color=ROLEC[role], s=38, alpha=0.85, label=f"{role} (n={len(gg)})",
+               marker="o" if role == "EDGE" else "s")
+xx = np.linspace(-2.5, 2.5, 50)
+bs = []
+for _ in range(NBOOT):
+    i = RNG.integers(0, len(d_), len(d_))
+    b = np.polyfit(d_.hoop_z.values[i], d_.res.values[i], 1)
+    bs.append(np.polyval(b, xx))
+bs = np.array(bs)
+a1.fill_between(xx, *np.percentile(bs, [2.5, 97.5], axis=0), color=OI["grey"], alpha=0.25, lw=0)
+a1.plot(xx, np.polyval(np.polyfit(d_.hoop_z, d_.res, 1), xx), color="k", lw=1.6)
+lab_ids = set(hero.nfl_id) | set(d_.nlargest(2, "res").nfl_id) | set(d_.nsmallest(2, "res").nfl_id)
+for r_ in d_[d_.nfl_id.isin(lab_ids)].itertuples():
+    a1.annotate(name_short(r_.display_name), (r_.hoop_z, r_.res), xytext=(5, 4), textcoords="offset points", fontsize=9.5)
+a1.axhline(0, color="k", lw=0.6)
+a1.set_xlabel("Hoop G, z within Combine year")
+a1.set_ylabel("pressure rate above baseline expectation (pp)")
+a1.set_title(f"Bend beyond what the baseline knows: partial ρ = {NUM['pr_hoop_z_press_eb']}\n(line = OLS fit, band = 95% bootstrap)",
+             fontsize=12)
+a1.legend(frameon=False, fontsize=10, loc="upper left")
+cls = [2023, 2024, 2025]
+w = 0.36
+fb = [NUM[f"frho_b_hoop_z_press_eb_{c}"] for c in cls]
+fa = [NUM[f"frho_a_hoop_z_press_eb_{c}"] for c in cls]
+xb = np.arange(3)
+a2.bar(xb - w / 2, [float(v) for v in fb], w, color=OI["grey"], label="baseline (no tracking)")
+a2.bar(xb + w / 2, [float(v) for v in fa], w, color=OI["green"], label="baseline + Hoop G")
+for xv, v1, v2 in zip(xb, fb, fa):
+    a2.text(xv - w / 2, float(v1) + 0.02, v1, ha="center", fontsize=9.5)
+    a2.text(xv + w / 2, float(v2) + 0.02, v2, ha="center", fontsize=9.5)
+a2.set_xticks(xb); a2.set_xticklabels([f"{c} held out\n(n={NUM[f'fn_hoop_z_press_eb_{c}']})" for c in cls])
+a2.set_ylim(0, 0.85)
+a2.set_ylabel("rank ρ, prediction vs actual pressure")
+a2.set_title(f"Out of class, rank ρ better in {sum(float(b_) > float(a_) for a_, b_ in zip(fb, fa))} of 3 classes\n(pooled R² {NUM['r2b_hoop_z_press_eb']} → {NUM['r2a_hoop_z_press_eb']}, "
+             f"permutation p = {NUM['perm_hoop_z_press_eb']})", fontsize=12)
+a2.legend(frameon=False, fontsize=10, loc="upper left")
+fig.tight_layout()
+save(fig, "fig4_hoop_pressure.png")
+
+# ---- Fig 5: 2025 draft-room card (trained on 2023-24 only)
+c5 = pr.sort_values("pa").reset_index(drop=True)
+fig, ax = plt.subplots(figsize=(FIGW, 7.6))
+yy = np.arange(len(c5))
+ax.hlines(yy, 100 * c5.lo80, 100 * c5.hi80, color=OI["green"], alpha=0.3, lw=6)
+for yv, r_ in zip(yy, c5.itertuples()):
+    ax.annotate("", xy=(100 * r_.pa, yv), xytext=(100 * r_.pb, yv),
+                arrowprops=dict(arrowstyle="->", color=OI["black"], lw=1.1))
+ax.scatter(100 * c5.pb, yy, color="white", edgecolor=OI["grey"], s=45, zorder=3, label="baseline forecast")
+ax.scatter(100 * c5.pa, yy, color=OI["green"], s=55, zorder=4, label="baseline + Hoop G forecast (80% band)")
+ax.scatter(100 * c5.press_rate, yy, marker="x", color=OI["red"], s=55, zorder=5, label="actual 2025 pressure rate (raw)")
+labels = []
+for r_ in c5.itertuples():
+    pk = "UDFA" if r_.pick == UDFA_PICK else f"#{int(r_.pick)}"
+    tag = {"bend up": "  ▲ bend up", "bend down": "  ▼ bend down"}.get(r_.flag, "")
+    labels.append(f"{r_.display_name} ({pk}, {r_.role[:3]}, {int(r_.rush_snaps)} rushes){tag}")
+ax.set_yticks(yy); ax.set_yticklabels(labels, fontsize=10)
+ax.set_xlabel("pressure rate (%)")
+ax.set_xlim(0, 13)
+ax.legend(frameon=False, fontsize=10, loc="center left")
+fig.suptitle(f"2025 DL board built from 2023–24 data only: Hoop G re-ranks {NUM['card_n_flag']} rushers by 3+ spots,\n"
+             f"and {NUM['card_flag_closer']} of them move toward where they actually finished", fontsize=12.5, x=0.02, ha="left")
+fig.tight_layout()
+save(fig, "fig5_draft_card_2025.png")
+
+# ----------------------------------------------------------------------------- write numbers
+json.dump(NUM, open(OUT / "numbers.json", "w"), indent=1, sort_keys=True)
+json.dump(TABLES, open(OUT / "tables.json", "w"), indent=1, default=str)
+print(json.dumps({k: NUM[k] for k in NUM if k.startswith(("pr_", "dr2_", "perm", "mde", "rel", "yoy", "rho_play",
+                                                          "card", "slope", "tost", "holm", "r2"))}, indent=0))
