@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics: Combine route drills matched to the same NFL route family (SLANT/OUT/HITCH/IN/CORNER); drill-to-game translation and in-game separation over expected by man/zone coverage",
+ "metric_name": "Break Redirect Rate (BRR, yd/s^2): mean |acceleration vector| over the 1.0 s centred on the break (decel into + turn + re-accel out), identical code on Combine drills and NFL snaps",
+ "headline_number": "Man-minus-zone gap in rho(snap BRR, separation over expected) = 0.18 [0.08, 0.28] on 1,763 snaps / 115 WR-TE; best-of-18 within-player permutation p = 0.005; positive in all 3 NFL seasons and Combine classes; but a blind nested leave-one-class-out re-screen gives a held-out gap of 0.02 [-0.07, 0.11] (p 0.333). Combine BRR vs NFL BRR rho -0.13 [-0.31, 0.04], latent upper 95% bound 0.08.",
+ "what_changed_from_previous": "Revision of round_02/cand_2 (7.34) addressing its judge risks and the winner's top_changes: (1) selection-honest tests: best-of-18 permutation with man/zone, slot/wide and half labels shuffled within player; nested LOCO re-screen of all 18 contrasts with permutation null and held-out CI; fixed-contrast replication by NFL season and Combine class (new Fig 3); (2) beyond-baseline snap model with each player's 40, weight, pick and NGS score (each x coverage), interaction CI and out-of-class R2 gain; (3) cross-fitted player forecast (BRR on half of snaps vs man SOE on the other half) - null, so the 'between-player trait' claim was dropped; (4) Fig 1 rebuilt as six rule-chosen disagreement cards showing every rep (median + IQR) instead of one representative rep; (5) Fig 2 title made honest (no man CI excludes 0 per family); (6) Fig 5 intensity medians now carry player-bootstrap CIs; (7) plain ~70-word opening, coach definition of BRR, stats moved to an appendix table, one pre-registered 2026 hypothesis with a kill rule; lead softened to 'a lead for 2026, not a rule'.",
+ "open_risks": [
+  "The man/zone lead does not survive a blind nested re-screen (held-out gap 0.02, about 10% of in-sample); judges may read the finding as essentially null - the writeup says so explicitly",
+  "Cross-fitted player forecast is null at 2.6 man snaps per half, so the lead is not yet a gradeable player trait; draft-room use is limited to a coaching cue and a 0-weight rule for the drills",
+  "Nested folds are uneven (2025 class has 442 snaps) and fold choice is between near-tied contrasts (BRR man-zone ranked 1, 2, 2), so the re-screen result is itself noisy",
+  "No defenders/ball in game tracking: press, leverage, route tree and QB confounds inside the man effect are unaddressed",
+  "Combine null is a reliability-conditional bound (game split-half CI 0.04-0.40); TE n=33 and several subsets negative without explanation",
+  "Named-player cards are flags with +-1 sd intervals; Tucker Kraft and Terrance Ferguson have only 2-3 Combine reps"
+ ]
+}
