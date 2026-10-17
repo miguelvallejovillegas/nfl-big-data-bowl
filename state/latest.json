@@ -1,142 +1,152 @@
 {
-  "round": 4,
-  "candidates": [
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_04/cand_1",
-      "angle": "DL Hoop G (sideways g) vs NFL pressure rate; tiebreaker decision rule; 2025 board",
-      "score": 8.05,
-      "per_judge": {
-        "football": 7.9,
-        "datascience": 8.2,
-        "writeup": 7.7,
-        "viz": 8.4
-      },
-      "fatal_flaws": []
-    },
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_04/cand_2",
-      "angle": "WR/TE Speed Kept through route breaks; pre-registered null; drill-to-game route-family match",
-      "score": 7.51,
-      "per_judge": {
-        "football": 7.0,
-        "datascience": 8.1,
-        "writeup": 7.0,
-        "viz": 7.9
-      },
-      "fatal_flaws": [
-        "No positive, usable result: pre-registered null with null Combine-to-game link, football payoff limited to 'do not use it'.",
-        "Density: 1,978 of 2,000 words with heavy statistical machinery in the body.",
-        "Minor numeric inconsistencies (top-five 0.00 vs bottom-five -0.04, R2 0.18 vs 0.056 and 0.079, reliability 0.09 vs 0.33 and 0.23).",
-        "No figure shows many players' drill-vs-game paths side by side.",
-        "Figs 3 and 4 use the same dot-and-CI form for the same null message; Fig 4 legend overlaps data, Fig 1 legend over lines."
-      ]
-    },
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_04/cand_3",
-      "angle": "DL Launch translation (drill to NFL launch) and gap vs pressure",
-      "score": 7.51,
-      "per_judge": {
-        "football": 6.9,
-        "datascience": 8.4,
-        "writeup": 6.6,
-        "viz": 8.0
-      },
-      "fatal_flaws": [
-        "Opening packs a positive claim (40 previews launch) and a negative one (match adds nothing) with undefined jargon.",
-        "Density: stats-heavy prose, 1,966 of 2,000 words with 5 figures, no margin.",
-        "Mostly null headline with little actionable value beyond 'use the official 40'."
-      ]
-    }
-  ],
-  "winner": {
-    "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_04/cand_1",
-    "score": 8.05
+ "round": 5,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_05/cand_1",
+   "angle": "DL Hoop G (sideways g) bend as pressure tiebreaker; 2025 + 2023-24 boards; nested out-of-class test",
+   "score": 7.96,
+   "per_judge": {
+    "football": 7.9,
+    "datascience": 8.3,
+    "writeup": 7.3,
+    "viz": 8.2
+   },
+   "fatal_flaws": [
+    "Fig 3 title (bend-rich rushers beat forecast) and Fig 4 title (no out-of-class forecast gain) send opposing messages, and cohort n changes between 63 and 90 across figures.",
+    "Exhibit count at the limit (5 figures plus 4 tables); Fig 5 repeats the inline board table; about 2,263 words by wc including tables."
+   ]
   },
-  "winner_feedback": {
-    "judge-football": {
-      "score": 7.9,
-      "subscores": {
-        "usable": 7.9,
-        "confounders": 8.5,
-        "unique": 7.5,
-        "terminology": 7.8
-      },
-      "justification": "Usable (7.9): three-line decision rule applied to a full 2025 board and all 109 runners; asks for 3-4 hoop runs in the drill protocol; named cases (Ezeiruaku, Phillips, Downs, Burch, Murphy); pick-slot translation (0.8 pressures ~ pick 100 to 76). Explicitly a tiebreaker. Effect under one pressure a season, interval touches zero under the stricter baseline, gain flat on the 49 players who ran the 40. Confounders (8.5): baseline of log pick, weight, NGS score, EDGE share; 100+ rush availability cut (games played 1.0 vs 14.0); 40-skipper interaction; EDGE vs interior and alignment splits; single-run reliability 0.41; year-standardization; 14-pair multiplicity correction; placebo outcomes. Blocker type, scheme, stunts acknowledged as missing. Unique (7.5): same formula applied to Combine and NFL snaps; honest null on drill bend to rush-path bend (0.10); sideways-g tied to dip and rip is novel framing; still a regression of production on a Combine metric, effect is a lead (best-of-14 p=0.121). Terminology (7.8): mostly right (EDGE/interior, wide-9, dip and rip, sacks per pressure); 'equals moving from pick 100 to 76' is loose; bend as sideways g at 1.8-yd hoop radius is a stretch from true edge bend.",
-      "top_changes": [
-        "Add a stronger football validation, e.g. film-grounded checks of high-bend rushers' win type (dip, rip, ghost) on sampled snaps. Show hoop run, trace and NFL snap for 3-4 named players at once, including Ezeiruaku and Phillips, so bend is anchored in technique. Bend is unrelated to game bend (0.10), which undercuts the label.",
-        "Publish the board inline as a compact table: name, pick, weight, EDGE/interior, shrunk bend with interval, pressure vs forecast, call. Top 8 and bottom 4 of 2025 plus the 10 plus and 8 minus across 2023-25.",
-        "Resolve the headline tension and trim statistical load. Pick one planning number (0.8 pressures a season), state it once, with the plain sentence that the gain vanishes among players with a 40. Move the 36% bootstrap and mixed-model details to the appendix. Flag pressure by blocker or alignment as a limitation instead of 'our read: general change-of-direction trait'."
-      ],
-      "fatal_flaws": []
-    },
-    "judge-datascience": {
-      "score": 8.2,
-      "subscores": {
-        "correctness": 8.2,
-        "evidence": 8.6,
-        "model": 8.2,
-        "innovation": 7.9
-      },
-      "justification": "Full re-run of analysis.py did not finish in 9 min, so not all numbers verified by re-execution; board-level numbers reproduced from board_2023_2025.csv with no contradictions. Pipeline: no-tracking baseline (log pick, weight, NGS, EDGE share) plus imputed 10-yd/3-cone variant, class-stratified leave-one-class-out with bootstrap CIs, best-of-14 permutation and nested re-selection, empirical-Bayes shrinkage, reliability (0.41, Spearman-Brown to 3-4 runs), has-40 interaction (p=0.74), placebo outcomes, survivorship check. Text generated from template filled with numbers.json, fixing earlier 0.18/0.19 and 0.57/0.61 inconsistencies. Honest framing: held-out gain CI spans zero, gain vanishes on the 49 players with a 40, shrunk effect (0.8 pressures a season) is the headline. Innovation: sideways-g metric computed identically from Combine and NFL 10 Hz tracks, drill-to-play link (null, 0.10), coach-readable decision rule with a board. Weaknesses: n=63, lead fails p<0.05 after correction; held-out gain positive in only 75% of bootstraps; 36% on the 49-player subset undercuts the tiebreaker recommendation; numbers.json has near-duplicate keys (dr2_lo -0.155 vs v_dr2lo_main -0.161); whole-pipeline leave-one-class-out shown only as 3 folds of about 21 players.",
-      "top_changes": [
-        "Rerun the fully nested leave-one-class-out (selection among 14 pairs, imputation and shrinkage refit inside each fold); report per-class and pooled delta R2 with a bootstrap over players as the one primary out-of-class estimate. Drop the competing 'in-sample real link' wording.",
-        "Replace one-sided bootstrap-share summaries with a Bayesian partial-pooling model (class random intercept, EDGE/interior slope, measurement-error-corrected bend using 0.41 reliability). Report a posterior for pressures per season and P(effect>0.5) as the single headline.",
-        "Close the selection and opportunity gap: exposure-weighted (binomial/beta-binomial) pressure model on all 109 runners with games played as offset. Add a second placebo outcome (run-stop rate) and a negative-control drill (backpedal). Deduplicate and canonicalize numbers.json keys."
-      ],
-      "fatal_flaws": []
-    },
-    "judge-writeup": {
-      "score": 7.7,
-      "subscores": {
-        "clarity": 7.5,
-        "structure": 8.3,
-        "motivation": 7.8,
-        "density": 7
-      },
-      "justification": "check.py passes: 1,754 words, 6 figures, 2 tables. Structure close to finalist pattern: hedged-finding title, result with draft-slot translation, Hoop G definition early, why DL why now, concrete decision rule. Problems: (1) opening ~75 words with jargon ('14 drill-and-outcome pairs we screened', 'standard deviation of bend'); (2) Finding 2 and 'Does it matter' carry p-values, bootstrap shares, interaction CIs and 3.1 raw vs 0.8 shrunk in prose, duplicated in appendix; (3) pre-registered subgroup stated as one the authors expect to fail, contradicting the closing claim that bend matters most for the no-40 group; (4) 'Does it matter to a GM?' is dense and slightly contradictory. Smaller: 'It is a lead' used loosely; Technique section mostly nulls; four-item baseline described inconsistently.",
-      "top_changes": [
-        "Rewrite the opening to ~55 plain words, e.g. 'Plan on under one extra pressure a season for a rusher one notch better at bend. That is a tiebreaker, not a reason to move up a round.' Move screening explanation to Finding 2.",
-        "Cut Finding 2 and 'Does it matter to a GM?' to the table plus ~100 words. Move the 36% bootstrap share, interaction CI, 'best of 14' and 'one time in eight' to the appendix. One headline number (0.8), 3.1 only in the table. Interaction in two sentences.",
-        "Fix subgroup and no-40 logic: delete or reframe 'The no-40 group is where it matters most in practice'; reword the pre-registered subgroup or state it as a null check. Cut or merge the Technique section into two sentences plus a table row, and drop one figure (Fig 4 or Fig 5)."
-      ],
-      "fatal_flaws": []
-    },
-    "judge-viz": {
-      "score": 8.4,
-      "subscores": {
-        "accessible": 7.9,
-        "accurate": 8.6,
-        "innovative": 8.8,
-        "economy": 7.6
-      },
-      "justification": "Tracking-native visuals: Fig 1 puts drill and game paths side by side, coloured by the metric, with a forecast-vs-actual dumbbell and rule-based player selection. Colorblind-safe palettes. Uncertainty shown everywhere (CIs, bootstrap bands, violins, power bands), n stated, titles carry the takeaway. Weak points: economy and legibility. 6 figures plus 3 tables within limit, but Fig 1 and Fig 5 repeat the same card idea; Fig 6 is a tall 42-row chart with an overprinted x-axis label; Fig 2 and Fig 4 are correlation-style forests; small path-card header text near 8 pt at column width.",
-      "top_changes": [
-        "Fig 6 (2025 board): fix colliding x-axis labels (\"shrunk bend, sd (bar = 80% interval)\" overprints \"2025 pressure rate\"). Cut to ~12 informative rows (plus, minus, film-first, plus the 5 with rookie samples above 200 rushes) and move the full 42 to a table or appendix. 2250 px tall so text shrinks. Label neutral rows by grey only; add legend entry for the pink film-first colour.",
-        "Fig 1 plus Fig 5 overlap (both drill-vs-game path cards, Ezeiruaku in each). Fold Phillips into Fig 1 or into one 8-card small multiple and drop Fig 5. In Fig 1 the dumbbell panel and card captions state the same numbers. Enlarge 'NFL (20 rushes)' header text. Make the red ring and orange pressure dots differ. Add a yards axis label to path squares.",
-        "Fig 2 and Fig 4 are forests of rho and R2 gain. Merge Fig 4 left panel (baseline robustness) into Fig 3 caption or table, keep only the Fig 4 right panel (forecast gain violins). Violin tails clipped at +/-0.6 in the '+10-yd and 3-cone' row: say so or widen. In Fig 2 add a one-line direct label for diamonds and check n values (27, 54, 68, 63) match the text. In Fig 3 use a facet per group, and tie the C. Johnson label to the text."
-      ],
-      "fatal_flaws": []
-    }
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_05/cand_2",
+   "angle": "WR/TE Break G vs NFL targets; drill-to-game route-family match",
+   "score": 7.33,
+   "per_judge": {
+    "football": 6.8,
+    "datascience": 7.7,
+    "writeup": 7.3,
+    "viz": 7.6
+   },
+   "fatal_flaws": [
+    "Headline claim (targets) not supported out of class: corrected p=0.15, average held-out R2 gain -1.6%, 2025 class goes wrong way.",
+    "Factual error on board: Isaiah Bond listed as 2025 UDFA.",
+    "Figures 1 and 4 show the null for the claimed mechanism; no panel shows the metric working.",
+    "2,115 words by wc, over limit."
+   ]
   },
-  "changelog": [
-    "Hoop G (sideways g at 1.8-yd hoop radius) vs pressure rate won over WR/TE Speed Kept and DL Launch candidates.",
-    "Text generated from a template filled by numbers.json, removing earlier 0.18/0.19 and 0.57/0.61 inconsistencies.",
-    "Added three-line decision rule, full 2025 board, application to all 109 runners and a 3-4 hoop-run drill protocol ask.",
-    "Added shrinkage (reliability 0.41), best-of-14 permutation, nested re-selection, has-40 interaction, placebo and survivorship checks.",
-    "Next round per judges: ~55-word plain opening, move stats to appendix, fix Fig 6 axis overprint and merge Fig 1/Fig 5, inline board table."
-  ],
-  "history": [
-    {
-      "round": 1,
-      "score": 7.01
-    },
-    {
-      "round": 2,
-      "score": 7.51
-    },
-    {
-      "round": 3,
-      "score": 7.86
-    }
-  ]
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_05/cand_3",
+   "angle": "Drill-to-game Carry-Over ratio, all position groups, DL lead",
+   "score": 7.01,
+   "per_judge": {
+    "football": 6.3,
+    "datascience": 7.6,
+    "writeup": 6.6,
+    "viz": 7.6
+   },
+   "fatal_flaws": [
+    "Headline lead fails multiplicity correction (family-wise p=0.822), no out-of-class gain (0.010).",
+    "Carry-Over divides by drill measure with 0.04 reliability; adds nothing beyond NFL speed.",
+    "TE result (-0.53) dismissed without role split; first-1.5 s speed is crude get-off proxy.",
+    "Hero figure null-ish; three of six figures correlation-only; 2,021 words."
+   ]
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_05/cand_1",
+  "score": 7.96
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 7.9,
+   "top_changes": [
+    "Resolve the headline tension: title/lede say bend adds pressure but nested out-of-class gain is -0.026 and P(>0.5)=0.58; reframe lead, give planning number once.",
+    "Show film/trace validation for 3-4 named players (Ezeiruaku, Phillips, Chop Robinson, Tuipulotu); drop dip/rip language the proxy cannot support.",
+    "Split call rules by role (interior vs EDGE); fill board rows with rates not rush counts; cut appendix statistics."
+   ],
+   "justification": "Usable 8.0: named 2025 and 2023-24 boards, plus/minus/film-first rule, 'ask for 3-4 hoop runs' protocol; effect weak (0.6 pressures/season, interval -0.4 to 1.7, out-of-class -0.026). Difficulty 8.4: draft-slot baseline, EDGE vs interior, reliability 0.41/0.22, imputation, placebo, negative-control drill, pre-registered test with power. Unique 7.6: same lateral-accel formula on drill and NFL rushes; burst carry-over rho 0.32; headline still a regression and essentially a null. Terminology 7.7: Hoop G homemade; 312-lb interior called bend minus; path-proxy win type not film; mixed units on board.",
+   "subscores": {
+    "usable": 8,
+    "football_difficulty": 8.4,
+    "unique": 7.6,
+    "terminology": 7.7
+   },
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.3,
+   "top_changes": [
+    "Make headline match evidence: 0.6 pressures/season [-0.4,1.7], out-of-class gain about 0; add cross-fitted sign-consistency table per held-out class.",
+    "Complete-case sensitivity on the 34 who ran 3-cone and 71 who ran 10-yd, plus multiple imputation.",
+    "Cut runtime/variants (under 3 min), collapse numbers.json to quoted keys, move secondary tables to appendix, add 80% interval on pick-equivalent (82)."
+   ],
+   "justification": "Four headline numbers spot-checked and reproduced; analysis.py not re-run. Beta-binomial mixed model with class intercept, latent-bend reliability correction, EB prior from 14 screened pairs, n=90 DL. Nested leave-one-class-out dR2 -0.026 [-0.41,0.19]; posterior [-0.4,1.7]; best-of-14 permutation p 0.132. No-tracking baseline, no-times variant, placebo, negative control, power-checked pre-registration. Weaknesses: lead rests on interval including zero; 3-cone/10-yd mostly imputed; small n; heavy stats; huge script; bloated numbers.json.",
+   "subscores": {
+    "correctness": 8.5,
+    "evidence": 8.5,
+    "model": 8.3,
+    "innovation": 8
+   },
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 7.3,
+   "top_changes": [
+    "Rewrite title and lede to state one result with 63/90 sample, 0.6 [-0.4,1.7] and null out-of-class test in first 80 words; one planning number everywhere.",
+    "Cut statistical load: reduce Finding 2 table, move EDGE/interior, no-times, raw slope, negative control to appendix; delete Methods paragraph; trim pre-registration.",
+    "Strengthen motivation; shrink board to 2025 top 8/bottom 4 plus names; fix cryptic '7 rushes' cells; drop or caveat 3-cone rho 0.63 (n=27)."
+   ],
+   "justification": "check.py passes: 1,974 words, 5 figures, 4 tables. Structure near finalist pattern. Weaknesses: title/lede do not state finding and are undercut by body; inconsistent numbers (half a pressure, 0.6, 0.8, 3.1; pick 82 vs 76 last round); one-sentence motivation; heavy density; stacked hedging, never says plainly whether to use bend.",
+   "subscores": {
+    "clarity": 7,
+    "structure": 8,
+    "motivation": 6,
+    "density": 6.5
+   },
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.2,
+   "top_changes": [
+    "Make Fig 1 the explicit hero: takeaway in caption, notes at least 9 pt, per-player lateral-offset inset, common strip of in-game bend (0.26, 0.26, 0.13, 0.22 g).",
+    "Merge Fig 3 into one overlaid scatter with neutral title; align n (63 vs 90); fix clipped Fig 4 subtitle, legend overlap, violin axis.",
+    "Drop Fig 5 or shrink table; add forecast-vs-actual small multiples for 2023-2025 calls; total at most 8 exhibits; trim text to 2,000 words."
+   ],
+   "justification": "Fig 1 finalist-grade: four named rushers, hoop trace beside 20 NFL rush paths, colourblind-safe. Fig 2 honest with power band. Fig 4 shows uncertainty well. Fig 5 clear dumbbell board. Problems: Fig 3 vs Fig 4 message conflict; n conflict; small italic captions; Fig 4 clipping/legend overlap; Fig 3 split panels; Fig 5 redundant with table; word count over.",
+   "subscores": {
+    "accessible": 8,
+    "accurate": 8.3,
+    "innovative": 8.6,
+    "economy": 7.4
+   },
+   "fatal_flaws": [
+    "Fig 3 vs Fig 4 opposing titles and n changes between 63 and 90.",
+    "Exhibit count at limit (5 figures plus 4 tables); Fig 5 repeats table; about 2,263 words by wc."
+   ]
+  }
+ },
+ "changelog": [
+  "Round 5 candidates: cand_1 DL bend tiebreaker (7.96), cand_2 WR/TE Break G targets (7.33), cand_3 Carry-Over ratio (7.01).",
+  "Winner cand_1 adds nested leave-one-class-out test, Bayesian headline, placebo and negative control, pre-registered test.",
+  "Winner reports honest null out-of-class (dR2 -0.026) and 0.6 pressures/season [-0.4,1.7].",
+  "Remaining issues: headline-evidence tension, word count, Fig 3 vs Fig 4 conflict, exhibit count.",
+  "Round 5 winner (7.96) did not beat round 4 (8.05); writeup/ and latest.json left at round 4."
+ ],
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  }
+ ]
 }
