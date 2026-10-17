@@ -6,6 +6,7 @@ Goal: a finalist-quality Kaggle writeup (≤2,000 words, <10 figures, English) l
 - Python via `uv` (3.11). Run everything with `uv run …` from the repo root. Package: `src/bdb27`.
 - Data lives in `data/` (gitignored). `cloud/setup.sh` restores it: processed tables, nflverse extras and the small raw CSVs always; the 2.3 GB game-tracking only when `KAGGLE_API_TOKEN` is set. If `data/processed/` is empty, run `bash cloud/setup.sh` first.
 - `data/processed/*.parquet` are the clean tables (players, combine_events, combine_frames, player_season_stats, player_career, game_plays_sample, game_frames_sample, combine_percentiles, drills, player_value). `data/processed/insights.json` is the output of `analysis/insights.py`.
+- **NFL tracking available here = `game_frames_sample` only**: up to 40 regular-season plays per player (`game_plays_sample.sample_kind`: half `top_epa`, half `random`; DL rows are pass plays only), full frames per play with `event` tags. The full 22 M-frame game tracking is NOT on this machine and cannot be fetched; never plan or recommend "re-run on the full tracking" as a next step — design the analysis for this sample and state its reliability. The raw `player_play.csv` is usually absent too; `player_season_stats` is the per-season aggregate.
 - Never commit anything under `data/`, never print or commit secrets, never write outside the repo.
 
 ## Data facts that matter (profiled; do not re-derive)
