@@ -333,7 +333,7 @@ def build_career(players: pl.DataFrame) -> pl.DataFrame:
 
 
 # ----------------------------------------------------------------------------- game tracking sample
-def build_game_sample(players: pl.DataFrame, per_player: int = 12) -> tuple[pl.DataFrame, pl.DataFrame]:
+def build_game_sample(players: pl.DataFrame, per_player: int = 40) -> tuple[pl.DataFrame, pl.DataFrame]:
     pp = pl.read_parquet(PQ / "player_play.parquet")
     games = regular_season_games(pl.read_parquet(PQ / "games.parquet"))
     pp = pp.join(games, on="game_id", how="inner").filter(pl.col("play_nullified_by_penalty") != "Y")
@@ -348,17 +348,22 @@ def build_game_sample(players: pl.DataFrame, per_player: int = 12) -> tuple[pl.D
         key.alias("key_metric"), pl.col("expected_points_added").abs().alias("abs_epa"),
         (pl.int_range(pl.len()).shuffle(seed=7)).alias("rnd"),
     )
+    # DL/DB rows exist on run plays too; keep pass plays for DL (pass rush) so the drill match is clean
+    cand = cand.filter(~((pl.col("position_group") == "DL") & pl.col("pass_result").is_null()))
     top = cand.sort("nfl_id", "abs_epa", descending=[False, True]).group_by("nfl_id", maintain_order=True).head(per_player // 2)
     rnd = cand.join(top.select("nfl_id", "game_id", "play_id"), on=["nfl_id", "game_id", "play_id"], how="anti") \
         .sort("nfl_id", "rnd").group_by("nfl_id", maintain_order=True).head(per_player // 2)
+    top = top.with_columns(pl.lit("top_epa").alias("sample_kind"))
+    rnd = rnd.with_columns(pl.lit("random").alias("sample_kind"))
     sample = pl.concat([top, rnd]).select(
+        "sample_kind",
         "nfl_id", "game_id", "play_id", "season", "week", "team_abbr", "possession_team", "lined_up_position", "play_description",
         "quarter", "down", "yards_to_go", "yardline_side", "yardline_number", "game_clock", "play_direction", "offense_formation",
         "pass_result", "pass_length", "route_ran", "target", "yards_gained", "expected_points_added", "team_coverage_type",
         "separation_at_pass_forward", "cushion", "yards_after_catch", "pressure_allowed", "peak_pressure_probability_allowed",
         "pass_rushers_encountered", "player_get_off", "time_to_pressure", "sack", "tackle", "coverage_assignment", "key_metric",
     ).sort("nfl_id", "season", "week")
-    log(f"game sample plays {sample.height:,}")
+    log(f"game sample plays {sample.height:,} ({per_player} per player: half top-|EPA|, half random)")
     keys = sample.select("game_id", "play_id", "nfl_id").unique()
     parts = []
     for season in (2023, 2024, 2025):
