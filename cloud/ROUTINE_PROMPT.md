@@ -1,6 +1,6 @@
 You are running one improvement round of the NFL Big Data Bowl 2027 writeup in this repository. Follow CLAUDE.md. Work autonomously; nobody will answer questions.
 
-0. State lives on the branch `claude/bdb-writeup`. Run: `git fetch origin && (git checkout claude/bdb-writeup 2>/dev/null || git checkout -b claude/bdb-writeup)`; if the branch exists, also `git merge --no-edit origin/master || true` so it carries the latest code.
+0. Git identity first: `git config user.name "Miguel Vallejo" && git config user.email "175945028+miguelvallejovillegas@users.noreply.github.com"`. State lives on the branch `claude/bdb-writeup`. Run: `git fetch origin && (git checkout claude/bdb-writeup 2>/dev/null || git checkout -b claude/bdb-writeup)`; if the branch exists, also `git merge --no-edit origin/master || true` so it carries the latest code.
 0b. Lock: if `state/lock.json` exists and its `started_at` is less than 120 minutes before now (UTC), another run is in progress: stop immediately and report "skipped: lock held". Otherwise write `state/lock.json` as `{"started_at": "<now UTC ISO-8601>", "session": "<anything identifying this run>"}`, `git add state/lock.json && git commit -m "lock: round in progress" && git push -u origin claude/bdb-writeup`.
 1. If `data/processed/combine_events.parquet` is missing, run `bash cloud/setup.sh`.
 2. Read `state/latest.json`. Let ROUND = (last round + 1), or 1 if there is no state. If `state/latest.json` has `done: true`, stop and report.
