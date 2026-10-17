@@ -38,6 +38,29 @@ from scipy import stats
 from scipy.signal import savgol_filter
 
 warnings.filterwarnings("ignore")
+import re
+import sys
+
+
+def render(out_dir: Path):
+    """Fill writeup_template.md {{key}} placeholders from numbers.json -> writeup.md (fails on unknown keys)."""
+    tpl = out_dir / "writeup_template.md"
+    if not tpl.exists():
+        return
+    num = json.load(open(out_dir / "numbers.json"))
+
+    def sub(m):
+        k = m.group(1)
+        if k not in num:
+            raise KeyError(f"writeup_template.md uses unknown key {k}")
+        v = str(num[k])
+        return "−" + v[1:] if v.startswith("-") else v
+    (out_dir / "writeup.md").write_text(re.sub(r"\{\{(\w+)\}\}", sub, tpl.read_text()))
+
+
+if "--render-only" in sys.argv:
+    render(Path(__file__).resolve().parent)
+    raise SystemExit(0)
 ROOT = Path(__file__).resolve().parents[4]
 PROC = ROOT / "data" / "processed"
 OUT = Path(__file__).resolve().parent
@@ -225,16 +248,36 @@ dl["role"] = np.where(dl.edge == 1, "EDGE", "interior")
 ev = events[(events.position_group == "DL") & events.drill_name.isin(["PASS_RUSH_DRILL", "RUN_THE_HOOP_DRILL"])]
 ev = ev[["event_id", "nfl_id", "draft_year", "drill_name", "attempt_no", "start_speed", "peak_accel",
          "mean_speed", "duration_s"]]
-fr = pd.read_parquet(PROC / "combine_frames.parquet", filters=[("event_id", "in", list(ev.event_id))],
-                     columns=["event_id", "frame", "entity_type", "x", "y", "s"])
-fr = fr[fr.entity_type == "PLAYER"].sort_values(["event_id", "frame"])
-rows, traces = [], {}
-for eid, g in fr.groupby("event_id", sort=False):
-    f = attempt_features(g)
-    if f is None:
-        continue
-    traces[eid] = {k: f.pop(k) for k in ["_alat", "_x", "_y", "_k", "_o"]}
-    rows.append({"event_id": eid, **f})
+import pickle
+CACHE = os.environ.get("BDB_CACHE")   # optional dev cache for the frame-level feature extraction (never committed)
+
+
+def cached(name, fn):
+    if CACHE:
+        f = Path(CACHE) / f"{name}.pkl"
+        if f.exists():
+            return pickle.load(open(f, "rb"))
+        out = fn()
+        pickle.dump(out, open(f, "wb"))
+        return out
+    return fn()
+
+
+def drill_features():
+    fr = pd.read_parquet(PROC / "combine_frames.parquet", filters=[("event_id", "in", list(ev.event_id))],
+                         columns=["event_id", "frame", "entity_type", "x", "y", "s"])
+    fr = fr[fr.entity_type == "PLAYER"].sort_values(["event_id", "frame"])
+    rows, traces = [], {}
+    for eid, g in fr.groupby("event_id", sort=False):
+        f = attempt_features(g)
+        if f is None:
+            continue
+        traces[eid] = {k: f.pop(k) for k in ["_alat", "_x", "_y", "_k", "_o"]}
+        rows.append({"event_id": eid, **f})
+    return rows, traces
+
+
+rows, traces = cached("drill", drill_features)
 att = pd.DataFrame(rows).merge(ev, on="event_id")
 hoop_att = att[att.drill_name == "RUN_THE_HOOP_DRILL"].copy()
 rush_att = att[att.drill_name == "PASS_RUSH_DRILL"].copy()
@@ -365,10 +408,13 @@ gfe = gfe[gfe.nfl_id.isin(dlids) & gfe.event.isin(["pass_forward", "qb_sack", "q
 ends = gfe.groupby(K).frame.min().rename("end_frame")
 ARC_CAP, VMIN = 35, 2.0
 gfa = gf.sort_values(K + ["frame"]).join(ends, on=K)
-arc_rows, arc_tr = [], {}
 pinfo = g.drop_duplicates(K).set_index(K)[["play_direction", "sample_kind", "time_to_pressure", "sack", "down",
                                            "yards_to_go", "lined_up_position"]]
-for key, h in gfa.groupby(K, sort=False):
+
+
+def arc_features():
+  arc_rows, arc_tr = [], {}
+  for key, h in gfa.groupby(K, sort=False):
     sf = h.snap_frame.iloc[0]
     e = h.end_frame.iloc[0]
     e = sf + ARC_CAP if pd.isna(e) else min(e, sf + ARC_CAP)
@@ -399,6 +445,10 @@ for key, h in gfa.groupby(K, sort=False):
         lat = -lat
     kmax = int(np.nanargmax(roll.values)) - f0          # centre of the 0.5 s window that sets Arc G
     arc_tr[key] = (lat[ii], fwd[ii], al[ii] / YD_PER_G, kmax)
+  return arc_rows, arc_tr
+
+
+arc_rows, arc_tr = cached("arc", arc_features)
 arcp = pd.DataFrame(arc_rows)
 arcp["gz"] = arcp.groupby("nfl_id").arc_g.transform(lambda v: (v - v.mean()) / v.std())
 put("n_arc_plays", len(arcp)); put("arc_g_median", arcp.arc_g.median())
@@ -463,9 +513,15 @@ def impute(tr: pd.DataFrame, te: pd.DataFrame, cols=("ten_yd_split_z", "three_co
 MI_PRED = ["combine_weight_z", "edge_share", "ngs_athleticism_score", "hoop_z"]
 
 
-def impute_mi(tr: pd.DataFrame, te: pd.DataFrame, rng, col="ten_yd_split_z"):
-    """One proper stochastic draw (parameter + residual noise) for missing 10-yd splits. Imputation model uses
+def impute_mi(tr: pd.DataFrame, te: pd.DataFrame, rng, cols=("ten_yd_split_z",)):
+    """One proper stochastic draw (parameter + residual noise) for missing official times. Imputation model uses
     weight, EDGE share, NGS athleticism score and Hoop G, fit on training rows; never the outcome."""
+    for col in cols:
+        tr, te = _impute_mi1(tr, te, rng, col)
+    return tr, te
+
+
+def _impute_mi1(tr, te, rng, col):
     tr, te = tr.copy(), te.copy()
     mk = tr[col].notna()
     X = np.c_[np.ones(mk.sum()), tr.loc[mk, MI_PRED].values]
@@ -731,7 +787,7 @@ def ridge_pred(tr, te, cols, y, alphas=np.logspace(-2, 3, 30)):
     return tr[y].values.mean() + ((te[cols].values - mu_) / sd_) @ bb
 
 
-def loco(df, base, extra, y, fit=ols_pred, imp=None, train_one=False, rng=None):
+def loco(df, base, extra, y, fit=ols_pred, imp=None, train_one=False, rng=None, imp_cols=("ten_yd_split_z",)):
     """Leave-one-class-out (or train-on-one-class). imp: None | 'single' | 'mi' (M_IMP draws, predictions averaged)."""
     classes = sorted(df.draft_year.unique())
     Y, PB, PA, CL, ID = [], [], [], [], []
@@ -742,7 +798,7 @@ def loco(df, base, extra, y, fit=ols_pred, imp=None, train_one=False, rng=None):
         if imp == "mi":
             pb, pa = np.zeros(len(te)), np.zeros(len(te))
             for _ in range(M_IMP):
-                t1, t2 = impute_mi(tr, te, rng if rng is not None else RNG)
+                t1, t2 = impute_mi(tr, te, rng if rng is not None else RNG, imp_cols)
                 pb += fit(t1, t2, base, y) / M_IMP; pa += fit(t1, t2, base + extra, y) / M_IMP
             PB.append(pb); PA.append(pa)
         else:
@@ -759,7 +815,11 @@ def loco(df, base, extra, y, fit=ols_pred, imp=None, train_one=False, rng=None):
     return out
 
 
-def boot_loco(df, base, extra, y, nb=1000, **kw):
+NLOCO = int(os.environ.get("BDB_NLOCO", 1000))
+
+
+def boot_loco(df, base, extra, y, nb=NLOCO, draws=False, **kw):
+    """Class-stratified player bootstrap of the whole leave-one-class-out loop (refit every time)."""
     groups = {c: d for c, d in df.groupby("draft_year")}
     out = []
     for _ in range(nb):
@@ -768,14 +828,16 @@ def boot_loco(df, base, extra, y, nb=1000, **kw):
             out.append(loco(d, base, extra, y, **kw)["delta"])
         except Exception:
             pass
-    return np.percentile(out, [2.5, 97.5])
+    return np.array(out) if draws else np.percentile(out, [2.5, 97.5])
 
 
 dH = co.dropna(subset=["hoop_z", "press_eb"]).copy()
 LH = loco(dH, MAIN, ["hoop_z"], "press_eb")
 put("lo_n", LH["n"]); put("r2b", LH["r2_base"]); put("r2a", LH["r2_aug"]); put("dr2", LH["delta"], 3)
-lo_, hi_ = boot_loco(dH, MAIN, ["hoop_z"], "press_eb")
+DR2_DRAWS = {"main": boot_loco(dH, MAIN, ["hoop_z"], "press_eb", draws=True)}
+lo_, hi_ = np.percentile(DR2_DRAWS["main"], [2.5, 97.5])
 put("dr2_lo", lo_, 3); put("dr2_hi", hi_, 3)
+put("dr2_pos_share", 100 * np.mean(DR2_DRAWS["main"] > 0), 0); put("dr2_med", np.median(DR2_DRAWS["main"]), 3)
 fold = {}
 for c, d_ in LH["pred"].groupby("cl"):
     rb, ra = stats.spearmanr(d_.pb, d_.y)[0], stats.spearmanr(d_.pa, d_.y)[0]
@@ -833,29 +895,34 @@ ROB = []
 MI_RNG = np.random.default_rng(99)
 
 
-def mi_partial(df, base):
+def mi_partial(df, base, cols=("ten_yd_split_z",)):
     """Rubin-style: average Fisher z of the partial rho over M_IMP imputations; interval from pooled bootstraps."""
     zs, bs = [], []
     for _ in range(M_IMP):
-        d1, _ = impute_mi(df, df.iloc[:0], MI_RNG)
+        d1, _ = impute_mi(df, df.iloc[:0], MI_RNG, cols)
         r, b, n = partial_draws(d1, "hoop_z", "press_eb", base, nb=max(100, NBOOT // 10))
         zs.append(np.arctanh(r)); bs.append(b)
     bs = np.concatenate(bs)
     return float(np.tanh(np.mean(zs))), *np.percentile(bs, [2.5, 97.5]), n
 
 
-def add_var(tag, label, df, base, imp=None, fit=ols_pred, nb=1000):
+def add_var(tag, label, df, base, imp=None, fit=ols_pred, nb=NLOCO, imp_cols=("ten_yd_split_z",)):
     d = df.dropna(subset=["hoop_z", "press_eb"]).copy()
     if imp is None:
         d = d.dropna(subset=base)
     if imp == "mi":
-        r, lo, hi, n = mi_partial(d, base)
+        r, lo, hi, n = mi_partial(d, base, imp_cols)
     elif imp == "single":
         r, lo, hi, n, _ = partial_sp(impute(d, d)[0], "hoop_z", "press_eb", base)
     else:
         r, lo, hi, n, _ = partial_sp(d, "hoop_z", "press_eb", base)
-    L = loco(d, base, ["hoop_z"], "press_eb", fit=fit, imp=imp, rng=MI_RNG)
-    ci = boot_loco(d, base, ["hoop_z"], "press_eb", nb=nb, fit=fit, imp=imp, rng=MI_RNG) if nb else (np.nan, np.nan)
+    L = loco(d, base, ["hoop_z"], "press_eb", fit=fit, imp=imp, rng=MI_RNG, imp_cols=imp_cols)
+    dr = boot_loco(d, base, ["hoop_z"], "press_eb", nb=nb, fit=fit, imp=imp, rng=MI_RNG, draws=True,
+                   imp_cols=imp_cols) if nb else None
+    ci = np.percentile(dr, [2.5, 97.5]) if nb else (np.nan, np.nan)
+    if nb:
+        DR2_DRAWS[tag] = dr
+        put(f"v_dr2pos_{tag}", 100 * np.mean(dr > 0), 0)
     row = dict(tag=tag, label=label, n=n, r=r, lo=lo, hi=hi, r2b=L["r2_base"], r2a=L["r2_aug"], dr2=L["delta"],
                dr2_lo=ci[0], dr2_hi=ci[1])
     put(f"v_r_{tag}", r); put(f"v_lo_{tag}", lo); put(f"v_hi_{tag}", hi); put(f"v_n_{tag}", n)
@@ -868,14 +935,21 @@ def add_var(tag, label, df, base, imp=None, fit=ols_pred, nb=1000):
 
 cc = co[co.ten_yd_split_z.notna()]
 add_var("main", "Main: pick, weight, EDGE share, NGS athleticism", co, MAIN)
+# one source of truth for the headline interval: alias the primary-test keys to the main-variant bootstrap
+for k_ in ["", "lo_", "hi_"]:
+    put(f"pr_{k_}hoop_z_press_eb", float(NUM[f"v_{(k_ or 'r_')}main"]))
 add_var("notime", "No athletic score at all: pick, weight, EDGE share", co, NOTIME)
-add_var("mi", f"Main + 10-yd split, multiple imputation (M={M_IMP})", co, MAIN + ["ten_yd_split_z"], imp="mi", nb=300)
+add_var("mi", f"Main + 10-yd split, multiple imputation (M={M_IMP})", co, MAIN + ["ten_yd_split_z"], imp="mi",
+        nb=max(100, NLOCO // 3))
+add_var("angle", "Pick, 10-yd, 3-cone, NGS (+ weight, EDGE share), multiple imputation", co,
+        MAIN + ["ten_yd_split_z", "three_cone_z"], imp="mi", nb=max(100, NLOCO // 3),
+        imp_cols=("ten_yd_split_z", "three_cone_z"))
 add_var("single", "Round-3 baseline: pick, weight, 10-yd (single fill), EDGE", co,
         ["log_pick", "combine_weight_z", "ten_yd_split_z", "edge_share"], imp="single")
 add_var("cc_main", "Main, only the players who ran the 40", cc, MAIN)
 add_var("cc_10", "Main + official 10-yd, only the players who ran the 40", cc, MAIN + ["ten_yd_split_z"])
 add_var("cc_40", "Main + official 40, only the players who ran the 40", cc, MAIN + ["forty_z"])
-add_var("ridge", "Main, ridge", co, MAIN, fit=ridge_pred, nb=300)
+add_var("ridge", "Main, ridge", co, MAIN, fit=ridge_pred, nb=max(100, NLOCO // 3))
 add_var("snaps50", "Main, 50+ rushes", dl[dl.rush_snaps >= 50], MAIN, nb=0)
 add_var("snaps200", "Main, 200+ rushes", dl[dl.rush_snaps >= 200], MAIN, nb=0)
 put("share_r_cc", float(NUM["v_r_cc_10"]) / float(NUM["v_r_main"]) * 100, 0)
@@ -901,6 +975,68 @@ oc_ = ofit.conf_int().loc["hoop_z"]
 put("slope_hoop_pp", ofit.params["hoop_z"]); put("slope_hoop_pp_lo", oc_[0]); put("slope_hoop_pp_hi", oc_[1])
 put("pressures_per_450", 4.5 * ofit.params["hoop_z"], 1)
 put("pressures_per_450_eb", 4.5 * ofit.params["hoop_z"] * eb_factor, 1)
+put("slope_hoop_pp_eb", ofit.params["hoop_z"] * eb_factor)
+put("eb_factor", eb_factor)
+
+# ---- does it matter for a GM? price the effect in draft slots (same OLS, pp of pressure per log pick)
+b_lp = -ofit.params["log_pick"]                      # pp gained per unit decrease in log pick
+for tag, eff in [("raw", ofit.params["hoop_z"]), ("eb", ofit.params["hoop_z"] * eb_factor)]:
+    put(f"pick_equiv_{tag}", int(round(100 * np.exp(-eff / b_lp))))
+put("b_logpick_pp", b_lp)
+
+# ---- missing-40 dependence: Hoop G x has-40 interaction, class fixed effects, class-stratified player bootstrap
+dH["has40"] = dH.forty_z.notna().astype(int)
+dm = dH.assign(pp=lambda d: 100 * d.press_eb)
+FMLI = "pp ~ log_pick + combine_weight_z + edge_share + ngs_athleticism_score + C(draft_year) + has40 + hoop_z:has40 + hoop_z"
+ifit = smf.ols(FMLI, dm).fit()
+b0, b1 = ifit.params["hoop_z"], ifit.params["hoop_z"] + ifit.params["hoop_z:has40"]
+put("int_slope_no40", b0); put("int_slope_40", b1); put("int_diff", b1 - b0)
+put("int_p", ifit.pvalues["hoop_z:has40"], 2)
+gr_ = {c: d for c, d in dm.groupby("draft_year")}
+bi = []
+for _ in range(NBOOT):
+    d_ = pd.concat([g_.iloc[RNG.integers(0, len(g_), len(g_))] for g_ in gr_.values()])
+    try:
+        f_ = smf.ols(FMLI, d_).fit().params
+        bi.append((f_["hoop_z"], f_["hoop_z"] + f_["hoop_z:has40"]))
+    except Exception:
+        pass
+bi = np.array(bi)
+put("int_slope_no40_lo", np.percentile(bi[:, 0], 2.5)); put("int_slope_no40_hi", np.percentile(bi[:, 0], 97.5))
+put("int_slope_40_lo", np.percentile(bi[:, 1], 2.5)); put("int_slope_40_hi", np.percentile(bi[:, 1], 97.5))
+put("n_no40", int((dH.has40 == 0).sum())); put("n_40", int(dH.has40.sum()))
+no40 = dH[dH.has40 == 0].sort_values("hoop_z", ascending=False)
+put("no40_edge", int((no40.role == "EDGE").sum())); put("no40_2025", int((no40.draft_year == 2025).sum()))
+put("no40_pick_med", int(no40.pick.median())); put("has40_pick_med", int(dH[dH.has40 == 1].pick.median()))
+put("no40_hoop_mean", no40.hoop_z.mean()); put("has40_hoop_mean", dH[dH.has40 == 1].hoop_z.mean())
+top_no40 = no40.head(4)
+for i, r_ in enumerate(top_no40.itertuples()):
+    put(f"no40_{i}_hoop", r_.hoop_z); put(f"no40_{i}_res", 100 * r_.res_main, 1)
+TABLES["no40"] = no40[["display_name", "role", "draft_year", "pick", "combine_weight", "hoop_z", "res_main",
+                       "rush_snaps", "press_rate"]].round(4).to_dict("records")
+put("no40_top_half_res", 100 * no40[no40.hoop_z >= no40.hoop_z.median()].res_main.mean(), 1)
+put("no40_bot_half_res", 100 * no40[no40.hoop_z < no40.hoop_z.median()].res_main.mean(), 1)
+
+# ---- placebo / negative-control outcomes: bend should not buy get-off or tackles
+sd_ = s.groupby("nfl_id").agg(tk=("tackles", "sum"), asst=("assists", "sum"), plays=("plays", "sum"),
+                               sacks=("sacks", "sum"), qp=("quick_pressures", "sum"),
+                               ttp_w=("avg_time_to_pressure", lambda v: np.nan)).reset_index()
+s["ttp_w"] = s.avg_time_to_pressure * s.pressures
+ttp = s.dropna(subset=["avg_time_to_pressure"]).groupby("nfl_id").agg(ttp_w=("ttp_w", "sum"), pz=("pressures", "sum"))
+sd_ = sd_.drop(columns="ttp_w").merge((ttp.ttp_w / ttp.pz).rename("ttp").reset_index(), on="nfl_id", how="left")
+co2 = dH.merge(sd_, on="nfl_id", how="left")
+co2["tackle_rate"] = (co2.tk + co2.asst) / co2.plays
+co2["finish"] = co2.sacks / co2.pressures.replace(0, np.nan)
+co2["quick_share"] = co2.qp / co2.pressures.replace(0, np.nan)
+for oc in ["tackle_rate", "quick", "finish", "quick_share", "ttp"]:
+    r, lo, hi, n, p = partial_sp(co2, "hoop_z", oc, MAIN)
+    put(f"plc_{oc}", r); put(f"plc_lo_{oc}", lo); put(f"plc_hi_{oc}", hi); put(f"plc_n_{oc}", n)
+
+# ---- availability (injury / depth) behind the 100+ rush cut
+inc = hr.rush_snaps >= MIN_SNAPS
+put("gps_in", hr.loc[inc, "games_per_season"].median(), 1); put("gps_out", hr.loc[~inc, "games_per_season"].median(), 1)
+r, lo, hi, n, p = partial_sp(dH.assign(gps=dH.games_per_season), "hoop_z", "press_eb", MAIN + ["gps"])
+put("pr_hoop_given_games", r); put("pr_hoop_given_games_lo", lo); put("pr_hoop_given_games_hi", hi)
 
 # ----------------------------------------------------------------------------- burst: drill vs game first second
 for kind in ["random", "top_epa"]:
@@ -915,33 +1051,66 @@ put("power_prereg_eb", power_at(float(NUM["eb_hoop"]), 2 * n26, len(MAIN)))
 put("runs_for_07", int(np.ceil(0.7 * (1 - rel_hoop) / (rel_hoop * 0.3))))
 put("rel_hoop_3runs", sb(rel_hoop, 3)); put("rel_hoop_4runs", sb(rel_hoop, 4))
 
-# ----------------------------------------------------------------------------- board: 2025 class, every hoop runner
+# ----------------------------------------------------------------------------- board: every hoop runner, 2023-25
+# Decision rule (pre-stated, applied to every row):
+#   1. Shrunk Hoop G 80% interval above 0  -> "bend plus: break ties his way"
+#   2. Shrunk Hoop G 80% interval below 0  -> "bend minus: must win with power or get-off"
+#   3. Otherwise                            -> "neutral: hoop says nothing"
+#   Film flag (overrides): 100+ NFL rushes and his 80% pressure interval sits wholly on the other side of the
+#   out-of-class no-tracking forecast from where the drill points (|shrunk z| >= 0.4).
 lam1 = rel_hoop
-bd = dl[(dl.draft_year == 2025) & dl.hoop_z.notna()].copy()
-bd["lam"] = bd.hoop_k * lam1 / (1 + (bd.hoop_k - 1) * lam1)
-bd["shr"] = bd.lam * bd.hoop_z
-bd["shr_sd"] = np.sqrt(bd.lam * (1 - bd.lam))
-bd["shr_lo"], bd["shr_hi"] = bd.shr - 1.2816 * bd.shr_sd, bd.shr + 1.2816 * bd.shr_sd
+ba = dl[dl.hoop_z.notna()].copy()
+ba["lam"] = ba.hoop_k * lam1 / (1 + (ba.hoop_k - 1) * lam1)
+ba["shr"] = ba.lam * ba.hoop_z
+ba["shr_sd"] = np.sqrt(ba.lam * (1 - ba.lam))
+ba["shr_lo"], ba["shr_hi"] = ba.shr - 1.2816 * ba.shr_sd, ba.shr + 1.2816 * ba.shr_sd
+ba["shr_g"] = ba.draft_year.map(hstat["mean"]) + ba.shr * ba.draft_year.map(hstat["std"])
+ba = ba.merge(LH["pred"][["nfl_id", "pb", "pa"]], on="nfl_id", how="left")
+ok_ = ba.rush_snaps >= MIN_SNAPS
+ba.loc[~ok_, ["pb", "pa"]] = np.nan
+ba["pr_lo"] = stats.beta.ppf(0.1, ba.pressures + 0.5, ba.rush_snaps - ba.pressures + 0.5)
+ba["pr_hi"] = stats.beta.ppf(0.9, ba.pressures + 0.5, ba.rush_snaps - ba.pressures + 0.5)
+ba.loc[~ok_, ["pr_lo", "pr_hi"]] = np.nan
+ba["call"] = np.select([ba.shr_lo > 0, ba.shr_hi < 0], ["bend plus: break ties his way",
+                                                         "bend minus: must win with power or get-off"],
+                       "neutral: hoop says nothing")
+hi_flag = ba.pb.notna() & (ba.shr >= 0.4) & (ba.pr_hi < ba.pb)
+lo_flag = ba.pb.notna() & (ba.shr <= -0.4) & (ba.pr_lo > ba.pb)
+ba["flag"] = np.select([hi_flag, lo_flag], ["film over drill: under-produced", "film over drill: out-produced"], "")
+ba["call"] = np.where(ba.flag != "", "film first: " + ba.flag.str.replace("film over drill: ", ""), ba.call)
+ba["rank_in_class"] = ba.groupby("draft_year").shr.rank(ascending=False, method="first").astype(int)
+ba = ba.sort_values(["draft_year", "rank_in_class"])
+put("board_all_n", len(ba))
+put("board_all_plus", int(ba.call.str.startswith("bend plus").sum()))
+put("board_all_minus", int(ba.call.str.startswith("bend minus").sum()))
+put("board_all_flag", int((ba.flag != "").sum()))
+put("board_all_withnfl", int(ba.pb.notna().sum()))
+ba[["draft_year", "rank_in_class", "display_name", "role", "pick", "combine_weight", "hoop_k", "hoop_g", "hoop_z", "shr",
+    "shr_lo", "shr_hi", "rush_snaps", "press_rate", "pr_lo", "pr_hi", "pb", "pa", "flag", "call"]].round(4).to_csv(
+    OUT / "board_2023_2025.csv", index=False)
+TABLES["flag_all"] = ba[ba.flag != ""][["display_name", "draft_year", "flag", "shr", "press_rate", "pb"]].round(4).to_dict("records")
+for r_ in ba[ba.flag != ""].itertuples():
+    key = r_.display_name.split(" ")[-1].lower().replace("-", "").replace(".", "")
+    put(f"fa_{key}_pr", 100 * r_.press_rate, 1); put(f"fa_{key}_pb", 100 * r_.pb, 1); put(f"fa_{key}_shr", r_.shr)
+    put(f"fa_{key}_snaps", int(r_.rush_snaps))
+    put(f"fa_{key}_prlo", 100 * r_.pr_lo, 1); put(f"fa_{key}_prhi", 100 * r_.pr_hi, 1)
+
+bd = ba[ba.draft_year == 2025].sort_values("shr", ascending=False).reset_index(drop=True)
+bd["rank"] = np.arange(1, len(bd) + 1)
 m25, s25 = hstat.loc[2025, "mean"], hstat.loc[2025, "std"]
-bd["shr_g"] = m25 + bd.shr * s25
 put("board_n", len(bd)); put("board_mean_g", m25); put("board_sd_g", s25, 3)
 put("board_lam1", lam1); put("board_band", 1.2816 * np.sqrt(lam1 * (1 - lam1)))
-p25 = LH["pred"][LH["pred"].cl == 2025][["nfl_id", "pb", "pa", "y"]]
-bd = bd.merge(p25, on="nfl_id", how="left")
-bd["pr_lo"] = stats.beta.ppf(0.1, bd.pressures + 0.5, bd.rush_snaps - bd.pressures + 0.5)
-bd["pr_hi"] = stats.beta.ppf(0.9, bd.pressures + 0.5, bd.rush_snaps - bd.pressures + 0.5)
-bd["film"] = bd.press_rate - bd.pb
-bd["flag"] = np.where(bd.pb.notna() & (bd.shr.abs() >= 0.4) & (np.sign(bd.shr) != np.sign(bd.film)),
-                      np.where(bd.shr > 0, "drill too high", "drill too low"), "")
-bd = bd.sort_values("shr", ascending=False).reset_index(drop=True)
-bd["rank"] = np.arange(1, len(bd) + 1)
 put("board_n_nfl", int(bd.pb.notna().sum()))
 put("board_n_flag", int((bd.flag != "").sum()))
+put("board_plus", int(bd.call.str.startswith("bend plus").sum()))
+put("board_minus", int(bd.call.str.startswith("bend minus").sum()))
+bd[["rank", "display_name", "role", "pick", "combine_weight", "hoop_k", "hoop_g", "hoop_z", "shr", "shr_lo", "shr_hi",
+    "shr_g", "rush_snaps", "press_rate", "pr_lo", "pr_hi", "pb", "pa", "flag", "call"]].round(4).to_csv(
+    OUT / "board_2025.csv", index=False)
 cardp = bd.dropna(subset=["pb"])
 closer = (cardp.pa - cardp.press_rate).abs() < (cardp.pb - cardp.press_rate).abs()
 put("card_closer", int(closer.sum())); put("card_n", len(cardp))
 put("card_binom_p", stats.binomtest(int(closer.sum()), len(cardp), 0.5, alternative="greater").pvalue, 2)
-# ordering stability: (a) reliability resampled from the split-half bootstrap only; (b) plus true-score noise
 pub = bd.shr.values
 rs_rel, rs_true, top5 = [], [], []
 for _ in range(NBOOT):
@@ -952,49 +1121,42 @@ for _ in range(NBOOT):
     tru = sh_ + np.sqrt(lam_ * (1 - lam_)) * RNG.normal(size=len(bd))
     rs_true.append(stats.spearmanr(tru, pub)[0])
     top5.append(np.mean(np.argsort(-tru.values)[:5] < 5))
-put("board_rs_rel_min", np.min(rs_rel)); put("board_rs_rel_med", np.median(rs_rel))
 put("board_rs_true", np.median(rs_true)); put("board_rs_true_lo", np.percentile(rs_true, 2.5))
 put("board_rs_true_hi", np.percentile(rs_true, 97.5)); put("board_top5_keep", 100 * np.mean(top5), 0)
-bd[["rank", "display_name", "role", "pick", "combine_weight", "hoop_k", "hoop_g", "hoop_z", "shr", "shr_lo", "shr_hi",
-    "shr_g", "rush_snaps", "press_rate", "pb", "pa", "film", "flag"]].round(4).to_csv(OUT / "board_2025.csv", index=False)
-TABLES["board_2025"] = bd[["display_name", "role", "pick", "combine_weight", "hoop_g", "hoop_k", "shr", "rush_snaps",
-                           "press_rate", "pb", "pa", "flag"]].round(4).to_dict("records")
 
 
 def pk_txt(p):
     return "UDFA" if p == UDFA_PICK else str(int(p))
 
 
-# board table for the writeup: top 8 and bottom 4 (full board in board_2025.csv)
-rows = []
-for r_ in pd.concat([bd.head(8), bd.tail(4)]).itertuples():
-    i = r_.rank
-    put(f"bt{i}_shr", r_.shr); put(f"bt{i}_lo", r_.shr_lo); put(f"bt{i}_hi", r_.shr_hi)
-    rook = f"{100 * r_.press_rate:.1f}% on {int(r_.rush_snaps)}" if r_.rush_snaps >= MIN_SNAPS else (
-        f"{int(r_.rush_snaps)} rushes" if r_.rush_snaps > 0 else "no NFL rushes")
-    if r_.rush_snaps >= MIN_SNAPS:
-        put(f"bt{i}_pr", 100 * r_.press_rate, 1); put(f"bt{i}_pb", 100 * r_.pb, 1)
-    sgn = lambda v: f"{v:+.2f}".replace("-", "−")
-    rows.append(f"| {i} | {r_.display_name} | {'EDGE' if r_.role == 'EDGE' else 'Interior'} | {int(r_.combine_weight)} | "
-                f"{pk_txt(r_.pick)} | {int(r_.hoop_k)} | {sgn(r_.shr)} [{sgn(r_.shr_lo)}, {sgn(r_.shr_hi)}] | {rook} |")
-TABLES["board_md"] = "\n".join(rows)
-(OUT / "board_table.md").write_text("\n".join(rows) + "\n")
-# shrinkage arithmetic for named prospects
 ex = {"top": bd.iloc[0], "bottom": bd.iloc[-1]}
 for tag, r_ in ex.items():
     put(f"ex_{tag}_g", r_.hoop_g); put(f"ex_{tag}_z", r_.hoop_z, 1); put(f"ex_{tag}_shr", r_.shr)
-    put(f"ex_{tag}_shrg", r_.shr_g, 3); put(f"ex_{tag}_lo", r_.shr_lo); put(f"ex_{tag}_hi", r_.shr_hi)
+    put(f"ex_{tag}_lo", r_.shr_lo); put(f"ex_{tag}_hi", r_.shr_hi)
     put(f"ex_{tag}_wt", int(r_.combine_weight)); put(f"ex_{tag}_snaps", int(r_.rush_snaps))
     TABLES[f"example_{tag}"] = r_.display_name
-    if pd.notna(r_.pb):
-        put(f"ex_{tag}_pb", 100 * r_.pb, 1); put(f"ex_{tag}_pr", 100 * r_.press_rate, 1)
-for r_ in bd[bd.flag != ""].itertuples():
-    key = r_.display_name.split(" ")[-1].lower().replace("-", "")
-    put(f"fl_{key}_pr", 100 * r_.press_rate, 1); put(f"fl_{key}_pb", 100 * r_.pb, 1); put(f"fl_{key}_shr", r_.shr)
-    put(f"fl_{key}_snaps", int(r_.rush_snaps))
-TABLES["flagged"] = bd[bd.flag != ""][["display_name", "flag", "shr", "press_rate", "pb", "rush_snaps"]].to_dict("records")
+# named film-check players for Fig 6 (chosen in round 3 by the judges: Ezeiruaku and Phillips)
+FILM = {}
+for nm in ["Donovan Ezeiruaku", "Jordan Phillips"]:
+    r_ = ba[ba.display_name == nm].iloc[0]
+    key = nm.split(" ")[-1].lower()
+    FILM[nm] = r_
+    put(f"film_{key}_shr", r_.shr); put(f"film_{key}_pr", 100 * r_.press_rate, 1); put(f"film_{key}_pb", 100 * r_.pb, 1)
+    put(f"film_{key}_prlo", 100 * r_.pr_lo, 1); put(f"film_{key}_prhi", 100 * r_.pr_hi, 1)
+    put(f"film_{key}_snaps", int(r_.rush_snaps)); put(f"film_{key}_hoopg", r_.hoop_g)
+    put(f"film_{key}_rank", int(bd[bd.display_name == nm]["rank"].iloc[0]))
+    q_ = arcp[(arcp.nfl_id == r_.nfl_id) & (arcp.kind == "random")]
+    put(f"film_{key}_arc", q_.arc_g.mean()); put(f"film_{key}_nsnap", len(q_))
+    put(f"film_{key}_wide_share", 100 * q_["align"].isin(["EDGE", "OLB"]).mean(), 0)
+    put(f"film_{key}_arc_pct", stats.percentileofscore(dl.arc_random.dropna(), q_.arc_g.mean()), 0)
+    put(f"film_{key}_npress", int(q_.press.sum()))
+
 
 # ============================================================================= FIGURES
+if os.environ.get("BDB_NOFIG"):
+    json.dump(NUM, open(OUT / "numbers.json", "w"), indent=1, sort_keys=True)
+    json.dump(TABLES, open(OUT / "tables.json", "w"), indent=1, default=str)
+    raise SystemExit(0)
 ROLEC = {"EDGE": OI["orange"], "interior": OI["blue"]}
 HIC, LOC = OI["red"], OI["blue"]
 
@@ -1068,7 +1230,7 @@ fig = plt.figure(figsize=(FIGW, FH1))
 fig.text(0.01, 0.988, "High-bend and low-bend rushers look alike on Sundays", fontsize=16, weight="bold", va="top")
 fig.text(0.01, 0.963, "Three highest and three lowest Hoop G among DL with 250+ NFL rushes (chosen by rule). Left square: his "
          "Combine hoop run.\nRight square: his 20 random NFL pass rushes from the snap (triangle, upfield is up) to the "
-         "throw or sack. Same 11-yard scale in both\nsquares. Red ring / red dots = the half-second that sets each score.",
+         "throw or sack. Same 11-yard scale in both\nsquares. Red ring / red dots = the half-second that sets each score (sideways g in g).",
          fontsize=10.5, va="top")
 cax = fig.add_axes([0.62, 0.872, 0.3, 0.011])
 cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax, orientation="horizontal", ticks=[0, 0.3, 0.6, 0.9])
@@ -1098,7 +1260,7 @@ for idx, r_ in enumerate(hero.itertuples()):
     ax.set_xticks([]); ax.set_yticks([])
     for sp_ in ax.spines.values():
         sp_.set_visible(True); sp_.set_color("#BBBBBB")
-    ax.set_title(f"Hoop G {r_.hoop_g:.2f} g", fontsize=11, weight="bold", pad=3)
+    ax.set_title(f"Combine: {r_.hoop_g:.2f} g", fontsize=11, weight="bold", pad=3)
     gx = fig.add_axes([x0 + w_ax + 0.012, yt - 0.068 - h_ax, w_ax, h_ax])
     for kk in arc_keys[arc_keys.nfl_id == r_.nfl_id].itertuples(index=False):
         lat, fwd, al, kmx = arc_tr[tuple(kk)]
@@ -1112,7 +1274,7 @@ for idx, r_ in enumerate(hero.itertuples()):
     gx.set_xticks([0, 4, 8]); gx.set_yticks([0, 4, 8]); gx.tick_params(labelsize=9, length=2, pad=1)
     for sp_ in gx.spines.values():
         sp_.set_visible(True); sp_.set_color("#BBBBBB")
-    gx.set_title(f"NFL Arc G {r_.arc_random:.2f} g", fontsize=11, weight="bold", pad=3)
+    gx.set_title(f"NFL ({int(((arc_keys.nfl_id == r_.nfl_id)).sum())} rushes): {r_.arc_random:.2f} g", fontsize=11, weight="bold", pad=3)
     import textwrap
     fig.text(x0, yt - 0.088 - h_ax, "\n".join(textwrap.wrap(rec(r_), 50)), fontsize=10, va="top", style="italic")
 # shared pressure strip
@@ -1145,153 +1307,218 @@ TABLES["hero"] = hero[["display_name", "grp", "role", "pick", "hoop_g", "hoop_k"
                        "rush_snaps"]].to_dict("records")
 TABLES["hero_rec"] = {r_.display_name: rec(r_) for r_ in hero.itertuples()}
 
-# ---- Fig 2: signal map, three NFL outcomes; tracking metrics shown raw -> after baseline
-fig = plt.figure(figsize=(FIGW, 6.6))
-gs2 = fig.add_gridspec(1, 3, left=0.2, right=0.99, top=0.83, bottom=0.25, wspace=0.08)
-order = sig[sig.outcome == "press_eb"].sort_values("rho").col.tolist()
+# ---- Fig 2: signal map, five decisive Combine numbers x three NFL outcomes; tracking metrics raw -> after baseline
+from matplotlib.patches import Patch
+from matplotlib.lines import Line2D
+FIG2 = ["three_cone_z", "forty_z", "log_pick", "d1_z", "hoop_z"]
 labs = {m_[0]: m_[1] for m_ in MEAS}
-yy = np.arange(len(order))
+labs.update({"d1_z": "Rush drill: first-second burst", "hoop_z": "Run-the-hoop bend"})
+OUTL = {"press_eb": "NFL pressure rate", "quick": "NFL get-off (quicker)", "arc_random": "NFL rush-path bend"}
+fig = plt.figure(figsize=(FIGW, 5.4))
+gs2 = fig.add_gridspec(1, 3, left=0.3, right=0.99, top=0.8, bottom=0.27, wspace=0.08)
 axes = [fig.add_subplot(gs2[0, i]) for i in range(3)]
-after = {("hoop_z", "press_eb"): (prim[("hoop_z", "press_eb")]["r"], prim[("hoop_z", "press_eb")]["lo"], prim[("hoop_z", "press_eb")]["hi"]),
-         ("d1_z", "press_eb"): (prim[("d1_z", "press_eb")]["r"], prim[("d1_z", "press_eb")]["lo"], prim[("d1_z", "press_eb")]["hi"]),
-         ("hoop_z", "quick"): (prim[("hoop_z", "quick")]["r"], prim[("hoop_z", "quick")]["lo"], prim[("hoop_z", "quick")]["hi"]),
-         ("d1_z", "quick"): (prim[("d1_z", "quick")]["r"], prim[("d1_z", "quick")]["lo"], prim[("d1_z", "quick")]["hi"]),
+after = {("hoop_z", "press_eb"): (H["r"], H["lo"], H["hi"]),
+         ("d1_z", "press_eb"): tuple(prim[("d1_z", "press_eb")][k] for k in ("r", "lo", "hi")),
+         ("hoop_z", "quick"): tuple(prim[("hoop_z", "quick")][k] for k in ("r", "lo", "hi")),
+         ("d1_z", "quick"): tuple(prim[("d1_z", "quick")][k] for k in ("r", "lo", "hi")),
          ("hoop_z", "arc_random"): ARC_AFTER["hoop_z"], ("d1_z", "arc_random"): ARC_AFTER["d1_z"]}
-for ax, (oc, olab) in zip(axes, OUTC):
-    d_ = sig[sig.outcome == oc].set_index("col").loc[order]
+yy = np.arange(len(FIG2))[::-1]
+for ax, (oc, _) in zip(axes, OUTC):
+    d_ = sig[sig.outcome == oc].set_index("col").loc[FIG2]
     for yv, (c, r_) in zip(yy, d_.iterrows()):
         ax.fill_betweenx([yv - 0.42, yv + 0.42], -r_.mde, r_.mde, color="#E6E6E6", lw=0)
         colr = OI["green"] if r_.kind == "tracking" else OI["black"]
-        ax.plot([r_.lo, r_.hi], [yv, yv], color=colr, lw=1.8)
-        ax.scatter([r_.rho], [yv], color=colr, s=55, zorder=3)
+        ax.plot([r_.lo, r_.hi], [yv + 0.12, yv + 0.12], color=colr, lw=2)
+        ax.scatter([r_.rho], [yv + 0.12], color=colr, s=60, zorder=3)
         if (c, oc) in after:
             ra_, la_, ha_ = after[(c, oc)]
-            ax.annotate("", xy=(ra_, yv - 0.32), xytext=(r_.rho, yv - 0.32),
-                        arrowprops=dict(arrowstyle="->", color=OI["purple"], lw=1.6))
-            ax.scatter([ra_], [yv - 0.32], marker="D", facecolor="white", edgecolor=OI["purple"], s=55, zorder=4, lw=1.8)
+            ax.annotate("", xy=(ra_, yv - 0.25), xytext=(r_.rho, yv - 0.25),
+                        arrowprops=dict(arrowstyle="->", color=OI["purple"], lw=1.8))
+            ax.scatter([ra_], [yv - 0.25], marker="D", facecolor="white", edgecolor=OI["purple"], s=60, zorder=4, lw=1.8)
     ax.axvline(0, color="k", lw=0.8)
-    ax.set_xlim(-0.6, 1.0); ax.set_ylim(-0.8, len(order) - 0.4)
-    ax.set_title(olab, fontsize=12.5, weight="bold")
-    ax.tick_params(labelsize=11)
-    ax.set_yticks(yy); ax.set_yticklabels([labs[c] for c in order] if ax is axes[0] else [], fontsize=11.5)
-    ax.set_xticks([-0.5, 0, 0.5, 1.0])
-from matplotlib.patches import Patch
-from matplotlib.lines import Line2D
-hand = [Line2D([], [], color=OI["black"], marker="o", lw=1.8, label="official / draft, raw ρ (95% CI)"),
-        Line2D([], [], color=OI["green"], marker="o", lw=1.8, label="tracking drill metric, raw ρ"),
+    ax.set_xlim(-0.6, 1.0); ax.set_ylim(-0.6, len(FIG2) - 0.4)
+    ax.set_title(OUTL[oc], fontsize=12.5, weight="bold")
+    ax.set_yticks(yy); ax.set_yticklabels([f"{labs[c]} (n={int(d_.loc[c].n)})" for c in FIG2] if ax is axes[0] else [], fontsize=11.5)
+    ax.set_xticks([-0.5, 0, 0.5, 1.0]); ax.set_xlabel("Spearman ρ", fontsize=11)
+hand = [Line2D([], [], color=OI["black"], marker="o", lw=2, label="stopwatch / draft, raw (95% CI)"),
+        Line2D([], [], color=OI["green"], marker="o", lw=2, label="tracked drill, raw (95% CI)"),
         Line2D([], [], color=OI["purple"], marker="D", markerfacecolor="white", lw=0,
-               label="→ after the no-tracking baseline (Arc G: after weight, EDGE share)"),
-        Patch(color="#E6E6E6", label="too small to detect with this n (80% power)")]
+               label="tracked drill after pick, weight, alignment, NGS\n(rush-path bend: after weight, alignment)"),
+        Patch(color="#E6E6E6", label="too small to detect at this n (80% power)")]
 fig.legend(handles=hand, loc="lower center", ncol=2, fontsize=11, frameon=False, bbox_to_anchor=(0.55, 0.0))
-fig.text(0.595, 0.145, f"Spearman ρ; + = better Combine number goes with more of the outcome.\nPressure, get-off: "
-         f"n ≤ {len(co)} DL (100+ rushes); Arc G: n ≤ {int(sig[sig.outcome == 'arc_random'].n.max())}",
-         ha="center", fontsize=10.5)
-fig.suptitle("Stopwatch numbers carry most of the signal. Hoop G keeps a pressure link after the baseline;\n"
-             "its link to game bend is mostly size and alignment", fontsize=13.5, weight="bold", x=0.01, ha="left", y=0.985)
+fig.suptitle("Bend is the one tracked drill number that still points at pressure once draft slot and size are known",
+             fontsize=13.5, weight="bold", x=0.01, ha="left", y=0.97)
+fig.text(0.01, 0.875, f"Better Combine number → + ρ. Pressure and get-off: DL with 100+ NFL rushes (n ≤ {len(co)}); "
+         f"rush-path bend: all DL with sampled NFL snaps (n ≤ {int(sig[sig.outcome == 'arc_random'].n.max())}).",
+         fontsize=10.5, color="#333333")
 save(fig, "fig2_signal_map.png")
 
-# ---- Fig 3: headline, baseline variants, selection check
-fig = plt.figure(figsize=(FIGW, 9.6))
-gs3 = fig.add_gridspec(2, 2, width_ratios=[1.15, 0.8], height_ratios=[1.3, 0.85], left=0.075, right=0.9, top=0.88,
-                       bottom=0.075, hspace=0.42, wspace=0.75)
-a1 = fig.add_subplot(gs3[0, 0])
+# ---- Fig 3: the headline scatter, split by whether the player ran the 40 (interaction model in the title)
+fig, a1 = plt.subplots(figsize=(FIGW, 6.6))
+fig.subplots_adjust(left=0.08, right=0.98, top=0.8, bottom=0.11)
 d_ = dH.copy()
 d_["res"] = 100 * d_.res_main
-for role, gg_ in d_.groupby("role"):
-    a1.scatter(gg_.hoop_z, gg_.res, color=ROLEC[role], s=38, alpha=0.85, label=f"{role} (n={len(gg_)})",
-               marker="o" if role == "EDGE" else "s", edgecolor="white", lw=0.4)
-mk_ = d_.ten_yd_split_z.isna()
-a1.scatter(d_.hoop_z[mk_], d_.res[mk_], s=95, facecolor="none", edgecolor=OI["black"], lw=1.1,
-           label=f"no official 40 / 10-yd (n={int(mk_.sum())})")
-xx = np.linspace(-2.5, 2.5, 50)
-bs = np.array([np.polyval(np.polyfit(d_.hoop_z.values[i], d_.res.values[i], 1), xx)
-               for i in (RNG.integers(0, len(d_), len(d_)) for _ in range(NBOOT))])
-a1.fill_between(xx, *np.percentile(bs, [2.5, 97.5], axis=0), color=OI["grey"], alpha=0.25, lw=0)
-a1.plot(xx, np.polyval(np.polyfit(d_.hoop_z, d_.res, 1), xx), color="k", lw=1.6)
+xx = np.linspace(-2.3, 2.3, 50)
+for h40, colr, mk, lab in [(1, OI["blue"], "o", f"ran the 40 (n={NUM['n_40']})"),
+                           (0, OI["orange"], "D", f"skipped the 40 (n={NUM['n_no40']})")]:
+    gg_ = d_[d_.has40 == h40]
+    a1.scatter(gg_.hoop_z, gg_.res, color=colr, s=48, marker=mk, edgecolor="white", lw=0.5, label=lab, zorder=3)
+    bs = np.array([np.polyval(np.polyfit(gg_.hoop_z.values[i], gg_.res.values[i], 1), xx)
+                   for i in (RNG.integers(0, len(gg_), len(gg_)) for _ in range(500))])
+    a1.fill_between(xx, *np.percentile(bs, [10, 90], axis=0), color=colr, alpha=0.15, lw=0)
+    a1.plot(xx, np.polyval(np.polyfit(gg_.hoop_z, gg_.res, 1), xx), color=colr, lw=2.2)
 a1.axhline(0, color="k", lw=0.6)
-a1.set_xlim(-2.8, 3.0); a1.set_ylim(d_.res.min() - 1.5, d_.res.max() + 2.5)
-a1.set_xlabel("Hoop G, z within Combine year"); a1.set_ylabel("pressure rate above baseline (pp)")
-a1.set_title(f"After pick, weight, EDGE share, NGS score: ρ = {NUM['pr_hoop_z_press_eb']} (n = {H['n']})", fontsize=12)
-a1.legend(frameon=False, fontsize=10, loc="lower right")
-lab_ids = list(hero.nfl_id) + list(d_.nlargest(1, "res").nfl_id) + list(d_.nsmallest(1, "res").nfl_id)
-ld = d_[d_.nfl_id.isin(set(lab_ids))]
-place_labels(a1, ld.hoop_z.values, ld.res.values, [name_short(n) for n in ld.display_name], fs=10.5, xmid=0.6)
-a2 = fig.add_subplot(gs3[0, 1])
-VROWS = [("main", "Main (no imputation)"), ("notime", "No athletic score"), ("mi", "+ 10-yd, multiple imputation"),
-         ("single", "Round-3: 10-yd single fill"), ("cc_main", "Ran the 40 only: main"),
-         ("cc_10", "Ran the 40 only: + 10-yd"), ("cc_40", "Ran the 40 only: + 40")]
+a1.set_xlim(-2.6, 2.9); a1.set_ylim(d_.res.min() - 1.0, d_.res.max() + 1.5)
+a1.set_xlabel("Run-the-hoop bend (Hoop G), standard deviations within Combine year")
+a1.set_ylabel("NFL pressure rate above the\nno-tracking forecast (percentage points)")
+a1.legend(frameon=False, fontsize=11, loc="lower right", title="line = fit, band = 80% bootstrap", title_fontsize=10)
+named = set(hero.nfl_id) | {FILM[k].nfl_id for k in FILM} | set(d_.nlargest(1, "res").nfl_id)
+ld = d_[d_.nfl_id.isin(named)]
+place_labels(a1, ld.hoop_z.values, ld.res.values, [name_short(n) for n in ld.display_name], fs=10.5, xmid=0.3)
+fig.suptitle("Rushers with more bend beat their no-tracking forecast, whether or not they ran the 40",
+             fontsize=14, weight="bold", x=0.01, ha="left", y=0.975)
+fig.text(0.01, 0.915, f"{NUM['v_n_main']} DL with 100+ NFL rushes. Per standard deviation of bend: "
+         f"+{NUM['int_slope_40']} pp [{NUM['int_slope_40_lo']}, {NUM['int_slope_40_hi']}] for players who ran the 40, "
+         f"+{NUM['int_slope_no40']} pp [{NUM['int_slope_no40_lo']}, {NUM['int_slope_no40_hi']}]\nfor those who skipped "
+         f"it (class-adjusted, 95% intervals; difference p = {NUM['int_p']}). Forecast = draft pick, weight, NGS score, "
+         "EDGE share.", fontsize=10.5, color="#333333", va="top")
+save(fig, "fig3_hoop_pressure.png")
+
+# ---- Fig 4: does it survive? effect under every baseline (left) and the held-out forecast gain distribution (right)
+VROWS = [("main", "Main forecast"), ("notime", "No athletic score"), ("mi", "+ 10-yd split (imputed)"),
+         ("angle", "+ 10-yd and 3-cone (imputed)"), ("cc_main", "Ran the 40: main"),
+         ("cc_10", "Ran the 40: + official 10-yd"), ("cc_40", "Ran the 40: + official 40")]
 rb_ = {r_["tag"]: r_ for r_ in ROB}
+fig = plt.figure(figsize=(FIGW, 5.6))
+g4 = fig.add_gridspec(1, 2, left=0.25, right=0.9, top=0.8, bottom=0.14, wspace=0.12)
+f1, f2 = fig.add_subplot(g4[0]), fig.add_subplot(g4[1])
 for j, (tag, lab) in enumerate(VROWS[::-1]):
     r_ = rb_[tag]
     colr = OI["black"] if tag.startswith("cc") else OI["green"]
-    a2.plot([r_["lo"], r_["hi"]], [j, j], color=colr, lw=2)
-    a2.scatter([r_["r"]], [j], color=colr, s=55, zorder=3, marker="s" if tag.startswith("cc") else "o")
-    a2.text(1.02, j, f"{r_['dr2']:+.3f}".replace("-", "−"), va="center", fontsize=10.5, transform=a2.get_yaxis_transform())
-a2.text(1.02, len(VROWS) - 0.35, "ΔR²\nheld out", fontsize=10, transform=a2.get_yaxis_transform(), va="bottom", weight="bold")
-a2.axvline(0, color="k", lw=0.8)
-a2.set_yticks(range(len(VROWS))); a2.set_yticklabels([l for _, l in VROWS[::-1]], fontsize=10.5)
-a2.set_xlim(-0.4, 0.8); a2.set_xlabel("Hoop G effect after baseline, ρ (95% CI)")
-a2.set_title(f"Green: all {NUM['v_n_main']}. Black: the {NUM['v_n_cc_main']} who ran the 40", fontsize=11.5)
-a3 = fig.add_subplot(gs3[1, :])
-bins = np.linspace(0, 0.75, 46)
-a3.hist(null_all, bins=bins, color=OI["sky"], alpha=0.85)
-a3.axvline(max_obs_all, color=OI["red"], lw=2.2)
-a3.set_xlim(0, 0.75)
-yl = a3.get_ylim()[1]
-a3.text(max_obs_all + 0.015, yl * 0.9, f"observed: Hoop G → pressure, {max_obs_all:.2f}\n"
-        f"chance does this well {100 * float(NUM['perm_best14']):.1f}% of the time\n(p = {NUM['perm_best14']}, best of 14)",
-        color=OI["red"], fontsize=11, va="top", ha="left")
-a3.set_xlabel(f"largest |effect after baseline| among 7 drill metrics × 2 outcomes, outcomes shuffled within class "
-              f"({NPERM_SCREEN:,} times)", fontsize=11)
-a3.set_ylabel("shuffles"); a3.tick_params(labelsize=10.5)
-a3.set_title("Selection check: how often chance produces a lead this large when we keep the best of 14", fontsize=12)
-fig.suptitle(f"Bend adds to the pressure forecast, but the gain rests on the {NUM['n_missing_10yd_hoop']} rushers "
-             "who skipped the 40,\nand chance alone produces a lead this large about one time in "
-             f"{int(round(1 / float(NUM['perm_best14'])))}",
-             fontsize=14, weight="bold", x=0.01, ha="left")
-save(fig, "fig3_hoop_pressure.png")
+    f1.plot([r_["lo"], r_["hi"]], [j, j], color=colr, lw=2.2)
+    f1.scatter([r_["r"]], [j], color=colr, s=60, zorder=3, marker="s" if tag.startswith("cc") else "o")
+    dr = DR2_DRAWS[tag]
+    vp = f2.violinplot([dr], positions=[j], vert=False, widths=0.8, showextrema=False)
+    for b_ in vp["bodies"]:
+        b_.set_facecolor(colr); b_.set_alpha(0.3)
+    lo2, hi2 = np.percentile(dr, [2.5, 97.5])
+    f2.plot([lo2, hi2], [j, j], color=colr, lw=1.6)
+    f2.scatter([r_["dr2"]], [j], color=colr, s=50, zorder=3, marker="s" if tag.startswith("cc") else "o")
+    f2.text(1.02, j, f"{100 * np.mean(dr > 0):.0f}%", va="center", fontsize=11, transform=f2.get_yaxis_transform())
+f2.text(1.02, len(VROWS) - 0.45, "gain > 0", fontsize=10.5, transform=f2.get_yaxis_transform(), weight="bold")
+for f_ in (f1, f2):
+    f_.axvline(0, color="k", lw=0.8); f_.set_ylim(-0.6, len(VROWS) - 0.4); f_.set_yticks(range(len(VROWS)))
+f1.set_yticklabels([l for _, l in VROWS[::-1]], fontsize=11.5); f2.set_yticklabels([])
+f1.set_xlim(-0.4, 0.8); f1.set_xlabel("bend → pressure after forecast, ρ (95% CI)")
+f2.set_xlim(-0.6, 0.6); f2.set_xlabel("held-out R² gain, predicting an unseen class")
+f1.set_title("In-sample link", fontsize=12.5, weight="bold"); f2.set_title("Forecast gain (bootstrap)", fontsize=12.5, weight="bold")
+fig.suptitle("Bend's link stays positive under every baseline; once the 40 is known it adds little to a forecast",
+             fontsize=14, weight="bold", x=0.01, ha="left", y=0.975)
+fig.text(0.01, 0.885, f"Green: all {NUM['v_n_main']} rushers. Black: the {NUM['v_n_cc_main']} who ran the 40. Right: "
+         "each class predicted from the other two, whole loop refit on class-stratified bootstrap samples.",
+         fontsize=10.5, color="#333333")
+save(fig, "fig4_robustness.png")
 
-# ---- Fig 4: 2025 rookies with 100+ rushes: shrunk Hoop G, and forecast -> actual dumbbell
-rk = bd.dropna(subset=["pb"]).copy()
-over = rk[rk.flag == "drill too high"].display_name.map(lambda n: n.split(" ")[-1]).tolist()
-under = rk[rk.flag == "drill too low"].display_name.map(lambda n: n.split(" ")[-1]).tolist()
-fig = plt.figure(figsize=(FIGW, 0.36 * len(rk) + 2.6))
-g4 = fig.add_gridspec(1, 2, width_ratios=[0.85, 1.25], left=0.34, right=0.83, top=0.85, bottom=0.14, wspace=0.07)
-b1, b2 = fig.add_subplot(g4[0]), fig.add_subplot(g4[1])
-yy = np.arange(len(rk))[::-1]
-for yv, r_ in zip(yy, rk.itertuples()):
-    c_ = ROLEC[r_.role]
-    b1.plot([r_.shr_lo, r_.shr_hi], [yv, yv], color=c_, lw=2.4, alpha=0.55)
-    b1.scatter([r_.shr], [yv], color=c_, s=55, zorder=3, marker="o" if r_.role == "EDGE" else "s")
-    b2.plot([100 * r_.pb, 100 * r_.press_rate], [yv, yv], color=OI["grey"], lw=2.2, zorder=1)
-    b2.scatter([100 * r_.pb], [yv], s=60, facecolor="white", edgecolor=OI["black"], zorder=3, lw=1.4)
-    b2.scatter([100 * r_.press_rate], [yv], s=60, color=OI["black"], zorder=4)
-    b2.plot([100 * r_.pa] * 2, [yv - 0.32, yv + 0.32], color=OI["green"], lw=2.6, zorder=2)
-    if r_.flag:
-        b2.text(1.02, yv, r_.flag, transform=b2.get_yaxis_transform(), va="center", fontsize=11, weight="bold")
+# ---- Fig 5: the full 2025 board (every hoop runner), shrunk bend with 80% interval, rookie pressure with 80% interval
+CALLC = {"bend plus": OI["red"], "bend minus": OI["blue"], "neutral": OI["grey"], "film first": OI["purple"]}
+bdf = bd.copy()
+bdf["ck"] = bdf.call.str.split(":").str[0]
+fig = plt.figure(figsize=(FIGW, 0.3 * len(bdf) + 2.4))
+g5 = fig.add_gridspec(1, 2, width_ratios=[1, 1.15], left=0.385, right=0.86, top=1 - 1.3 / (0.3 * len(bdf) + 2.4),
+                      bottom=0.9 / (0.3 * len(bdf) + 2.4), wspace=0.06)
+b1, b2 = fig.add_subplot(g5[0]), fig.add_subplot(g5[1])
+yy = np.arange(len(bdf))[::-1]
+for yv, r_ in zip(yy, bdf.itertuples()):
+    c_ = CALLC[r_.ck]
+    b1.plot([r_.shr_lo, r_.shr_hi], [yv, yv], color=c_, lw=2.4, alpha=0.6)
+    b1.scatter([r_.shr], [yv], color=c_, s=40, zorder=3, marker="o" if r_.role == "EDGE" else "s")
+    if pd.notna(r_.pb):
+        b2.plot([100 * r_.pr_lo, 100 * r_.pr_hi], [yv, yv], color=OI["black"], lw=1.8, alpha=0.6)
+        b2.scatter([100 * r_.press_rate], [yv], s=40, color=OI["black"], zorder=4)
+        b2.scatter([100 * r_.pb], [yv], s=70, marker="|", color=OI["orange"], lw=2.6, zorder=5)
+    else:
+        b2.text(0.3, yv, f"{int(r_.rush_snaps)} NFL rushes" if r_.rush_snaps > 0 else "no NFL rushes",
+                va="center", fontsize=9.5, color="#666666")
+    b2.text(1.02, yv, r_.ck, transform=b2.get_yaxis_transform(), va="center", fontsize=10, color=c_,
+            weight="bold" if r_.ck != "neutral" else "normal")
 b1.axvline(0, color="k", lw=0.8)
 b1.set_yticks(yy)
-b1.set_yticklabels([f"{r_.display_name}  {'EDGE' if r_.role == 'EDGE' else 'Int'}, {int(r_.combine_weight)} lb, "
-                    f"{'UDFA' if r_.pick == UDFA_PICK else '#' + str(int(r_.pick))}" for r_ in rk.itertuples()], fontsize=11)
+b1.set_yticklabels([f"{r_.rank}. {r_.display_name}  {'EDGE' if r_.role == 'EDGE' else 'Int'}, {int(r_.combine_weight)} lb, "
+                    f"{'UDFA' if r_.pick == UDFA_PICK else '#' + str(int(r_.pick))}, {int(r_.hoop_k)} run"
+                    f"{'s' if r_.hoop_k > 1 else ''}" for r_ in bdf.itertuples()], fontsize=9.5)
 b2.set_yticks(yy); b2.set_yticklabels([])
 for b_ in (b1, b2):
-    b_.set_ylim(-0.7, len(rk) - 0.3); b_.tick_params(labelsize=11)
-b1.set_xlabel("shrunk Hoop G, z\n(bar = 80% interval)", fontsize=11)
-b2.set_xlabel("2025 pressure rate (%)", fontsize=11)
-b1.set_xlim(-1.6, 1.6); b2.set_xlim(0, 12.5); b2.set_xticks([0, 4, 8, 12])
-b1.set_title("Drill bend", fontsize=12.5, weight="bold"); b2.set_title("Forecast → actual", fontsize=12.5, weight="bold")
-hand = [Line2D([], [], marker="o", color="white", markeredgecolor="k", markersize=8, label="no-tracking forecast (fit on 2023–24)"),
-        Line2D([], [], color=OI["green"], lw=2.6, label="+ Hoop G forecast"),
-        Line2D([], [], marker="o", color="k", lw=0, markersize=8, label="actual")]
-fig.legend(handles=hand, frameon=False, fontsize=11, loc="lower center", bbox_to_anchor=(0.56, 0.0), ncol=3)
-ttl = "2025 rookies (100+ rushes): the hoop over-rated " + ", ".join(over) + (";\nit under-rated " + " and ".join(under) if under else "")
-fig.suptitle(ttl + ". For the rest, bend barely moved the forecast", fontsize=13.5, weight="bold", x=0.01, ha="left", y=0.985)
-save(fig, "fig4_rookies_2025.png")
-put("n_over", len(over)); put("n_under", len(under))
-TABLES["over"] = over; TABLES["under"] = under
+    b_.set_ylim(-0.7, len(bdf) - 0.3); b_.tick_params(labelsize=10.5); b_.grid(axis="y", color="#EEEEEE", lw=0.6)
+b1.set_xlim(-1.7, 1.7); b2.set_xlim(0, 14); b2.set_xticks([0, 4, 8, 12])
+b1.set_xlabel("shrunk bend, sd (bar = 80% interval)", fontsize=10.5)
+b2.set_xlabel("2025 pressure rate, % (bar = 80% interval)", fontsize=10.5)
+b1.set_title("Combine bend", fontsize=12.5, weight="bold"); b2.set_title("Rookie season", fontsize=12.5, weight="bold")
+hand = [Line2D([], [], marker="|", color=OI["orange"], lw=0, markersize=12, markeredgewidth=2.6,
+               label="no-tracking forecast (fit on 2023–24)"),
+        Line2D([], [], marker="o", color="k", lw=1.8, markersize=6, label="actual"),
+        Line2D([], [], marker="o", color="#555555", lw=0, label="EDGE"),
+        Line2D([], [], marker="s", color="#555555", lw=0, label="interior")]
+fig.legend(handles=hand, frameon=False, fontsize=10.5, loc="lower center", bbox_to_anchor=(0.55, 0.0), ncol=4)
+fig.suptitle(f"The 2025 board: bend moves {NUM['board_plus']} of {len(bdf)} rushers up and {NUM['board_minus']} down; "
+             f"the rest are ties", fontsize=14, weight="bold", x=0.01, ha="left",
+             y=1 - 0.15 / (0.3 * len(bdf) + 2.4))
+fig.text(0.01, 1 - 0.6 / (0.3 * len(bdf) + 2.4), "Call: bend plus / minus = 80% interval clear of zero; film first = "
+         "rookie pressure interval wholly on the wrong side of the forecast.", fontsize=10.5, color="#333333")
+save(fig, "fig6_board_2025.png")
+
+# ---- Fig 6: film check cards for Ezeiruaku and Phillips: Combine hoop + 20 random NFL rushes, pressure snaps marked
+FH6 = 5.6
+fig = plt.figure(figsize=(FIGW, FH6))
+fig.text(0.01, 0.975, "Film check: Ezeiruaku bends on Sundays but finishes few; Phillips plays square",
+         fontsize=14, weight="bold", va="top")
+fig.text(0.01, 0.915, "Left square: Combine hoop run, coloured by sideways g. Right square: 20 random NFL rushes from the "
+         "snap (triangle, upfield is up)\nto the throw or sack, same 11-yard scale; orange = a pressure on that snap.",
+         fontsize=10.5, va="top", color="#333333")
+for col_, nm in enumerate(["Donovan Ezeiruaku", "Jordan Phillips"]):
+    r_ = FILM[nm]
+    key = nm.split(" ")[-1].lower()
+    x0 = 0.03 + col_ * 0.5
+    w_ax = 0.2; h_ax = w_ax * FIGW / FH6
+    ax = fig.add_axes([x0, 0.25, w_ax, h_ax])
+    tr = traces[r_.hoop_eid]
+    xs_, ys_ = tr["_x"] - (tr["_x"].max() + tr["_x"].min()) / 2, tr["_y"] - (tr["_y"].max() + tr["_y"].min()) / 2
+    if np.ptp(ys_) < np.ptp(xs_):
+        xs_, ys_ = ys_, xs_
+    pts = np.c_[xs_, ys_].reshape(-1, 1, 2)
+    lc = LineCollection(np.concatenate([pts[:-1], pts[1:]], axis=1), cmap=cmap, norm=norm, linewidth=3.0)
+    lc.set_array(tr["_alat"][:-1]); ax.add_collection(lc)
+    ax.set_xlim(-SPAN / 2, SPAN / 2); ax.set_ylim(-SPAN / 2, SPAN / 2); ax.set_aspect("equal")
+    ax.set_xticks([]); ax.set_yticks([])
+    ax.set_title(f"Combine: {r_.hoop_g:.2f} g", fontsize=11, weight="bold", pad=3)
+    gx = fig.add_axes([x0 + w_ax + 0.02, 0.25, w_ax, h_ax])
+    q_ = arcp[(arcp.nfl_id == r_.nfl_id) & (arcp.kind == "random")]
+    for kk in q_.itertuples(index=False):
+        lat, fwd, al, kmx = arc_tr[(kk.game_id, kk.play_id, kk.nfl_id)]
+        pz = kk.press == 1
+        gx.plot(lat, fwd, color=OI["orange"] if pz else "#9A9A9A", lw=2.6 if pz else 1.2, alpha=1 if pz else 0.8,
+                zorder=3 if pz else 2)
+    gx.scatter([0], [0], marker="^", color=OI["black"], s=40, zorder=5)
+    gx.set_xlim(-2, SPAN - 2); gx.set_ylim(-1, SPAN - 1); gx.set_aspect("equal")
+    gx.set_xticks([0, 4, 8]); gx.set_yticks([0, 4, 8]); gx.tick_params(labelsize=9.5, length=2, pad=1)
+    gx.set_title(f"{len(q_)} NFL rushes: {q_.arc_g.mean():.2f} g", fontsize=11, weight="bold", pad=3)
+    for a_ in (ax, gx):
+        for sp_ in a_.spines.values():
+            sp_.set_visible(True); sp_.set_color("#BBBBBB")
+    fig.text(x0, 0.83, f"{nm}  ({'EDGE' if r_.role == 'EDGE' else 'Interior'}, #{int(r_.pick)}, {int(r_.combine_weight)} lb)",
+             fontsize=12.5, weight="bold", color=HIC if r_.shr > 0 else LOC, va="top")
+    fig.text(x0, 0.785, f"Bend #{NUM[f'film_{key}_rank']} of {len(bd)} in 2025; rush-path bend at the "
+             f"{NUM[f'film_{key}_arc_pct']}th percentile of NFL DL\nPressure {NUM[f'film_{key}_pr']}% "
+             f"[{NUM[f'film_{key}_prlo']}, {NUM[f'film_{key}_prhi']}] on {NUM[f'film_{key}_snaps']} rushes vs "
+             f"{NUM[f'film_{key}_pb']}% forecast", fontsize=10.5, va="top")
+fig.text(0.01, 0.15, "Ezeiruaku: corner turned, few finishes → watch hands and the rip at the top of the arc.\n"
+         "Phillips: no bend in drill or games → a gap-control 1-tech, not a pass-rush bet.",
+         fontsize=10.5, style="italic", va="top")
+save(fig, "fig5_film_check.png")
+
 
 # ----------------------------------------------------------------------------- write numbers
 json.dump(NUM, open(OUT / "numbers.json", "w"), indent=1, sort_keys=True)
 json.dump(TABLES, open(OUT / "tables.json", "w"), indent=1, default=str)
 print(json.dumps({k: NUM[k] for k in sorted(NUM) if not k.startswith(("rho_", "n_", "hero", "bt"))}, indent=0))
-print(json.dumps({k: TABLES[k] for k in ["screen", "robustness", "nested_selected", "hero_rec", "flagged"]}, indent=0, default=str))
+print(json.dumps({k: TABLES[k] for k in ["screen", "robustness", "nested_selected", "hero_rec", "flag_all"]}, indent=0, default=str))
+render(OUT)
