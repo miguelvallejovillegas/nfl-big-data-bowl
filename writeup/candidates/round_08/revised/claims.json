@@ -1,0 +1,462 @@
+{
+ "arc_snaps_per_player": {
+  "value": "20",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "bayes_all": {
+  "value": "0.6",
+  "claim": "**For defensive linemen who skip the 3-cone, Hoop G, a number we pull from the Combine's Run-the-Hoop tracking, is a usable tiebreak. Across 90 hoop runners it "
+ },
+ "bayes_all_hi": {
+  "value": "1.7",
+  "claim": "**How the headline is built.** We count pressures out of pass rushes and let rushers differ beyond chance. We shrink Hoop G's effect toward the typical drill-to"
+ },
+ "bayes_all_lo": {
+  "value": "-0.4",
+  "claim": "**How the headline is built.** We count pressures out of pass rushes and let rushers differ beyond chance. We shrink Hoop G's effect toward the typical drill-to"
+ },
+ "bayes_n": {
+  "value": 90,
+  "claim": "**For defensive linemen who skip the 3-cone, Hoop G, a number we pull from the Combine's Run-the-Hoop tracking, is a usable tiebreak. Across 90 hoop runners it "
+ },
+ "cc3cone_r2": {
+  "value": "-11.3",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cc3hoop_ls": {
+  "value": "-0.143",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cc3hoop_ls_hi": {
+  "value": "0.069",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cc3hoop_ls_lo": {
+  "value": "-0.341",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cc3hoop_n": {
+  "value": 34,
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cc3hoop_r2": {
+  "value": "-73.3",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "ccnohoop_ls": {
+  "value": "0.050",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_ls_hi": {
+  "value": "0.126",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_ls_lo": {
+  "value": "-0.020",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_n": {
+  "value": 56,
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_r2": {
+  "value": "11.6",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_r2_hi": {
+  "value": "32.2",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "ccnohoop_r2_lo": {
+  "value": "-6.8",
+  "claim": "**Where the tiebreak applies.** We used no imputed times here. On the 56 hoop runners with an NFL rush and no 3-cone, adding Hoop G to the no-tracking model cha"
+ },
+ "cd_0_h": {
+  "value": "1.57",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_0_l": {
+  "value": "0.31",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_0_s": {
+  "value": "0.94",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_0_tc": {
+  "value": "7.58",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_1_h": {
+  "value": "1.41",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_1_l": {
+  "value": "0.14",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_1_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_1_pr": {
+  "value": "6.9",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_h": {
+  "value": "1.40",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_l": {
+  "value": "0.14",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_2_tc": {
+  "value": "6.94",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_h": {
+  "value": "-0.17",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_l": {
+  "value": "-1.43",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_s": {
+  "value": "-0.80",
+  "claim": "table/sentence 'card'"
+ },
+ "cd_3_tc": {
+  "value": "8.19",
+  "claim": "table/sentence 'card'"
+ },
+ "cmn_hoop_r": {
+  "value": "-0.01",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cmn_n": {
+  "value": 22,
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "cmn_t3_r": {
+  "value": "0.33",
+  "claim": "**Where it does not.** On the 34 who ran a 3-cone, adding Hoop G on top makes held-out forecasts worse, because a seventh term overfits so few rushers (-73.3 po"
+ },
+ "f1_ezeiruaku_hoop": {
+  "value": "0.68",
+  "claim": "- **Donovan Ezeiruaku** (EDGE, pick 44): a similar hoop (0.68 g) and a plus call. His rookie rate is 7.7% vs 9.5% over 402 rushes, inside the noise. He also ran"
+ },
+ "f1_ezeiruaku_n": {
+  "value": 402,
+  "claim": "- **Donovan Ezeiruaku** (EDGE, pick 44): a similar hoop (0.68 g) and a plus call. His rookie rate is 7.7% vs 9.5% over 402 rushes, inside the noise. He also ran"
+ },
+ "f1_ezeiruaku_pb": {
+  "value": "9.5",
+  "claim": "- **Donovan Ezeiruaku** (EDGE, pick 44): a similar hoop (0.68 g) and a plus call. His rookie rate is 7.7% vs 9.5% over 402 rushes, inside the noise. He also ran"
+ },
+ "f1_ezeiruaku_pick": {
+  "value": 44,
+  "claim": "- **Donovan Ezeiruaku** (EDGE, pick 44): a similar hoop (0.68 g) and a plus call. His rookie rate is 7.7% vs 9.5% over 402 rushes, inside the noise. He also ran"
+ },
+ "f1_ezeiruaku_pr": {
+  "value": "7.7",
+  "claim": "- **Donovan Ezeiruaku** (EDGE, pick 44): a similar hoop (0.68 g) and a plus call. His rookie rate is 7.7% vs 9.5% over 402 rushes, inside the noise. He also ran"
+ },
+ "f1_phillips_wt": {
+  "value": 312,
+  "claim": "Every rookie line is a rotation-sized sample, and pressure rate does not see who drew the double team. Read the last column as \"nothing contradicts the call yet"
+ },
+ "f1_solomon_hoop": {
+  "value": "0.73",
+  "claim": "- **Javon Solomon** (EDGE, pick 168, no 3-cone): 0.73 g in the hoop. Pressure 12.3% against a 6.9% forecast over 211 rushes, a part-time role. He is the case th"
+ },
+ "f1_solomon_n": {
+  "value": 211,
+  "claim": "- **Javon Solomon** (EDGE, pick 168, no 3-cone): 0.73 g in the hoop. Pressure 12.3% against a 6.9% forecast over 211 rushes, a part-time role. He is the case th"
+ },
+ "f1_solomon_pb": {
+  "value": "6.9",
+  "claim": "- **Javon Solomon** (EDGE, pick 168, no 3-cone): 0.73 g in the hoop. Pressure 12.3% against a 6.9% forecast over 211 rushes, a part-time role. He is the case th"
+ },
+ "f1_solomon_pick": {
+  "value": 168,
+  "claim": "- **Javon Solomon** (EDGE, pick 168, no 3-cone): 0.73 g in the hoop. Pressure 12.3% against a 6.9% forecast over 211 rushes, a part-time role. He is the case th"
+ },
+ "f1_solomon_pr": {
+  "value": "12.3",
+  "claim": "- **Javon Solomon** (EDGE, pick 168, no 3-cone): 0.73 g in the hoop. Pressure 12.3% against a 6.9% forecast over 211 rushes, a part-time role. He is the case th"
+ },
+ "fr_all_base": {
+  "value": "19",
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_all_hi": {
+  "value": "75",
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_all_k": {
+  "value": 4,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_all_lo": {
+  "value": "17",
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_all_n": {
+  "value": 9,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_clean_k": {
+  "value": 0,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_clean_n": {
+  "value": 2,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_edge_tune_hits": {
+  "value": 4,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_perm_n": {
+  "value": 5000,
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "fr_perm_p": {
+  "value": "0.05",
+  "claim": "**All 4 hits are EDGEs from the 2023–24 classes, the classes that helped choose the drill. In 2025, the only clean test, the plus calls went 0 of 2.** Pooled, t"
+ },
+ "hoop_g_median": {
+  "value": "0.62",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "hoop_radius": {
+  "value": "1.8",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "hoop_v_mph": {
+  "value": "7",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "hoop_v_peak": {
+  "value": "3.5",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "lt_c_fc": {
+  "value": "8.6",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_c_hi": {
+  "value": "78",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_c_k": {
+  "value": 0,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_c_lo": {
+  "value": "0",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_c_n": {
+  "value": 2,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_c_rate": {
+  "value": "7.5",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_fc": {
+  "value": "8.2",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_hi": {
+  "value": "34",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_k": {
+  "value": 6,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_lo": {
+  "value": "8",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_n": {
+  "value": 32,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ne_rate": {
+  "value": "8.4",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_fc": {
+  "value": "7.2",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_hi": {
+  "value": "20",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_k": {
+  "value": 3,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_lo": {
+  "value": "2",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_n": {
+  "value": 37,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_ni_rate": {
+  "value": "6.6",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_fc": {
+  "value": "7.7",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_hi": {
+  "value": "87",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_k": {
+  "value": 4,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_lo": {
+  "value": "23",
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_n": {
+  "value": 7,
+  "claim": "table/sentence 'calib'"
+ },
+ "lt_t_rate": {
+  "value": "10.1",
+  "claim": "table/sentence 'calib'"
+ },
+ "mult_p": {
+  "value": "0.12",
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ },
+ "mx_b": {
+  "value": "0.001",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_b_hi": {
+  "value": "0.007",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_b_lo": {
+  "value": "-0.006",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_icc": {
+  "value": "0.03",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_n": {
+  "value": 78,
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_rc": {
+  "value": "0.07",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_rc_hi": {
+  "value": "0.63",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_rc_lo": {
+  "value": "-0.39",
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "mx_snaps": {
+  "value": 1335,
+  "claim": "Not in our data. The game sample gives each lineman about 20 random NFL rushes, with no blockers or ball. On those rushes we measured sideways g only while he m"
+ },
+ "n_power80": {
+  "value": 840,
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ },
+ "oo3_t": {
+  "value": "0.1",
+  "claim": "- **Where both exist, the 3-cone wins.** With an observed 3-cone, Hoop G's effect drops to 0.1 pressures a season."
+ },
+ "pct_3cone_25": {
+  "value": "36",
+  "claim": "Draft rule, the same for every class: **a plus call needs the 80% interval of a player's noise-corrected Hoop G to clear zero.** A plus call breaks a tie in his"
+ },
+ "perm_p_r2": {
+  "value": "0.01",
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ },
+ "pick_equiv": {
+  "value": 80,
+  "claim": "**For defensive linemen who skip the 3-cone, Hoop G, a number we pull from the Combine's Run-the-Hoop tracking, is a usable tiebreak. Across 90 hoop runners it "
+ },
+ "pick_equiv_hi": {
+  "value": 106,
+  "claim": "**How the headline is built.** We count pressures out of pass rushes and let rushers differ beyond chance. We shrink Hoop G's effect toward the typical drill-to"
+ },
+ "pick_equiv_lo": {
+  "value": 47,
+  "claim": "**How the headline is built.** We count pressures out of pass rushes and let rushers differ beyond chance. We shrink Hoop G's effect toward the typical drill-to"
+ },
+ "rel_hoop_2runs": {
+  "value": "0.58",
+  "claim": "2. **Two timed hoop runs per player.** Reliability rises from 0.41 to 0.58, and fewer rushers fall in the \"no call\" middle."
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "rho_wt_int": {
+  "value": "-0.30",
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "rho_wt_int_n": {
+  "value": 53,
+  "claim": "Units: the peak half-second average of acceleration across his path, in g, standardized within Combine year (drill medians shift between years). A typical run p"
+ },
+ "wr2_pts": {
+  "value": "1.3",
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ },
+ "wr2_pts_hi": {
+  "value": "8.7",
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ },
+ "wr2_pts_lo": {
+  "value": "-4.7",
+  "claim": "- **Not confirmed.** The out-of-class gain across all rushers is +1.3 points [90%: -4.7, +8.7] and comes from 2023 alone. Hoop G was the best of 14 screened dri"
+ }
+}

@@ -1,17 +1,19 @@
 """Hoop G (Run-the-Hoop bend) vs NFL pass-rush pressure for DL/EDGE: one metric, tested honestly.
 
 Run from the repo root:
-    uv run python writeup/candidates/round_07/revised/analysis.py
+    uv run python writeup/candidates/round_08/revised/analysis.py
 
 Reads data/processed/*.parquet only. Writes numbers.json (only the values quoted in writeup.md), tables.json,
 board_2023_2025.csv and figures/*.png next to this file, then renders writeup.md from writeup_template.md.
 Frame-level feature extraction is cached in data/cache/ (gitignored; delete it to recompute from the frames).
 Runtime: about 1 minute cached, about 6 minutes cold, one core.
 
-Design (round 7 revised, from round 7 cand_1). New in this revision: within-class label-shuffle negative control
-(BDB_NPERM reruns of the whole nested pipeline, 4 processes), rush-weighted nested R² on all 90 as the out-of-class
-headline, observed-times-only models on a reduced baseline, run-to-run reliability from repeat runs, a common-n
-comparison with the 3-cone and 10-yd split, and film-first flags dropped. Earlier design notes:
+Design (round 8 revised, from round 8 cand 1). Revised additions: complete-case 3-cone / no-3-cone held-out comparison, frozen-rule calibration with matched base rate and permutation test, matched-speed within-player mixed model, redrawn figures. New in round 8: role-specific draft-room calls (a low interior
+Hoop G is a film flag, not a call) written to the board; Hoop G vs weight within role; the turning circle implied by a
+typical Hoop G; within-player check against in-game sideways g with a player bootstrap; a max-statistic shuffle over the
+14 screened drill-outcome pairs (multiplicity); class-by-class calibration of the calls with exact binomial intervals and
+raw pressure rates by role; a 2025 decision card; a new 4x3 hero figure, a merged validation figure and a calls figure
+with hollow 2025 markers and base-rate bands. Earlier design notes:
   * Baseline without tracking = log pick + official 10-yd split + 3-cone + NGS athleticism score + weight + NFL EDGE
     share (+ games per season and a missing-time flag in the count model).
   * Headline: Bayesian beta-binomial model of pressures out of pass rushes for every hoop runner with an NFL rush,
@@ -100,7 +102,7 @@ FIG = OUT / "figures"
 FIG.mkdir(parents=True, exist_ok=True)
 for old in FIG.glob("*.png"):
     old.unlink()
-CACHE = Path(os.environ.get("BDB_CACHE", ROOT / "data" / "cache" / "hoop_r5"))
+CACHE = Path(os.environ.get("BDB_CACHE", ROOT / "data" / "cache" / "r8c1"))
 CACHE.mkdir(parents=True, exist_ok=True)
 
 RNG = np.random.default_rng(2027)
@@ -1500,98 +1502,390 @@ for i, r_ in enumerate(t25.itertuples()):
                f"{rule_txt(r_)}{win} | {prs} | {result_txt(r_)} |")
 MD = {"board25": "\n".join(out)}
 
-# ---- head-to-head EDGE pairs: same class, picks within 30%, Hoop G gap >= 0.4 sd, both 100+ rushes
-_tick("pairs")
-PR_RATIO, PR_GAP = 1.3, 0.4
-ep = ba[(ba.role == "EDGE") & (ba.rush_snaps >= MIN_SNAPS) & ba.pb.notna()].copy()
-ep["res"] = ep.press_rate - ep.pb
+# ---- round 8: draft-room call per role. A low interior Hoop G is not a call (it mostly measures size): film flag only
+_tick("round 8 additions")
+ba["draft_room_call"] = np.select(
+    [ba.call == "plus", (ba.call == "minus") & (ba.role == "EDGE"), (ba.call == "minus") & (ba.role == "interior")],
+    ["plus", "minus", "none (low interior: size; film flag only)"], "none")
+ba[["draft_year", "rank_in_class", "display_name", "role", "pick", "combine_weight", "three_cone", "hoop_k", "hoop_g",
+    "hoop_z", "shr", "shr_lo", "shr_hi", "rush_snaps", "press_rate", "pr_lo", "pr_hi", "pb", "call",
+    "draft_room_call"]].round(4).to_csv(OUT / "board_2023_2025.csv", index=False)
+put("plus_all_n", int((ba.call == "plus").sum()))
+put("plus_scored_n", int(((ba.call == "plus") & ba.pb.notna()).sum()))
+put("low_int_n", int((ba.draft_room_call.str.startswith("none (low")).sum()))
+
+# Hoop G vs body weight within each role
+for rl, tg in [("interior", "int"), ("EDGE", "edge")]:
+    d_ = ba[ba.role == rl][["hoop_z", "combine_weight"]].dropna()
+    put(f"rho_wt_{tg}", stats.spearmanr(d_.hoop_z, d_.combine_weight)[0]); put(f"rho_wt_{tg}_n", len(d_))
+
+# what 0.62 g means on the field: the turning circle at that sideways g and the speed he carries through it
+_rad = (hoop_att.speed_at_bend ** 2 / (hoop_att.bend_g * YD_PER_G)).replace([np.inf, -np.inf], np.nan)
+put("hoop_v_peak", hoop_att.speed_at_bend.median(), 1)
+put("hoop_v_mph", hoop_att.speed_at_bend.median() * 0.9144 * 2.236936, 0)
+put("hoop_radius", _rad.median(), 1)
+put("nfl_arc_med", arcp[arcp.kind == "random"].arc_g.median())
+
+# within-player check: does Hoop G show up in his own NFL rush paths? (mean peak sideways g over his random rushes,
+# after weight and role; bootstrap over players)
+put("pr_hoop_arc_lo", AFTER[("hoop_z", "arc_random")][1]); put("pr_hoop_arc_hi", AFTER[("hoop_z", "arc_random")][2])
+
+# multiplicity: how often would the best of the 14 screened drill-outcome pairs look as strong as Hoop G -> pressure
+# if drills and NFL outcomes were unrelated? Shuffle the NFL outcomes jointly across players within class.
+NMULT = 2000
+_obs = abs(obs_p["hoop_z"])
+put("mult_obs", obs_p["hoop_z"])
+_mr = np.random.default_rng(29)
+_both = co.quick.notna()
+_grp = [g_.index.values for _, g_ in co[_both].groupby("draft_year")]
+_mx = []
+for _ in range(NMULT):
+    yp, yg = co.press_eb.copy(), co.quick.copy()
+    for ix in _grp:
+        pi_ = _mr.permutation(ix)
+        yp.loc[ix], yg.loc[ix] = co.press_eb.loc[pi_].values, co.quick.loc[pi_].values
+    a1, a2 = screen_stats(S_p, yp), screen_stats(S_g, yg)
+    _mx.append(max(max(abs(v) for v in a1.values()), max(abs(v) for v in a2.values())))
+_mx = np.array(_mx)
+put("mult_p", (1 + (_mx >= _obs).sum()) / (1 + NMULT)); put("mult_med", np.median(_mx))
+put("mult_nperm", NMULT)
 
 
-def pair_list(d, shr):
+# ---- calibration, class by class: each class is forecast by a no-tracking model fit on the other two; calls use the
+#      drill alone. Exact (Clopper-Pearson) 90% intervals on the share of rushers who clearly beat their forecast.
+def cp(k, n, a=0.10):
+    lo = 0.0 if k == 0 else stats.beta.ppf(a / 2, k, n - k + 1)
+    hi = 1.0 if k == n else stats.beta.ppf(1 - a / 2, k + 1, n - k)
+    return lo, hi
+
+
+sc = ba[ba.pb.notna()].copy()
+sc["up"], sc["dn"] = sc.pr_lo > sc.pb, sc.pr_hi < sc.pb
+sc["grp"] = np.select([sc.call == "plus", (sc.call == "minus") & (sc.role == "interior"), sc.call == "minus"],
+                      ["plus", "lowint", "minusedge"], "none")
+put("cal_n", len(sc))
+CAL = [("plus", "EDGE", "Plus call, EDGE", "pe"), ("plus", "interior", "Plus call, interior", "pi"),
+       ("none", "EDGE", "No call, EDGE", "ne"), ("none", "interior", "No call, interior", "ni"),
+       ("lowint", "interior", "Low Hoop G, interior (no call)", "li")]
+out = ["| Group (30+ NFL rushes) | Rushers | Pressure rate (forecast) | Clearly beat forecast [90%] | Clearly below |",
+       "|---|---|---|---|---|"]
+for g_, rl, lab, tg in CAL:
+    d_ = sc[(sc.grp == g_) & (sc.role == rl)]
+    if not len(d_):
+        continue
+    k_, n_ = int(d_.up.sum()), len(d_)
+    lo_, hi_ = cp(k_, n_)
+    rate = 100 * d_.pressures.sum() / d_.rush_snaps.sum()
+    fcst = 100 * np.average(d_.pb, weights=d_.rush_snaps)
+    out.append(f"| {lab} | {ph(f'cal_{tg}_n', n_)} | {ph(f'cal_{tg}_rate', rate, 1)}% ({ph(f'cal_{tg}_fc', fcst, 1)}%) | "
+               f"{ph(f'cal_{tg}_up', k_)} of {n_} [{ph(f'cal_{tg}_uplo', 100 * lo_, 0)}–{ph(f'cal_{tg}_uphi', 100 * hi_, 0)}%] | "
+               f"{ph(f'cal_{tg}_dn', int(d_.dn.sum()))} |")
+MD["calib"] = "\n".join(out)
+for tg, m_ in [("tune", sc.draft_year <= 2024), ("clean", sc.draft_year == 2025)]:
+    d_ = sc[m_ & (sc.grp == "plus")]
+    k_, n_ = int(d_.up.sum()), len(d_)
+    lo_, hi_ = cp(k_, n_)
+    put(f"calp_{tg}_k", k_); put(f"calp_{tg}_n", n_)
+    put(f"calp_{tg}_lo", 100 * lo_, 0); put(f"calp_{tg}_hi", 100 * hi_, 0)
+    put(f"calp_{tg}_dn", int(d_.dn.sum()))
+_nn = sc[sc.grp == "none"]
+_lo, _hi = cp(int(_nn.up.sum()), len(_nn))
+put("caln_k", int(_nn.up.sum())); put("caln_n", len(_nn)); put("caln_pct", 100 * _nn.up.mean(), 0)
+put("caln_lo", 100 * _lo, 0); put("caln_hi", 100 * _hi, 0)
+for c in classes:
+    d_ = sc[(sc.draft_year == c) & (sc.grp == "plus")]
+    e_ = sc[(sc.draft_year == c) & (sc.grp == "none")]
+    put(f"calc_{c}_k", int(d_.up.sum())); put(f"calc_{c}_n", len(d_))
+    put(f"calc_{c}_base", 100 * e_.up.mean(), 0)
+# raw pressure rates, plus vs no call (pooled over roles), and the mean gap to the forecast
+for g_, tg in [("plus", "p"), ("none", "n")]:
+    d_ = sc[sc.grp == g_]
+    put(f"raw_{tg}_rate", 100 * d_.pressures.sum() / d_.rush_snaps.sum(), 1)
+    put(f"raw_{tg}_gap", 100 * (d_.pressures.sum() / d_.rush_snaps.sum() - np.average(d_.pb, weights=d_.rush_snaps)), 1)
+
+# ---- decision card, 2025 class: every plus call, the two nearest misses, the lowest EDGE and the lowest interior
+d25 = ba[ba.draft_year == 2025].sort_values("shr", ascending=False).reset_index(drop=True)
+d25["rank"] = np.arange(1, len(d25) + 1)
+pick_ = list(d25[d25.call == "plus"].index)
+pick_ += list(d25[(d25.call == "neutral")].index[:2])
+for rl in ["EDGE", "interior"]:
+    pick_.append(d25[d25.role == rl].index[-1])
+card = d25.loc[sorted(set(pick_))]
+
+
+def card_call(r_):
+    tc = pd.notna(r_.three_cone)
+    if r_.call == "plus":
+        return (("3-cone first; then " if tc else "") + f"break ties his way vs {tie_range(r_)}")
+    if r_.call == "minus" and r_.role == "interior":
+        return "no call: low Hoop G here mostly means heavy; film flag only"
+    if r_.call == "minus":
+        return "move down a tie vs EDGEs near his slot"
+    if r_.shr > 0:
+        return "close, but no call: " + ("use his 3-cone" if tc else "ask for more hoop runs")
+    return "no call" + (": use his 3-cone" if tc else "")
+
+
+out = ["| Player (pick, role) | Hoop G, sd [80%] | 3-cone, s | Draft-day call | Rookie pressure rate vs forecast |",
+       "|---|---|---|---|---|"]
+for i, r_ in enumerate(card.itertuples()):
+    k_ = f"dc_{i}"
+    hg = f"{ph(k_ + '_s', r_.shr)} [{ph(k_ + '_l', r_.shr_lo)}, {ph(k_ + '_h', r_.shr_hi)}]"
+    tc_ = ph(k_ + "_tc", r_.three_cone) if pd.notna(r_.three_cone) else "none"
+    if pd.notna(r_.pb):
+        res_ = (f"{ph(k_ + '_pr', 100 * r_.press_rate, 1)}% vs {ph(k_ + '_pb', 100 * r_.pb, 1)}% "
+                f"({int(r_.rush_snaps)} rushes, {result_txt(r_).replace('**', '')})")
+    else:
+        res_ = "no NFL rushes yet" if r_.rush_snaps == 0 else f"{int(r_.rush_snaps)} rushes: too few to score"
+    out.append(f"| **{r_.display_name}** ({pk_txt(r_.pick)}, {ROLE_TXT[r_.role]}) | {hg} | {tc_} | {card_call(r_)} | {res_} |")
+MD["card"] = "\n".join(out)
+put("card_n", len(card))
+TABLES["card"] = card[["display_name", "role", "pick", "shr", "three_cone", "call"]].to_dict("records")
+put("pct_3cone_25", 100 * d25.three_cone.notna().mean(), 0)
+# plain-language out-of-class number: points of pressure-rate variance explained, held-out classes pooled
+put("wr2_pts", 100 * WN["pooled"], 1); put("wr2_pts_lo", 100 * np.percentile(WB["pooled"], 5), 1)
+put("wr2_pts_hi", 100 * np.percentile(WB["pooled"], 95), 1)
+for c in classes:
+    put(f"wr2_pts_{c}", 100 * WN[int(c)], 1)
+
+# ============================================================================= revised round 8 additions
+_tick("revised: complete-case stopwatch comparison")
+# (1) Complete cases, no imputed times. Hoop G fixed in advance (no screen). Leave one class out, rush-weighted least
+#     squares of the pressure rate; held-out R² change (percentage points) and held-out beta-binomial log score per
+#     rusher; 90% intervals by resampling held-out rushers within class (fold models fixed).
+KAP = float(Mw)
+CCB = ["log_pick", "combine_weight_z", "edge_share", "ngs_athleticism_score"]
+
+
+def bb_ll(y, n, p):
+    p = np.clip(p, 0.005, 0.6)
+    al, bb_ = p * KAP, (1 - p) * KAP
+    return (gammaln(n + 1) - gammaln(y + 1) - gammaln(n - y + 1) + gammaln(y + al) + gammaln(n - y + bb_)
+            - gammaln(n + KAP) - gammaln(al) - gammaln(bb_) + gammaln(KAP))
+
+
+def loco_cc(rows, base_cols, add_cols, seed):
+    Y, W, P0, P1, L0, L1 = {}, {}, {}, {}, {}, {}
+    for c in classes:
+        tr, te = rows[rows.draft_year != c], rows[rows.draft_year == c]
+        P0[c], P1[c] = wls_pred(tr, te, base_cols), wls_pred(tr, te, base_cols + add_cols)
+        Y[c], W[c] = (te.pressures / te.rush_snaps).values, te.rush_snaps.values
+        L0[c], L1[c] = bb_ll(te.pressures.values, W[c], P0[c]), bb_ll(te.pressures.values, W[c], P1[c])
+    cat = lambda D, ii=None: np.concatenate([D[c] if ii is None else D[c][ii[c]] for c in classes])
+    g_ = lambda ii=None: 100 * (wr2(cat(Y, ii), cat(P1, ii), cat(W, ii)) - wr2(cat(Y, ii), cat(P0, ii), cat(W, ii)))
+    l_ = lambda ii=None: float(np.mean(cat(L1, ii) - cat(L0, ii)))
+    rng_, B = np.random.default_rng(seed), []
+    for _ in range(2000):
+        ii = {c: rng_.integers(0, len(Y[c]), len(Y[c])) for c in classes}
+        B.append((g_(ii), l_(ii)))
+    B = np.array(B)
+    return dict(n=int(sum(len(Y[c]) for c in classes)), r2=g_(), r2_lo=np.percentile(B[:, 0], 5),
+                r2_hi=np.percentile(B[:, 0], 95), ls=l_(), ls_lo=np.percentile(B[:, 1], 5), ls_hi=np.percentile(B[:, 1], 95))
+
+
+ccr = dl[dl.hoop_z.notna() & (dl.rush_snaps > 0)].dropna(subset=CCB).copy()
+ccr["pressures"] = ccr.pressures.fillna(0)
+put("cc_all_hoop3", int((dl.hoop_z.notna() & dl.three_cone.notna()).sum()))
+c3r = ccr[ccr.three_cone_z.notna()]
+n3r = ccr[ccr.three_cone_z.isna()]
+CC = {"cc3cone": loco_cc(c3r, CCB, ["three_cone_z"], 61),            # what the 3-cone adds
+      "cc3hoop": loco_cc(c3r, CCB + ["three_cone_z"], ["hoop_z"], 62),  # Hoop G on top of an observed 3-cone
+      "ccnohoop": loco_cc(n3r, CCB, ["hoop_z"], 63)}                   # Hoop G where the 3-cone was skipped
+for tg, d_ in CC.items():
+    put(f"{tg}_n", d_["n"])
+    for k in ["r2", "r2_lo", "r2_hi"]:
+        put(f"{tg}_{k}", d_[k], 1)
+    for k in ["ls", "ls_lo", "ls_hi"]:
+        put(f"{tg}_{k}", d_[k], 3)
+TABLES["complete_case"] = CC
+
+# (2) Frozen decision rule, scored out of class. Rule (fixed since round 6): plus call = 80% interval of the
+#     noise-corrected Hoop G clears zero. Hit = 80% interval of his actual pressure rate is above his out-of-class
+#     no-tracking forecast. Matched base rate: no-call rushers reweighted to the plus calls' role-by-class mix.
+_tick("revised: frozen-rule calibration and permutation")
+
+
+def hits(frame):
+    d_ = frame[frame.pb.notna()]
+    return d_, (d_.pr_lo > d_.pb)
+
+
+def matched_base(sc_, plus_mask):
+    nc_ = sc_[~plus_mask]
+    up_ = nc_.pr_lo > nc_.pb
+    mix = sc_[plus_mask].groupby(["role", "draft_year"]).size()
+    rates = up_.groupby([nc_.role, nc_.draft_year]).mean()
+    return float(sum(mix[k] * rates.get(k, up_.mean()) for k in mix.index) / mix.sum())
+
+
+scd, up_all = hits(ba)
+plus_m = (scd.call == "plus").values
+for tg, m_ in [("all", np.ones(len(scd), bool)), ("tune", (scd.draft_year <= 2024).values),
+               ("clean", (scd.draft_year == 2025).values)]:
+    k_, n_ = int(up_all[plus_m & m_].sum()), int((plus_m & m_).sum())
+    lo_, hi_ = cp(k_, n_)
+    put(f"fr_{tg}_k", k_); put(f"fr_{tg}_n", n_)
+    put(f"fr_{tg}_lo", 100 * lo_, 0); put(f"fr_{tg}_hi", 100 * hi_, 0)
+    mb_ = matched_base(scd[m_], plus_m[m_])
+    put(f"fr_{tg}_base", 100 * mb_, 0)
+put("fr_edge_tune_hits", int(up_all[plus_m & (scd.role == "EDGE").values & (scd.draft_year <= 2024).values].sum()))
+_nc = scd[~plus_m]
+lo_, hi_ = cp(int((_nc.pr_lo > _nc.pb).sum()), len(_nc))
+put("fr_nc_lo", 100 * lo_, 0); put("fr_nc_hi", 100 * hi_, 0)
+gap_obs = up_all[plus_m].mean() - up_all[~plus_m].mean()
+put("fr_gap", 100 * gap_obs, 0)
+# permutation: shuffle Hoop G (with its run count) across runners within class, re-make the calls, recompute the gap
+prm, gaps = np.random.default_rng(71), []
+for _ in range(5000):
+    sh_ = ba.copy()
+    for c in classes:
+        ix = sh_.index[sh_.draft_year == c]
+        sh_.loc[ix, ["shr_lo"]] = sh_.loc[prm.permutation(ix), "shr_lo"].values
+    d_, u_ = hits(sh_)
+    pm_ = (d_.shr_lo > 0).values
+    if pm_.sum() and (~pm_).sum():
+        gaps.append(u_[pm_].mean() - u_[~pm_].mean())
+gaps = np.array(gaps)
+put("fr_perm_p", (1 + (gaps >= gap_obs - 1e-12).sum()) / (1 + len(gaps)))
+put("fr_perm_n", len(gaps))
+
+# (3) Within-player mechanism check at matched speed: sideways g on his random NFL rushes only in half-seconds run at
+#     hoop speed (2.5-4.5 yd/s). Mixed model (random player intercept) of snap-level matched sideways g on Hoop G,
+#     weight, role and speed; and the drill-NFL correlation corrected for the noise in both measures.
+_tick("revised: matched-speed mechanism check")
+VLO, VHI = 2.5, 4.5
+
+
+def matched_features():
     out_ = []
-    for c, g_ in d.groupby("draft_year"):
-        ix = g_.index.values
-        for a_i in range(len(ix)):
-            for b_i in range(a_i + 1, len(ix)):
-                i, j = ix[a_i], ix[b_i]
-                pi, pj = d.at[i, "pick"], d.at[j, "pick"]
-                if max(pi, pj) / min(pi, pj) <= PR_RATIO and abs(shr[i] - shr[j]) >= PR_GAP:
-                    hi_, lo_ = (i, j) if shr[i] > shr[j] else (j, i)
-                    out_.append((hi_, lo_, max(pi, pj) / min(pi, pj)))
+    for key, h in gfa.groupby(K, sort=False):
+        if pinfo.loc[key].sample_kind != "random":
+            continue
+        sf = h.snap_frame.iloc[0]
+        e = h.end_frame.iloc[0]
+        e = sf + ARC_CAP if pd.isna(e) else min(e, sf + ARC_CAP)
+        h = h[(h.frame >= sf - 3) & (h.frame <= e + 3)]
+        if len(h) < 15 or e - sf < 8:
+            continue
+        xs, ys = savgol_filter(h.x.values, 7, 2), savgol_filter(h.y.values, 7, 2)
+        vx, vy = savgol_filter(xs, 7, 2, deriv=1, delta=DT), savgol_filter(ys, 7, 2, deriv=1, delta=DT)
+        ax_, ay_ = savgol_filter(xs, 7, 2, deriv=2, delta=DT), savgol_filter(ys, 7, 2, deriv=2, delta=DT)
+        v = np.hypot(vx, vy)
+        al = np.abs(vx * ay_ - vy * ax_) / np.maximum(v, 0.5)
+        inw = (h.frame.values >= sf) & (h.frame.values <= e)
+        ra = pd.Series(np.where(inw, al, np.nan)).rolling(5, center=True, min_periods=5).mean().to_numpy()
+        rv = pd.Series(np.where(inw, v, np.nan)).rolling(5, center=True, min_periods=5).mean().to_numpy()
+        ok = (rv >= VLO) & (rv <= VHI) & np.isfinite(ra)
+        if not ok.any():
+            continue
+        j = np.flatnonzero(ok)[int(np.argmax(ra[ok]))]
+        out_.append(dict(zip(K, key), mg=ra[j] / YD_PER_G, mv=rv[j]))
     return out_
 
 
-def win_rate(d, shr):
-    pl_ = pair_list(d, shr)
-    return (np.mean([d.at[h, "res"] > d.at[l, "res"] for h, l, _ in pl_]) if pl_ else np.nan), len(pl_)
+msn = pd.DataFrame(cached("matched_v", matched_features))
+msn = msn.merge(dl[["nfl_id", "hoop_z", "hoop_g", "hoop_k", "combine_weight_z", "edge", "display_name"]], on="nfl_id")
+msn = msn[msn.hoop_z.notna()].copy()
+put("mx_snaps", len(msn)); put("mx_players", msn.nfl_id.nunique())
+put("mx_med", msn.mg.median())
+mfit = smf.mixedlm("mg ~ hoop_z + combine_weight_z + edge + mv", msn, groups=msn["nfl_id"]).fit(reml=True)
+put("mx_b", mfit.params["hoop_z"], 3)
+put("mx_b_lo", mfit.conf_int().loc["hoop_z", 0], 3); put("mx_b_hi", mfit.conf_int().loc["hoop_z", 1], 3)
+# player level: partial correlation (after weight, role) of Hoop G with his mean matched-speed NFL sideways g,
+# divided by sqrt(reliability of Hoop G x reliability of his NFL mean); player bootstrap re-estimates both
+mpl = msn.groupby("nfl_id").agg(mg=("mg", "mean"), k=("mg", "size"), hoop_z=("hoop_z", "first"),
+                                hoop_g=("hoop_g", "first"), hoop_k=("hoop_k", "first"),
+                                combine_weight_z=("combine_weight_z", "first"), edge=("edge", "first"),
+                                name=("display_name", "first")).reset_index()
+mpl = mpl[mpl.k >= 5].reset_index(drop=True)
+msn5 = msn[msn.nfl_id.isin(mpl.nfl_id)]
+SNP = {i: g_.mg.values for i, g_ in msn5.groupby("nfl_id")}
 
 
-shr0 = ep.shr.to_dict()
-wr, npairs = win_rate(ep, shr0)
-put("pair_n", npairs); put("pair_wins", int(round(wr * npairs))); put("pair_win_pct", 100 * wr, 0)
-prng2 = np.random.default_rng(23)
-perm = []
-for _ in range(2000):
-    sh_ = {}
-    for c, g_ in ep.groupby("draft_year"):
-        sh_.update(dict(zip(g_.index, prng2.permutation(g_.shr.values))))
-    perm.append(win_rate(ep, sh_)[0])
-perm = np.array(perm)
-put("pair_null_pct", 100 * np.nanmean(perm), 0)
-put("pair_perm_p", np.nanmean(perm >= wr))
-
-# ---- draft-room example: the closest-pick same-class EDGE pair with a 0.4+ sd Hoop G gap
-h_, l_, _ = sorted(pair_list(ep, shr0), key=lambda z: z[2])[0]
-H, Lw = ep.loc[h_], ep.loc[l_]
-dP = float(NUM["bayes_all"]) * (H.shr - Lw.shr) / REL        # shr = lam * z, so (shr / REL) is in measured-run sd
-p_ref = max(H.pick, Lw.pick)
-put("ex_dpress", dP, 1)
-put("ex_pick_from", int(p_ref)); put("ex_pick_to", int(round(p_ref * np.exp(-(dP / 4.5) / B_LP))))
-put("ex_gap", H.shr - Lw.shr)
-put("ex_pr_h", 100 * H.press_rate, 1); put("ex_pb_h", 100 * H.pb, 1)
-put("ex_pr_l", 100 * Lw.press_rate, 1); put("ex_pb_l", 100 * Lw.pb, 1)
-MD["ex_names"] = (f"{H.display_name} (pick {pk_txt(H.pick)}) and {Lw.display_name} (pick {pk_txt(Lw.pick)}) "
-                  f"in {int(H.draft_year)}")
-MD["ex_h"], MD["ex_l"] = H.display_name.split(" ")[-1], Lw.display_name.split(" ")[-1]
-MD["ex_right"] = "right" if H.res > Lw.res else "wrong"
-
-# clear calls: the 80% interval of the actual rate excludes the forecast
-cl80 = ba[(ba.call != "neutral") & ba.pb.notna()]
-put("clear_above", int((cl80.pr_lo > cl80.pb).sum())); put("clear_below", int((cl80.pr_hi < cl80.pb).sum()))
-put("clear_n", len(cl80))
-_sgn = np.sign(cl80.shr)
-_up, _dn = cl80.pr_lo > cl80.pb, cl80.pr_hi < cl80.pb
-put("clear_hit", int((((_sgn > 0) & _up) | ((_sgn < 0) & _dn)).sum()))
-put("clear_miss", int((((_sgn > 0) & _dn) | ((_sgn < 0) & _up)).sum()))
-p24 = cl80[(cl80.call == "plus") & (cl80.draft_year <= 2024)]
-grp_ = {"above": p24[p24.pr_lo > p24.pb], "noise": p24[(p24.pr_lo <= p24.pb) & (p24.pr_hi >= p24.pb)],
-        "below": p24[p24.pr_hi < p24.pb]}
+def corr_att(P):
+    A = np.c_[np.ones(len(P)), P.combine_weight_z.values, P.edge.values]
+    r_ = _pr(P.hoop_z.values, P.mg.values, A)
+    vals = [SNP[i] for i in P.nfl_id]
+    ids = np.repeat(np.arange(len(vals)), [len(v) for v in vals])
+    i1, _ = icc(ids, np.concatenate(vals))
+    rel_n = float(np.clip(sb(i1, P.k.mean()), 0.05, 1))
+    rel_h = float(np.mean(P.hoop_k * rel_hoop / (1 + (P.hoop_k - 1) * rel_hoop)))
+    return r_, r_ / np.sqrt(rel_h * rel_n), rel_n, i1
 
 
-def names_(d):
-    n_ = [r_.display_name for r_ in d.sort_values("pick").itertuples()]
-    return "none" if not n_ else (n_[0] if len(n_) == 1 else ", ".join(n_[:-1]) + " and " + n_[-1])
+r_m, rc_m, reln_m, icc_m = corr_att(mpl)
+mrng, mb_ = np.random.default_rng(83), []
+for _ in range(1000):
+    mb_.append(corr_att(mpl.iloc[mrng.integers(0, len(mpl), len(mpl))].reset_index(drop=True))[:2])
+mb_ = np.array(mb_)
+put("mx_n", len(mpl)); put("mx_r", r_m); put("mx_rc", rc_m)
+put("mx_rc_lo", np.percentile(mb_[:, 1], 5)); put("mx_rc_hi", np.percentile(mb_[:, 1], 95))
+put("mx_rel_nfl", reln_m); put("mx_icc", icc_m)
+put("rel_hoop_2runs", sb(rel_hoop, 2))
+TABLES["mechanism"] = dict(mixed=str(mfit.summary()), r=r_m, rc=rc_m, boot=mb_.tolist())
+
+# (4) Leave-one-class-out calibration table for the writeup: raw pressure rate per group, exact 90% intervals
+_tick("revised: tables")
+scd["hit"] = up_all.values
+GR = [("Plus call, 2023–24 classes (tuned the rule)", plus_m & (scd.draft_year <= 2024).values, "t"),
+      ("Plus call, 2025 class (clean test)", plus_m & (scd.draft_year == 2025).values, "c"),
+      ("No call, EDGE", ~plus_m & (scd.role == "EDGE").values, "ne"),
+      ("No call, interior", ~plus_m & (scd.role == "interior").values, "ni")]
+out = ["| Group (30+ NFL rushes, 2023–25) | Rushers | Pressure rate (forecast) | Beat forecast [exact 90%] |",
+       "|---|---|---|---|"]
+for lab, m_, tg in GR:
+    d_ = scd[m_]
+    k_, n_ = int(d_.hit.sum()), len(d_)
+    lo_, hi_ = cp(k_, n_)
+    rate = 100 * d_.pressures.sum() / d_.rush_snaps.sum()
+    fcst = 100 * np.average(d_.pb, weights=d_.rush_snaps)
+    out.append(f"| {lab} | {ph(f'lt_{tg}_n', n_)} | {ph(f'lt_{tg}_rate', rate, 1)}% ({ph(f'lt_{tg}_fc', fcst, 1)}%) | "
+               f"{ph(f'lt_{tg}_k', k_)} of {n_} [{ph(f'lt_{tg}_lo', 100 * lo_, 0)}–{ph(f'lt_{tg}_hi', 100 * hi_, 0)}%] |")
+MD["calib"] = "\n".join(out)
+
+# (5) 2025 decision card: the plus calls and the lowest interior hoop (film flag), one call and one film cue each
+CARD_NAMES = list(d25[d25.call == "plus"].display_name) + [d25[d25.role == "interior"].iloc[-1].display_name]
+FILM = {("plus", "EDGE"): "Flattens at the top of the rush, or only redirects late?",
+        ("plus", "interior"): "Wins laterally on games and stunts?",
+        ("minus", "interior"): "Can he still redirect on stunts at his weight?"}
 
 
-MD["calls_above"], MD["calls_noise"], MD["calls_below"] = (names_(grp_[k]) for k in ["above", "noise", "below"])
-put("calls24_n", len(p24))
-MD_TXT = {}
+def card_call2(r_):
+    if r_.call == "plus":
+        return ("3-cone first; if tied, take him" if pd.notna(r_.three_cone) else "Take him in a tie") + \
+            f" over {tie_range(r_)}"
+    return "No call: low here mostly means heavy"
+
+
+out = ["| 2025 player (pick, role) | Hoop G, sd [80%] | 3-cone | Draft-day call | Film cue | Rookie year (rushes) |",
+       "|---|---|---|---|---|---|"]
+for i, nm in enumerate(CARD_NAMES):
+    r_ = d25[d25.display_name == nm].iloc[0]
+    k_ = f"cd_{i}"
+    hg = f"{ph(k_ + '_s', r_.shr)} [{ph(k_ + '_l', r_.shr_lo)}, {ph(k_ + '_h', r_.shr_hi)}]"
+    tc_ = ph(k_ + "_tc", r_.three_cone) + " s" if pd.notna(r_.three_cone) else "not run"
+    if pd.notna(r_.pb):
+        res_ = (f"{ph(k_ + '_pr', 100 * r_.press_rate, 1)}% vs {ph(k_ + '_pb', 100 * r_.pb, 1)}% forecast "
+                f"({int(r_.rush_snaps)}; {result_txt(r_).replace('**', '').replace('in noise', 'within noise')})")
+    else:
+        res_ = f"too few to score ({int(r_.rush_snaps)})"
+    out.append(f"| **{r_.display_name}** ({pk_txt(r_.pick)}, {ROLE_TXT[r_.role]}) | {hg} | {tc_} | {card_call2(r_)} | "
+               f"{FILM[(r_.call, r_.role)]} | {res_} |")
+MD["card"] = "\n".join(out)
 
 # ============================================================================= FIGURES
 _tick("figures")
 
 
-def name_short(n):
-    return n.split(" ")[0][0] + ". " + " ".join(n.split(" ")[1:])
-
-
-# ---- Fig 1 (hero): four named rushers. Hoop path and its sideways-g trace next to his hardest-turning sampled NFL rush
-P4 = ["Chop Robinson", "Donovan Ezeiruaku", "Tuli Tuipulotu", "Jordan Phillips"]
+# ---- Fig 1 (hero): two EDGE plus calls (one beat his forecast, one did not) and the top / bottom interior hoop, each with
+#      the hoop path; sideways g of the hoop run and of his hardest-turning sampled NFL rush on one time axis (aligned at
+#      each peak); NFL pressure rate against the out-of-class forecast. Bottom strip: every runner, drill vs NFL turn.
+F1_NAMES = ["Javon Solomon", "Donovan Ezeiruaku", "Adetomiwa Adebawore", "Jordan Phillips"]
+F1_TAG = {"Javon Solomon": "Plus call, beat his forecast", "Donovan Ezeiruaku": "Plus call, has not beaten it yet",
+          "Adetomiwa Adebawore": "Best interior hoop: on forecast", "Jordan Phillips": "Low interior hoop: film flag only"}
 cmap = plt.get_cmap("cividis"); norm = plt.Normalize(0, 0.9)
-GREY_T = "#C8C8C8"
-FS = 13
 F1 = {}
-for nm in P4:
+for nm in F1_NAMES:
     r_ = ba[ba.display_name == nm].iloc[0]
     tr = traces[r_.hoop_eid]
     xs_, ys_ = tr["_x"] - (tr["_x"].max() + tr["_x"].min()) / 2, tr["_y"] - (tr["_y"].max() + tr["_y"].min()) / 2
@@ -1600,280 +1894,256 @@ for nm in P4:
     roll_h = pd.Series(tr["_alat"]).rolling(5, center=True).mean().to_numpy()
     q_ = arcp[(arcp.nfl_id == r_.nfl_id) & (arcp.kind == "random")]
     kk = q_.loc[q_.arc_g.idxmax()]
-    F1[nm] = dict(r=r_, hx=xs_, hy=ys_, hal=tr["_alat"], hk=tr["_k"], hpk=np.nanmax(roll_h), q=q_,
-                  sel=arc_tr[(kk.game_id, kk.play_id, kk.nfl_id)], sel_g=kk.arc_g, sel_press=kk.press, sel_wt=kk.wtype)
+    la, fw, al, kmx, wty = arc_tr[(kk.game_id, kk.play_id, kk.nfl_id)]
+    roll_n = pd.Series(al).rolling(5, center=True, min_periods=5).mean().to_numpy()
+    F1[nm] = dict(r=r_, hx=xs_, hy=ys_, hal=tr["_alat"], hroll=roll_h, hk=int(np.nanargmax(roll_h)),
+                  hpk=float(np.nanmax(roll_h)), nroll=roll_n, nk=int(np.nanargmax(roll_n)), npk=float(np.nanmax(roll_n)),
+                  nmed=float(q_.arc_g.median()), nrush=len(q_))
 HSPAN = max(max(np.ptp(v["hx"]), np.ptp(v["hy"])) for v in F1.values()) + 1.5
-allx = np.concatenate([arc_tr[(k.game_id, k.play_id, k.nfl_id)][0] for v in F1.values() for k in v["q"].itertuples()])
-ally = np.concatenate([arc_tr[(k.game_id, k.play_id, k.nfl_id)][1] for v in F1.values() for k in v["q"].itertuples()])
-NX = (np.floor(allx.min()) - 0.5, np.ceil(allx.max()) + 0.5)
-NY = (-1.0, np.ceil(ally.max()) + 0.8)
-put("f1_cohort_arc_med", arcp[arcp.kind == "random"].arc_g.median())
-FH1 = 15.0
-YS = 12.6 / FH1
-YF = lambda f: 1 - (1 - f) * YS
+FH1 = 17.2
+IN = lambda h: h / FH1          # inches -> figure fraction (vertical)
 fig = plt.figure(figsize=(FIGW, FH1))
-fig.text(0.012, YF(0.992), "What Hoop G sees: four rushers in the hoop and on Sundays", fontsize=18, weight="bold", va="top")
-fig.text(0.012, YF(0.962), "Columns 1–2: one Combine hoop run, coloured by sideways g; the ring and shaded band mark the half-second "
-         "that sets Hoop G.\nColumns 3–4: his hardest-turning of 20 random NFL rushes (others grey), snap ▲ to "
-         "throw or sack; outside is to the right.", fontsize=12.5, va="top", color="#333333")
-ROWH, TOP, AH = 0.212 * YS, YF(0.895), 0.15 * YS
+fig.text(0.012, 1 - IN(0.15), "Hoop G in the drill and on Sundays: two EDGE plus calls, the top and bottom interior hoop",
+         fontsize=16.5, weight="bold", va="top")
+fig.text(0.012, 1 - IN(0.55), "Middle: half-second sideways g of his hoop run (blue) and of his hardest-turning NFL rush out "
+         "of about 20 random ones\n(orange), lined up at each peak; dotted line = his typical NFL rush. Right: NFL pressure "
+         "rate, dot = actual with 80% interval,\ntick = no-tracking forecast from a model fit on the other two draft classes.",
+         fontsize=12, va="top", color="#333333")
+AH_IN, ROW_IN, TOP_IN = 1.75, 2.62, 1.75
+AH = IN(AH_IN)
 AW = AH * FH1 / FIGW
-TW = 0.235
-X0 = [0.03, 0.03 + AW + 0.07, 0.03 + AW + 0.07 + TW + 0.025]
-NW = 0.215
-X0.append(X0[2] + NW + 0.035)
-_rend = fig.canvas.get_renderer()
-for idx, nm in enumerate(P4):
+X1, W1_ = 0.03 + AW + 0.075, 0.42
+X2 = X1 + W1_ + 0.06
+W2 = 1 - X2 - 0.02
+XMAXP = float(np.ceil(100 * max(F1[n_]["r"].pr_hi for n_ in F1_NAMES) + 2))
+for idx, nm in enumerate(F1_NAMES):
     v = F1[nm]; r_ = v["r"]
-    yt = TOP - idx * ROWH
-    ybot = yt - 0.035 * YS - AH
-    t_nm = fig.text(0.012, yt, nm, fontsize=15, weight="bold", va="top")
-    x_info = 0.012 + t_nm.get_window_extent(_rend).width / fig.bbox.width + 0.012
-    fig.text(x_info, yt - 0.002,
-             f"{'EDGE' if r_.role == 'EDGE' else 'interior'}, {r_.draft_year} pick {pk_txt(r_.pick)} · raw Hoop G "
-             f"{'+' if r_.hoop_z > 0 else '−'}{abs(r_.hoop_z):.1f} sd · NFL pressure rate {100 * r_.press_rate:.1f}% "
-             f"({int(r_.rush_snaps)} rushes)", fontsize=13, va="top", color="#333333")
-    # 1: hoop path
-    ax = fig.add_axes([X0[0], ybot, AW, AH])
+    yt = 1 - IN(TOP_IN + idx * ROW_IN)
+    ybot = yt - IN(0.42) - AH
+    fig.text(0.012, yt, f"{nm} ({'EDGE' if r_.role == 'EDGE' else 'interior'}). {F1_TAG[nm]}", fontsize=14, weight="bold",
+             va="top")
+    fig.text(0.012, yt - IN(0.24), f"{r_.draft_year} pick {pk_txt(r_.pick)} · {int(r_.combine_weight)} lb · Hoop G "
+             f"{'+' if r_.shr > 0 else '−'}{abs(r_.shr):.1f} sd · 3-cone "
+             f"{'%.2f s' % r_.three_cone if pd.notna(r_.three_cone) else 'not run'} · {int(r_.rush_snaps)} NFL rushes",
+             fontsize=12, va="top", color="#333333")
+    ax = fig.add_axes([0.03, ybot, AW, AH])
     pts = np.c_[v["hx"], v["hy"]].reshape(-1, 1, 2)
     lc = LineCollection(np.concatenate([pts[:-1], pts[1:]], axis=1), cmap=cmap, norm=norm, linewidth=3.2)
     lc.set_array(v["hal"][:-1]); ax.add_collection(lc)
-    ax.scatter([v["hx"][v["hk"]]], [v["hy"][v["hk"]]], s=150, facecolor="none", edgecolor="k", lw=2.2, zorder=3)
+    ax.scatter([v["hx"][v["hk"]]], [v["hy"][v["hk"]]], s=140, facecolor="none", edgecolor="k", lw=2.2, zorder=3)
     ax.set_xlim(-HSPAN / 2, HSPAN / 2); ax.set_ylim(-HSPAN / 2, HSPAN / 2); ax.set_aspect("equal")
-    ax.plot([-HSPAN / 2 + 0.5, -HSPAN / 2 + 2.5], [HSPAN / 2 - 1.3] * 2, color="k", lw=2.5)
-    ax.text(-HSPAN / 2 + 1.5, HSPAN / 2 - 1.0, "2 yd", ha="center", va="bottom", fontsize=12)
-    # 2: hoop sideways g over time
-    tx = fig.add_axes([X0[1], ybot, TW, AH])
-    t_ = np.arange(len(v["hal"])) * DT
-    tx.axvspan((v["hk"] - 2) * DT, (v["hk"] + 2) * DT, color="#BBBBBB", alpha=0.6, lw=0)
-    tx.plot(t_, np.clip(v["hal"], 0, 1.2), color=OI["blue"], lw=2)
-    tx.axhline(v["hpk"], color="k", lw=1, ls=":")
-    tx.text(0.98, 0.95, f"Hoop G {v['hpk']:.2f} g", transform=tx.transAxes, ha="right", va="top", fontsize=13, weight="bold")
-    tx.set_ylim(0, 1.2); tx.set_xlim(0, 9); tx.set_yticks([0, 0.5, 1.0]); tx.tick_params(labelsize=12)
+    ax.set_xticks([]); ax.set_yticks([])
+    for sp_ in ax.spines.values():
+        sp_.set_visible(True); sp_.set_color("#BBBBBB")
+    if idx == 0:
+        ax.plot([-HSPAN / 2 + 0.5, -HSPAN / 2 + 2.5], [HSPAN / 2 - 1.3] * 2, color="k", lw=2.5)
+        ax.text(-HSPAN / 2 + 1.5, HSPAN / 2 - 1.0, "2 yd", ha="center", va="bottom", fontsize=11.5)
+    tx = fig.add_axes([X1, ybot, W1_, AH])
+    th_ = (np.arange(len(v["hroll"])) - v["hk"]) * DT
+    tn_ = (np.arange(len(v["nroll"])) - v["nk"]) * DT
+    tx.axhline(v["nmed"], color="#777777", lw=1.4, ls=":")
+    mh_, mn_ = np.abs(th_) <= 2.0, np.abs(tn_) <= 2.0
+    tx.plot(th_[mh_], v["hroll"][mh_], color=OI["blue"], lw=2.6)
+    tx.plot(tn_[mn_], v["nroll"][mn_], color=OI["orange"], lw=2.6)
+    tx.text(2.15, v["hpk"], f"hoop {v['hpk']:.2f} g", color=OI["blue"], fontsize=12.5, weight="bold", va="center")
+    tx.text(2.15, min(v["npk"], v["hpk"] - 0.15), f"NFL best {v['npk']:.2f} g", color="#B06E00", fontsize=12.5,
+            weight="bold", va="center")
+    _ny = min(v["npk"], v["hpk"] - 0.15)
+    _ty = v["nmed"] + 0.02 if abs(v["nmed"] + 0.05 - _ny) > 0.16 else v["nmed"] - 0.02
+    tx.text(2.15, _ty, f"typical rush {v['nmed']:.2f}", color="#555555", fontsize=11.5,
+            va="bottom" if _ty > v["nmed"] else "top")
+    tx.set_xlim(-2, 3.6); tx.set_ylim(0, 0.95); tx.set_yticks([0, 0.3, 0.6, 0.9]); tx.set_xticks([-2, -1, 0, 1, 2])
     tx.set_ylabel("sideways g", fontsize=12)
     if idx == 3:
-        tx.set_xlabel("seconds into the hoop run", fontsize=12.5)
-    # 3: one NFL rush (hardest sustained turn), others grey
-    gx = fig.add_axes([X0[2], ybot, NW, AH])
-    for k in v["q"].itertuples():
-        la, fw, *_ = arc_tr[(k.game_id, k.play_id, k.nfl_id)]
-        gx.plot(la, fw, color=GREY_T, lw=1.1, zorder=1)
-    la, fw, al, kmx, wty = v["sel"]
-    pts = np.c_[la, fw].reshape(-1, 1, 2)
-    lc = LineCollection(np.concatenate([pts[:-1], pts[1:]], axis=1), cmap=cmap, norm=norm, linewidth=3.4, zorder=3)
-    lc.set_array(al[:-1]); gx.add_collection(lc)
-    kc = int(np.clip(kmx, 0, len(la) - 1))
-    gx.scatter([la[kc]], [fw[kc]], s=150, facecolor="none", edgecolor="k", lw=2.2, zorder=4)
-    gx.scatter([0], [0], marker="^", color="k", s=60, zorder=5)
-    gx.set_xlim(*NX); gx.set_ylim(*NY); gx.set_aspect("equal")
-    gx.plot([NX[1] - 2.6, NX[1] - 0.6], [NY[0] + 0.6] * 2, color="k", lw=2.5)
-    gx.text(NX[1] - 1.6, NY[0] + 0.9, "2 yd", ha="center", va="bottom", fontsize=12)
-    # 4: that rush's sideways g over time
-    nx_ = fig.add_axes([X0[3], ybot, 1 - X0[3] - 0.012, AH])
-    tn = np.arange(len(al)) * DT
-    nx_.axvspan((kc - 2) * DT, (kc + 2) * DT, color="#BBBBBB", alpha=0.6, lw=0)
-    nx_.plot(tn, np.clip(al, 0, 1.2), color=OI["blue"], lw=2)
-    nx_.axhline(v["sel_g"], color="k", lw=1, ls=":")
-    nx_.axhline(v["hpk"], color=OI["purple"], lw=2.2, ls="--")
-    nx_.text(0.02, v["hpk"] + 0.04, f"his Hoop G {v['hpk']:.2f}", transform=nx_.get_yaxis_transform(), fontsize=12,
-             color=OI["purple"], weight="bold", va="bottom")
-    nx_.text(0.98, 0.95, f"NFL {v['sel_g']:.2f} g" + (" · pressure" if v["sel_press"] else ""),
-             transform=nx_.transAxes, ha="right", va="top", fontsize=13, weight="bold")
-    nx_.set_ylim(0, 1.2); nx_.set_xlim(0, ARC_CAP * DT); nx_.set_yticks([0, 0.5, 1.0]); nx_.tick_params(labelsize=12)
-    if idx == 3:
-        nx_.set_xlabel("seconds after the snap", fontsize=12.5)
-    for a_ in (ax, gx):
-        a_.set_xticks([]); a_.set_yticks([])
-        for sp_ in a_.spines.values():
-            sp_.set_visible(True); sp_.set_color("#BBBBBB")
-    key = nm.split(" ")[-1].lower()
-    put(f"f1_{key}_hoop", v["hpk"]); put(f"f1_{key}_nfl", v["sel_g"])
-    q2 = v["q"][v["q"].wtype != "unclassified"].dropna(subset=["l3"])
-    if len(q2) >= 5:
-        put(f"f1_{key}_out", 100 * (q2.wtype == "outside").mean(), 0)
-cax = fig.add_axes([0.03, YF(0.028), 0.2, 0.011 * YS])
+        tx.set_xlabel("seconds from his peak (0 = the half-second that sets the number)", fontsize=11.5)
+    bx = fig.add_axes([X2, ybot + AH * 0.25, W2, AH * 0.5])
+    col_ = OI["blue"] if r_.pr_lo > r_.pb else (OI["red"] if r_.pr_hi < r_.pb else "#555555")
+    bx.plot([100 * r_.pr_lo, 100 * r_.pr_hi], [0, 0], color="#D0D0D0", lw=11, solid_capstyle="butt")
+    bx.scatter([100 * r_.press_rate], [0], s=150, color=col_, zorder=3)
+    bx.scatter([100 * r_.pb], [0], marker="|", s=400, color="k", lw=2.8, zorder=4)
+    bx.text(0.0, 1.25, f"{100 * r_.press_rate:.1f}% vs {100 * r_.pb:.1f}% forecast", transform=bx.transAxes,
+            fontsize=13, weight="bold", color=col_, va="bottom")
+    bx.set_xlim(0, XMAXP); bx.set_ylim(-1, 1); bx.set_yticks([])
+    bx.spines["left"].set_visible(False)
+    bx.set_xlabel("NFL pressure rate, %", fontsize=11.5)
+    key = nm.split(" ")[-1].lower().replace("'", "")
+    put(f"f1_{key}_hoop", v["hpk"]); put(f"f1_{key}_nfl", v["npk"]); put(f"f1_{key}_med", v["nmed"])
+    put(f"f1_{key}_pr", 100 * r_.press_rate, 1); put(f"f1_{key}_pb", 100 * r_.pb, 1)
+    put(f"f1_{key}_wt", int(r_.combine_weight)); put(f"f1_{key}_n", int(r_.rush_snaps))
+    put(f"f1_{key}_pick", int(r_.pick))
+# bottom strip: every hoop runner with 5+ random NFL rushes, drill Hoop G vs his average matched-speed NFL sideways g
+ys0 = 1 - IN(TOP_IN + 4 * ROW_IN + 0.3)
+fig.text(0.012, ys0, f"Every hoop runner with 5+ random NFL rushes (n = {len(mpl)}): beyond weight and role, the drill does "
+         "not show up", fontsize=14, weight="bold", va="top")
+fig.text(0.012, ys0 - IN(0.27), "NFL value = his average peak half-second sideways g while moving 2.5–4.5 yd/s (hoop speed).\n"
+         f"After weight and role, noise-corrected r = {NUM['mx_rc']} [90% {mn(NUM['mx_rc_lo'])}, {NUM['mx_rc_hi']}].",
+         fontsize=12, va="top", color="#333333")
+sx = fig.add_axes([0.09, IN(1.05), 0.58, IN(2.7)])
+for rl, c_, lab in [("EDGE", OI["blue"], "EDGE"), ("interior", OI["orange"], "interior")]:
+    d_ = mpl[(mpl.edge == 1) == (rl == "EDGE")]
+    sx.scatter(d_.hoop_g, d_.mg, s=45, color=c_, alpha=0.85, edgecolor="white", lw=0.6, label=f"{lab} (n={len(d_)})")
+for nm in F1_NAMES:
+    d_ = mpl[mpl.name == nm]
+    if len(d_):
+        sx.scatter(d_.hoop_g, d_.mg, s=150, facecolor="none", edgecolor="k", lw=2.0, zorder=4)
+        sx.annotate(nm.split(" ")[-1], (d_.hoop_g.iloc[0], d_.mg.iloc[0]), xytext={"Javon Solomon": (0, 12), "Donovan Ezeiruaku": (-10, 8)}.get(nm, (8, 6)),
+                    textcoords="offset points", fontsize=12, weight="bold",
+                    ha="right" if nm == "Donovan Ezeiruaku" else ("center" if nm == "Javon Solomon" else "left"))
+sx.set_xlabel("Hoop G in the drill, g (one run unless two were recorded)", fontsize=12)
+sx.set_ylabel("NFL sideways g\nat hoop speed", fontsize=12)
+sx.legend(loc="upper left", frameon=False, fontsize=11.5, ncol=2)
+sx.set_ylim(mpl.mg.min() - 0.02, mpl.mg.max() + 0.06)
+fig.text(0.735, IN(3.6), "How to read it", fontsize=12.5, weight="bold", va="top")
+fig.text(0.735, IN(3.3), f"The upward drift is role and size:\nlighter EDGEs turn harder in both.\nWithin role, after weight, "
+         f"the\nlink is near zero. One NFL rush is\nmostly noise (per-snap agreement\n{NUM['mx_icc']}), so the orange "
+         f"trace is a\nfilm cue, not evidence.",
+         fontsize=11.5, va="top", color="#333333")
+cax = fig.add_axes([0.735, IN(0.95), 0.2, IN(0.13)])
 cb = fig.colorbar(plt.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax, orientation="horizontal", ticks=[0, 0.3, 0.6, 0.9])
-cb.ax.tick_params(labelsize=12); cax.set_title("sideways g (path colour)", fontsize=12.5, loc="left", pad=4)
-# overlay: hoop peak vs NFL peaks for all four on one g axis
-ov = fig.add_axes([0.36, 0.04, 0.6, 0.12])
-for i_, nm in enumerate(P4[::-1]):
-    v = F1[nm]
-    med_ = v["q"].arc_g.median()
-    ov.plot([med_, v["hpk"]], [i_, i_], color="#BBBBBB", lw=3, zorder=1)
-    ov.scatter([v["hpk"]], [i_], s=130, color=OI["purple"], zorder=3)
-    ov.scatter([v["sel_g"]], [i_], s=110, facecolor="white", edgecolor="k", lw=2, zorder=3)
-    ov.scatter([med_], [i_], s=70, color="k", zorder=3)
-    F1[nm]["med"] = med_
-ov.axvline(float(arcp[arcp.kind == "random"].arc_g.median()), color="#555555", lw=1, ls=":")
-ov.set_yticks(range(4)); ov.set_yticklabels([n_.split(" ")[-1] for n_ in P4[::-1]], fontsize=13)
-ov.set_xlim(0.1, 0.8); ov.set_ylim(-0.6, 3.6); ov.tick_params(axis="x", labelsize=12)
-ov.set_xlabel("peak half-second sideways g", fontsize=12.5)
-ov.set_title("All four on one scale: no rusher turns as hard on Sundays as in the hoop", fontsize=13.5, loc="left",
-             weight="bold")
-ov.legend(handles=[Line2D([], [], marker="o", color=OI["purple"], lw=0, markersize=11, label="Hoop G"),
-                   Line2D([], [], marker="o", color="k", markerfacecolor="white", lw=0, markersize=10, mew=2,
-                          label="hardest NFL rush"),
-                   Line2D([], [], marker="o", color="k", lw=0, markersize=7, label="typical NFL rush (median)"),
-                   Line2D([], [], color="#555555", ls=":", label="all-DL typical rush")],
-          loc="upper left", bbox_to_anchor=(-0.6, 0.8), fontsize=12, frameon=False)
-for nm in P4:
-    key = nm.split(" ")[-1].lower(); r_ = F1[nm]["r"]
-    put(f"f1_{key}_med", F1[nm]["med"]); put(f"f1_{key}_pr", 100 * r_.press_rate, 1); put(f"f1_{key}_pb", 100 * r_.pb, 1)
-save(fig, "fig1_four_rushers.png")
-put("f1_nfl_max", max(v["sel_g"] for v in F1.values()))
-put("f1_edge_min", min(v["hpk"] for v in F1.values() if v["r"].role == "EDGE"))
-put("f1_edge_max", max(v["hpk"] for v in F1.values() if v["r"].role == "EDGE"))
-put("f1_hoop_min", min(v["hpk"] for v in F1.values()))
+cb.ax.tick_params(labelsize=10.5); cax.set_title("hoop path colour: sideways g", fontsize=11, loc="left", pad=3)
+fig.legend(handles=[Line2D([], [], color=OI["blue"], lw=2.6, label="hoop run"),
+                    Line2D([], [], color=OI["orange"], lw=2.6, label="hardest NFL rush"),
+                    Line2D([], [], marker="o", color="#555555", lw=0, markersize=10, label="actual pressure rate"),
+                    Line2D([], [], color="#D0D0D0", lw=9, label="its 80% interval"),
+                    Line2D([], [], marker="|", color="k", lw=0, markersize=16, markeredgewidth=2.6,
+                           label="no-tracking forecast")],
+           loc="lower left", bbox_to_anchor=(0.01, 0.0), ncol=5, fontsize=11, frameon=False)
+save(fig, "fig1_hero.png")
 
-# ---- Fig 2: one outcome (pressure), five measures, one common set of rushers
-fig = plt.figure(figsize=(FIGW, 6.2))
-ax = fig.add_axes([0.3, 0.16, 0.66, 0.6])
-yy = np.arange(len(CMPR))[::-1]
-for y_, d_ in zip(yy, CMPR):
+# ---- Fig 2: (a) five draft-day measures on one common set of rushers, sorted; (b) held-out gain, with the shuffle band
+fig = plt.figure(figsize=(FIGW, 6.6))
+axa = fig.add_axes([0.25, 0.14, 0.27, 0.62]); axb = fig.add_axes([0.765, 0.14, 0.215, 0.62])
+CS = sorted(CMPR, key=lambda d_: d_["r"])
+yy = np.arange(len(CS))
+for y_, d_ in zip(yy, CS):
     col_ = OI["blue"] if d_["col"] == "hoop_z" else OI["black"]
-    ax.plot([d_["lo"], d_["hi"]], [y_, y_], color=col_, lw=3, solid_capstyle="butt")
-    ax.scatter([d_["r"]], [y_], color=col_, s=120, zorder=3)
-    ax.scatter([d_["r_own"]], [y_ - 0.3], marker="o", facecolor="white", edgecolor=col_, s=60, lw=1.6, zorder=3)
-    ax.text(0.99, y_, f"{d_['r']:+.2f}".replace("-", "−"), transform=ax.get_yaxis_transform(), ha="right", va="center",
-            fontsize=14, weight="bold", color=col_)
-    ax.text(0.99, y_ - 0.3, f"own n={d_['n_own']}: {d_['r_own']:+.2f}".replace("-", "−"), transform=ax.get_yaxis_transform(),
-            ha="right", va="center", fontsize=11.5, color="#444444")
-ax.axvline(0, color="k", lw=0.9)
-_m = float(NUM["cmn_mde"])
-ax.axvline(_m, color="#555555", lw=1.4, ls="--")
-ax.text(_m + 0.01, yy.max() + 0.55, f"80% power at n={len(cm)}", fontsize=12, color="#444444", va="bottom")
-ax.set_yticks(yy)
-ax.set_yticklabels([f"{d_['label']}\n" + ("after weight, role" if d_["ctl"] == 2 else "after pick, weight, role, NGS")
-                    for d_ in CMPR], fontsize=13)
-ax.set_xlim(-0.75, 1.15); ax.set_ylim(-0.7, len(CMPR) - 0.1)
-ax.set_xticks([-0.5, 0, 0.5]); ax.tick_params(axis="x", labelsize=12)
-ax.set_xlabel("adjusted rank correlation with NFL pressure rate (better number → positive)", fontsize=13)
-_ncross = sum(d_["lo"] < 0 < d_["hi"] for d_ in CMPR)
-fig.suptitle(f"Pressure vs five draft-day measures on the same {len(cm)} rushers: {_ncross} of 5 intervals include zero",
-             fontsize=15, weight="bold", x=0.012, ha="left", y=0.975)
-fig.text(0.012, 0.9, f"DL with 100+ NFL rushes who have Hoop G, an official 10-yd split, 3-cone and NGS score (n={len(cm)}). "
-         "Filled dot and bar: adjusted\ncorrelation and 95% bootstrap interval on these rushers; open dot: same measure on "
-         "every rusher who has it.", fontsize=12.5, color="#333333", va="top")
-save(fig, "fig2_signal_map.png")
-
-# ---- Fig 3: planning number and, per held-out class, the class's own estimate next to the held-out accuracy gain
-rows3 = [(f"All {len(bz)} · planning number", PRIOR_DRAWS["skeptical"], OI["blue"], None)]
+    axa.plot([d_["lo"], d_["hi"]], [y_, y_], color=col_, lw=3, solid_capstyle="butt")
+    axa.scatter([d_["r"]], [y_], color=col_, s=110, zorder=3)
+    axa.scatter([d_["r_own"]], [y_ - 0.3], marker="o", facecolor="white", edgecolor=col_, s=55, lw=1.6, zorder=3)
+axa.axvline(0, color="k", lw=0.9)
+axa.set_yticks(yy)
+axa.set_yticklabels([f"{d_['label']}\nn = {d_['n']} (all: {d_['n_own']})" for d_ in CS], fontsize=11.5)
+axa.set_xlim(-0.75, 0.85); axa.set_ylim(-0.7, len(CS) - 0.4); axa.set_xticks([-0.5, 0, 0.5])
+axa.set_xlabel("adjusted correlation with NFL pressure rate", fontsize=12)
+axa.set_title("(a) Five draft-day measures, same rushers", fontsize=13.5, weight="bold", loc="left", x=-0.6)
+rows3 = [(f"Nested test, all {WN['n']}", WN["pooled"], np.percentile(WB["pooled"], [5, 95]), OI["blue"])]
 for c in classes:
-    rows3.append((f"{c} class alone (n={int((bz.draft_year == c).sum())})", SIGN_DRAWS[int(c)][1], OI["black"], int(c)))
-fig = plt.figure(figsize=(FIGW, 6.5))
-axl = fig.add_axes([0.24, 0.12, 0.33, 0.56]); axr = fig.add_axes([0.62, 0.12, 0.24, 0.56])
-yy = np.array([3.4, 2, 1, 0], float)
-for y_, (lab, v, col, cl) in zip(yy, rows3):
-    a90, a80 = np.percentile(v, [5, 95]), np.percentile(v, [10, 90])
-    axl.plot(a90, [y_, y_], color=col, lw=2.2, solid_capstyle="butt")
-    axl.plot(a80, [y_, y_], color=col, lw=9, alpha=0.4, solid_capstyle="butt")
-    axl.scatter([np.median(v)], [y_], color=col, s=80, zorder=3, edgecolor="white")
-    if cl is None:
-        g_, glo_, ghi_ = WN["pooled"], np.percentile(WB["pooled"], 5), np.percentile(WB["pooled"], 95)
-        fe_ = f"Hoop G\nin {NUM['nlpd_hoop_folds']} of 3"
-        lo_a, hi_a = np.percentile(NULL[:, 1], [5, 95])
-        lo_h, hi_h = np.percentile(NULL[NULL[:, 2] >= 1, 1], [5, 95])
-        axr.fill_between([lo_a, hi_a], y_ + 0.05, y_ + 0.4, color="#D0D0D0", lw=0, zorder=0)
-        axr.fill_between([lo_h, hi_h], y_ - 0.4, y_ - 0.05, color="#A8A8A8", lw=0, zorder=0)
-    else:
-        g_ = WN[cl]; glo_, ghi_ = np.percentile(WB[cl], 5), np.percentile(WB[cl], 95)
-        fe_ = NSEL[cl]["feat"].replace("hoop_z", "Hoop G").replace("hoop_speed_z", "hoop speed")
-    axr.plot([glo_, ghi_], [y_, y_], color=col, lw=2.6)
-    axr.scatter([g_], [y_], color=col, s=80, zorder=3, edgecolor="white")
-    axr.text(1.02, y_, fe_, transform=axr.get_yaxis_transform(), fontsize=12, va="center", color="#333333")
-for a_ in (axl, axr):
-    a_.axvline(0, color="k", lw=0.9); a_.set_ylim(-0.6, 4.1); a_.tick_params(labelsize=12)
-axl.set_yticks(yy); axl.set_yticklabels([r[0] for r in rows3], fontsize=13)
-axr.set_yticks(yy); axr.set_yticklabels([])
-axl.set_xlabel("extra pressures per 450-rush season, per sd", fontsize=12.5)
-axr.set_xlabel("held-out R² change, rush-weighted", fontsize=12.5)
-axl.set_title("Effect of 1 sd of Hoop G", fontsize=13.5, weight="bold", loc="left")
-axr.set_title("Scored on the class left out", fontsize=13.5, weight="bold", loc="left")
-axr.text(1.02, 3.95, "drill the\nfold chose", transform=axr.get_yaxis_transform(), fontsize=11.5, va="bottom",
-         weight="bold")
-fig.suptitle(f"Scored on unseen classes, Hoop G helps in {sum(WN[int(c)] > 0 for c in classes)} of 3 and beats "
-             f"shuffled labels (p = {NUM['perm_p_r2']})", fontsize=14.5, weight="bold", x=0.012, ha="left", y=0.975)
-fig.text(0.012, 0.9, "Left: dot = median, thick = 80%, thin = 90% interval. Right: baseline plus the drill the screen "
-         "chose on the two\ntraining classes, minus the baseline alone (90% interval). Grey: 5th–95th percentile of "
-         f"the same pipeline after\n{NPERM} within-class shuffles of Hoop G; light = all shuffles, dark = shuffles in "
-         f"which the shuffled Hoop G won the screen (p = {NUM['perm_p_r2_h']}).", fontsize=12, color="#333333", va="top")
-save(fig, "fig3_headline.png")
+    rows3.append((f"  {c} class held out (n={len(_Y[c])})", WN[int(c)], np.percentile(WB[c], [5, 95]), "#444444"))
+rows3.append((f"No 3-cone, Hoop G (n={CC['ccnohoop']['n']})", CC["ccnohoop"]["r2"] / 100,
+              np.array([CC["ccnohoop"]["r2_lo"], CC["ccnohoop"]["r2_hi"]]) / 100, OI["green"]))
+rows3.append((f"Has 3-cone, Hoop G on top (n={CC['cc3hoop']['n']})", CC["cc3hoop"]["r2"] / 100,
+              np.array([CC["cc3hoop"]["r2_lo"], CC["cc3hoop"]["r2_hi"]]) / 100, OI["red"]))
+yb = np.array([5.6, 4.6, 3.6, 2.6, 1.2, 0.0])
+lo_a, hi_a = 100 * np.percentile(NULL[:, 1], [5, 95])
+XL = (-30, 35)
+axb.axvspan(lo_a, hi_a, color="#DDDDDD", lw=0, zorder=0)
+axb.text((lo_a + hi_a) / 2, 6.25, f"shuffled Hoop G\n(nested p = {NUM['perm_p_r2']})", fontsize=10.5, zorder=5,
+         bbox=dict(facecolor="white", edgecolor="none", pad=1.0, alpha=0.9), color="#555555", ha="center", va="bottom")
+for y_, (lab, g_, ci_, col) in zip(yb, rows3):
+    lo_, hi_ = np.clip(100 * ci_, XL[0], XL[1])
+    axb.plot([lo_, hi_], [y_, y_], color=col, lw=2.6)
+    if 100 * ci_[0] < XL[0]:
+        axb.annotate("", xy=(XL[0], y_), xytext=(XL[0] + 4, y_), arrowprops=dict(arrowstyle="->", color=col, lw=2))
+    gx = float(np.clip(100 * g_, XL[0] + 1, XL[1]))
+    axb.scatter([gx], [y_], color=col, s=90, zorder=3, edgecolor="white", marker="o" if 100 * g_ > XL[0] else "<")
+    axb.text(gx + (5 if 100 * g_ < XL[0] else 0), y_ + 0.3, f"{100 * g_:+.1f}", fontsize=11, ha="center", color=col, weight="bold")
+axb.axvline(0, color="k", lw=0.9); axb.set_ylim(-0.6, 7.0); axb.set_xlim(*XL)
+axb.set_yticks(yb); axb.set_yticklabels([r[0] for r in rows3], fontsize=11.5)
+axb.set_xlabel("change in R-squared,\npercentage points", fontsize=12)
+axb.set_title("(b) Scored on a class it never saw", fontsize=13.5, weight="bold",
+              loc="left", x=-1.25)
+fig.suptitle("Where both exist the 3-cone is the better number; Hoop G leans positive only where it was skipped", fontsize=14,
+             weight="bold", x=0.012, ha="left", y=0.975)
+fig.text(0.012, 0.915, "(a) Filled dot and 95% bootstrap interval: after pick, weight, role and NGS score (pick and NGS: after "
+         "weight and role);\nopen dot: every rusher with that measure. (b) Model with Hoop G minus the no-tracking model, "
+         "rush-weighted, 90% intervals.\nGrey strip: middle 90% of nested-test gains when Hoop G is shuffled within class.",
+         fontsize=11, color="#333333", va="top")
+save(fig, "fig2_validation.png")
 
-# ---- Fig 4: every 2023-25 call against its out-of-class no-tracking forecast, plus and minus as two blocks
-cv = called[called.pb.notna()].copy()
+# ---- Fig 3: every scored plus call against its out-of-class forecast, split into the tuning classes and 2025
+cv = ba[(ba.call == "plus") & ba.pb.notna()].copy()
 cv["res"] = cv.press_rate - cv.pb
-cv["grp"] = np.where(cv.call == "plus", "plus", "minus")
-_mrole = "all interior" if (cv[cv.grp == "minus"].role == "interior").all() else "mixed roles"
-GRPS = [("plus", "Plus calls (break ties his way)"), ("minus", f"Minus calls ({_mrole}: no call, weight already priced)")]
+SECS = [("tune", "2023–24 classes (helped choose the drill)", cv[cv.draft_year <= 2024]),
+        ("clean", "2025 class (not used to choose the drill)", cv[cv.draft_year == 2025])]
 NOISE = "#666666"
 ylist, rowsd, heads = [], [], []
 y = 0.0
-for gk, gt in GRPS:
-    d_ = cv[cv.grp == gk].sort_values("res", ascending=False)
-    heads.append((y, gt, d_)); y += 1.0
-    for r_ in d_.itertuples():
-        ylist.append(y); rowsd.append(r_); y += 1
+for tg, gt, d_ in SECS:
+    heads.append((y, tg, gt, d_.sort_values("res", ascending=False))); y += 2.0
+    for r_ in heads[-1][3].itertuples():
+        ylist.append(y); rowsd.append(r_); y += 1.55
     y += 0.4
 NR = y
-HH = 0.62 * NR + 2.8
+HH = 0.62 * NR + 2.6
 fig = plt.figure(figsize=(FIGW, HH))
-ax = fig.add_axes([0.47, 1.1 / HH, 0.36, 1 - 2.95 / HH])
+ax = fig.add_axes([0.52, 0.95 / HH, 0.31, 1 - 2.75 / HH])
 ax.spines["left"].set_visible(False)
 XMAX = float(np.ceil(100 * cv.pr_hi.max() + 1))
 for yv, r_ in zip(ylist, rowsd):
     clear_up, clear_dn = r_.pr_lo > r_.pb, r_.pr_hi < r_.pb
     c_ = OI["blue"] if clear_up else (OI["red"] if clear_dn else NOISE)
     ax.plot([100 * r_.pr_lo, 100 * r_.pr_hi], [yv, yv], color="#D9D9D9", lw=10, solid_capstyle="round", zorder=1)
-    ax.annotate("", xy=(100 * r_.press_rate, yv), xytext=(100 * r_.pb, yv),
-                arrowprops=dict(arrowstyle="-|>", color=c_, lw=2.6, mutation_scale=18), zorder=3)
-    ax.scatter([100 * r_.pb], [yv], marker="|", s=260, color="k", lw=2.6, zorder=4)
-    lab_ = "clearly above" if clear_up else ("clearly below" if clear_dn else "in noise")
-    ax.text(1.02, yv, lab_, transform=ax.get_yaxis_transform(), fontsize=15, va="center", color=c_,
+    ax.plot([100 * r_.pb, 100 * r_.press_rate], [yv, yv], color=c_, lw=2.6, zorder=2)
+    ax.scatter([100 * r_.press_rate], [yv], s=150, zorder=4, lw=2.4, color=c_)
+    ax.scatter([100 * r_.pb], [yv], marker="|", s=260, color="k", lw=2.6, zorder=3)
+    lab_ = "beat forecast" if clear_up else ("below forecast" if clear_dn else "in noise")
+    ax.text(1.02, yv, lab_, transform=ax.get_yaxis_transform(), fontsize=13.5, va="center", color=c_,
             weight="bold" if (clear_up or clear_dn) else "normal")
-    # sparkline: his hoop run's sideways g on one shared 0-1.2 g scale, Hoop G value printed inside
     tr = traces[r_.hoop_eid]
-    sp = ax.inset_axes([-0.36, yv - 0.44, 0.3, 0.88], transform=ax.get_yaxis_transform())
+    sp = ax.inset_axes([-0.72, yv - 0.62, 0.6, 1.24], transform=ax.get_yaxis_transform())
     k_ = tr["_k"]
-    sp.axvspan(k_ - 2, k_ + 2, color="#BBBBBB", alpha=0.7, lw=0)
-    sp.plot(np.clip(tr["_alat"], 0, 1.2), color=OI["blue"] if r_.call == "plus" else "#333333", lw=1.6)
-    sp.set_ylim(0, 1.2); sp.set_xlim(0, 90); sp.set_xticks([]); sp.set_yticks([])
+    tt_ = np.arange(len(tr["_alat"])) * DT
+    sp.axvspan((k_ - 2) * DT, (k_ + 2) * DT, color="#BBBBBB", alpha=0.7, lw=0)
+    sp.axhline(float(NUM["hoop_g_median"]), color="#999999", lw=1, ls=":")
+    sp.plot(tt_, np.clip(tr["_alat"], 0, 1.2), color=OI["blue"], lw=1.8)
+    sp.set_ylim(0, 1.2); sp.set_xlim(0, 9); sp.set_xticks([])
+    sp.set_yticks([0, 0.6, 1.2]); sp.tick_params(axis="y", labelsize=10, length=2, pad=1)
     for sp_ in sp.spines.values():
         sp_.set_visible(True); sp_.set_color("#CCCCCC")
-    sp.text(0.03, 0.95, f"{r_.hoop_g:.2f} g", transform=sp.transAxes, fontsize=14, va="top", ha="left", weight="bold",
+    sp.text(0.98, 0.95, f"{r_.hoop_g:.2f} g", transform=sp.transAxes, fontsize=12.5, va="top", ha="right", weight="bold",
             bbox=dict(facecolor="white", edgecolor="none", pad=0.5, alpha=0.85))
 ax.set_yticks(ylist)
-ax.set_yticklabels([f"{r_.display_name} '{r_.draft_year % 100:02d}" for r_ in rowsd], fontsize=15)
-ax.tick_params(axis="y", pad=0.38 * 0.36 * FIGW * 72 + 6, length=0)
-for y0, gt, d_ in heads:
-    nu, ndn = int((d_.pr_lo > d_.pb).sum()), int((d_.pr_hi < d_.pb).sum())
-    ax.text(-0.98, y0 + 0.1, f"{gt}: {nu} above, {ndn} below, {len(d_) - nu - ndn} in noise",
-            transform=ax.get_yaxis_transform(), fontsize=15, weight="bold", va="center")
-ax.set_ylim(NR - 0.3, -0.6); ax.grid(axis="x", color="#EEEEEE", lw=0.6)
-ax.set_xlim(0, XMAX); ax.set_xlabel("NFL pressure rate, %", fontsize=15)
-ax.tick_params(axis="x", labelsize=14)
+ax.set_yticklabels([f"{r_.display_name} ({'EDGE' if r_.role == 'EDGE' else 'Int'})" for r_ in rowsd], fontsize=13.5)
+ax.tick_params(axis="y", pad=0.86 * 0.31 * FIGW * 72 + 6, length=0)
+from matplotlib.transforms import blended_transform_factory
+_bt = blended_transform_factory(fig.transFigure, ax.transData)
+for y0, tg, gt, d_ in heads:
+    k_, n_ = int(NUM[f"fr_{tg}_k"]), int(NUM[f"fr_{tg}_n"])
+    lo_, hi_ = cp(k_, n_)
+    base_ = float(NUM[f"fr_{tg}_base"])
+    ax.text(0.012, y0 - 0.3, gt, transform=_bt, fontsize=14.5, weight="bold", va="center")
+    ax.text(0.012, y0 + 0.55, f"{k_} of {n_} beat forecast (blue bar, exact 90% interval); orange: matched no-call rate "
+            f"{NUM[f'fr_{tg}_base']}%", transform=_bt, fontsize=11.5, va="center", color="#333333")
+    mb = ax.inset_axes([0.05, y0 - 0.65, 0.9, 0.7], transform=ax.get_yaxis_transform())
+    mb.axvspan(max(base_ - 1.2, 0), base_ + 1.2, color=OI["orange"], alpha=0.95, lw=0)
+    mb.plot([100 * lo_, 100 * hi_], [0, 0], color=OI["blue"], lw=3)
+    mb.scatter([100 * k_ / n_], [0], s=80, color=OI["blue"], zorder=3)
+    mb.set_xlim(0, 100); mb.set_ylim(-1, 1); mb.set_yticks([]); mb.set_xticks([0, 50, 100])
+    mb.set_xticklabels(["0%", "50%", "100%"])
+    mb.tick_params(axis="x", labelsize=10, length=2, pad=1)
+    for s_ in ["left", "right", "top"]:
+        mb.spines[s_].set_visible(False)
+ax.set_ylim(NR - 0.3, -0.9); ax.grid(axis="x", color="#EEEEEE", lw=0.6)
+ax.set_xlim(0, XMAX); ax.set_xlabel("NFL pressure rate, %", fontsize=13.5)
+ax.tick_params(axis="x", labelsize=12.5)
 hand = [Line2D([], [], marker="|", color="k", lw=0, markersize=16, markeredgewidth=2.4, label="no-tracking forecast"),
-        Line2D([], [], color=NOISE, lw=2.4, marker=">", label="actual rate"),
-        Line2D([], [], color="#D9D9D9", lw=9, label="80% interval of actual")]
-fig.legend(handles=hand, frameon=False, fontsize=14, loc="lower center", bbox_to_anchor=(0.62, 0.0), ncol=3)
-_pl = cv[cv.grp == "plus"]
-_pu, _pd = int((_pl.pr_lo > _pl.pb).sum()), int((_pl.pr_hi < _pl.pb).sum())
-fig.suptitle(f"{_pu} of {len(_pl)} plus calls beat their no-tracking forecast clearly; "
-             f"{'none' if _pd == 0 else _pd} fell clearly below", fontsize=17, weight="bold", x=0.012, ha="left",
-             y=1 - 0.12 / HH)
-fig.text(0.012, 1 - 0.62 / HH, "Sparkline: his hoop run, sideways g on one 0–1.2 g scale, grey = the half-second that "
-         "sets Hoop G.\n'Clearly' = 80% interval of his actual rate excludes the out-of-class forecast. 2023–24 helped "
-         f"choose the hoop.\nFor scale: {NUM['base_above_pct']}% of rushers without a call landed clearly above, and "
-         f"{NUM['base_int_below_pct']}% of interior DL without a call clearly below.", fontsize=13.5, color="#333333", va="top")
-save(fig, "fig4_calls.png")
-put("plus_n", len(_pl)); put("plus_above", _pu); put("plus_below", _pd)
-pm_ = cv[cv.grp == "minus"]
-put("imin_n", len(pm_)); put("imin_below", int((pm_.pr_hi < pm_.pb).sum()))
+        Line2D([], [], marker="o", color=NOISE, lw=0, markersize=11, label="actual"),
+        Line2D([], [], color="#D9D9D9", lw=9, label="80% interval of actual"),
+        Line2D([], [], color=OI["blue"], lw=1.8, label="hoop run, sideways g (0–1.2 g)")]
+fig.legend(handles=hand, frameon=False, fontsize=12, loc="lower center", bbox_to_anchor=(0.5, 0.0), ncol=4)
+fig.suptitle("Every plus hit came in the classes used to tune the rule; 2025 is in the noise so far", fontsize=15.5,
+             weight="bold", x=0.012, ha="left", y=1 - 0.12 / HH)
+fig.text(0.012, 1 - 0.5 / HH, f"Plus call = 80% interval of noise-corrected Hoop G above zero. Each class is forecast by "
+         f"a no-tracking model fit on the other two.\nSparkline: his hoop run, 0–9 s (dotted: median run {NUM['hoop_g_median']} g; grey: the "
+         "half-second that sets Hoop G).\n'Beat' = 80% interval of actual rate above forecast.",
+         fontsize=11.5, color="#333333", va="top")
+save(fig, "fig3_calls.png")
 
 # ============================================================================= write
 _tick("write")
 TABLES["md"] = MD
-for k_, v_ in MD_TXT.items():
-    MD[k_] = v_
+if os.environ.get("BDB_ALLNUM"):
+    json.dump(NUM, open(os.environ["BDB_ALLNUM"], "w"), indent=1, sort_keys=True)
 used = render(OUT, NUM, MD)
 keep = {k_: NUM[k_] for k_ in sorted(used)}     # exactly the numbers the text uses; claims.json maps each to its sentence
 json.dump(keep, open(OUT / "numbers.json", "w"), indent=1, sort_keys=True)
