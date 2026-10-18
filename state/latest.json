@@ -1,185 +1,186 @@
 {
-  "round": 15,
-  "candidates": [
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_2/",
-      "angle": "Receiver Break G (drill cut force) vs NFL separation; price/protocol verdict, day-3 SOE tiebreaker, Douglas vs Flournoy case",
-      "score": 8.39,
-      "per_judge": {
-        "football": 8.4,
-        "datascience": 8.7,
-        "writeup": 7.6,
-        "viz": 8.7
-      },
-      "fatal_flaws": []
-    },
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_3/",
-      "angle": "Pass-rusher first-step speed curves, Combine 40 vs NFL starts; two-signal 'Both' shortlist (8 of 10)",
-      "score": 8.18,
-      "per_judge": {
-        "football": 8.0,
-        "datascience": 8.2,
-        "writeup": 8.1,
-        "viz": 8.5
-      },
-      "fatal_flaws": []
-    },
-    {
-      "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_1/",
-      "angle": "Pass-rusher Run-the-Hoop lateral g (Hoop G) as day-3 tiebreaker; get-off chain",
-      "score": 8.11,
-      "per_judge": {
-        "football": 7.9,
-        "datascience": 8.0,
-        "writeup": 8.3,
-        "viz": 8.4
-      },
-      "fatal_flaws": []
-    }
-  ],
-  "winner": {
-    "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/revised/",
-    "score": 8.51,
-    "per_judge": {
-      "football": 8.5,
-      "datascience": 8.6,
-      "writeup": 8.2,
-      "viz": 8.7
-    },
-    "fatal_flaws": []
+ "round": 15,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_2/",
+   "angle": "Receiver Break G (drill cut force) vs NFL separation; price/protocol verdict, day-3 SOE tiebreaker, Douglas vs Flournoy case",
+   "score": 8.39,
+   "per_judge": {
+    "football": 8.4,
+    "datascience": 8.7,
+    "writeup": 7.6,
+    "viz": 8.7
+   },
+   "fatal_flaws": []
   },
-  "winner_feedback": {
-    "judge-football": {
-      "score": 8.5,
-      "subscores": {
-        "usable": 8.6,
-        "confounders": 9,
-        "unique": 8.1,
-        "terminology": 8.4
-      },
-      "justification": "Usable (8.6): The writeup gives a clear roster decision, a 13-name 2026 shortlist with team, alignment, games, % vs man and QB, and a worked Boutte vs Washington case with a dollar and catches consequence. It also gives concrete protocol advice (double-rep slant, dagger and comeback; read speed from the official 40). The weakness is that the actionable core is a day-3 tiebreaker whose own interval includes zero, with 7 of 13 vs 6 of 13 hits and 20 pairs. The Boutte/Washington case is a hand-picked pair that the text itself calls atypical, and the price of 9% vs 14% is still stated inconsistently in action item 2. Confounders (9.0): It handles opportunity (pick and routes baseline), alignment and man coverage, QB adjustment, route mix, survivorship (IPW selection model), and games played as an injury proxy. It handles single-rep noise with an errors-in-variables family model, the 0.3 s clip-start issue, year-standardization, and the 40-play sample. Remaining gaps are that injuries are only a rough proxy and the shortlist has no scheme-level or injury notes beyond games. Unique (8.1): Tracing the same cut from drill to NFL snaps, with the same code on both sides, is a genuinely different question from the public 40-time audits. A forecast of separation over expected from NGS adds to that. The result is mostly null, and the shortlist is a persistence model, which is less novel. Terminology (8.4): Terms are right (SOE, slot/wide/inline, man coverage, route families, day-3, UDFA), and players are named with teams and quarterbacks. Minor issues are the dense metric and statistical language for a scout, and the 9%/14% inconsistency between the table and the text. Overall: a modest, honest improvement on round 14 and still very dense.",
-      "top_changes": [
-        "Resolve the numeric inconsistencies a judge will catch. Action item 2 says 9% in the brief but 'earlier 9%, 14% beyond the 40...' in the text. The abstract-level gain is 0.63 [-0.08, 0.90] in the table but 0.31 [-0.08, 0.63] in the appendix, and the 'true correlation 0.02' differs from the earlier rho of -0.11. Pick one metric per claim, label the other as a different estimand, and state the price figure once.",
-        "Make the shortlist more usable as a draft-room tool. Add a single injury or availability flag, role and scheme note (slot vs wide, man share) for each name. Show a hit/miss history of the rule on prior-season names, so a GM sees what 7 of 13 means in actual players rather than aggregate stats. Replace the unrepresentative Boutte/Washington case with, or add, a typical pair next to it.",
-        "Cut analyst-only machinery from the main text (family Gibbs model, rank-gain intervals, calibration detail) into the appendix. Lead with the one-sentence football finding and the decision rule, and spend the freed words on a concrete 2026 Combine drill protocol: which drills, how many reps, and what reliability gain."
-      ],
-      "fatal_flaws": []
-    },
-    "judge-datascience": {
-      "score": 8.6,
-      "subscores": {
-        "correctness": 8.8,
-        "evidence": 8.7,
-        "model": 8.6,
-        "innovation": 8.4
-      },
-      "justification": "Spot-checked three reported numbers against the data and all matched: Washington and Boutte 2025 route counts (339 and 357), games (17 and 14), picks (184 and 187). Did not re-run the roughly 10-minute analysis.py, so headline slope, reliability and calibration numbers are unverified. The design is strong: no-tracking baseline fixed before the test (log pick, 40, weight, NGS score, TE flag); validation on held-out classes, with intervals and sample sizes per claim; Break G standardized within drill and Combine year; measurement-error model for single-rep reliability; selection model with IPW, TOST-style bound, permutation test and calibration. Model sizes fit n (ridge, random intercepts, errors-in-variables). The new metric built from the 10 Hz signal (break detection, drill-to-play matching on route families) is a real innovation. Weaknesses: the same day-3 gain appears as 0.63 [-0.08, 0.90] in the main table (leave-one-out) and 0.31 [-0.08, 0.63] in the appendix (season fold) with no explanation; the day-3 evidence is weak (interval includes 0, wins 1 of 2 season folds, shuffle p 0.11) yet the 'Clearer in the larger pool' row leans on it; the worked pair is picked by drill cut and its median-gap context is selective; drill-to-NFL transfer appears as 0.02 [-0.27, 0.32] here and rho -0.11 [-0.25, 0.04] in the previous round, unreconciled; the 'p against +3 in' column is a loosely labelled one-sided p; day-3 sample is small (20 pairs) and earlier rounds saw all classes, so the test is not blind (the writeup says so).",
-      "top_changes": [
-        "Reconcile the two day-3 gain figures. Show one table with the leave-one-receiver-out gain (0.63 [-0.08, 0.90]) and the season-fold gain (0.31 [-0.08, 0.63]) side by side, with one line on why they differ. Report both the estimator and the n for each. Use the same table to reconcile the transfer estimate (0.02 in the main table vs -0.11 elsewhere).",
-        "Pre-register the 2026 holdout. Freeze frozen_rule.json with a hash and a committed date, and report the day-3 hit rate and rank-correlation target with the power calculation. Drop the 'Clearer in the larger pool' verdict row, since that pool is not independent of the rule's tuning.",
-        "Replace the single hand-picked Boutte/Washington pair with a pre-specified contrast. Take all 24 pick- and routes-matched day-3 pairs and report how often the higher shrunk-SOE receiver had higher 2026-style outcomes under leave-one-out. Add a bootstrap interval, and keep the pair only as an illustration."
-      ],
-      "fatal_flaws": []
-    },
-    "judge-writeup": {
-      "score": 8.2,
-      "subscores": {
-        "clarity": 8.2,
-        "structure": 8.4,
-        "motivation": 8,
-        "density": 7.4
-      },
-      "justification": "check.py passes (1,969 words, 4 figures, 3 tables), so no auto-cap. The title and bolded lede state the finding in plain words, and the verdict table is the right opening move. Structure is close to the finalist pattern: roster decision, what to do, worked case, evidence, shortlist, limitations, appendix. The worked case (Boutte vs Washington) gives a real dollar and catch consequence. Four things hold the score down. (1) Density: words sit close to the cap, packed with analyst-only detail (Gibbs sampler, errors-in-variables, Platt rescaling, nested cross-fit, shuffle nulls, 90% intervals on every line); several paragraphs read as run-on number strings. (2) Internal inconsistency: day-3 table row says gain 0.63 [-0.08, 0.90], appendix says 0.31 [-0.08, 0.63]; price is 9% in one place and 14% in another with a confusing 'earlier rounds' aside; the table says 'No visible transfer' with n=99 while the drill section cites 115. (3) The Boutte/Washington case was picked by drill cut after seeing outcomes, and the text admits the pair is atypical (median gap 30 points). (4) The metric definition runs three sentences, and 'sd of true Break G' is not something a coach can repeat. The second headline (SOE tiebreaker) is admittedly not significant, yet the writeup spends a lot of space on it. Limitations and 'Reading:' sentences stack hedges.",
-      "top_changes": [
-        "Reconcile and cut the headline numbers. The day-3 table row (gain 0.63 [-0.08, 0.90]) disagrees with the appendix (0.31 [-0.08, 0.63]). The price is given as 9% and 14% in the same bullet ('the figure quoted in earlier rounds'). The transfer n is 99 in one place and 115 in another. Pick one number per claim, delete all 'earlier rounds' references, and make the table and the appendix match.",
-        "Strip analyst-only machinery from the main body. Move the 'How the rule scored' nested-test bullet, the Gibbs and errors-in-variables family-model description, the Platt calibration details and the 'Reading:' sentence to the appendix. Replace them with one sentence each, for example 'Every route family's interval includes zero.' That should free about 250 words for a plain-language 'why now / why receivers' paragraph.",
-        "Rewrite the metric block and fix the worked case. Define Break G in one repeatable sentence ('how hard a receiver pushes off the ground at the sharpest point of his cut') and move the sd and NGS definitions to a footnote. Present Boutte/Washington as an illustration chosen for contrast, not a result: drop 'Keep Washington. A drill-priced board would have done the opposite' or qualify it. Then lead the shortlist with the three or four names the reader should actually act on."
-      ],
-      "suggested_title": "Combine Cutting Force Doesn't Buy NFL Separation; Last Season's Separation Is a Small Edge for Day-3 Receivers",
-      "fatal_flaws": []
-    },
-    "judge-viz": {
-      "score": 8.7,
-      "subscores": {
-        "accessible": 8.5,
-        "accurate": 8.8,
-        "innovative": 9,
-        "economy": 9.2
-      },
-      "justification": "Four tracking-native, honest figures with small multiples, drill-vs-game paths and uncertainty. Minor issues: small text in Fig 1 readouts, legend overlap in Fig 3, mixed evidence in Fig 4B, and the price figure (9% vs 14%) in the text needs reconciling with the figures.",
-      "top_changes": [
-        "Fig 1: drop the six-card extremes grid in favour of a two-row layout (2 cut-up hitters, 2 cut-down) or add a gray 'median receiver' path as a reference. Replace the per-card text block with a small inline tick/bar showing Combine vs NFL Break G on one shared axis. Add the pooled drill-to-NFL rho in the banner. Keep the caption's regression-to-mean warning.",
-        "Fig 4: panel B mixes day-3 and all-rounds, and the grey diamond (+0.68, all rounds) is the strongest-looking point, which sits against the 'tiebreaker' title. Put it in the appendix or label it as not the claim. Enlarge panel C and add the 2026 shortlist's forecast bins. Add check/cross marks for the pick+routes list so hit/miss counts (7 of 13 vs 6 of 13) can be read straight off panel A. Fix the duplicated lollipop ordering ties and tiny 'next > 0?' header. Shrink A's footprint.",
-        "Fig 2C and Fig 3: Fig 2C should grey the near-zero-power slices and state in the figure the price figure used in text (9% vs 14%); add a short 'what +3 in would look like' band. Fig 3: add a small multiple of the league IQR band instead of a lone median, put the legend outside the data area, and increase the annotation font."
-      ],
-      "fatal_flaws": []
-    }
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_3/",
+   "angle": "Pass-rusher first-step speed curves, Combine 40 vs NFL starts; two-signal 'Both' shortlist (8 of 10)",
+   "score": 8.18,
+   "per_judge": {
+    "football": 8.0,
+    "datascience": 8.2,
+    "writeup": 8.1,
+    "viz": 8.5
+   },
+   "fatal_flaws": []
   },
-  "changelog": [
-    "Revised cand_2 (receiver Break G) lineage into writeup/candidates/round_15/revised: 1,969 words, 4 figures, 3 tables, check.py passes.",
-    "Added IPW selection model, receiver random-intercept model, shuffle tests, calibration and errors-in-variables family model for the day-3 SOE and Break G claims.",
-    "Replaced the extremes-only worked case with Boutte vs Washington (pick 187 vs 184, routes 357 vs 339) with dollar and catch consequence; added 13-name 2026 shortlist with team, QB, % vs man.",
-    "Reframed lede as null for Combine cut force plus small day-3 tiebreaker; added double-rep slant/dagger/comeback protocol and read speed from the official 40.",
-    "Open items: reconcile 0.63 vs 0.31 day-3 gain and 9% vs 14% price, cut analyst machinery to appendix, pre-register 2026 holdout."
-  ],
-  "history": [
-    {
-      "round": 1,
-      "score": 7.01
-    },
-    {
-      "round": 2,
-      "score": 7.51
-    },
-    {
-      "round": 3,
-      "score": 7.86
-    },
-    {
-      "round": 4,
-      "score": 8.05
-    },
-    {
-      "round": 5,
-      "score": 7.96
-    },
-    {
-      "round": 6,
-      "score": 8.12
-    },
-    {
-      "round": 7,
-      "score": 8.18
-    },
-    {
-      "round": 8,
-      "score": 8.21
-    },
-    {
-      "round": 9,
-      "score": 8.26
-    },
-    {
-      "round": 10,
-      "score": 8.27
-    },
-    {
-      "round": 11,
-      "score": 8.29
-    },
-    {
-      "round": 12,
-      "score": 8.41
-    },
-    {
-      "round": 13,
-      "score": 8.45
-    },
-    {
-      "round": 14,
-      "score": 8.48
-    }
-  ],
-  "previous_score": 8.48
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/cand_1/",
+   "angle": "Pass-rusher Run-the-Hoop lateral g (Hoop G) as day-3 tiebreaker; get-off chain",
+   "score": 8.11,
+   "per_judge": {
+    "football": 7.9,
+    "datascience": 8.0,
+    "writeup": 8.3,
+    "viz": 8.4
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_15/revised/",
+  "score": 8.51,
+  "per_judge": {
+   "football": 8.5,
+   "datascience": 8.6,
+   "writeup": 8.2,
+   "viz": 8.7
+  },
+  "fatal_flaws": []
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.5,
+   "subscores": {
+    "usable": 8.6,
+    "confounders": 9,
+    "unique": 8.1,
+    "terminology": 8.4
+   },
+   "justification": "Usable (8.6): The writeup gives a clear roster decision, a 13-name 2026 shortlist with team, alignment, games, % vs man and QB, and a worked Boutte vs Washington case with a dollar and catches consequence. It also gives concrete protocol advice (double-rep slant, dagger and comeback; read speed from the official 40). The weakness is that the actionable core is a day-3 tiebreaker whose own interval includes zero, with 7 of 13 vs 6 of 13 hits and 20 pairs. The Boutte/Washington case is a hand-picked pair that the text itself calls atypical, and the price of 9% vs 14% is still stated inconsistently in action item 2. Confounders (9.0): It handles opportunity (pick and routes baseline), alignment and man coverage, QB adjustment, route mix, survivorship (IPW selection model), and games played as an injury proxy. It handles single-rep noise with an errors-in-variables family model, the 0.3 s clip-start issue, year-standardization, and the 40-play sample. Remaining gaps are that injuries are only a rough proxy and the shortlist has no scheme-level or injury notes beyond games. Unique (8.1): Tracing the same cut from drill to NFL snaps, with the same code on both sides, is a genuinely different question from the public 40-time audits. A forecast of separation over expected from NGS adds to that. The result is mostly null, and the shortlist is a persistence model, which is less novel. Terminology (8.4): Terms are right (SOE, slot/wide/inline, man coverage, route families, day-3, UDFA), and players are named with teams and quarterbacks. Minor issues are the dense metric and statistical language for a scout, and the 9%/14% inconsistency between the table and the text. Overall: a modest, honest improvement on round 14 and still very dense.",
+   "top_changes": [
+    "Resolve the numeric inconsistencies a judge will catch. Action item 2 says 9% in the brief but 'earlier 9%, 14% beyond the 40...' in the text. The abstract-level gain is 0.63 [-0.08, 0.90] in the table but 0.31 [-0.08, 0.63] in the appendix, and the 'true correlation 0.02' differs from the earlier rho of -0.11. Pick one metric per claim, label the other as a different estimand, and state the price figure once.",
+    "Make the shortlist more usable as a draft-room tool. Add a single injury or availability flag, role and scheme note (slot vs wide, man share) for each name. Show a hit/miss history of the rule on prior-season names, so a GM sees what 7 of 13 means in actual players rather than aggregate stats. Replace the unrepresentative Boutte/Washington case with, or add, a typical pair next to it.",
+    "Cut analyst-only machinery from the main text (family Gibbs model, rank-gain intervals, calibration detail) into the appendix. Lead with the one-sentence football finding and the decision rule, and spend the freed words on a concrete 2026 Combine drill protocol: which drills, how many reps, and what reliability gain."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.6,
+   "subscores": {
+    "correctness": 8.8,
+    "evidence": 8.7,
+    "model": 8.6,
+    "innovation": 8.4
+   },
+   "justification": "Spot-checked three reported numbers against the data and all matched: Washington and Boutte 2025 route counts (339 and 357), games (17 and 14), picks (184 and 187). Did not re-run the roughly 10-minute analysis.py, so headline slope, reliability and calibration numbers are unverified. The design is strong: no-tracking baseline fixed before the test (log pick, 40, weight, NGS score, TE flag); validation on held-out classes, with intervals and sample sizes per claim; Break G standardized within drill and Combine year; measurement-error model for single-rep reliability; selection model with IPW, TOST-style bound, permutation test and calibration. Model sizes fit n (ridge, random intercepts, errors-in-variables). The new metric built from the 10 Hz signal (break detection, drill-to-play matching on route families) is a real innovation. Weaknesses: the same day-3 gain appears as 0.63 [-0.08, 0.90] in the main table (leave-one-out) and 0.31 [-0.08, 0.63] in the appendix (season fold) with no explanation; the day-3 evidence is weak (interval includes 0, wins 1 of 2 season folds, shuffle p 0.11) yet the 'Clearer in the larger pool' row leans on it; the worked pair is picked by drill cut and its median-gap context is selective; drill-to-NFL transfer appears as 0.02 [-0.27, 0.32] here and rho -0.11 [-0.25, 0.04] in the previous round, unreconciled; the 'p against +3 in' column is a loosely labelled one-sided p; day-3 sample is small (20 pairs) and earlier rounds saw all classes, so the test is not blind (the writeup says so).",
+   "top_changes": [
+    "Reconcile the two day-3 gain figures. Show one table with the leave-one-receiver-out gain (0.63 [-0.08, 0.90]) and the season-fold gain (0.31 [-0.08, 0.63]) side by side, with one line on why they differ. Report both the estimator and the n for each. Use the same table to reconcile the transfer estimate (0.02 in the main table vs -0.11 elsewhere).",
+    "Pre-register the 2026 holdout. Freeze frozen_rule.json with a hash and a committed date, and report the day-3 hit rate and rank-correlation target with the power calculation. Drop the 'Clearer in the larger pool' verdict row, since that pool is not independent of the rule's tuning.",
+    "Replace the single hand-picked Boutte/Washington pair with a pre-specified contrast. Take all 24 pick- and routes-matched day-3 pairs and report how often the higher shrunk-SOE receiver had higher 2026-style outcomes under leave-one-out. Add a bootstrap interval, and keep the pair only as an illustration."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8.2,
+   "subscores": {
+    "clarity": 8.2,
+    "structure": 8.4,
+    "motivation": 8,
+    "density": 7.4
+   },
+   "justification": "check.py passes (1,969 words, 4 figures, 3 tables), so no auto-cap. The title and bolded lede state the finding in plain words, and the verdict table is the right opening move. Structure is close to the finalist pattern: roster decision, what to do, worked case, evidence, shortlist, limitations, appendix. The worked case (Boutte vs Washington) gives a real dollar and catch consequence. Four things hold the score down. (1) Density: words sit close to the cap, packed with analyst-only detail (Gibbs sampler, errors-in-variables, Platt rescaling, nested cross-fit, shuffle nulls, 90% intervals on every line); several paragraphs read as run-on number strings. (2) Internal inconsistency: day-3 table row says gain 0.63 [-0.08, 0.90], appendix says 0.31 [-0.08, 0.63]; price is 9% in one place and 14% in another with a confusing 'earlier rounds' aside; the table says 'No visible transfer' with n=99 while the drill section cites 115. (3) The Boutte/Washington case was picked by drill cut after seeing outcomes, and the text admits the pair is atypical (median gap 30 points). (4) The metric definition runs three sentences, and 'sd of true Break G' is not something a coach can repeat. The second headline (SOE tiebreaker) is admittedly not significant, yet the writeup spends a lot of space on it. Limitations and 'Reading:' sentences stack hedges.",
+   "top_changes": [
+    "Reconcile and cut the headline numbers. The day-3 table row (gain 0.63 [-0.08, 0.90]) disagrees with the appendix (0.31 [-0.08, 0.63]). The price is given as 9% and 14% in the same bullet ('the figure quoted in earlier rounds'). The transfer n is 99 in one place and 115 in another. Pick one number per claim, delete all 'earlier rounds' references, and make the table and the appendix match.",
+    "Strip analyst-only machinery from the main body. Move the 'How the rule scored' nested-test bullet, the Gibbs and errors-in-variables family-model description, the Platt calibration details and the 'Reading:' sentence to the appendix. Replace them with one sentence each, for example 'Every route family's interval includes zero.' That should free about 250 words for a plain-language 'why now / why receivers' paragraph.",
+    "Rewrite the metric block and fix the worked case. Define Break G in one repeatable sentence ('how hard a receiver pushes off the ground at the sharpest point of his cut') and move the sd and NGS definitions to a footnote. Present Boutte/Washington as an illustration chosen for contrast, not a result: drop 'Keep Washington. A drill-priced board would have done the opposite' or qualify it. Then lead the shortlist with the three or four names the reader should actually act on."
+   ],
+   "suggested_title": "Combine Cutting Force Doesn't Buy NFL Separation; Last Season's Separation Is a Small Edge for Day-3 Receivers",
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.7,
+   "subscores": {
+    "accessible": 8.5,
+    "accurate": 8.8,
+    "innovative": 9,
+    "economy": 9.2
+   },
+   "justification": "Four tracking-native, honest figures with small multiples, drill-vs-game paths and uncertainty. Minor issues: small text in Fig 1 readouts, legend overlap in Fig 3, mixed evidence in Fig 4B, and the price figure (9% vs 14%) in the text needs reconciling with the figures.",
+   "top_changes": [
+    "Fig 1: drop the six-card extremes grid in favour of a two-row layout (2 cut-up hitters, 2 cut-down) or add a gray 'median receiver' path as a reference. Replace the per-card text block with a small inline tick/bar showing Combine vs NFL Break G on one shared axis. Add the pooled drill-to-NFL rho in the banner. Keep the caption's regression-to-mean warning.",
+    "Fig 4: panel B mixes day-3 and all-rounds, and the grey diamond (+0.68, all rounds) is the strongest-looking point, which sits against the 'tiebreaker' title. Put it in the appendix or label it as not the claim. Enlarge panel C and add the 2026 shortlist's forecast bins. Add check/cross marks for the pick+routes list so hit/miss counts (7 of 13 vs 6 of 13) can be read straight off panel A. Fix the duplicated lollipop ordering ties and tiny 'next > 0?' header. Shrink A's footprint.",
+    "Fig 2C and Fig 3: Fig 2C should grey the near-zero-power slices and state in the figure the price figure used in text (9% vs 14%); add a short 'what +3 in would look like' band. Fig 3: add a small multiple of the league IQR band instead of a lone median, put the legend outside the data area, and increase the annotation font."
+   ],
+   "fatal_flaws": []
+  }
+ },
+ "changelog": [
+  "Revised cand_2 (receiver Break G) lineage into writeup/candidates/round_15/revised: 1,969 words, 4 figures, 3 tables, check.py passes.",
+  "Added IPW selection model, receiver random-intercept model, shuffle tests, calibration and errors-in-variables family model for the day-3 SOE and Break G claims.",
+  "Replaced the extremes-only worked case with Boutte vs Washington (pick 187 vs 184, routes 357 vs 339) with dollar and catch consequence; added 13-name 2026 shortlist with team, QB, % vs man.",
+  "Reframed lede as null for Combine cut force plus small day-3 tiebreaker; added double-rep slant/dagger/comeback protocol and read speed from the official 40.",
+  "Open items: reconcile 0.63 vs 0.31 day-3 gain and 9% vs 14% price, cut analyst machinery to appendix, pre-register 2026 holdout."
+ ],
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  }
+ ],
+ "previous_score": 8.48,
+ "done": true
 }
