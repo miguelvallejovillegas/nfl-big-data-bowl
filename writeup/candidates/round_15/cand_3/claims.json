@@ -1,0 +1,678 @@
+{
+ "b_burch_fc": {
+  "value": "8.5",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast. He "
+ },
+ "b_burch_rate": {
+  "value": "5.8",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast. He "
+ },
+ "b_smith_fc": {
+  "value": "7.7",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast. He "
+ },
+ "b_smith_rate": {
+  "value": "3.9",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast. He "
+ },
+ "b_smith_t": {
+  "value": "48",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast. He "
+ },
+ "brier_base": {
+  "value": "0.253",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "brier_rule": {
+  "value": "0.212",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "calib_oo": {
+  "value": "27",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "calib_os": {
+  "value": "80",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "calib_po": {
+  "value": "28",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "calib_ps": {
+  "value": "69",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ceil_2rep": {
+  "value": "0.67",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "dl40_2rep": {
+  "value": "90",
+  "claim": "3. **Measurement: chart 24 or more random rushes per young rusher** before trusting his first step (reliability 0.7; 8 rushes give 0.44). Do not add Combine 40 reps for this: 90% o"
+ },
+ "dr_med_40": {
+  "value": "6.8",
+  "claim": "**First step = a lineman's speed 0.3 to 0.5 s after he first moves.** In that window the 40 and a pass rush are the same movement; by 1.5 s they part (6.8 yd/s in the 40, 3.1 on a "
+ },
+ "dr_med_sunday": {
+  "value": "3.1",
+  "claim": "**First step = a lineman's speed 0.3 to 0.5 s after he first moves.** In that window the 40 and a pass rush are the same movement; by 1.5 s they part (6.8 yd/s in the 40, 3.1 on a "
+ },
+ "g_DB_rel": {
+  "value": "0.20",
+  "claim": "DL is the clearest of five groups screened (Figure 2C). Receivers' NFL starts are readable (reliability 0.72) but do not pay (-0.05); OL, DB and TE starts are too noisy from about "
+ },
+ "g_OL_rel": {
+  "value": "0.14",
+  "claim": "DL is the clearest of five groups screened (Figure 2C). Receivers' NFL starts are readable (reliability 0.72) but do not pay (-0.05); OL, DB and TE starts are too noisy from about "
+ },
+ "g_WR_pay": {
+  "value": "-0.05",
+  "claim": "DL is the clearest of five groups screened (Figure 2C). Receivers' NFL starts are readable (reliability 0.72) but do not pay (-0.05); OL, DB and TE starts are too noisy from about "
+ },
+ "g_WR_rel": {
+  "value": "0.72",
+  "claim": "DL is the clearest of five groups screened (Figure 2C). Receivers' NFL starts are readable (reliability 0.72) but do not pay (-0.05); OL, DB and TE starts are too noisy from about "
+ },
+ "ht_c40_hi": {
+  "value": "0.7",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "ht_c40_lo": {
+  "value": "-0.2",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "ht_c40_p": {
+  "value": "0.48",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ht_c40_pp": {
+  "value": "0.3",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "ht_carry_hi": {
+  "value": "0.5",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "ht_carry_lo": {
+  "value": "-0.1",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "ht_carry_p": {
+  "value": "0.48",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ht_carry_pp": {
+  "value": "0.2",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "ht_nfl_hi": {
+  "value": "1.4",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "ht_nfl_lo": {
+  "value": "0.1",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "ht_nfl_p": {
+  "value": "0.01",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ht_nfl_p_adj": {
+  "value": "0.02",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ht_nfl_pp": {
+  "value": "0.8",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "ht_nwin": {
+  "value": 11,
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ipw_gap": {
+  "value": "53",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "ipw_gap_hi": {
+  "value": "77",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "ipw_gap_lo": {
+  "value": "27",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "ipw_hi": {
+  "value": "1.3",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ipw_ho": {
+  "value": "27",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ipw_hs": {
+  "value": "79",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ipw_lo": {
+  "value": "0.4",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "ipw_pp": {
+  "value": "0.9",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "l26_adetomiwaadeba_fc": {
+  "value": "7.0",
+  "claim": "| Adetomiwa Adebawore (2023, 110, IND) | interior | 14 / 51 | 100 | 77 | 8.6% vs 7.0% (511) |"
+ },
+ "l26_adetomiwaadeba_rate": {
+  "value": "8.6",
+  "claim": "| Adetomiwa Adebawore (2023, 110, IND) | interior | 14 / 51 | 100 | 77 | 8.6% vs 7.0% (511) |"
+ },
+ "l26_byronmurphy_fc": {
+  "value": "9.0",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | 3 / 34 | 81 | 86 | 10.0% vs 9.0% (682) |"
+ },
+ "l26_byronmurphy_rate": {
+  "value": "10.0",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | 3 / 34 | 81 | 86 | 10.0% vs 9.0% (682) |"
+ },
+ "l26_byronyoung_fc": {
+  "value": "8.6",
+  "claim": "| Byron Young (2023, 77, LAR) | hand-down end | 0 / 51 | 89 | 96 | 11.3% vs 8.6% (1501) |"
+ },
+ "l26_byronyoung_rate": {
+  "value": "11.3",
+  "claim": "| Byron Young (2023, 77, LAR) | hand-down end | 0 / 51 | 89 | 96 | 11.3% vs 8.6% (1501) |"
+ },
+ "l26_cedricjohnson_fc": {
+  "value": "7.4",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | 18 / 34 | 70 | 91 | 13.0% vs 7.4% (216) |"
+ },
+ "l26_cedricjohnson_rate": {
+  "value": "13.0",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | 18 / 34 | 70 | 91 | 13.0% vs 7.4% (216) |"
+ },
+ "l26_choprobinson_fc": {
+  "value": "10.1",
+  "claim": "| Chop Robinson (2024, 21, MIA) | hand-down end | 2 / 34 | 98 | 97 | 11.8% vs 10.1% (726) |"
+ },
+ "l26_choprobinson_rate": {
+  "value": "11.8",
+  "claim": "| Chop Robinson (2024, 21, MIA) | hand-down end | 2 / 34 | 98 | 97 | 11.8% vs 10.1% (726) |"
+ },
+ "l26_jordanburch_fc": {
+  "value": "8.4",
+  "claim": "| Jordan Burch (2025, 78, ARI) | hand-down end | 0 / 17 | 85 | 88 | 5.8% vs 8.4% (344) |"
+ },
+ "l26_jordanburch_rate": {
+  "value": "5.8",
+  "claim": "| Jordan Burch (2025, 78, ARI) | hand-down end | 0 / 17 | 85 | 88 | 5.8% vs 8.4% (344) |"
+ },
+ "l26_rukeorhorhoro_fc": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, ATL) | interior | 9 / 34 | 69 | 99 | 8.2% vs 8.2% (498) |"
+ },
+ "l26_rukeorhorhoro_rate": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, ATL) | interior | 9 / 34 | 69 | 99 | 8.2% vs 8.2% (498) |"
+ },
+ "l26_tvondresweat_fc": {
+  "value": "7.0",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | 5 / 34 | 74 | 87 | 7.7% vs 7.0% (496) |"
+ },
+ "l26_tvondresweat_rate": {
+  "value": "7.7",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | 5 / 34 | 74 | 87 | 7.7% vs 7.0% (496) |"
+ },
+ "l26_tyrobinson_fc": {
+  "value": "7.2",
+  "claim": "| Ty Robinson (2025, 111, PHI) | interior | 8 / 17 | 69 | 90 | 0.0% vs 7.2% (55) |"
+ },
+ "l26_tyrobinson_rate": {
+  "value": "0.0",
+  "claim": "| Ty Robinson (2025, 111, PHI) | interior | 8 / 17 | 69 | 90 | 0.0% vs 7.2% (55) |"
+ },
+ "l26_yasirabdullah_fc": {
+  "value": "8.1",
+  "claim": "| Yasir Abdullah (2023, 136, JAX) | hand-down end | 33 / 51 | 54 | 72 | 6.0% vs 8.1% (149) |"
+ },
+ "l26_yasirabdullah_rate": {
+  "value": "6.0",
+  "claim": "| Yasir Abdullah (2023, 136, JAX) | hand-down end | 33 / 51 | 54 | 72 | 6.0% vs 8.1% (149) |"
+ },
+ "l26_yayadiaby_fc": {
+  "value": "8.3",
+  "claim": "| YaYa Diaby (2023, 82, TB) | hand-down end | 0 / 51 | 93 | 94 | 10.5% vs 8.3% (1420) |"
+ },
+ "l26_yayadiaby_rate": {
+  "value": "10.5",
+  "claim": "| YaYa Diaby (2023, 82, TB) | hand-down end | 0 / 51 | 93 | 94 | 10.5% vs 8.3% (1420) |"
+ },
+ "mm_hi": {
+  "value": "1.2",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "mm_lo": {
+  "value": "0.2",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "mm_pp": {
+  "value": "0.7",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "mm_sd": {
+  "value": "0.24",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "mm_seasons": {
+  "value": 137,
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "n_gplayer": {
+  "value": 85,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "n_pay": {
+  "value": 69,
+  "claim": "*Table 3. Percentiles within the 69-rusher pool.*"
+ },
+ "n_snaps_dl": {
+  "value": 1563,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "n_tr": {
+  "value": 67,
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "pow_cls": {
+  "value": "47",
+  "claim": "- **Small lists.** Ten rushers, nine from 2023–24, three on day 3. One new class gives the slope test 47% power."
+ },
+ "rb_d3_gap": {
+  "value": "39",
+  "claim": "| Day-3 picks and UDFAs only (pick 103+) | 2 of 3 | 9 of 33 | 39 [-26, 82] | 0.22 |"
+ },
+ "rb_d3_hi": {
+  "value": "82",
+  "claim": "| Day-3 picks and UDFAs only (pick 103+) | 2 of 3 | 9 of 33 | 39 [-26, 82] | 0.22 |"
+ },
+ "rb_d3_lo": {
+  "value": "-26",
+  "claim": "| Day-3 picks and UDFAs only (pick 103+) | 2 of 3 | 9 of 33 | 39 [-26, 82] | 0.22 |"
+ },
+ "rb_d3_p": {
+  "value": "0.22",
+  "claim": "| Day-3 picks and UDFAs only (pick 103+) | 2 of 3 | 9 of 33 | 39 [-26, 82] | 0.22 |"
+ },
+ "rb_full_gap": {
+  "value": "35",
+  "claim": "| Forecast also knows the official 40 time and NGS get-off | 6 of 10 | 15 of 59 | 35 [8, 62] | 0.07 |"
+ },
+ "rb_full_hi": {
+  "value": "62",
+  "claim": "| Forecast also knows the official 40 time and NGS get-off | 6 of 10 | 15 of 59 | 35 [8, 62] | 0.07 |"
+ },
+ "rb_full_lo": {
+  "value": "8",
+  "claim": "| Forecast also knows the official 40 time and NGS get-off | 6 of 10 | 15 of 59 | 35 [8, 62] | 0.07 |"
+ },
+ "rb_full_p": {
+  "value": "0.07",
+  "claim": "| Forecast also knows the official 40 time and NGS get-off | 6 of 10 | 15 of 59 | 35 [8, 62] | 0.07 |"
+ },
+ "rb_main_gap": {
+  "value": "53",
+  "claim": "| Main: pick, weight, role forecast; cut-offs from the other two classes | 8 of 10 | 16 of 59 | 53 [28, 75] | 0.009 |"
+ },
+ "rb_main_hi": {
+  "value": "75",
+  "claim": "| Main: pick, weight, role forecast; cut-offs from the other two classes | 8 of 10 | 16 of 59 | 53 [28, 75] | 0.009 |"
+ },
+ "rb_main_lo": {
+  "value": "28",
+  "claim": "| Main: pick, weight, role forecast; cut-offs from the other two classes | 8 of 10 | 16 of 59 | 53 [28, 75] | 0.009 |"
+ },
+ "rb_main_p": {
+  "value": "0.009",
+  "claim": "| Main: pick, weight, role forecast; cut-offs from the other two classes | 8 of 10 | 16 of 59 | 53 [28, 75] | 0.009 |"
+ },
+ "rb_tf_gap": {
+  "value": "48",
+  "claim": "| Frozen after 2024, scored on 2025 vs his own 2023-24 pressure | 6 of 7 | 6 of 16 | 48 [15, 75] | 0.04 |"
+ },
+ "rb_tf_hi": {
+  "value": "75",
+  "claim": "| Frozen after 2024, scored on 2025 vs his own 2023-24 pressure | 6 of 7 | 6 of 16 | 48 [15, 75] | 0.04 |"
+ },
+ "rb_tf_lo": {
+  "value": "15",
+  "claim": "| Frozen after 2024, scored on 2025 vs his own 2023-24 pressure | 6 of 7 | 6 of 16 | 48 [15, 75] | 0.04 |"
+ },
+ "rb_tf_p": {
+  "value": "0.04",
+  "claim": "| Frozen after 2024, scored on 2025 vs his own 2023-24 pressure | 6 of 7 | 6 of 16 | 48 [15, 75] | 0.04 |"
+ },
+ "rb_x_gap": {
+  "value": "43",
+  "claim": "| All ~40 sampled snaps per rusher removed from the outcome | 7 of 10 | 16 of 59 | 43 [14, 71] | 0.03 |"
+ },
+ "rb_x_hi": {
+  "value": "71",
+  "claim": "| All ~40 sampled snaps per rusher removed from the outcome | 7 of 10 | 16 of 59 | 43 [14, 71] | 0.03 |"
+ },
+ "rb_x_lo": {
+  "value": "14",
+  "claim": "| All ~40 sampled snaps per rusher removed from the outcome | 7 of 10 | 16 of 59 | 43 [14, 71] | 0.03 |"
+ },
+ "rb_x_p": {
+  "value": "0.03",
+  "claim": "| All ~40 sampled snaps per rusher removed from the outcome | 7 of 10 | 16 of 59 | 43 [14, 71] | 0.03 |"
+ },
+ "rel40_2rep": {
+  "value": "0.70",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "rel40_fs": {
+  "value": "0.54",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "rel40_n": {
+  "value": 56,
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "rel_8snaps": {
+  "value": "0.44",
+  "claim": "3. **Measurement: chart 24 or more random rushes per young rusher** before trusting his first step (reliability 0.7; 8 rushes give 0.44). Do not add Combine 40 reps for this: 90% o"
+ },
+ "rel_fs_game": {
+  "value": "0.64",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "rho_fs_ngs_snap": {
+  "value": "0.51",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "sel8_n": {
+  "value": 85,
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "sel_auc": {
+  "value": "0.85",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "sel_fs_or": {
+  "value": "0.81",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "sel_fs_p": {
+  "value": "0.52",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "sim_absmax": {
+  "value": "0.18",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "sl_base": {
+  "value": "35",
+  "claim": "**The rule.** *Both* = NFL first step in the top third and 40 time in the top half, each class's cut-offs set on the other two classes. A rusher \"hits\" if his pressure rate beats t"
+ },
+ "sl_exs_o": {
+  "value": "-1.4",
+  "claim": "1. **Pro personnel: rank young rushers by \"Both\"** (NFL first step in the top third and 40 time in the top half). On held-out classes that list produced +5.0 pressures a season ove"
+ },
+ "sl_exs_s": {
+  "value": "5.0",
+  "claim": "1. **Pro personnel: rank young rushers by \"Both\"** (NFL first step in the top third and 40 time in the top half). On held-out classes that list produced +5.0 pressures a season ove"
+ },
+ "sl_ko": {
+  "value": 16,
+  "claim": "**A lineman's tracked Combine 40 start does not carry over to his NFL pass-rush start. Agreement does: rushers fast on the official 40 *and* in about 20 sampled NFL starts beat a d"
+ },
+ "sl_ks": {
+  "value": 8,
+  "claim": "**A lineman's tracked Combine 40 start does not carry over to his NFL pass-rush start. Agreement does: rushers fast on the official 40 *and* in about 20 sampled NFL starts beat a d"
+ },
+ "sl_no": {
+  "value": 59,
+  "claim": "**A lineman's tracked Combine 40 start does not carry over to his NFL pass-rush start. Agreement does: rushers fast on the official 40 *and* in about 20 sampled NFL starts beat a d"
+ },
+ "sl_ns": {
+  "value": 10,
+  "claim": "**A lineman's tracked Combine 40 start does not carry over to his NFL pass-rush start. Agreement does: rushers fast on the official 40 *and* in about 20 sampled NFL starts beat a d"
+ },
+ "sn_bot5": {
+  "value": "6.6",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_n": {
+  "value": 1279,
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or": {
+  "value": "1.49",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_ctl": {
+  "value": "1.51",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_hi": {
+  "value": "1.77",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_lo": {
+  "value": "1.25",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_players": {
+  "value": 69,
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_top5": {
+  "value": "14.8",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "snaps_for_07": {
+  "value": 24,
+  "claim": "3. **Measurement: chart 24 or more random rushes per young rusher** before trusting his first step (reliability 0.7; 8 rushes give 0.44). Do not add Combine 40 reps for this: 90% o"
+ },
+ "snaps_med": {
+  "value": 19,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "tf_n": {
+  "value": 23,
+  "claim": "- **Not blind.** The two-signal form was chosen in an earlier round after seeing all three classes; only the cut-offs are held out. The time-forward row has 23 rushers and overlaps"
+ },
+ "tf_pp": {
+  "value": "0.4",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "tf_pp_hi": {
+  "value": "1.3",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "tf_pp_lo": {
+  "value": "-0.5",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The gap narrows in every stricter check and stays positive. Row 5 is the cleanes"
+ },
+ "tr_fs": {
+  "value": "0.07",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "tr_fs_hi": {
+  "value": "0.28",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "tr_fs_lo": {
+  "value": "-0.14",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "tr_post05": {
+  "value": "0.03",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "tr_raw_15": {
+  "value": "0.57",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After weight and role, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is "
+ },
+ "vet_apy": {
+  "value": "5.5",
+  "claim": "**Action:** give Johnson the passing-down rotation before shopping for a veteran. The rule's held-out edge is about 6.4 pressures a season; 2025's 21st to 40th richest veteran edge"
+ },
+ "vet_hi": {
+  "value": "8.5",
+  "claim": "**Action:** give Johnson the passing-down rotation before shopping for a veteran. The rule's held-out edge is about 6.4 pressures a season; 2025's 21st to 40th richest veteran edge"
+ },
+ "vet_lo": {
+  "value": "3.2",
+  "claim": "**Action:** give Johnson the passing-down rotation before shopping for a veteran. The rule's held-out edge is about 6.4 pressures a season; 2025's 21st to 40th richest veteran edge"
+ },
+ "wc_cj_apy": {
+  "value": "1.04",
+  "claim": "Cincinnati's Cedric Johnson and Washington's Javontae Jean-Baptiste: 2024 edge rushers picked eight slots apart, both on $1.04M-a-year rookie deals. The call uses 2024 data only."
+ },
+ "wc_cj_g25": {
+  "value": 9,
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_cj_n24": {
+  "value": 8,
+  "claim": "| 2024 sampled starts; call frozen after 2024 | 8; **Both** | 16; no call (middle first step, slow 40) |"
+ },
+ "wc_cj_pick": {
+  "value": 214,
+  "claim": "| End of 2024 | Cedric Johnson (pick 214) | Javontae Jean-Baptiste (pick 222) |"
+ },
+ "wc_cj_pr25": {
+  "value": 22,
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_cj_rate24": {
+  "value": "10.2",
+  "claim": "| 2024 pressure rate (rushes) | 10.2% (59) | 5.5% (146) |"
+ },
+ "wc_cj_rate25": {
+  "value": "14.0",
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_cj_rs24": {
+  "value": 59,
+  "claim": "| 2024 pressure rate (rushes) | 10.2% (59) | 5.5% (146) |"
+ },
+ "wc_cj_t": {
+  "value": "70",
+  "claim": "| 40 time, percentile | 70 | 24 |"
+ },
+ "wc_jjb_g25": {
+  "value": 3,
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_jjb_n24": {
+  "value": 16,
+  "claim": "| 2024 sampled starts; call frozen after 2024 | 8; **Both** | 16; no call (middle first step, slow 40) |"
+ },
+ "wc_jjb_pick": {
+  "value": 222,
+  "claim": "| End of 2024 | Cedric Johnson (pick 214) | Javontae Jean-Baptiste (pick 222) |"
+ },
+ "wc_jjb_pr25": {
+  "value": 1,
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_jjb_rate24": {
+  "value": "5.5",
+  "claim": "| 2024 pressure rate (rushes) | 10.2% (59) | 5.5% (146) |"
+ },
+ "wc_jjb_rate25": {
+  "value": "2.9",
+  "claim": "| **2025 result** | 14.0% (22 pressures, 9 games) | 2.9% (1 pressure, 3 games) |"
+ },
+ "wc_jjb_rs24": {
+  "value": 146,
+  "claim": "| 2024 pressure rate (rushes) | 10.2% (59) | 5.5% (146) |"
+ },
+ "wc_jjb_t": {
+  "value": "24",
+  "claim": "| 40 time, percentile | 70 | 24 |"
+ },
+ "wc_rule_season": {
+  "value": "6.4",
+  "claim": "**Action:** give Johnson the passing-down rotation before shopping for a veteran. The rule's held-out edge is about 6.4 pressures a season; 2025's 21st to 40th richest veteran edge"
+ },
+ "x_all": {
+  "value": 118,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "x_c40_full_hi": {
+  "value": "0.8",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "x_c40_full_lo": {
+  "value": "-0.4",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "x_c40_full_pp": {
+  "value": "0.2",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] |"
+ },
+ "x_carry_full_hi": {
+  "value": "0.7",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "x_carry_full_lo": {
+  "value": "-0.3",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "x_carry_full_pp": {
+  "value": "0.2",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] |"
+ },
+ "x_f40_pick_hi": {
+  "value": "1.5",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline |"
+ },
+ "x_f40_pick_lo": {
+  "value": "0.4",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline |"
+ },
+ "x_f40_pick_p": {
+  "value": "0.004",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "x_f40_pick_pp": {
+  "value": "0.9",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline |"
+ },
+ "x_lowrush": {
+  "value": 16,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "x_nfl_full_hi": {
+  "value": "0.9",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "x_nfl_full_lo": {
+  "value": "0.0",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "x_nfl_full_p": {
+  "value": "0.13",
+  "claim": "**Table 1 test.** The two-class forecast is a logit offset in a quasi-binomial model of held-out pressures per rush; class slopes pooled by random effects; p shuffles the measure w"
+ },
+ "x_nfl_full_pp": {
+  "value": "0.4",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** |"
+ },
+ "x_nostarts": {
+  "value": 33,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ },
+ "x_pool": {
+  "value": 69,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized; curves start at first movement, so the clip's ~0.3 s lead before the laser does not matter. NFL: random sampled pass rushes only, "
+ }
+}
