@@ -1,7 +1,7 @@
 """Break G: does the Combine route-drill cut predict NFL separation? A frozen, held-out test.
 
-Round 12, revised (revision of round_12/cand_2). Run from the repo root:
-    uv run python writeup/candidates/round_12/revised/analysis.py
+Round 13, candidate 2 (revision of the round-12 winner, round_12/revised). Run from the repo root:
+    uv run python writeup/candidates/round_13/cand_2/analysis.py
 
 Reads data/processed/*.parquet only (about four minutes). Writes numbers.json, frozen_rule.json (with a SHA-256 of
 the rule), board.csv, board_full.csv, card.json and figures/*.png next to this file.
@@ -37,12 +37,20 @@ split-half reliability and a different-player placebo for the decision-card spli
 board of ten receivers and a rule-picked discount case. Figures: fig1 leader-line labels, fig2 drill vs NFL side by
 side with median paths and readouts, fig3 two rows with an unclipped caterpillar, fig4 one row per class, fig5 price
 versus value.
+Round 13: the main test uses a ridge (shrunken) no-tracking forecast entered as a covariate, so its held-out
+calibration is estimated rather than assumed; season SOE also adjusted for route mix and depth at the throw (sampled
+snaps); Break G tested against yards per route run and catch rate over expected, with and without Puka Nacua; a
+shortlist rule for day-3 / undrafted receivers scored on the following season against a base rate; figures
+reordered (cut paths first), held-out forest and price-versus-value merged, chain caterpillar clipped and labelled.
 """
 from __future__ import annotations
 
 import hashlib
 import json
 import os
+
+for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):  # small matrices: threads only add overhead
+    os.environ.setdefault(_v, "1")
 from pathlib import Path
 
 import matplotlib
@@ -80,6 +88,14 @@ plt.rcParams.update({"font.size": 12, "axes.spines.top": False, "axes.spines.rig
 FIGW = 1600 / 150
 
 NUM: dict[str, str] = {}
+import sys  # noqa: E402
+import time  # noqa: E402
+
+_T0 = time.time()
+
+
+def tick(label):
+    print(f"[{time.time() - _T0:7.1f}s] {label}", file=sys.stderr, flush=True)
 
 
 def put(key, val, nd=2):
@@ -354,6 +370,7 @@ cplayer["MM_REL"] = 1 - (VE + VPD * nrep / npd) / (VE + VPD * nrep / npd + nrep 
 put("mm_rel_median", cplayer.MM_REL.median())
 put("rho_bg_mm", spearmanr(cplayer.BG, cplayer.BG_MM)[0])
 
+tick('combine done')
 # ----------------------------------------------------------------------------- baseline table
 cr = cres.set_index("nfl_id")
 pb = players.set_index("nfl_id")[["draft_overall_pick", "position_group", "draft_year", "display_name"]].join(
@@ -690,6 +707,7 @@ put("catch_sesoi", SESOI_IN * catch_per_in, 1)
 put("catch_ho_hi", float(NUM["ho_hi"]) * catch_per_in, 2)
 put("catch_weight", abs(float(PRICE.loc[PRICE.x == "combine_weight_s", "pay"].iloc[0])) * catch_per_in, 1)
 
+tick('season tests done')
 # ----------------------------------------------------------------------------- sensitivity grid over the definition
 GRID = []
 for turn in (30.0, 45.0):
@@ -717,6 +735,7 @@ put("grid_min_in", GRID.b.min(), 1); put("grid_max_in", GRID.b.max(), 1)
 put("grid_hi_max_in", GRID.hi.max(), 1)
 put("grid_n_inside", int(((GRID.hi < SESOI_IN) & (GRID.lo > -SESOI_IN)).sum()))
 
+tick('grid done')
 # ----------------------------------------------------------------------------- NFL snaps: same code
 gp = pd.read_parquet(P / "game_plays_sample.parquet")
 gp = gp[gp.week.between(1, 18)]
@@ -732,7 +751,8 @@ for k, d in gf.groupby(["game_id", "play_id", "nfl_id"], sort=False):
         continue
     i0 = int(np.argmax(e_ == "ball_snap"))
     ipf = int(np.argmax(e_ == "pass_forward"))
-    base = dict(game_id=k[0], play_id=k[1], nfl_id=k[2], t_throw=(ipf - i0) * DT, ipf=ipf)
+    xs_d = d.x.to_numpy()
+    base = dict(game_id=k[0], play_id=k[1], nfl_id=k[2], t_throw=(ipf - i0) * DT, ipf=ipf, dx_thr=xs_d[ipf] - xs_d[i0])
     r = break_mechanics(d.x.to_numpy(), d.y.to_numpy(), i0, min(len(d), ipf + 6))
     if r:
         base.update(r)
@@ -740,6 +760,7 @@ for k, d in gf.groupby(["game_id", "play_id", "nfl_id"], sort=False):
     grows.append(base)
 gb = pd.DataFrame(grows).merge(gp, on=["game_id", "play_id", "nfl_id"])
 gb["sep"] = gb.separation_at_pass_forward
+gb["depth_thr"] = np.where(gb.play_direction == "left", -1.0, 1.0) * gb.dx_thr  # yd downfield at the throw
 gb["man"] = gb.team_coverage_type.fillna("").str.contains("MAN")
 gb["slotp"] = (gb.lined_up_position == "SLOT_WR").astype(float)
 gb["inline"] = gb.lined_up_position.isin(["TE", "FB", "RB"]).astype(float)
@@ -885,6 +906,7 @@ put("wp_slope_in", POOL_B, 1); put("wp_slope_lo", np.percentile(pb_s, 5), 1); pu
 put("cat_n", len(CAT)); put("cat_snaps", len(dm6)); put("cat_pct_pos", 100 * (CAT.b > 0).mean(), 0)
 put("cat_pct_cross", 100 * ((CAT.lo < 0) & (CAT.hi > 0)).mean(), 0)
 
+tick('nfl snaps done')
 # ============================================================================= round 12 additions
 # ---- (a) quarterback adjustment by a crossed hierarchical model (revised round 12). The passer is named in every
 # sampled play description. Snap SOE (context-adjusted, inches) = intercept + receiver effect + QB effect + noise, with
@@ -986,6 +1008,7 @@ YQ_ = D.ssoe_qb.to_numpy(float)
 YQR_ = D.ssoe_qbr.to_numpy(float)
 
 
+tick('qb model done')
 # ---- (b) forecast variants. ridge: standardized baseline, penalty picked by leave-one-class-out inside the training
 # classes; "cov": the held-out forecast enters as a covariate (its calibration slope is estimated, not assumed = 1)
 LAMS = [0.0, 1.0, 3.0, 10.0, 30.0, 100.0, 300.0]
@@ -997,7 +1020,7 @@ def ridge_fit(A, yv, w, lam):
     sd = A[:, 1:].std(0) + 1e-9
     Z = np.column_stack([np.ones(len(A)), (A[:, 1:] - mu) / sd])
     s_ = np.sqrt(w)
-    pen = lam * np.diag([0.0] + [1.0] * (Z.shape[1] - 1))
+    pen = lam * np.diag([0.0] + [1.0] * (Z.shape[1] - 1)) + 1e-8 * np.eye(Z.shape[1])  # jitter: constant columns
     b_ = np.linalg.solve((Z * w[:, None]).T @ Z + pen, (Z * w[:, None]).T @ yv)
     return lambda Anew: np.column_stack([np.ones(len(Anew)), (Anew[:, 1:] - mu) / sd]) @ b_
 
@@ -1124,6 +1147,7 @@ for _ in range(NPERM // 2):
     nt_.append(ho_general(np.arange(len(D)), pv_, Y=YT_))
 put("tprr_ho_shuffle_p", (1 + (np.abs(nt_) >= abs(ht)).sum()) / (1 + len(nt_)), 2)
 
+tick('robustness done')
 # ============================================================================= revised round 12 additions
 # ---- (e) primary test without Puka Nacua (the most influential player), same refit bootstrap
 ho_nn = IN_YD * ho_general(keep_, BGV)
@@ -1264,6 +1288,7 @@ for xc, lab, sgn in REFX:
     put(f"pv_{k}_np", len(xx)); put(f"pv_{k}_nv", len(dd))
 PV = pd.DataFrame(PV)
 
+tick('price done')
 # ---- (i) are the decision-card splits real? For the qualifying receivers (5+ route drills, 200+ NFL routes, WR), split
 # each player's sampled snaps at random into two halves 200 times; correlate the man-minus-zone (and slot-minus-wide,
 # and overall level) of snap SOE between halves across players; Spearman-Brown to the full 40. Placebo: half B taken
@@ -1417,14 +1442,14 @@ for i_, (pid, r_) in enumerate(board.iterrows()):
 put("card_max_abs_shr", max(abs(c_[f"{k}_shr"]) for c_ in CARD for k in ("manzone", "slotwide")
                             if c_[f"{k}_shr"] is not None), 1)
 # the discount case, by rule: soft drill cut (Break G < 0), day-3 or undrafted, best season SOE beyond forecast
-dsc = cand[(cand.BG < 0) & (cand.draft_overall_pick.fillna(262) >= 100)].sort_values("fc_res_in").iloc[-1]
+cand["day3"] = players.set_index("nfl_id").draft_round.reindex(cand.index).fillna(8).ge(4).to_numpy()
+dsc = cand[(cand.BG < 0) & cand.day3].sort_values("fc_res_in").iloc[-1]
 NUM["disc_name"] = dsc.display_name
 put("disc_pick", int(dsc.draft_overall_pick)) if not pd.isna(dsc.draft_overall_pick) else None
 put("disc_year", int(dsc.draft_year)); put("disc_bg", dsc.BG, 1); put("disc_res_in", dsc.fc_res_in, 1)
 put("disc_routes", int(dsc.routes)); put("disc_sep", dsc.sep)
-put("disc_n_soft_day3", int(((cand.BG < 0) & (cand.draft_overall_pick.fillna(262) >= 100)).sum()))
-put("disc_n_soft_day3_beat", int(((cand.BG < 0) & (cand.draft_overall_pick.fillna(262) >= 100)
-                                  & (cand.fc_res_in > 0)).sum()))
+put("disc_n_soft_day3", int(((cand.BG < 0) & cand.day3).sum()))
+put("disc_n_soft_day3_beat", int(((cand.BG < 0) & cand.day3 & (cand.fc_res_in > 0)).sum()))
 put("pool_go_pct", 100 * (gp[gp.nfl_id.isin(cand.index)].route_ran == "GO").mean(), 0)
 put("pool_slot_pct", 100 * (gp[gp.nfl_id.isin(cand.index)].lined_up_position == "SLOT_WR").mean(), 0)
 put("pool_tight_pct", 100 * (gp[gp.nfl_id.isin(cand.index)].cushion.dropna() <= 3).mean(), 0)
@@ -1451,6 +1476,200 @@ put("fp_ssoe_in", IN_YD * D.loc[fp, "ssoe"], 1)
 put("fp_pick", int(D.loc[fp, "draft_overall_pick"]))
 # cost of the wrong call: where a board that priced Break G at the full-profile rate would have taken him
 put("fp_pick_if_priced", int(round(D.loc[fp, "draft_overall_pick"] * np.exp(bpf[-1] * D.loc[fp, "BG"]))))
+
+tick('board done')
+# ============================================================================= round 13 additions
+# ---- (j) PRIMARY (round 13): ridge no-tracking forecast (penalty by leave-one-class-out inside the two training
+# classes), entered on the held-out class as a covariate, so its calibration is estimated, not assumed. Slope of season
+# SOE on Break G with class intercepts, routes-weighted. Interval: class-stratified player bootstrap that refits the
+# forecast and the penalty in every resample. Null: Break G shuffled within class (forecast fixed, it ignores Break G).
+ALL = np.arange(len(D))
+NAC = set(np.where(D.display_name.to_numpy() == "Puka Nacua")[0])
+
+
+def strat_rows(rows):
+    rows = np.asarray(rows)
+    return np.concatenate([RNG.choice(rows[cls_arr0[rows] == c], int((cls_arr0[rows] == c).sum())) for c in CLASSES])
+
+
+def ridge_fc(rows, Y, W):
+    """Held-out ridge forecast for every row (fitted on the other classes among `rows`)."""
+    fc = np.full(len(D), np.nan)
+    for c in CLASSES:
+        t = rows[cls_arr0[rows] == c]
+        o = rows[cls_arr0[rows] != c]
+        fc[t] = ridge_cv(XB_[o], Y[o], W[o], cls_arr0[o])[0](XB_[t])
+    return fc
+
+
+def suite(key, Y, W, rows, mult, nb=NBOOT, nperm=NPERM, nd=1):
+    """Held-out covariate slope (ridge forecast) with interval, shuffle p and the same without Puka Nacua."""
+    rows = np.asarray(rows)
+    out = {}
+    for tag, rr in (("", rows), ("_nn", np.array([r for r in rows if r not in NAC]))):
+        est = mult * ho_general(rr, BGV, Y=Y, W=W, mode="cov", fitter="ridge")
+        bs_ = np.array([mult * ho_general(strat_rows(rr), BGV, Y=Y, W=W, mode="cov", fitter="ridge")
+                        for _ in range(nb)])
+        fc = ridge_fc(rr, Y, W)
+        dmy = np.column_stack([(cls_arr0[rr] == c).astype(float) for c in CLASSES])
+        nul = []
+        for _ in range(nperm):
+            pv_ = BGV.copy()
+            for c in CLASSES:
+                ix = rr[cls_arr0[rr] == c]
+                pv_[ix] = BGV[RNG.permutation(ix)]
+            nul.append(mult * _wls(np.column_stack([dmy, fc[rr], pv_[rr]]), Y[rr], W[rr])[-1])
+        p_ = (1 + (np.abs(nul) >= abs(est)).sum()) / (1 + nperm)
+        out[tag] = dict(b=est, lo=np.percentile(bs_, 5), hi=np.percentile(bs_, 95), p=p_, n=len(rr), se=bs_.std(ddof=1))
+        put(f"{key}{tag}_b", est, nd); put(f"{key}{tag}_lo", np.percentile(bs_, 5), nd)
+        put(f"{key}{tag}_hi", np.percentile(bs_, 95), nd); put(f"{key}{tag}_p", p_, 2); put(f"{key}{tag}_n", len(rr))
+        put(f"{key}{tag}_pct", 100 * p_, 0)
+    return out
+
+
+P13 = suite("p13", Y_, WT_, ALL, IN_YD)
+pr13 = P13[""]
+put("p13_up_p", norm.cdf((pr13["b"] - SESOI_IN) / pr13["se"]), 4)
+put("p13_catch_hi", pr13["hi"] * catch_per_in, 2)
+# calibration of the ridge forecast entered as a covariate (pooled coefficient on the forecast) and per-class slopes
+FC13 = ridge_fc(ALL, Y_, WT_)
+dmy_all = np.column_stack([(cls_arr0 == c).astype(float) for c in CLASSES])
+cal_ = _wls(np.column_stack([dmy_all, FC13, BGV]), Y_, WT_)
+put("p13_calib", cal_[-2])
+for c in CLASSES:
+    t = cls_arr0 == c
+    put(f"p13_{c}", IN_YD * _wls(np.column_stack([np.ones(t.sum()), FC13[t], BGV[t]]), Y_[t], WT_[t])[-1], 1)
+put("p13_n_neg_cls", int(sum(float(NUM[f"p13_{c}"]) < 0 for c in CLASSES)))
+# old primary (round 12: OLS forecast as an offset) kept as a version
+put("r12_b", ho, 1)
+tick("primary r13 done")
+
+# ---- (k) route mix and depth at the throw (target quality). On the random half of the sampled snaps (no EPA
+# selection), separation at the throw ~ route + depth + depth^2; each player-season's expected separation from his own
+# route mix and depth is the mean prediction over his random snaps. It enters the season SOE adjustment.
+gr = gb[(gb.sample_kind == "random") & gb.sep.notna() & gb.depth_thr.notna()].copy()
+Am = np.column_stack([np.ones(len(gr)), gr.depth_thr, gr.depth_thr ** 2 / 100] +
+                     [(gr.route == r).astype(float) for r in ROUTES[1:]])
+bm_ = np.linalg.lstsq(Am, gr.sep.to_numpy(), rcond=None)[0]
+gr["mixexp"] = Am @ bm_
+put("mix_n_snaps", len(gr)); put("mix_r2_pct", 100 * (1 - np.var(gr.sep - gr.mixexp) / np.var(gr.sep)), 0)
+mx_ps = gr.groupby(["nfl_id", "season"]).mixexp.mean()
+ss = ss.join(mx_ps.rename("mixexp"), on=["nfl_id", "season"])
+put("mix_cov_pct", 100 * np.average(ss.mixexp.notna(), weights=ss.routes), 0)
+ss["mix_f"] = ss.mixexp.fillna(np.average(ss.mixexp.dropna(), weights=ss.routes[ss.mixexp.notna()]))
+A_mx = np.column_stack([A_ss, ss.mix_f])
+b_mx = np.linalg.lstsq(A_mx * w_ss[:, None], ss.avg_separation.to_numpy() * w_ss, rcond=None)[0]
+ss["ssoe_mix"] = ss.avg_separation - A_mx @ b_mx
+put("mix_coef", b_mx[-1])
+aggm = ss.groupby("nfl_id").apply(lambda d: np.average(d.ssoe_mix, weights=d.routes), include_groups=False)
+D["ssoe_mix"] = aggm.reindex(D.index)
+YMIX_ = D.ssoe_mix.to_numpy(float)
+put("rho_soe_mix", spearmanr(D.ssoe, D.ssoe_mix)[0])
+PMIX = suite("pmix", YMIX_, WT_, ALL, IN_YD, nperm=NPERM // 4)
+PQB = suite("pqb", YQ_, WT_, ALL, IN_YD, nperm=NPERM // 4)
+tick("mix done")
+
+# ---- (l) outcomes that do not hinge on separation: yards per route run (routes-weighted) and catch rate over
+# expected (catches beyond a season model of catch rate on separation when targeted, slot, TE; targets-weighted)
+cs = ssa[(ssa.targets > 0) & ssa.avg_separation_targeted.notna()].copy()
+cs["cr"] = cs.receptions / cs.targets
+A_cr = np.column_stack([np.ones(len(cs)), cs.avg_separation_targeted, (cs.main_alignment == "SLOT_WR").astype(float),
+                        (cs.position_group == "TE").astype(float)])
+w_cr = np.sqrt(cs.targets.to_numpy(float))
+b_cr = np.linalg.lstsq(A_cr * w_cr[:, None], cs.cr.to_numpy() * w_cr, rcond=None)[0]
+cs["xrec"] = cs.targets * (A_cr @ b_cr)
+coe = cs.groupby("nfl_id").apply(lambda d: pd.Series(dict(coe=(d.receptions - d.xrec).sum() / d.targets.sum(),
+                                                          tgt=d.targets.sum())), include_groups=False)
+D["coe"] = coe.coe.reindex(D.index)
+D["coe_w"] = coe.tgt.reindex(D.index).fillna(0.0)
+YCOE_, WCOE_ = D.coe.fillna(0.0).to_numpy(float), D.coe_w.to_numpy(float)
+ROWS_COE = np.where(D.coe.notna() & (D.coe_w >= 10))[0]
+YPRR_ = D.yprr.to_numpy(float)
+PYPRR = suite("pyprr", YPRR_, WT_, ALL, 1.0, nperm=NPERM // 4, nd=2)  # yards per route
+PCOE = suite("pcoe", YCOE_, WCOE_, ROWS_COE, 100.0, nperm=NPERM // 4)  # percentage points of catch rate
+put("yprr_mean", np.average(D.yprr, weights=D.routes))
+put("coe_sd_pts", 100 * np.sqrt(np.cov(D.coe.iloc[ROWS_COE], aweights=WCOE_[ROWS_COE])), 1)
+tick("outcomes done")
+
+# ---- (m) the shortlist rule, scored on the next season. Pool: day-3 (round 4+) or undrafted WR/TE with 100+ routes
+# in two consecutive seasons. Rule (fixed in advance, nothing fitted): season-1 SOE above zero. Hit: season-2 SOE above
+# zero. Compared with the receivers the rule passes over and with the pool base rate. Interval: player-cluster
+# bootstrap of the hit-rate gap; p: one-sided Fisher exact test. Break G is then asked to sort the shortlist.
+from scipy.stats import fisher_exact  # noqa: E402
+
+pl_r = players.set_index("nfl_id")[["draft_round", "display_name", "draft_year"]]
+pvt = ss.pivot_table(index="nfl_id", columns="season", values=["ssoe", "routes"])
+PAIRS = []
+for a_, b_ in ((2023, 2024), (2024, 2025)):
+    if ("ssoe", b_) not in pvt.columns:
+        continue
+    m_ = pvt[[("ssoe", a_), ("ssoe", b_), ("routes", a_), ("routes", b_)]].dropna()
+    m_.columns = ["y1", "y2", "r1", "r2"]
+    m_["s1"] = a_
+    PAIRS.append(m_)
+PAIRS = pd.concat(PAIRS).join(pl_r)
+PAIRS["day3"] = PAIRS.draft_round.isna() | (PAIRS.draft_round >= 4)
+PAIRS = PAIRS[(PAIRS.r1 >= 100) & (PAIRS.r2 >= 100)].copy()
+PAIRS["BG"] = cplayer.BG.reindex(PAIRS.index)
+PAIRS["short"] = PAIRS.y1 > 0
+PAIRS["hit"] = PAIRS.y2 > 0
+PAIRS["pid"] = PAIRS.index
+
+
+def rates(df):
+    s_, r_ = df[df.short], df[~df.short]
+    return s_.hit.mean(), r_.hit.mean(), df.hit.mean()
+
+
+for tag, sub in (("d3", PAIRS[PAIRS.day3]), ("all", PAIRS)):
+    hs, hr, base = rates(sub)
+    put(f"sl_{tag}_n", len(sub)); put(f"sl_{tag}_players", sub.pid.nunique())
+    put(f"sl_{tag}_short_n", int(sub.short.sum())); put(f"sl_{tag}_short_hit", int(sub[sub.short].hit.sum()))
+    put(f"sl_{tag}_rest_n", int((~sub.short).sum())); put(f"sl_{tag}_rest_hit", int(sub[~sub.short].hit.sum()))
+    put(f"sl_{tag}_short_pct", 100 * hs, 0); put(f"sl_{tag}_rest_pct", 100 * hr, 0); put(f"sl_{tag}_base_pct", 100 * base, 0)
+    tab = [[int(sub[sub.short].hit.sum()), int((sub.short & ~sub.hit).sum())],
+           [int(sub[~sub.short].hit.sum()), int((~sub.short & ~sub.hit).sum())]]
+    put(f"sl_{tag}_fisher_p", fisher_exact(tab, alternative="greater")[1], 3)
+    grp_ = clusters(sub.pid)
+    gaps, lifts = [], []
+    for _ in range(NBOOT):
+        bb_ = sub.iloc[np.concatenate([grp_[i] for i in RNG.integers(0, len(grp_), len(grp_))])]
+        if bb_.short.all() or (~bb_.short).all():
+            continue
+        a1, a2, a3 = rates(bb_)
+        gaps.append(a1 - a2); lifts.append(a1 - a3)
+    put(f"sl_{tag}_gap", 100 * (hs - hr), 0); put(f"sl_{tag}_gap_lo", 100 * np.percentile(gaps, 5), 0)
+    put(f"sl_{tag}_gap_hi", 100 * np.percentile(gaps, 95), 0)
+    put(f"sl_{tag}_lift", 100 * (hs - base), 0); put(f"sl_{tag}_lift_lo", 100 * np.percentile(lifts, 5), 0)
+    put(f"sl_{tag}_lift_hi", 100 * np.percentile(lifts, 95), 0)
+SLD = PAIRS[PAIRS.day3]
+SLS = SLD[SLD.short & SLD.BG.notna()]
+put("sl_soft_n", int((SLS.BG < 0).sum())); put("sl_soft_hit", int(SLS[SLS.BG < 0].hit.sum()))
+put("sl_hard_n", int((SLS.BG >= 0).sum())); put("sl_hard_hit", int(SLS[SLS.BG >= 0].hit.sum()))
+put("sl_soft_pct", 100 * SLS[SLS.BG < 0].hit.mean(), 0); put("sl_hard_pct", 100 * SLS[SLS.BG >= 0].hit.mean(), 0)
+# the latest-season pairs alone (2024 -> 2025): the rule was first written down before these were scored
+lat = SLD[SLD.s1 == 2024]
+put("sl_late_short_n", int(lat.short.sum())); put("sl_late_short_hit", int(lat[lat.short].hit.sum()))
+put("sl_late_base_pct", 100 * lat.hit.mean(), 0)
+# the 2026 shortlist: day-3 / undrafted WR/TE whose 2025 season qualifies (100+ routes, SOE above zero)
+s25 = ss[(ss.season == 2025) & (ss.routes >= 100)].join(pl_r, on="nfl_id")
+s25 = s25[(s25.draft_round.isna() | (s25.draft_round >= 4)) & (s25.ssoe > 0)].copy()
+s25["BG"] = cplayer.BG.reindex(s25.nfl_id).to_numpy()
+s25 = s25.sort_values("ssoe", ascending=False)
+put("sl26_n", len(s25)); put("sl26_soft", int((s25.BG < 0).sum()))
+SL26 = []
+for i_, r_ in enumerate(s25.itertuples()):
+    pk_ = players.set_index("nfl_id").draft_overall_pick.get(r_.nfl_id)
+    SL26.append(dict(name=r_.display_name, year=int(r_.draft_year), pick="UDFA" if pd.isna(pk_) else int(pk_),
+                     pos=r_.position_group, routes=int(r_.routes), soe_in=round(IN_YD * r_.ssoe, 1),
+                     bg=None if pd.isna(r_.BG) else round(float(r_.BG), 1), align=r_.main_alignment))
+    put(f"sl26_{i_}_soe", IN_YD * r_.ssoe, 1); put(f"sl26_{i_}_routes", int(r_.routes))
+    if not pd.isna(r_.BG):
+        put(f"sl26_{i_}_bg", r_.BG, 1)
+pd.DataFrame(SL26).to_csv(OUT / "shortlist_2026.csv", index=False)
+print(pd.DataFrame(SL26).to_string())
+print(PAIRS[PAIRS.day3].sort_values("y1")[["display_name", "s1", "draft_round", "r1", "y1", "y2", "BG"]].to_string())
+tick("shortlist done")
 
 # ============================================================================= figures
 TT = np.arange(-10, 11) * DT
@@ -1501,44 +1720,6 @@ def label_column(ax, pts, side, x_text, y_lo, y_hi, fs=10.5):
                     arrowprops=dict(arrowstyle="-", color="#555555", lw=0.8, shrinkA=2, shrinkB=4))
 
 
-# ---- Fig 1: the GM picture. Every receiver's Combine Break G against what he did beyond his no-tracking forecast
-RES_IN = IN_YD * D.res0.to_numpy(float)
-fig, ax = plt.subplots(figsize=(FIGW, 6.6))
-ax.axhline(0, color=OI["grey"], lw=0.8)
-bx_lo, bx_hi = np.floor(BGV.min() * 10) / 10 - 0.1, np.ceil(BGV.max() * 10) / 10 + 0.1
-xs_ = np.linspace(bx_lo, bx_hi, 50)
-cx = np.average(BGV, weights=WT_)
-cy = np.average(RES_IN, weights=WT_)
-ax.plot(xs_, cy + ho * (xs_ - cx), color=OI["verm"], lw=2.5, label=f"held-out slope {ho:+.1f} in per sd")
-ax.plot(xs_, cy + SESOI_IN * (xs_ - cx), color=OI["black"], lw=1.6, ls="--",
-        label=f"+{SESOI_IN:.0f} in per sd: smallest gain worth a pick (set in advance)")
-szs = 12 + 60 * D.routes / D.routes.max()
-ax.scatter(BGV, RES_IN, s=szs, color=OI["blue"], alpha=0.5, edgecolor="white", lw=0.5, zorder=3)
-ylim_ = np.nanpercentile(np.abs(RES_IN), 99) * 1.15
-lab_r, lab_l = [], []
-named = list(board.index) + [dsc.name]
-for pid in named:
-    k_ = D.index.get_loc(pid)
-    is_d = pid == dsc.name
-    ax.scatter(BGV[k_], RES_IN[k_], s=90, facecolor="none", edgecolor=OI["green"] if is_d else "black",
-               lw=2.0 if is_d else 1.4, zorder=4)
-    txt = D.loc[pid, "display_name"] + (" (discount case)" if is_d else "")
-    (lab_r if BGV[k_] > 0 else lab_l).append((BGV[k_], RES_IN[k_], txt))
-label_column(ax, lab_r, "r", bx_hi + 0.25, -0.8 * ylim_, 0.8 * ylim_)
-label_column(ax, lab_l, "l", bx_lo - 0.25, -0.8 * ylim_, 0.8 * ylim_)
-ax.set_xlim(bx_lo - 1.7, bx_hi + 1.7)
-ax.set_xticks(np.arange(np.ceil(bx_lo), np.floor(bx_hi) + 1))
-ax.set_ylim(-ylim_, ylim_)
-ax.set_xlabel("Combine Break G (sd; right = harder cuts in route drills)")
-ax.set_ylabel("season separation beyond forecast (in)")
-ax.set_title(f"Harder drill cuts did not mean more space in the NFL ({len(D)} WR/TE, held-out draft classes)",
-             loc="left", fontsize=13)
-ax.legend(loc="upper center", frameon=False, fontsize=10.5, ncol=1)
-fig.text(0.01, 0.015, "Forecast = draft pick, official 40, weight, NGS athleticism score, TE flag, fitted on the other "
-         "two classes.\nDot size = NFL routes run. Circled and named: the ten board receivers (Table 2) and the "
-         "discount case.", fontsize=10, color="#333333")
-fig.subplots_adjust(left=0.08, right=0.99, top=0.92, bottom=0.17)
-save(fig, "fig1_gm.png")
 
 
 # ---- Fig 2: drill vs NFL cut, side by side, for the three highest and three lowest Break G on the board
@@ -1562,9 +1743,9 @@ def draw_paths(ax, paths, col, readout, title):
     ax.plot(0, 0, "*", ms=12, color="black", zorder=6)
     ax.set_xlim(-2.5, 6.0); ax.set_ylim(-6.5, 4.5); ax.set_aspect("equal")
     ax.set_xticks([0, 4]); ax.set_yticks([-4, 0, 4])
-    ax.tick_params(labelsize=10)
-    ax.set_title(title, loc="left", fontsize=10.5, color=col, fontweight="bold")
-    ax.text(0.97, 0.03, readout, transform=ax.transAxes, ha="right", va="bottom", fontsize=10,
+    ax.tick_params(labelsize=10.5)
+    ax.set_title(title, loc="left", fontsize=11.5, color=col, fontweight="bold")
+    ax.text(0.97, 0.03, readout, transform=ax.transAxes, ha="right", va="bottom", fontsize=11,
             bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.2), zorder=8)
 
 
@@ -1577,7 +1758,7 @@ def readout(df):
 
 fig = plt.figure(figsize=(FIGW, 13.2))
 gs0 = fig.add_gridspec(3, 4, left=0.06, right=0.985, top=0.855, bottom=0.30, hspace=0.45, wspace=0.12)
-gs1 = fig.add_gridspec(1, 2, left=0.17, right=0.985, top=0.225, bottom=0.075, width_ratios=[1, 1.5], wspace=0.06)
+gs1 = fig.add_gridspec(1, 2, left=0.27, right=0.985, top=0.225, bottom=0.075, width_ratios=[1, 1.5], wspace=0.06)
 CARD6 = [CARD[i] for i in SIX]
 for j, bi in enumerate(SIX):
     pid = board.index[bi]
@@ -1608,7 +1789,7 @@ names_ = [c_["name"] for c_ in CARD6][::-1]
 yy_ = np.arange(len(CARD6))
 grp_col = [OI["purple"]] * 3 + [OI["green"]] * 3
 for k_, (key, lo_k, hi_k, xl_, ttl) in enumerate((
-        ("bg", "lo", "hi", "Combine Break G (sd), 90% interval", "Drill cut: the groups separate"),
+        ("bg", "lo", "hi", "Combine Break G (sd of players), 90% interval", "Drill cut: the groups separate"),
         ("res_in", "res_lo", "res_hi", "season separation beyond forecast (in), 90% interval",
          "NFL space: every interval crosses zero"))):
     axs_ = fig.add_subplot(gs1[0, k_])
@@ -1626,16 +1807,18 @@ fig.legend(handles=[plt.Line2D([], [], color=OI["blue"], lw=3, label="Combine dr
                     plt.Line2D([], [], color=OI["orange"], lw=3, label="NFL snap, same route family"),
                     plt.Line2D([], [], color="black", lw=1.2, ls=(0, (2, 1.5)), label="1.0 s Break G window"),
                     plt.Line2D([], [], color="black", marker="*", ls="", ms=11, label="sharpest point of the turn"),
-                    plt.Line2D([], [], color=OI["purple"], lw=3, label="three highest Break G"),
-                    plt.Line2D([], [], color=OI["green"], lw=3, label="three lowest Break G")],
-           loc="upper left", ncol=3, frameon=False, fontsize=10.5, bbox_to_anchor=(0.005, 0.972),
+                    ],
+           loc="upper left", ncol=4, frameon=False, fontsize=10.5, bbox_to_anchor=(0.005, 0.972),
            handlelength=1.8, columnspacing=1.2)
-fig.suptitle("Same player, same cut: Combine drill against NFL snap", x=0.01, ha="left", fontsize=14,
+fig.legend(handles=[plt.Line2D([], [], color=OI["purple"], lw=3, marker="o", mec="black", label="three hardest\ndrill cutters"),
+                    plt.Line2D([], [], color=OI["green"], lw=3, marker="o", mec="black", label="three softest\ndrill cutters")],
+           loc="lower left", ncol=1, frameon=False, fontsize=11, bbox_to_anchor=(0.0, 0.085), handlelength=1.6)
+fig.suptitle("Same player, same cut: Combine drill against NFL snap. Every NFL cut is softer", x=0.01, ha="left", fontsize=14,
              fontweight="bold", y=0.995)
 fig.text(0.01, 0.006, "Paths rotated so every rep enters straight upfield and breaks to the right. Readouts are medians: "
-         "speed into the break, slowest point,\nspeed out of it, and Break G. Bottom right interval includes forecast "
-         "error.", fontsize=10, color="#333333")
-save(fig, "fig2_cards.png")
+         "speed into the break, slowest point,\nspeed out of it, and Break G (1 g = 9.8 m/s², body weight pushed into "
+         "the ground). Bottom right interval includes forecast error.", fontsize=10, color="#333333")
+save(fig, "fig1_cards.png")
 
 # ---- Fig 3: the chain. Top: 1, 2 on identical z axes (2 with a shuffle-null band). Bottom: per-player caterpillar
 JPg = JP.g_bg.to_numpy(float)
@@ -1667,8 +1850,28 @@ for ax, xa, ya, col, ttl, xl, yl, rr_, cl_ in (
             va="top", fontsize=10.5, bbox=dict(facecolor="white", edgecolor="none", alpha=0.85, pad=1.5), zorder=10)
 ax = fig.add_subplot(gsB[0, 0])
 xk = np.arange(len(CAT))
-ax.vlines(xk, CAT.lo, CAT.hi, color=OI["sky"], lw=1.6, alpha=0.6)
-ax.plot(xk, CAT.b, "o", ms=4, color=OI["blue"])
+CLIP = 60.0
+ax.vlines(xk, CAT.lo.clip(-CLIP, CLIP), CAT.hi.clip(-CLIP, CLIP), color=OI["sky"], lw=1.6, alpha=0.6)
+for i, r_ in CAT.iterrows():  # arrow heads where an interval runs past the clip
+    if r_.hi > CLIP:
+        ax.plot(i, CLIP, "^", ms=4, color=OI["sky"])
+    if r_.lo < -CLIP:
+        ax.plot(i, -CLIP, "v", ms=4, color=OI["sky"])
+ax.plot(xk, CAT.b.clip(-CLIP, CLIP), "o", ms=4, color=OI["blue"])
+ext = CAT.assign(ab=CAT.b.abs()).sort_values("ab").tail(5)
+nm_map = players.set_index("nfl_id").display_name
+lo_e, hi_e = ext[ext.index < len(CAT) / 2].sort_index(), ext[ext.index >= len(CAT) / 2].sort_index(ascending=False)
+for grp_e, sgn_ in ((lo_e, -1), (hi_e, 1)):
+    for k_, (i, r_) in enumerate(grp_e.iterrows()):
+        yv_ = float(np.clip(r_.b, -CLIP, CLIP))
+        xt_ = i + 6 if sgn_ < 0 else i - 6
+        yt_ = sgn_ * (CLIP - 6 - 9 * k_)
+        ax.annotate(f"{nm_map[r_.nfl_id]} ({r_.b:+.0f})", (i, yv_), xytext=(xt_ + (4 * k_ if sgn_ < 0 else -4 * k_), yt_),
+                    textcoords="data", ha="left" if sgn_ < 0 else "right", va="center", fontsize=10.5,
+                    bbox=dict(facecolor="white", edgecolor="none", alpha=0.9, pad=0.6),
+                    arrowprops=dict(arrowstyle="-", color="#555555", lw=0.7, shrinkA=0, shrinkB=3))
+put("cat_n_clipped", int(((CAT.hi > CLIP) | (CAT.lo < -CLIP)).sum()))
+ax.set_ylim(-CLIP - 4, CLIP + 4)
 ax.axhspan(float(NUM["wp_slope_lo"]), float(NUM["wp_slope_hi"]), color=OI["verm"], alpha=0.3, lw=0)
 ax.axhline(POOL_B, color=OI["verm"], lw=2.5, label=f"pooled slope {POOL_B:+.1f} in [{NUM['wp_slope_lo']}, "
            f"{NUM['wp_slope_hi']}]")
@@ -1681,37 +1884,34 @@ ax.set_title(f"3. Within a player, harder NFL cuts do not buy space: {NUM['cat_p
              "cross zero", loc="left", fontsize=12.5)
 ax.legend(loc="upper left", fontsize=10.5, frameon=True, framealpha=0.9, edgecolor="none")
 fig.text(0.01, 0.012, "Panel 2: grey band = where 90% of random pairings fall. Panel 3: each line is one player's 90% "
-         "interval; red band = pooled slope,\nplayer-clustered bootstrap, same players and snaps.",
+         "interval, clipped at ±60 in (arrows); the five largest\nslopes are named. Red band = pooled slope, "
+         "player-clustered bootstrap, same players and snaps.",
          fontsize=10, color="#333333")
 save(fig, "fig3_chain.png")
 
-# ---- Fig 4: every version of the held-out test, one row each
-RW = [dict(lab=f"Primary: held out, pooled (n={len(D)})", b=ho, lo=np.percentile(hob, 5), hi=np.percentile(hob, 95),
-           grp="main")]
-for c, rc in zip(CLASSES, HO_CLS):
-    RW.append(dict(lab=f"   {c} class only (n={int((cls_arr0 == c).sum())})", b=rc["b"], lo=rc["lo"], hi=rc["hi"],
-                   grp="class"))
-RW += [dict(lab=f"Without Puka Nacua (n={len(keep_)})", b=ho_nn, lo=np.percentile(hnb, 5), hi=np.percentile(hnb, 95),
-            grp="rob"),
-       dict(lab="QB-adjusted (receiver + QB model)", **{k: ROB["qb"][k] for k in ("b", "lo", "hi")}, grp="rob"),
-       dict(lab="QB-adjusted, random snaps only", **{k: ROB["qbr"][k] for k in ("b", "lo", "hi")}, grp="rob"),
-       dict(lab="Shrunken (ridge) forecast", **{k: ROB["ridge"][k] for k in ("b", "lo", "hi")}, grp="rob"),
-       dict(lab="Forecast as covariate", **{k: ROB["cov"][k] for k in ("b", "lo", "hi")}, grp="rob"),
-       dict(lab="QB-adjusted + ridge", **{k: ROB["qbridge"][k] for k in ("b", "lo", "hi")}, grp="rob"),
-       dict(lab="Mixed-model drill score", b=ho_mm, lo=np.percentile(hob_mm, 5), hi=np.percentile(hob_mm, 95),
-            grp="rob"),
-       dict(lab=f"Drop any one player ({len(D)} refits)", b=ho, lo=LOPO.min(), hi=LOPO.max(), grp="range"),
-       dict(lab=f"{len(GRID)} alternative definitions", b=GRID.ho.median(), lo=GRID.ho.min(), hi=GRID.ho.max(),
-            grp="range"),
-       dict(lab="In sample, not held out (reference)", b=coef_in, lo=lo_in, hi=hi_in, grp="ins")]
+# ---- Fig 3: left, every version of the held-out test (8 rows); right, price versus value of six Combine measures
+RW = [dict(lab=f"Main test: ridge forecast (n={len(D)})", **{k: pr13[k] for k in ("b", "lo", "hi")}, grp="main"),
+      dict(lab=f"Without Puka Nacua (n={P13['_nn']['n']})", **{k: P13["_nn"][k] for k in ("b", "lo", "hi")}, grp="rob"),
+      dict(lab="Route mix and depth adjusted", **{k: PMIX[""][k] for k in ("b", "lo", "hi")}, grp="rob"),
+      dict(lab="Quarterback adjusted", **{k: PQB[""][k] for k in ("b", "lo", "hi")}, grp="rob"),
+      dict(lab="Round-12 version (plain forecast)", b=ho, lo=np.percentile(hob, 5), hi=np.percentile(hob, 95),
+           grp="rob"),
+      dict(lab="Mixed-model drill score", b=ho_mm, lo=np.percentile(hob_mm, 5), hi=np.percentile(hob_mm, 95),
+           grp="rob"),
+      dict(lab=f"{len(GRID)} other definitions (range)", b=GRID.ho.median(), lo=GRID.ho.min(), hi=GRID.ho.max(),
+           grp="range"),
+      dict(lab=f"Drop any one player (range)", b=ho, lo=LOPO.min(), hi=LOPO.max(), grp="range")]
 R = pd.DataFrame(RW).iloc[::-1].reset_index(drop=True)
-fig, axA = plt.subplots(figsize=(FIGW, 8.0))
+put("fig3_max_hi", R.hi.max(), 1); put("fig3_min_lo", R.lo.min(), 1)
+put("fig3_min_b", R[R.grp != "range"].b.min(), 1); put("fig3_max_b", R[R.grp != "range"].b.max(), 1)
+fig = plt.figure(figsize=(FIGW, 7.0))
+axA = fig.add_axes([0.255, 0.25, 0.33, 0.62])
+axB = fig.add_axes([0.665, 0.25, 0.325, 0.62])
 axA.axvspan(SESOI_IN, 6.5, color=OI["green"], alpha=0.12, lw=0)
 axA.axvline(0, color=OI["grey"], lw=0.8)
 axA.axvline(SESOI_IN, color=OI["green"], lw=1.5, ls="--")
-axA.text(SESOI_IN + 0.15, len(R) - 2.0, "pre-set margin:\nsmallest gain that\nwould move a pick", fontsize=10.5,
-         va="center", color="#1b5e3b")
-colmap = {"main": OI["verm"], "class": OI["blue"], "rob": OI["black"], "range": OI["purple"], "ins": "#AAAAAA"}
+axA.text(SESOI_IN + 0.15, len(R) - 0.7, "gain that\nwould move\na pick", fontsize=10.5, va="top", color="#1b5e3b")
+colmap = {"main": OI["verm"], "rob": OI["black"], "range": OI["purple"]}
 for i, r_ in R.iterrows():
     c = colmap[r_.grp]
     if r_.grp == "range":
@@ -1719,65 +1919,128 @@ for i, r_ in R.iterrows():
         axA.plot(r_.b, i, "|", color=c, ms=14, mew=2.5)
         continue
     axA.plot([r_.lo, r_.hi], [i, i], color=c, lw=3.5 if r_.grp == "main" else 2)
-    axA.plot(r_.b, i, "o" if r_.grp != "class" else "s", color=c, ms=11 if r_.grp == "main" else 7)
-axA.set_yticks(range(len(R)), R.lab, fontsize=10.5)
+    axA.plot(r_.b, i, "o", color=c, ms=11 if r_.grp == "main" else 7)
+axA.set_yticks(range(len(R)), R.lab, fontsize=11)
 for t_, r_ in zip(axA.get_yticklabels(), R.itertuples()):
-    t_.set_color("#888888" if r_.grp == "ins" else "black")
     if r_.grp == "main":
         t_.set_fontweight("bold")
 axA.set_xlim(-8.0, 6.5)
-axA.set_xlabel("season separation (inches) per 1 sd of Break G", fontsize=11)
+axA.set_xlabel("season separation (in) per +1 sd of Break G", fontsize=11)
 sec = axA.secondary_xaxis("bottom", functions=(lambda v: v * catch_per_in, lambda v: v / catch_per_in))
-sec.spines["bottom"].set_position(("outward", 42))
-sec.set_xlabel(f"same scale: catches per {TG_SEASON}-target season", fontsize=10.5)
+sec.spines["bottom"].set_position(("outward", 40))
+sec.set_xlabel(f"catches per {TG_SEASON}-target season", fontsize=10.5)
 sec.tick_params(labelsize=10)
-axA.set_title(f"Primary {ho:+.1f} in; no held-out version's upper end reaches the pre-set margin",
-              loc="left", fontsize=13, pad=10)
-fig.text(0.01, 0.012, "Lines: 90% intervals (class-stratified bootstrap, forecast refit in every resample). Purple bars: "
-         "range of point estimates, not intervals.\nGrey row: fitted and scored on the same players, shown for "
-         "reference only. n = 116 unless stated.", fontsize=10, color="#333333")
-fig.subplots_adjust(left=0.30, right=0.985, top=0.93, bottom=0.2)
-save(fig, "fig4_heldout.png")
-
-# ---- Fig 5: price versus value for every Combine measure, both held out
-fig, ax = plt.subplots(figsize=(FIGW, 6.4))
-ax.axhline(0, color=OI["grey"], lw=0.9); ax.axvline(0, color=OI["grey"], lw=0.9)
+axA.set_title("A. Held-out classes: no version reaches the margin", loc="left", fontsize=12.5, x=-0.7)
+# price versus value; Break G drawn twice: beyond position only (as the other measures), and beyond the full athletic
+# profile (the estimates quoted in the text)
+axB.axhline(0, color=OI["grey"], lw=0.9); axB.axvline(0, color=OI["grey"], lw=0.9)
+axB.axhline(SESOI_IN, color=OI["green"], lw=1.5, ls="--")
+xr_ = (0, max(45, PV.phi.max() + 10))
+axB.fill_between([0, xr_[1]], -12, SESOI_IN, color=OI["orange"], alpha=0.10, lw=0)
+axB.text(xr_[1] - 1, -10.6, "clubs pay, below the margin", ha="right", fontsize=10.5, color="#8a5a00")
 for _, r_ in PV.iterrows():
     is_bg = r_.k == "bg"
     col = OI["verm"] if is_bg else OI["blue"]
-    ax.plot([r_.plo, r_.phi], [r_.val, r_.val], color=col, lw=2.2, alpha=0.8)
-    ax.plot([r_.price, r_.price], [r_.vlo, r_.vhi], color=col, lw=2.2, alpha=0.8)
-    ax.plot(r_.price, r_.val, "o", ms=12 if is_bg else 9, color=col, mec="black", zorder=5)
-OFF5 = {"bg": (-18, 34), "forty": (-22, 30), "three_cone": (26, 34), "short_shuttle": (70, -34),
-        "combine_weight": (-18, -30), "ngs_athleticism_score": (70, 2)}
+    axB.plot([r_.plo, r_.phi], [r_.val, r_.val], color=col, lw=2.0, alpha=0.7)
+    axB.plot([r_.price, r_.price], [r_.vlo, r_.vhi], color=col, lw=2.0, alpha=0.7)
+    axB.plot(r_.price, r_.val, "o", ms=10 if is_bg else 8, color=col, mec="black", zorder=5)
+pf_ = float(NUM["price_ho"])
+axB.plot([float(NUM["price_ho_lo"]), float(NUM["price_ho_hi"])], [pr13["b"]] * 2, color=OI["verm"], lw=2.0, ls=":")
+axB.plot([pf_] * 2, [pr13["lo"], pr13["hi"]], color=OI["verm"], lw=2.0, ls=":")
+axB.plot(pf_, pr13["b"], "D", ms=10, mfc="white", mec=OI["verm"], mew=2.2, zorder=6)
+LAB5 = {"bg": "Break G", "forty": "40", "three_cone": "3-cone", "short_shuttle": "shuttle", "combine_weight": "weight",
+        "ngs_athleticism_score": "NGS score"}
+OFF5 = {"bg": (-12, 14), "forty": (-8, 12), "three_cone": (8, 11), "short_shuttle": (10, -15),
+        "combine_weight": (-8, -14), "ngs_athleticism_score": (-10, -16)}
 for _, r_ in PV.iterrows():
-    dx, dy = OFF5.get(r_.k, (10, 10))
-    ax.annotate(f"{r_.lab}", (r_.price, r_.val), xytext=(dx, dy), textcoords="offset points",
-                ha="left" if dx > 0 else "right", fontsize=11, fontweight="bold" if r_.k == "bg" else "normal",
-                bbox=dict(facecolor="white", edgecolor="none", alpha=0.8, pad=0.8),
-                arrowprops=dict(arrowstyle="-", color="#555555", lw=0.7, shrinkA=0, shrinkB=6))
-ax.set_xlabel("price: % earlier draft pick per +1 sd (held out)")
-ax.set_ylabel("value: season separation (in) per +1 sd\nbeyond draft pick (held out)")
-xm = max(abs(PV.plo).max(), abs(PV.phi).max()) * 1.15
-ym = max(abs(PV.vlo).max(), abs(PV.vhi).max()) * 1.2
-ax.set_xlim(min(-10, PV.plo.min() - 3), max(45, PV.phi.max() + 12)); ax.set_ylim(-ym, ym)
-ax.text(0.99, 0.03, "clubs pay, no extra space", transform=ax.transAxes, ha="right", fontsize=10.5, color="#555555")
-ax.text(0.99, 0.95, "clubs pay, and it buys space", transform=ax.transAxes, ha="right", fontsize=10.5, color="#555555")
-ax.text(0.01, 0.95, "space clubs do not pay for", transform=ax.transAxes, ha="left", fontsize=10.5, color="#555555")
-ax.set_title("Price versus value: clubs pay for Break G, and it buys no separation", loc="left", fontsize=13)
-fig.text(0.01, 0.015, "Each measure in sd within position and class; times flipped so faster = +. Crosses: 90% "
-         "intervals, class-stratified bootstrap,\nmodels refit on two classes and scored on the third. "
-         f"Price n = {int(PV.n_p.min())} to {int(PV.n_p.max())} WR/TE; value n = {int(PV.n_v.min())} to "
-         f"{int(PV.n_v.max())}.", fontsize=10, color="#333333")
-fig.subplots_adjust(left=0.12, right=0.985, top=0.92, bottom=0.2)
-save(fig, "fig5_price_value.png")
+    dx, dy = OFF5.get(r_.k, (8, 8))
+    axB.annotate(LAB5[r_.k], (r_.price, r_.val), xytext=(dx, dy), textcoords="offset points",
+                 ha="left" if dx > 0 else "right", fontsize=11, fontweight="bold" if r_.k == "bg" else "normal",
+                 color=OI["verm"] if r_.k == "bg" else "black",
+                 bbox=dict(facecolor="white", edgecolor="none", alpha=0.8, pad=0.5))
+axB.annotate("Break G beyond\n40, weight, NGS\n(numbers in text)", (pf_, pr13["b"]), xytext=(27, -8.0),
+             textcoords="data", fontsize=10.5, color=OI["verm"],
+             arrowprops=dict(arrowstyle="-", color=OI["verm"], lw=0.8))
+axB.set_xlim(min(-10, PV.plo.min() - 3), xr_[1]); axB.set_ylim(-12, 7)
+axB.set_xlabel("price: % earlier draft pick per +1 sd", fontsize=11)
+axB.set_ylabel("value: season separation (in) per +1 sd", fontsize=11)
+axB.set_title("B. What clubs pay vs what it buys", loc="left", fontsize=12.5)
+fig.text(0.01, 0.015, "All estimates fitted on two draft classes and scored on the third; 90% intervals from class-"
+         "stratified player bootstraps that refit the models.\nA: purple bars are ranges of point estimates, not "
+         "intervals. B: dots = each measure beyond position only (value beyond pick); open diamond = Break G\nbeyond "
+         f"the athletic profile. Price n = {int(PV.n_p.min())} to {int(PV.n_p.max())} WR/TE; value n = "
+         f"{int(PV.n_v.min())} to {int(PV.n_v.max())}. Times flipped so faster = +.", fontsize=10, color="#333333")
+save(fig, "fig4_heldout_price.png")
+
+# ---- Fig 4: the shortlist rule on the next season. A: every qualifying pair (grey), day-3 / undrafted highlighted by
+# drill cut. B: next-season hit rates with Wilson 90% intervals, all rounds and day 3, and the day-3 shortlist by cut.
+def wilson(h, n, z=1.645):
+    p_ = h / n
+    c_ = (p_ + z * z / (2 * n)) / (1 + z * z / n)
+    hw_ = z * np.sqrt(p_ * (1 - p_) / n + z * z / (4 * n * n)) / (1 + z * z / n)
+    return 100 * (c_ - hw_), 100 * (c_ + hw_)
+
+
+SLP = PAIRS.copy()
+fig = plt.figure(figsize=(FIGW, 6.6))
+axL = fig.add_axes([0.07, 0.17, 0.41, 0.72])
+axR = fig.add_axes([0.68, 0.17, 0.24, 0.72])
+y1i, y2i = IN_YD * SLP.y1, IN_YD * SLP.y2
+lim_ = float(np.ceil(max(np.abs(y1i).max(), np.abs(y2i).max()) / 5) * 5 + 2)
+axL.axvspan(0, lim_, color=OI["sky"], alpha=0.12, lw=0)
+axL.axhline(0, color=OI["grey"], lw=0.9); axL.axvline(0, color=OI["grey"], lw=0.9)
+nd3 = ~SLP.day3
+axL.scatter(y1i[nd3], y2i[nd3], s=34, color="#BBBBBB", edgecolor="none", label="rounds 1-3", zorder=3)
+for soft_, col, lab in ((True, OI["green"], "day 3 / UDFA, soft drill cut"),
+                        (False, OI["purple"], "day 3 / UDFA, hard drill cut")):
+    m_ = SLP.day3 & SLP.BG.notna() & ((SLP.BG < 0) == soft_)
+    axL.scatter(y1i[m_], y2i[m_], s=75, color=col, edgecolor="black", lw=0.6, label=lab, zorder=4)
+LAB4 = {"Malik Washington": (8, 6), "Demario Douglas": (8, -9), "A.J. Barner": (8, 0), "Puka Nacua": (8, -4)}
+for pid_, r_ in SLP[SLP.day3].iterrows():
+    if r_.display_name in LAB4 and (r_.display_name != "Demario Douglas" or r_.s1 == 2024) and \
+            (r_.display_name != "Puka Nacua" or r_.s1 == 2024):
+        dx, dy = LAB4[r_.display_name]
+        axL.annotate(r_.display_name, (IN_YD * r_.y1, IN_YD * r_.y2), xytext=(dx, dy), textcoords="offset points",
+                     ha="left" if dx > 0 else "right", va="center", fontsize=10.5)
+axL.text(lim_ - 0.8, lim_ - 1.0, "shortlist:\nseason-1 SOE > 0", ha="right", va="top", fontsize=11,
+         color="#1d4f70")
+axL.set_xlim(-lim_, lim_); axL.set_ylim(-lim_, lim_)
+axL.set_xlabel("season-1 SOE (in)"); axL.set_ylabel("next-season SOE (in)")
+axL.legend(loc="lower left", fontsize=10, frameon=True, framealpha=0.9, edgecolor="none")
+axL.set_title(f"A. {len(SLP)} WR/TE season pairs, 100+ routes in both", loc="left", fontsize=12.5)
+ROWS4 = [("All rounds: shortlisted", "sl_all_short_hit", "sl_all_short_n", OI["blue"]),
+         ("All rounds: passed over", "sl_all_rest_hit", "sl_all_rest_n", OI["grey"]),
+         ("Day 3 / UDFA: shortlisted", "sl_d3_short_hit", "sl_d3_short_n", OI["blue"]),
+         ("Day 3 / UDFA: passed over", "sl_d3_rest_hit", "sl_d3_rest_n", OI["grey"]),
+         ("Day-3 shortlist, soft cut", "sl_soft_hit", "sl_soft_n", OI["green"]),
+         ("Day-3 shortlist, hard cut", "sl_hard_hit", "sl_hard_n", OI["purple"])]
+ypos = [0, 1, 2.6, 3.6, 5.2, 6.2]
+for yp, (lab, hk, nk, col) in zip(ypos, ROWS4):
+    h_, n_ = int(NUM[hk]), int(NUM[nk])
+    lo_, hi_ = wilson(h_, n_)
+    axR.plot([lo_, hi_], [yp, yp], color=col, lw=3, solid_capstyle="round")
+    axR.plot(100 * h_ / n_, yp, "o", ms=11, color=col, mec="black")
+    axR.text(102, yp, f"{h_} of {n_}", va="center", fontsize=11, clip_on=False)
+axR.axvline(float(NUM["sl_all_base_pct"]), color="black", ls="--", lw=1.3)
+axR.text(float(NUM["sl_all_base_pct"]) + 1.5, -0.85, f"base rate {NUM['sl_all_base_pct']}%", fontsize=10.5)
+axR.set_yticks(ypos, [r_[0] for r_ in ROWS4], fontsize=11)
+axR.set_xlim(0, 100); axR.set_ylim(6.8, -1.2)
+axR.set_xlabel("% with next-season SOE > 0")
+axR.set_title("B. Next-season hit rate", loc="left", fontsize=12.5, x=-0.55)
+fig.text(0.01, 0.015, "Rule fixed in advance, nothing fitted: shortlist if season-1 SOE is above zero; the next season "
+         "is never seen by the rule. B: 90% Wilson intervals.\nA receiver can appear twice (2023-24 and 2024-25). "
+         "Base rate is the same 40% in both pools.", fontsize=10, color="#333333")
+save(fig, "fig2_shortlist.png")
 
 # ---- the full ledger of tests run, for the table next to the headline
 # counted as: 1 primary + 8 versions of it (Fig 4 rows that are intervals, incl. in sample) + 18 definitions + Break G
 # and 3 coach pieces + 3 usage outcomes + 3 Break G price tests + 10 price/value tests of the other 5 measures + 4
 # within-player splits + 3 split-half reliabilities + 3 chain links
 LEDGER = {"primary": 1, "robust": 8, "defs": len(GRID), "comps": 4, "usage": 3, "price": 3, "othermeas": 10,
-          "splits": 4, "splitrel": 3, "chain": 3}
+          "splits": 4, "splitrel": 3, "chain": 3,
+          # round 13: ridge primary, its no-Nacua, mix and QB versions (each with and without Nacua) = 6; yards per
+          # route and catch rate over expected, with and without Nacua = 4; shortlist (all rounds, day 3, soft vs hard) = 3
+          "r13_versions": 6, "r13_outcomes": 4, "r13_shortlist": 3}
 for k_, v_ in LEDGER.items():
     put(f"ledger_{k_}", v_)
 put("ledger_total", sum(LEDGER.values()))
@@ -1805,6 +2068,7 @@ for j_, c_ in enumerate(CARD):
         put(f"card{j_}_reach", c_["n_reach"])
     put(f"card{j_}_nbreaks", c_["n_breaks"])
 (OUT / "numbers.json").write_text(json.dumps(NUM, indent=1))
+tick("figures done")
 (OUT / "card.json").write_text(json.dumps(CARD, indent=1, default=str))
 pd.DataFrame(CARD).to_csv(OUT / "board.csv", index=False)
 print(pd.DataFrame(CARD).to_string())

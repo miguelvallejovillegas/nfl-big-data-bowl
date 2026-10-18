@@ -1,0 +1,17 @@
+{
+ "rule": {
+  "cohort": "DL, 8+ random NFL pass-rush starts set at the snap, 100+ career rushes",
+  "first_step": "mean speed 0.3-0.5 s after first movement (speed first >= 1 yd/s minus 0.2 s), alignment-adjusted",
+  "stopwatch": "official 40 time, year-standardized, residual on weight z and EDGE share",
+  "adjust": "residual on Combine weight z and EDGE share, standardized",
+  "forecast": "rush-weighted least squares of shrunk pressure rate on log pick (UDFA 262), weight z, EDGE share; fit on prior classes",
+  "test": "binomial slope with logit(forecast) offset in the new class; one-sided p < 0.05, for the 40 time and the first step",
+  "cutoffs": "set on the previous classes only (top third of first step, top half of 40 time)",
+  "both": "first step top third and 40 time top half",
+  "start_only": "first step top third, 40 time bottom half or none",
+  "speed_only": "first step bottom third, 40 time top half",
+  "neither": "first step bottom third, 40 time bottom half or none"
+ },
+ "sha256_12": "3726d741954d",
+ "frozen_before": "2026 regular season data"
+}
