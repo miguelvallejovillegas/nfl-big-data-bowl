@@ -1,42 +1,28 @@
-# Two Leads for Pass Rushers: The 3-Cone, and Hoop G When the 3-Cone Is Missing
+# Hoop G: A Tiebreak Lead for Pass Rushers Who Skip the 3-Cone
 
-**For defensive linemen who ran the 3-cone, that time is our best Combine lead on NFL pressure rate. For the two in three who skipped it, Hoop G, the sideways force he holds while circling the Run-the-Hoop drill, is a second lead. Neither is confirmed on a draft class it was not fit on: use Hoop G to break ties and send scouts to film, not to move a board.**
+**Among 2023–25 defensive linemen, the 3-cone is the Combine time most tied to NFL pressure rate, yet on a draft class it was not fit on, it reaches only ρ = 0.36 [−0.22, 0.67]. Hoop G, from Run-the-Hoop tracking, stands in for the two in three who skip the 3-cone: its plus calls beat a no-tracking forecast 4 of 9 times, against 9 of 69 for everyone else, and 0 of 2 in 2025. A lead, not a rule.**
 
-## Why a tiebreak, and why now
+## Why it matters
 
-A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressured than on snaps he did not [90%: 0.37, 0.68]. Boards are flattest on day 3, and that is where the stopwatch is thinnest: only 43 of 118 linemen in the 2023–25 classes ran an official 3-cone (36%; 2025: 15 of 44). But 109 of the 118 ran Run-the-Hoop, and the Combine's 10 Hz tracking turns that circle from a lap time into a force reading.
+A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps [90%: 0.37, 0.68].
+
+The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to dip under a tackle's hands and turn toward the quarterback. But only 43 of 118 linemen ran an official 3-cone (15 of 44 in 2025)¹, while 109 ran Run-the-Hoop, a figure-eight around two hoops. The Combine's 10 Hz tracking turns that lap into a force reading: **Hoop G**, the peak half-second of sideways acceleration on the curve, standardized within Combine year and shrunk toward average for one-run noise (reliability 0.41).
 
 ## The ask
 
-1. **Every DL runs the 3-cone.** Where it exists it is the better number.
-2. **Publish each hoop run's peak sideways g** beside the 40. The tracking already supports it.
-3. **Time two hoop runs per player.** One run has reliability 0.41; two raise it to 0.58.
-4. **For 2026, stated in advance:** we score the same rule and forecast after the 2027 season, against matched twins (below).
+1. **Every DL runs the 3-cone.** Where it exists it decides first.
+2. **Publish each hoop run's peak sideways g** beside the 40, and **time two runs** (reliability rises to 0.58).
+3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% vs 20%); four classes (2026–29) reach 81%, and only 37% if the true gap is half as large.
 
-## What Hoop G is, and what it is not
+## What Hoop G is not
 
-**Hoop G is how hard a lineman can lean into a curve at speed when nobody is blocking him.** It is the peak half-second of acceleration across his path, standardized within Combine year. A typical run peaks at 0.62 g at 3.5 yd/s (7 mph): a circle about 1.8 yards in radius. Single runs are noisy, so every number shrinks toward average.
+Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL rushes (40 EDGEs: 0.002 g per sd [−0.006, 0.011]) or as more outside rushes (38 EDGEs, ρ = 0.07). Compare the pass-rush drill: its first-second burst does carry into games (ρ = 0.32 [0.12, 0.50] with first-second distance after the NFL snap, 85 linemen), yet says nothing about pressure (partial ρ −0.03). Carry-over is not value.
 
-It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [−0.006, 0.011]) or as more outside rushes (38 EDGEs, ρ = 0.07). So it speaks to two situations a scout must still confirm on film: the speed rush from a wide-9 or ghost alignment, where the rusher has to flatten at the top, and the looper on a T-E or E-T stunt, who has to turn tight behind the crash. It says nothing about a bull rush.
+![Figure 1. Hoop path, hardest of 20 sampled NFL rushes, and pressure rate minus forecast for a 2024 plus call who hit (Solomon), a 2025 plus call who has not (Ezeiruaku) and a 2025 minus flag (Phillips).](figures/fig1_hero.png)
 
-![Figure 1. Javon Solomon (plus call, beat his forecast), Donovan Ezeiruaku (2025 plus call, not yet) and Jordan Phillips (2025 minus flag, below forecast). Left: hoop path. Middle: his hardest-turning sampled NFL rush on the same scale. Right: rookie-to-date pressure rate against the no-tracking forecast.](figures/fig1_hero.png)
+## The track record
 
-Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low hoop with the slowest 2025 interior 3-cone: 1.9% against 6.6%.
-
-High and low hoops among EDGEs, with the 3-cone and how their sampled wide rushes left the line:
-
-| EDGE (class, pick) | Hoop G, sd | 3-cone | Sampled wide rushes: outside / inside / straight | Pressure vs forecast |
-|---|---|---|---|---|
-| Javon Solomon (2024, 168) | 0.80 | not run | 15% / 15% / 70% (20) | 12.3% vs 6.9% |
-| Donovan Ezeiruaku (2025, 44) | 0.77 | 6.94 s | 8% / 50% / 42% (24) | 7.7% vs 9.5% |
-| Isaiah McGuire (2023, 126) | −0.48 | 7.39 s | 8% / 48% / 44% (25) | 7.2% vs 5.8% |
-| Tyler Baron (2025, 176) | −0.62 | not run | 4% / 30% / 67% (27) | 4.4% vs 8.0% |
-
-The two high hoops win differently: Solomon goes straight upfield, Ezeiruaku takes the inside move half the time. Hoop G ranks the bend a man has, not the move he uses; the tape tells you whether he uses it.
-
-## The track record, player by player
-
-The rule is frozen: **a plus call needs the 80% interval of a player's noise-corrected Hoop G to clear zero; a minus flag needs it below zero.** Each rusher with 30+ NFL rushes is compared with a no-tracking forecast (pick, weight, EDGE share, NGS score, official 10-yd split and 3-cone) fit on the other two classes; he "beats" it when the 80% interval of his rate sits above it.
+**Frozen rule:** a plus call needs the 80% interval of a player's shrunk Hoop G above zero; a minus flag, below. Each rusher with 30+ NFL rushes gets a no-tracking forecast (pick, weight, EDGE share, NGS score, official 10-yd split and 3-cone) fit on the other two classes, and "beats" it when the 80% interval of his pressure rate clears it. The forecast is honest out of class (Figure 2; weighted slope 1.17 [0.69, 1.68]).
 
 | Group, 2023–25 (30+ NFL rushes) | Rushers (2025) | Pressure rate (forecast) | Beat forecast [exact 90%] | Clearly below |
 |---|---|---|---|---|
@@ -46,55 +32,79 @@ The rule is frozen: **a plus call needs the 80% interval of a player's noise-cor
 | No call, interior | 31 (13) | 6.9% (7.2%) | 3 of 31 [3–23%] | 11 |
 | Minus flag, interior (film check) | 6 (2) | 4.7% (6.9%) | 0 of 6 [0–39%] | 2 |
 
-Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecast; Adetomiwa Adebawore (pick 110), a plus call from the same rule, at 8.6% against 8.4%, inside the noise.
+By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling Hoop G gives p = 0.05. One rookie season is too short for anyone to clear the bar: no 2025 rusher did.
 
-A fairer test puts each plus call beside the no-call rusher a scout would have weighed him against: same class and role, nearest in pick and Combine weight.
+![Figure 2. Out-of-class forecast against actual pressure rate for 78 rushers with 30+ NFL rushes.](figures/fig2_calibration.png)
 
-![Figure 2. Each scored plus call beside his matched no-call twin, with Hoop G against his class (left) and pressure rate minus forecast (right). Pooled groups, including the minus flags, on the same axis at the bottom.](figures/fig2_twins.png)
+Each plus call beside the no-call rusher a scout would have weighed him against (same class and role, nearest pick and weight):
 
-Plus calls out-rushed their twins' rate over forecast in 7 of 9 pairs, by 3.2 points on average, and 1 of 2 in 2025. The 6 interior minus flags sit 2.2 points under forecast, but weight explains part of a low interior hoop, so that flag sends you to film, not down the board.
+![Figure 3. Plus call minus comparison player, pressure rate over forecast, with each pair's 90% interval, the mean and the shuffle null.](figures/fig3_pairs.png)
+
+Plus calls led in 7 of 9 pairs, by 3.2 points on average, but only 2 pairs clear zero alone, and the pairing was designed after the rule.
+
+Is 80% a lucky setting? Across 27 variants of the call interval, the 30-rush minimum and the forecast, plus calls lead in 18; the edge vanishes at 90%, where only 1–2 rushers get a call. In the count model with rushes as exposure, rushes per game for rotation and a pick × rotation term, Hoop G is worth 1.1 pressures per 450 rushes per sd [0.0, 2.5], carried by the 63 rushers with 100+ rushes (Appendix).
+
+![Figure 4. Sensitivity grid: hit counts and shuffle p for each call interval and minimum-rush setting.](figures/fig4_grid.png)
+
+## When the call is wrong
+
+| Player (class, pick, lb) | Call | Lined up inside | NFL get-off, s (quicker than % of DL) | Pressure vs forecast (rushes) | Read |
+|---|---|---|---|---|---|
+| **Cedric Johnson** (2024, 214, 260) | Plus | 11% | 0.96 (80%) | 13.0% vs 7.2% (216) | Hit: day-3 EDGE, tie-break paid |
+| **Adetomiwa Adebawore** (2023, 110, 282) | Plus | 95% | 0.99 (70%) | 8.6% vs 8.4% (511) | Miss: at forecast, still ahead of his comparison player |
+| **Jordan Phillips** (2025, 143, 312) | Minus flag | 99% | 1.17 (10%) | 1.9% vs 6.6% (215) | Flag confirmed so far |
+| **Yahya Black** (2025, 164, 336) | Minus flag | 92% | 1.17 (8%) | 5.8% vs 5.2% (189) | Flag not confirmed: size, not stiffness? |
+
+**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by 1.7 points. **Phillips and Black** are the same flag with opposite outcomes: both line up inside on at least 92% of snaps and get off the ball slower than 89% of cohort linemen, yet Phillips sits 21.5 pressures per 450 rushes under forecast and Black 3.0 over. At 312 and 336 lb a low Hoop G is partly size, so the flag is a film question: does he still change direction when the play moves away?
+
+The price of a wrong tie-break is small: in the 2 pairs the comparison player won, he won by at most 3.2 pressures per 450 rushes, about 1.7 expected points.
 
 ## The 2025 decision card
 
-| 2025 player (pick, role) | Call (Hoop G, sd) | 3-cone | Rookie pressure vs forecast (rushes) |
-|---|---|---|---|
-| **Ethan Downs** (UDFA, EDGE) | Plus (0.94) | 7.58 s | too few to score (7) |
-| **Warren Brinson** (198, Int) | Plus (0.77) | not run | 6.9% vs 6.6% (173; within noise) |
-| **Donovan Ezeiruaku** (44, EDGE) | Plus (0.77) | 6.94 s | 7.7% vs 9.5% (402; within noise) |
-| **Jack Sawyer** (123, EDGE) | Film first (0.56) | not run | 9.7% vs 8.5% (176; within noise) |
-| **Tyler Baron** (176, EDGE) | Film first (−0.62) | not run | 4.4% vs 8.0% (68; within noise) |
-| **Jordan Phillips** (143, Int) | Minus flag (−0.80) | 8.19 s | 1.9% vs 6.6% (215; clearly below) |
-| **Yahya Black** (164, Int) | Minus flag (−0.75) | 7.63 s | 5.8% vs 5.2% (189; within noise) |
+| 2025 player (pick, role) | Call (Hoop G, sd) | 3-cone | Rookie pressure vs forecast (rushes) | Action now |
+|---|---|---|---|---|
+| **Ethan Downs** (UDFA, EDGE) | Plus (0.94) | 7.58 s | — (7) | No read yet (7 rushes): get him rush snaps before judging |
+| **Warren Brinson** (198, Int) | Plus (0.77) | not run | 6.9% vs 6.6% (173) | Slightly ahead of forecast, not decisive: hold his role, re-score after 2026 |
+| **Donovan Ezeiruaku** (44, EDGE) | Plus (0.77) | 6.94 s | 7.7% vs 9.5% (402) | Slightly behind forecast, not decisive: hold his role, re-score after 2026 |
+| **Jack Sawyer** (123, EDGE) | Film first (0.56) | not run | 9.7% vs 8.5% (176) | Slightly ahead of forecast, not decisive: hold his role, re-score after 2026 |
+| **Tyler Baron** (176, EDGE) | Film first (−0.62) | not run | 4.4% vs 8.0% (68) | Slightly behind forecast, not decisive: hold his role, re-score after 2026 |
+| **Jordan Phillips** (143, Int) | Minus flag (−0.80) | 8.19 s | 1.9% vs 6.6% (215) | Clearly behind: flag stands; early downs until film says otherwise |
+| **Yahya Black** (164, Int) | Minus flag (−0.75) | 7.63 s | 5.8% vs 5.2% (189) | Slightly ahead of forecast, not decisive: hold his role, re-score after 2026 |
 
 Film checklist and tie-breaks:
 
-- **Plus, EDGE (Downs and Ezeiruaku):** does he flatten at the top of the rush from a wide-9 or ghost alignment, or only redirect late? If his 3-cone still leaves a tie, take him over Jah Joyner (UDFA) / Nic Scourton (51).
-- **Plus, interior (Brinson):** does he win as the looper on T-E and E-T stunts, turning tight behind the crash? In a tie, take him over Tim Smith (190).
-- **Film first (Sawyer, Baron):** does he turn the corner, or win only with power? A second hoop run would settle the call.
-- **Minus flag, interior (Phillips, 312 lb and Black, 336 lb):** partly size. Does he still redirect on games at that weight? If film agrees, prefer Cam Jackson (140) / Elijah Roberts (157).
-
-Where a 3-cone exists, it decides first; Brinson, a day-3 interior lineman with no 3-cone, is the clean use case.
+- **Plus, EDGE (Downs and Ezeiruaku):** on wide speed rushes, does he flatten toward the quarterback at the top of the arc, or drift past him? If the 3-cone still leaves a tie, take him over Jah Joyner (UDFA) / Nic Scourton (51).
+- **Plus, interior (Brinson):** when he loops around a teammate on a stunt, does he turn tight or run wide? In a tie, take him over Tim Smith (190).
+- **Film first (Sawyer, Baron):** does he turn the corner or win only with power? Ask for a second hoop run.
+- **Minus flag, interior (Phillips, 312 lb and Black, 336 lb):** partly size. Does he still change direction when the play moves away from him? If film agrees, prefer Cam Jackson (140) / Elijah Roberts (157).
 
 ## How sure we are
 
-| Claim (rushers) | Estimate | Tested against |
+| Question | Answer | Verdict |
 |---|---|---|
-| 3-cone → pressure, after pick, weight, role, NGS (27 rushers with 100+ rushes) | in-sample ρ 0.41 [−0.01, 0.72]; fit on two classes, scored on the third: 0.36 [−0.22, 0.67], positive in 1 of 3 held-out classes | 95% bootstrap |
-| Hoop G → pressures per 450-rush season, per sd (all 90) | 0.6 [−0.4, 1.7]; no 3-cone (56) 1.0 [−0.1, 2.5], ran it (34) 0.3 | one count model, shared prior, 90% |
-| Hoop G, held-out gain where the 3-cone is missing (56) | explains 11.6 more points of rusher-to-rusher spread [−6.8, 32.2] | fit on two classes, 90% |
-| Plus calls beat forecast (frozen rule) | 4 of 9 vs 9 of 69 without a call | Hoop G shuffled: p = 0.05 |
-| Same rule, re-chosen on two classes and scored on the third | 4 of 12 vs 9 of 66 (4 of 13 with Downs) | nothing fit on the scored class |
-| Plus call vs matched no-call twin | better in 7 of 9 pairs; +3.2 pts of pressure rate over forecast [1.6, 4.9] | Hoop G shuffled, twins re-matched: p = 0.004 |
-| Best of 14 drill–outcome pairs we screened | Hoop G partial ρ 0.32 | outcomes shuffled: p = 0.12 |
-| 2025 clean test | 0 of 2 plus calls beat forecast; 0 of 23 without a call did | P(0 of 2) = 0.22 at the 2023–24 plus rate, 0.96 at the 2025 no-call rate |
-
-Quote the 0.12: it is the only p-value that prices our search over 14 drill–outcome pairs, so the calls are leads, not rules.
+| Plus calls beat forecast more often (frozen rule, 9 vs 69) | 4 of 9 vs 9 of 69; exact, by class: mid-p 0.04 | Suggestive |
+| Same rule across 27 reasonable settings | plus ahead in 18 of 27; shuffle p ≤ 0.10 in 18 | Not knife-edge, not proven |
+| Out of class, nothing fit on the scored class | 3-cone helps the held-out forecast in 1 of 3 classes; re-chosen Hoop G rule 4 of 12 vs 9 of 66 | Unconfirmed |
+| 2025 clean test | 0 of 2 plus calls, 0 of 25 others beat forecast | Too early to score |
 
 ## Limitations
 
-- **Not confirmed.** Out of class, both leads' intervals span zero; a confirmatory test needs about 840 rushers.
-- **Small and early.** 9 scored plus calls; one rookie season is too short for anyone to clear the bar. The twin test was added after the rule, on the same rushers.
-- **Thin NFL data.** Season pressure counts ignore rotation, injuries, opponents and scheme. Sampled tracking has about 20 rushes per player and no blockers.
-- **Where both exist, the 3-cone wins.** Hoop G is a stand-in, not an addition.
+- **Not confirmed.** Out of class, the 3-cone and Hoop G intervals both span zero; the 3-cone count model gives 0.5 pressures per 450 rushes per sd [−1.0, 2.1]. Hoop G is a stand-in where the 3-cone is missing, not an addition.
+- **Small and early.** 9 scored plus calls; the 2025 class cannot discriminate yet.
+- **Thin NFL data.** Season counts ignore opponents and scheme; rotation is proxied by rushes per game. Sampled tracking has 20 rushes per player and no blockers or ball.
+- **Searched.** Hoop G was the best of 14 drill–outcome pairs; shuffling outcomes, a pair that strong appears with p = 0.12.
 
-*Reproducible: `uv run python writeup/candidates/round_09/revised/analysis.py` writes `numbers.json`, `claims.json`, the board CSV and both figures, then fills this text from `writeup_template.md`.*
+¹ Tracking shows 45 linemen with a 3-cone attempt: 42 with an official time, 3 with tracking only; 1 official time has no tracked run. We use official times.
+
+## Appendix: model checks
+
+| Check (rushers) | Result [90%] |
+|---|---|
+| Hoop G count model, 30+ rushes, exposure + rotation + pick × rotation (78) | 1.1 pressures per 450 rushes per sd [0.0, 2.5]; 100+ rushes (63) 1.1 [−0.1, 2.6]; 30–99 (15) 0.1 [−1.1, 1.4] |
+| 3-cone count model, all who ran it with a rush (37) | 0.5 per sd faster [−1.0, 2.1]; class-alone slope positive in 3 of 3 |
+| Held-out error cut by adding the 3-cone to a forecast-only ridge (2023 / 2024 / 2025) | 7% / −19% / −8% (n 15 / 9 / 13) |
+| Plus call minus comparison player, 9 pairs | +3.2 pts [1.6, 4.9]; shuffle p = 0.004 (pairing chosen after the rule) |
+| Best of 14 drill–outcome pairs screened | Hoop G, partial ρ 0.32; outcomes shuffled p = 0.12 |
+| Pooled Fisher, unstratified | one-sided p 0.04, mid-p 0.02 |
+
+*Reproducible: `uv run python writeup/candidates/round_10/cand_1/analysis.py` writes `numbers.json`, `claims.json`, the board CSV and all four figures, then fills this text from `writeup_template.md`.*
