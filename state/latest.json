@@ -1,143 +1,128 @@
 {
- "round": 13,
+ "round": 14,
  "candidates": [
   {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_13/cand_2/",
-   "angle": "WR/TE Break G drill-to-game chain; positive use = SOE-persistence shortlist, price vs value",
-   "score": 8.45,
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_14/revised/",
+   "angle": "WR/TE Break G drill-to-game chain; day-3/UDFA SOE-persistence shortlist vs pick-and-routes (revision of cand_2)",
+   "score": 8.48,
    "judge_scores": {
-    "judge-football": 8.3,
-    "judge-datascience": 8.6,
-    "judge-writeup": 8.3,
+    "judge-football": 8.5,
+    "judge-datascience": 8.7,
+    "judge-writeup": 8.0,
     "judge-viz": 8.6
    },
    "fatal_flaws": []
   },
   {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_13/cand_1/",
-   "angle": "DL Hoop G (Run-the-Hoop sideways push) day-3 pass-rusher shortlist",
-   "score": 8.11,
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_14/cand_2/",
+   "angle": "WR/TE Break G chain; SOE shortlist ties pick-and-routes; price vs value",
+   "score": 8.33,
    "judge_scores": {
-    "judge-football": 8.1,
-    "judge-datascience": 8.0,
-    "judge-writeup": 8.1,
-    "judge-viz": 8.3
+    "judge-football": 8.3,
+    "judge-datascience": 8.6,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.4
    },
    "fatal_flaws": []
   },
   {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_13/cand_3/",
-   "angle": "DL 40 start vs NFL first step; 'Both' fast shortlist",
-   "score": 7.98,
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_14/cand_1/",
+   "angle": "DL Hoop G day-3/UDFA pass-rusher shortlist",
+   "score": 8.25,
    "judge_scores": {
     "judge-football": 7.9,
-    "judge-datascience": 8.3,
-    "judge-writeup": 7.6,
-    "judge-viz": 8.0
+    "judge-datascience": 8.4,
+    "judge-writeup": 8.4,
+    "judge-viz": 8.4
    },
-   "fatal_flaws": [
-    "figures/ directory empty; none of the four referenced PNGs exists (viz judged from code only)"
-   ]
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_14/cand_3/",
+   "angle": "DL 40 start vs NFL first step; 'Both' fast shortlist",
+   "score": 7.9,
+   "judge_scores": {
+    "judge-football": 7.7,
+    "judge-datascience": 7.9,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.2
+   },
+   "fatal_flaws": []
   }
  ],
  "winner": {
-  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_13/cand_2/",
-  "score": 8.45
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_14/revised/",
+  "score": 8.48
  },
  "winner_feedback": {
   "judge-football": {
-   "score": 8.3,
+   "score": 8.5,
    "subscores": {
-    "usable": 8.3,
-    "confounders": 8.8,
-    "unique": 8,
-    "terminology": 8.2
+    "usable": 8.5,
+    "confounders": 8.9,
+    "unique": 8.1,
+    "terminology": 8.4
    },
-   "justification": "Usable (8.3): concrete rule (100+ routes and SOE above zero), named 2026 list of 13 receivers, drill protocol (slant, dagger, comeback twice). The 62% vs 19% headline pools all draft rounds; the day-3 pool the rule targets is only 6 of 12 vs 2 of 8 with an interval crossing zero. Confounders (8.8): handles opportunity and pick, route mix and depth, QB effects, Nacua leverage, drill reliability and ceiling, sampled-play limits, frozen-rule hash; scheme splits do not repeat. Weak spots: players in two season pairs, post-hoc ridge choice. Unique (8.0): same-player same-route-family drill-to-game translation with reliability ceiling is a real reframing; price-vs-value test adds. Mostly null Break G plus SOE-persistence shortlist (close to autocorrelation) dilutes the pivot. Terminology (8.2): football terms plausible, six named players with deployment splits; g force reading and 0.4 catches a season conversion slightly stretched; text-to-numbers.json mismatch (price 14% vs 9%) is a credibility risk.",
+   "justification": "Day-3/UDFA pool is the headline, with a 13-name 2026 shortlist carrying P(2026 SOE>0) beside a pick-and-routes baseline, and two drill-vs-tape disagreement cases (Boutte, Bond) with coaching and board actions. Edge is thin (7/13 vs 6/13; rank-correlation interval includes zero): a tiebreaker, not a rule. Confounders handled: opportunity, alignment, QB, sample size, drill repeatability, Bayesian errors-in-variables bound, clustered intervals, time-forward folds. Gaps: injuries, 40 clip-start. Unique: drill-to-game cut force with same code; persistent-SOE-vs-pick framing; shortlist half is a conventional persistence check. Terminology correct; minor loose phrases.",
    "top_changes": [
-    "Rebuild the headline around the day-3/UDFA pool; report its hit rate vs base rate with an interval (6/12 vs 2/8). If it cannot be made firm, say so in the lede and do not quote the all-rounds 62% vs 19% as the rule's result. Add a SOE-persistence-vs-pick-forecast baseline (0.44 year-to-year correlation makes the gap partly mechanical).",
-    "Fix number consistency: reconcile 14% [5,23] price vs price_bg=9 [2,17] in numbers.json and Fig 4. Check word count with wc -w. Cut Holm, Bonferroni, ridge and QB detail; cut 5-row tests table to 3 rows.",
-    "Show a decision case where Break G and tape disagree with the shortlist outcome (extend the Boutte row to a scout action) with one clip-level cue. Replace generic role actions with route-family-specific coaching. Give 2026 shortlist names with SOE and routes in a small table, flagging soft-cut ones as test cases."
-   ],
-   "fatal_flaws": []
+    "Resolve weak headline evidence (rank-correlation 0.37 vs 0.06 in abstract vs +0.31 [-0.08,0.63] in table; yes/no gap 8 pts [-16,27]); lead with SOE persistence as tiebreaker only; one labelled line for all-rounds result (0.33 [0.13,0.53], 2 of 2 folds).",
+    "Add a worked decision case on a real board (two day-3 receivers, similar pick and routes) with roster/dollar consequence, and a 2026 Combine protocol note on which drills to double-rep.",
+    "Cut headline complexity (move ridge, QB rows to appendix); add scheme and injury context to the shortlist (games missed, slot vs outside for Washington, Douglas, Tez Johnson); mention the 40 clip-start issue."
+   ]
   },
   "judge-datascience": {
-   "score": 8.6,
+   "score": 8.7,
    "subscores": {
     "correctness": 9,
-    "evidence": 8.6,
-    "model": 8.5,
-    "innovation": 8.3
+    "evidence": 8.8,
+    "model": 8.6,
+    "innovation": 8.4
    },
-   "justification": "Ran analysis.py in a scratch repo (~5 min); all 1,017 numbers.json entries matched exactly (deterministic). Headline slope (-0.4 [-2.2,+1.7], shuffle p 0.74), 16/26 vs 5/27 shortlist, 14% price, drill reliability (rho 0.28, 0.53 rising to 0.62) and NFL-vs-drill rho -0.11 reproduced. Fisher exact not run (no scipy); p values taken from numbers.json. Strengths: no-tracking baseline (log pick, 40, weight, NGS, TE flag) with ridge, weight estimated on held-out class; leave-one-class-out with refitting player bootstrap; year- and drill-standardized scores; mixed-model reliability and ceiling; frozen hashed rule; pre-set +3 in margin, Nacua-excluded version, 70-test ledger; new 10 Hz break detector, route-family drill-to-play matching, identical-code Break G. Weaknesses: action 1 says day-3/UDFA rule right 62% vs 40% base but those are all-rounds figures (16/26); day-3 is 6/12 vs 2/8, gap [-14,58], p=0.26. Shortlist headline is SOE persistence, not tracking-derived, with overlapping pairs (53 pairs, 38 receivers); Bonferroni over ledger non-significant. Ridge main test (-0.4) adopted after plain (-1.2) seen; shuffle p moved 0.38 to 0.74; ridge calibration varies by class (0.52, 3.95, 1.86). Price lead borderline (Holm 16%), held-out R2 gain 1.4 points spanning zero. Game metric reliability 0.23 so null is underpowered and 'does not transfer' too strong. SOE not target-quality adjusted; QB share on 4,071 snaps. Decel, apex-speed, re-acceleration reliabilities 0.12, -0.04, 0.05; only G usable.",
+   "justification": "Spot-checked: n=116 WR/TE with Break G (82 WR, 34 TE); 13-name shortlist, 7 negative Break G; Spearman Break G vs SOE -0.07; numbers.json consistent with text (1,987 words, 4 figures, check.py clean). Not reproduced: clustered/Bayesian intervals and leave-one-season-out. Strengths: fixed no-tracking baseline, out-of-class validation, standardization, shrinkage, honest weak day-3 result. Weaknesses: tiny day-3 pool (20 pairs, 16 receivers), pre-specified framing relies on trust, no mixed models, survivor bias from 100-route cutoff, drill-to-game link untestable on sample, 2025 class single season.",
    "top_changes": [
-    "Fix the day-3 claim in action 1: report 6/12 vs 2/8 against the 40% base (all-rounds 62% is a different pool). Add leave-one-season-out or time-forward evaluation of the shortlist rule. Cluster bootstrap/Fisher interval by receiver. Report gap net of regression to the mean (pick and routes only rule).",
-    "Pre-register ridge vs plain as one primary test or report a combined estimate. Add leave-one-class-out interval for the ridge weight. Give a Bayesian posterior or equivalence statement for Break G so the null is a bounded effect.",
-    "Raise game-side power: reliability-disattenuated drill-to-game correlation with interval; test only players with at least 8 graded NFL break reps; add target-quality-adjusted SOE as main outcome plus Nacua-free yards per route run in the headline table."
-   ],
-   "fatal_flaws": []
+    "Address survivorship with a selection model (P(100+ routes) from pick and Break G, IPW) and report exclusions.",
+    "Strengthen day-3 evidence with a receiver random-intercept mixed model and a permutation test of the 7/13 vs 6/13 gap; report shortlist calibration.",
+    "Table of Break G slopes across plain, ridge, no-offset forecasts with a single TOST bound at +3 in."
+   ]
   },
   "judge-writeup": {
-   "score": 8.3,
+   "score": 8.0,
    "subscores": {
-    "clarity": 8.4,
-    "structure": 8.5,
-    "motivation": 7.7,
-    "density": 7.9
+    "clarity": 8,
+    "structure": 8.3,
+    "motivation": 7.6,
+    "density": 7.6
    },
-   "justification": "check.py passes (1,801 words by its count, 4 figures, 2 tables; wc -w 1,963). Lede states result and action within ~80 words: hard Combine cut gives no separation (-0.4 in, 90% interval -2.2 to +1.7), last season's separation repeats 62% vs 19%. Structure follows finalist pattern. Prior-round complaints addressed (positive use is headline, table is 5 rows, Boutte drill-vs-tape case). Weaknesses: 'The test' is a stack of bolded mini-paragraphs; 62% vs 19% from 53 pairs with repeated receivers, day-3 subset (6/12 vs 2/8) interval includes zero; lede's 62% is all-rounds but the so-what's 62% vs 40% refers to a different pool; metric paragraph has notebook detail (same code, frozen hashes); 'Why it matters' thin; shuffle p, Holm, ridge leak into body; title long but states finding.",
+   "justification": "check.py passes: 1,875 words, 4 figures, 5 tables. Structure near finalist pattern; pool and interval now stated honestly, fixing round-13 overclaim. Problems: 25-word two-sentence title; ~85-word lede stacking four statistics and two intervals; 0.37 vs 0.06 vs +0.31 not reconciled; motivation opens on a scouting cliche; appendix-style detail in body (2.8-to-1 Bayes factor, reliability, 88% resample win rate, all-rounds secondary pool); hedge stacks; split story; Break G definition not one coach sentence; analyst terms (rank correlation, shrunk, Youden, Brier).",
    "top_changes": [
-    "Reconcile hit-rate numbers in lede and so-what; state once which pool the headline refers to; say day-3 is directional only (gap 25 points [-14,58]); put repeat-receiver overlap in one clause beside the number.",
-    "Collapse 'The test' into one 5-row robustness table (plain, ridge, without Nacua, route-mix adjusted, QB-adjusted); move yards per route run, catch rate over expected, QB model, Holm/shuffle p to appendix; keep one sentence on price lead.",
-    "Rewrite 'Why it matters' as real motivation (why WR/TE separation is hard to scout, why a cut metric is plausible, clubs already pay 14% earlier, first class with 10 Hz Combine tracking). Delete 'same code ... frozen and hashed' from 'The metric'; give coach definition: Break G is how hard a receiver drives into the ground in the second around his cut."
+    "Short title and a lede of at most 60 words; move yes/no count and rank-correlation interval to the table.",
+    "Move analyst-only detail to the appendix; collapse hedges into one verdict; reconcile 0.37 vs 0.06 with +0.31.",
+    "Rewrite Why it matters and The metric: roster decision, why now, one-sentence metric."
    ],
-   "suggested_title": "Combine Cuts Don't Predict NFL Separation for Receivers. Last Season's Separation Does.",
-   "fatal_flaws": []
+   "suggested_title": "Combine Cutting Force Doesn't Buy NFL Separation; Last Season's Separation Is a Small Edge for Day-3 Receivers"
   },
   "judge-viz": {
    "score": 8.6,
    "subscores": {
     "accessible": 8.4,
-    "accurate": 8.6,
-    "innovative": 8.9,
-    "economy": 8.8
+    "accurate": 8.8,
+    "innovative": 8.8,
+    "economy": 9
    },
-   "per_figure": [
-    {
-     "file": "fig1_cards.png",
-     "note": "Hero. Drill-vs-game paths for same players/route family in common frame with metric readouts and six-player interval strip. Readouts ~8-9 pt, figure tall; Break G in g vs sd in titles; forecast-error intervals uninformative.",
-     "keep": true
-    },
-    {
-     "file": "fig2_shortlist.png",
-     "note": "Clear, base rate, Wilson intervals, n shown, named players. Puka Nacua label overlaps a point, Washington clipped; base rate 40% in both pools; panel A somewhat circular; same player can appear twice.",
-     "keep": true
-    },
-    {
-     "file": "fig3_chain.png",
-     "note": "Reliability, transfer with null band and ceiling, per-player slopes. Panel 3 crowded caterpillar; panels 1 and 2 carry the message.",
-     "keep": true
-    },
-    {
-     "file": "fig4_heldout_price.png",
-     "note": "Panel A robustness forest good. Panel B labels collide; diamond (~14%) vs dot (~10%) easy to misread; secondary axis unclear; purple bars not intervals.",
-     "keep": true
-    }
-   ],
+   "per_figure": "fig1_cards: hero, Combine vs NFL rotated cut paths, dumbbell with bootstrap bars; readouts small, regression-to-mean caption needed, no scale bar. fig2_chain: clear; flag slices with NFL reliability 0.00; panel C crowded. fig3_price_value: clean paired forest with +3 in line; verify price number (14% vs ~9.5%) against numbers.json; green label clipped. fig4_shortlist: dumbbell with inset; title says 'out-ranks' while day-3 interval includes 0; heavy encoding; panel B small.",
    "top_changes": [
-    "Make Fig 1 work at column width: 4 players or 2x3 grid, readouts at least 10 pt, one scale (g and sd), colour path by acceleration through the 1.0 s window; drop forecast-error strip or replace with drill-vs-NFL Break G dumbbell.",
-    "Declutter Fig 4B: offset labels with leaders, print numeric Break G price and value next to diamond and dot matching text (14% [5,23]; dot 10%), drop or explain secondary axis, or reduce to 3-row dumbbell.",
-    "Cut Fig 3 panel 3 or replace with small multiples of 3-4 players; fix Fig 2 label collisions; show 4/7 vs 2/5 as counts without interval emphasis."
-   ],
-   "fatal_flaws": []
+    "Fig 1: readouts at least 10 pt, 2x3 grid, shared scale bar, regression caption.",
+    "Fig 4: claim-supported title, hit/miss tick, sort by outcome, enlarge panel B.",
+    "Fig 3 and 2C: reconcile price number with text; grey out near-zero-reliability slices."
+   ]
   }
  },
  "changelog": [
-  "Round 13 winner is cand_2 (WR/TE Break G chain with SOE-persistence shortlist), 8.45 vs 8.41 prior.",
-  "Headline pivoted to positive use: last season's separation repeats (16/26 vs 5/27) while a hard Combine cut gives no separation (-0.4 in [-2.2,+1.7]).",
-  "Added ridge no-tracking baseline, leave-one-class-out validation, frozen hashed rule, 70-test ledger and leave-out-Nacua check.",
-  "Reduced to 4 figures: route-family drill-vs-game cards, shortlist, evidence chain, held-out and price vs value; named 2026 list of 13 receivers.",
-  "Open issues: day-3 pool claim (6/12 vs 2/8) vs all-rounds 62%, price 14% vs 9% numbers mismatch, Fig 1 and 4B legibility."
+  "Round 14 winner is the revision of cand_2 (WR/TE Break G): day-3/UDFA pool now the headline with honest tie-level SOE edge.",
+  "Added 13-name 2026 shortlist with P(2026 SOE>0) beside pick-and-routes baseline.",
+  "Added drill-vs-tape disagreement cases (Boutte, Bond) with coaching and board actions.",
+  "Added Bayesian errors-in-variables bound, clustered intervals and time-forward season folds; word count 1,875, 4 figures.",
+  "Score 8.45 -> 8.48 (+0.03); no fatal flaws; remaining: lede/title length, 0.37 vs 0.31 reconciliation, survivorship."
  ],
  "history": [
   {
@@ -187,7 +172,11 @@
   {
    "round": 12,
    "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
   }
  ],
- "previous_score": 8.41
+ "previous_score": 8.45
 }
