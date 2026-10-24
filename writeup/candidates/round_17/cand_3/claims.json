@@ -1,0 +1,878 @@
+{
+ "act_minrush": {
+  "value": 300,
+  "claim": "1. **Act on three names (Table 3): extend Byron Young (LAR) and YaYa Diaby (TB); give Chop Robinson (MIA) a full passing-down role, re-scored at midseason because he missed his 202"
+ },
+ "alpha": {
+  "value": "0.05",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "avail_cut": {
+  "value": 25,
+  "claim": "1. **Act on three names (Table 3): extend Byron Young (LAR) and YaYa Diaby (TB); give Chop Robinson (MIA) a full passing-down role, re-scored at midseason because he missed his 202"
+ },
+ "b_smith_fc": {
+  "value": "7.7",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast: fas"
+ },
+ "b_smith_rate": {
+  "value": "3.9",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast: fas"
+ },
+ "b_smith_t": {
+  "value": "48",
+  "claim": "**Where rule and tape disagree.** Maason Smith (Jacksonville, 2024, pick 48) has the pool's best NFL first step, a 48th-percentile 40 and 3.9% pressure against a 7.7% forecast: fas"
+ },
+ "bl_full_r2": {
+  "value": "0.48",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_full_rho": {
+  "value": "0.51",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_full_rmse": {
+  "value": "2.0",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_mean_rmse": {
+  "value": "2.8",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_pick_r2": {
+  "value": "0.43",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_pick_r2_hi": {
+  "value": "0.61",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_pick_r2_lo": {
+  "value": "0.24",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_pick_rho": {
+  "value": "0.45",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "bl_pick_rmse": {
+  "value": "2.1",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "brier_base": {
+  "value": "0.253",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "brier_rule": {
+  "value": "0.212",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "calib_os": {
+  "value": "80",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "calib_ps": {
+  "value": "69",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "ceil_2rep": {
+  "value": "0.67",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "d40_hi": {
+  "value": "0.11",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "d40_lo": {
+  "value": "-0.11",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "d40_r2": {
+  "value": "0.00",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "dboth_hi": {
+  "value": "0.14",
+  "claim": "| Both flag (rule, 0/1) | 69 | Table 2 | Table 2 | 0.04 [-0.04, 0.14] |"
+ },
+ "dboth_lo": {
+  "value": "-0.04",
+  "claim": "| Both flag (rule, 0/1) | 69 | Table 2 | Table 2 | 0.04 [-0.04, 0.14] |"
+ },
+ "dboth_r2": {
+  "value": "0.04",
+  "claim": "| Both flag (rule, 0/1) | 69 | Table 2 | Table 2 | 0.04 [-0.04, 0.14] |"
+ },
+ "dc40_hi": {
+  "value": "0.03",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "dc40_lo": {
+  "value": "-0.17",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "dc40_r2": {
+  "value": "-0.07",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "dcarry_hi": {
+  "value": "0.01",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "dcarry_lo": {
+  "value": "-0.17",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "dcarry_r2": {
+  "value": "-0.08",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "dfboth_hi": {
+  "value": "0.03",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dfboth_lo": {
+  "value": "-0.11",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dfboth_r2": {
+  "value": "-0.04",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dfnfl_hi": {
+  "value": "0.00",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dfnfl_lo": {
+  "value": "-0.24",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dfnfl_r2": {
+  "value": "-0.10",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "dnfl_hi": {
+  "value": "0.05",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "dnfl_lo": {
+  "value": "-0.21",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "dnfl_r2": {
+  "value": "-0.06",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "dr_med_40": {
+  "value": "6.8",
+  "claim": "First step is measured in sd after weight and role. In that window the 40 and a pass rush are the same movement; by 1.5 s they part (6.8 yd/s in the 40, 3.1 on a rush, because he m"
+ },
+ "dr_med_sunday": {
+  "value": "3.1",
+  "claim": "First step is measured in sd after weight and role. In that window the 40 and a pass rush are the same movement; by 1.5 s they part (6.8 yd/s in the 40, 3.1 on a rush, because he m"
+ },
+ "ht_c40_hi": {
+  "value": "0.7",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "ht_c40_lo": {
+  "value": "-0.2",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "ht_c40_p": {
+  "value": "0.48",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "ht_c40_pp": {
+  "value": "0.3",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "ht_carry_hi": {
+  "value": "0.5",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "ht_carry_lo": {
+  "value": "-0.1",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "ht_carry_pp": {
+  "value": "0.2",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "ht_nfl_hi": {
+  "value": "1.4",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "ht_nfl_lo": {
+  "value": "0.1",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "ht_nfl_p": {
+  "value": "0.01",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "ht_nfl_p_adj": {
+  "value": "0.02",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "ht_nfl_pp": {
+  "value": "0.8",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "ht_nwin": {
+  "value": 11,
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "ipw_gap": {
+  "value": "53",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "ipw_gap_hi": {
+  "value": "77",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "ipw_gap_lo": {
+  "value": "27",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "jb_hi": {
+  "value": "45",
+  "claim": "A rusher \"hits\" if his pressure rate beats the held-out forecast (base rate 35% [26, 45])."
+ },
+ "jb_lo": {
+  "value": "26",
+  "claim": "A rusher \"hits\" if his pressure rate beats the held-out forecast (base rate 35% [26, 45])."
+ },
+ "jb_pct": {
+  "value": "35",
+  "claim": "A rusher \"hits\" if his pressure rate beats the held-out forecast (base rate 35% [26, 45])."
+ },
+ "js_hi": {
+  "value": "94",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "js_lo": {
+  "value": "55",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "js_pct": {
+  "value": "80",
+  "claim": "**Verdict: a real but modest edge in the full pool, unproven for day-3 picks (three shortlisted).** The list's hit rate, 80% [55, 94], sits above the base rate's interval; the gap "
+ },
+ "l26_adetomiwaadeba_fc": {
+  "value": "6.8",
+  "claim": "| Adetomiwa Adebawore (2023, 110, IND) | interior | flag (14/51) | 100 / 77 | 8.6% vs 6.8% (511) | untested (<100 rushes) |"
+ },
+ "l26_adetomiwaadeba_rate": {
+  "value": "8.6",
+  "claim": "| Adetomiwa Adebawore (2023, 110, IND) | interior | flag (14/51) | 100 / 77 | 8.6% vs 6.8% (511) | untested (<100 rushes) |"
+ },
+ "l26_byronmurphy_fc": {
+  "value": "9.0",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | ok (3/34) | 81 / 86 | 10.0% vs 9.0% (682) | **hit** (10.4% vs 9.3%) |"
+ },
+ "l26_byronmurphy_rate": {
+  "value": "10.0",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | ok (3/34) | 81 / 86 | 10.0% vs 9.0% (682) | **hit** (10.4% vs 9.3%) |"
+ },
+ "l26_byronyoung_fc": {
+  "value": "8.3",
+  "claim": "| **Byron Young** (2023, 77, LAR) | hand-down end | ok (0/51) | 89 / 96 | 11.3% vs 8.3% (1501) | **hit** (12.8% vs 10.5%) |"
+ },
+ "l26_byronyoung_rate": {
+  "value": "11.3",
+  "claim": "| **Byron Young** (2023, 77, LAR) | hand-down end | ok (0/51) | 89 / 96 | 11.3% vs 8.3% (1501) | **hit** (12.8% vs 10.5%) |"
+ },
+ "l26_cedricjohnson_fc": {
+  "value": "7.3",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | flag (18/34) | 70 / 91 | 13.0% vs 7.3% (216) | **hit** (14.0% vs 8.7%) |"
+ },
+ "l26_cedricjohnson_rate": {
+  "value": "13.0",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | flag (18/34) | 70 / 91 | 13.0% vs 7.3% (216) | **hit** (14.0% vs 8.7%) |"
+ },
+ "l26_choprobinson_fc": {
+  "value": "10.0",
+  "claim": "| **Chop Robinson** (2024, 21, MIA) | hand-down end | ok (2/34) | 98 / 97 | 11.8% vs 10.0% (726) | **miss** (10.0% vs 12.6%) |"
+ },
+ "l26_choprobinson_rate": {
+  "value": "11.8",
+  "claim": "| **Chop Robinson** (2024, 21, MIA) | hand-down end | ok (2/34) | 98 / 97 | 11.8% vs 10.0% (726) | **miss** (10.0% vs 12.6%) |"
+ },
+ "l26_jordanburch_fc": {
+  "value": "8.5",
+  "claim": "| Jordan Burch (2025, 78, ARI) | hand-down end | ok (0/17) | 85 / 88 | 5.8% vs 8.5% (344) | 2025 class |"
+ },
+ "l26_jordanburch_rate": {
+  "value": "5.8",
+  "claim": "| Jordan Burch (2025, 78, ARI) | hand-down end | ok (0/17) | 85 / 88 | 5.8% vs 8.5% (344) | 2025 class |"
+ },
+ "l26_rukeorhorhoro_fc": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, ATL) | interior | flag (9/34) | 69 / 99 | 8.2% vs 8.2% (498) | untested (<100 rushes) |"
+ },
+ "l26_rukeorhorhoro_rate": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, ATL) | interior | flag (9/34) | 69 / 99 | 8.2% vs 8.2% (498) | untested (<100 rushes) |"
+ },
+ "l26_tvondresweat_fc": {
+  "value": "7.2",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | ok (5/34) | 74 / 87 | 7.7% vs 7.2% (496) | **hit** (8.4% vs 6.9%) |"
+ },
+ "l26_tvondresweat_rate": {
+  "value": "7.7",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | ok (5/34) | 74 / 87 | 7.7% vs 7.2% (496) | **hit** (8.4% vs 6.9%) |"
+ },
+ "l26_tyrobinson_fc": {
+  "value": "7.4",
+  "claim": "| Ty Robinson (2025, 111, PHI) | interior | flag (8/17) | 69 / 90 | 0.0% vs 7.4% (55) | 2025 class |"
+ },
+ "l26_tyrobinson_rate": {
+  "value": "0.0",
+  "claim": "| Ty Robinson (2025, 111, PHI) | interior | flag (8/17) | 69 / 90 | 0.0% vs 7.4% (55) | 2025 class |"
+ },
+ "l26_yasirabdullah_fc": {
+  "value": "7.8",
+  "claim": "| Yasir Abdullah (2023, 136, JAX) | hand-down end | flag (33/51) | 54 / 72 | 6.0% vs 7.8% (149) | untested (<100 rushes) |"
+ },
+ "l26_yasirabdullah_rate": {
+  "value": "6.0",
+  "claim": "| Yasir Abdullah (2023, 136, JAX) | hand-down end | flag (33/51) | 54 / 72 | 6.0% vs 7.8% (149) | untested (<100 rushes) |"
+ },
+ "l26_yayadiaby_fc": {
+  "value": "8.0",
+  "claim": "| **YaYa Diaby** (2023, 82, TB) | hand-down end | ok (0/51) | 93 / 94 | 10.5% vs 8.0% (1420) | **hit** (11.6% vs 9.6%) |"
+ },
+ "l26_yayadiaby_rate": {
+  "value": "10.5",
+  "claim": "| **YaYa Diaby** (2023, 82, TB) | hand-down end | ok (0/51) | 93 / 94 | 10.5% vs 8.0% (1420) | **hit** (11.6% vs 9.6%) |"
+ },
+ "mm_hi": {
+  "value": "1.2",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "mm_lo": {
+  "value": "0.2",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "mm_pp": {
+  "value": "0.7",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "mp_diff": {
+  "value": "2.5",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_diff_hi": {
+  "value": "4.6",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_diff_lo": {
+  "value": "0.3",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_n": {
+  "value": 10,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_p": {
+  "value": "0.17",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_pickgap": {
+  "value": "9",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mp_w": {
+  "value": 7,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_diff": {
+  "value": "3.4",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_diff_hi": {
+  "value": "6.2",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_diff_lo": {
+  "value": "0.5",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_n": {
+  "value": 7,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_p": {
+  "value": "0.50",
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "mpf_w": {
+  "value": 4,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "n_gplayer": {
+  "value": 85,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "n_snaps_dl": {
+  "value": 1563,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "n_tr": {
+  "value": 67,
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "nb_half": {
+  "value": "6",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "nb_null": {
+  "value": "50",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "need_k": {
+  "value": 8,
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "need_rest_k": {
+  "value": 22,
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_nlist": {
+  "value": 11,
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_nrest": {
+  "value": 59,
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_pa": {
+  "value": "86",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_pb": {
+  "value": "38",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_pow_half": {
+  "value": "32",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "pre_pow_obs": {
+  "value": "90",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "rb_d3_gap": {
+  "value": "39",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_hi": {
+  "value": "82",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_jo_hi": {
+  "value": "41",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_jo_lo": {
+  "value": "16",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_js_hi": {
+  "value": "94",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_js_lo": {
+  "value": "24",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_lo": {
+  "value": "-26",
+  "claim": "| Day 3 and UDFA only (pick 103+) | 2 of 3 [24–94%] | 9 of 33 [16–41%] | 39 [-26, 82] |"
+ },
+ "rb_d3_p": {
+  "value": "0.22",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "rb_full_gap": {
+  "value": "35",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_hi": {
+  "value": "62",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_jo_hi": {
+  "value": "36",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_jo_lo": {
+  "value": "17",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_js_hi": {
+  "value": "81",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_js_lo": {
+  "value": "35",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_lo": {
+  "value": "8",
+  "claim": "| Forecast adds official 40 time, NGS get-off | 6 of 10 [35–81%] | 15 of 59 [17–36%] | 35 [8, 62] |"
+ },
+ "rb_full_p": {
+  "value": "0.07",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "rb_main_gap": {
+  "value": "53",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_hi": {
+  "value": "75",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_jo_hi": {
+  "value": "37",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_jo_lo": {
+  "value": "19",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_js_hi": {
+  "value": "94",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_js_lo": {
+  "value": "55",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_lo": {
+  "value": "28",
+  "claim": "| Main: pick, weight, role forecast | 8 of 10 [55–94%] | 16 of 59 [19–37%] | 53 [28, 75] |"
+ },
+ "rb_main_p": {
+  "value": "0.009",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "rb_tf_gap": {
+  "value": "48",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_hi": {
+  "value": "75",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_jo_hi": {
+  "value": "58",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_jo_lo": {
+  "value": "20",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_js_hi": {
+  "value": "97",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_js_lo": {
+  "value": "56",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_lo": {
+  "value": "15",
+  "claim": "| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [56–97%] | 6 of 16 [20–58%] | 48 [15, 75] |"
+ },
+ "rb_tf_p": {
+  "value": "0.04",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "rb_x_gap": {
+  "value": "43",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_hi": {
+  "value": "71",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_jo_hi": {
+  "value": "37",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_jo_lo": {
+  "value": "19",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_js_hi": {
+  "value": "88",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_js_lo": {
+  "value": "44",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_lo": {
+  "value": "14",
+  "claim": "| Sampled snaps removed from the outcome | 7 of 10 [44–88%] | 16 of 59 [19–37%] | 43 [14, 71] |"
+ },
+ "rb_x_p": {
+  "value": "0.03",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "rec_byronmurphy_a": {
+  "value": "10.4",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | ok (3/34) | 81 / 86 | 10.0% vs 9.0% (682) | **hit** (10.4% vs 9.3%) |"
+ },
+ "rec_byronmurphy_b": {
+  "value": "9.3",
+  "claim": "| Byron Murphy (2024, 16, SEA) | interior | ok (3/34) | 81 / 86 | 10.0% vs 9.0% (682) | **hit** (10.4% vs 9.3%) |"
+ },
+ "rec_byronyoung_a": {
+  "value": "12.8",
+  "claim": "| **Byron Young** (2023, 77, LAR) | hand-down end | ok (0/51) | 89 / 96 | 11.3% vs 8.3% (1501) | **hit** (12.8% vs 10.5%) |"
+ },
+ "rec_byronyoung_b": {
+  "value": "10.5",
+  "claim": "| **Byron Young** (2023, 77, LAR) | hand-down end | ok (0/51) | 89 / 96 | 11.3% vs 8.3% (1501) | **hit** (12.8% vs 10.5%) |"
+ },
+ "rec_cedricjohnson_a": {
+  "value": "14.0",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | flag (18/34) | 70 / 91 | 13.0% vs 7.3% (216) | **hit** (14.0% vs 8.7%) |"
+ },
+ "rec_cedricjohnson_b": {
+  "value": "8.7",
+  "claim": "| Cedric Johnson (2024, 214, CIN) | hand-down end | flag (18/34) | 70 / 91 | 13.0% vs 7.3% (216) | **hit** (14.0% vs 8.7%) |"
+ },
+ "rec_choprobinson_a": {
+  "value": "10.0",
+  "claim": "| **Chop Robinson** (2024, 21, MIA) | hand-down end | ok (2/34) | 98 / 97 | 11.8% vs 10.0% (726) | **miss** (10.0% vs 12.6%) |"
+ },
+ "rec_choprobinson_b": {
+  "value": "12.6",
+  "claim": "| **Chop Robinson** (2024, 21, MIA) | hand-down end | ok (2/34) | 98 / 97 | 11.8% vs 10.0% (726) | **miss** (10.0% vs 12.6%) |"
+ },
+ "rec_hit": {
+  "value": 5,
+  "claim": "**Track record.** Listed 2024 calls scored in 2025: 5 hits, 1 miss (Robinson, below his own strong rookie rate). Johnson and Adebawore are availability questions first."
+ },
+ "rec_miss": {
+  "value": 1,
+  "claim": "**Track record.** Listed 2024 calls scored in 2025: 5 hits, 1 miss (Robinson, below his own strong rookie rate). Johnson and Adebawore are availability questions first."
+ },
+ "rec_tvondresweat_a": {
+  "value": "8.4",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | ok (5/34) | 74 / 87 | 7.7% vs 7.2% (496) | **hit** (8.4% vs 6.9%) |"
+ },
+ "rec_tvondresweat_b": {
+  "value": "6.9",
+  "claim": "| T'Vondre Sweat (2024, 38, TEN) | interior | ok (5/34) | 74 / 87 | 7.7% vs 7.2% (496) | **hit** (8.4% vs 6.9%) |"
+ },
+ "rec_yayadiaby_a": {
+  "value": "11.6",
+  "claim": "| **YaYa Diaby** (2023, 82, TB) | hand-down end | ok (0/51) | 93 / 94 | 10.5% vs 8.0% (1420) | **hit** (11.6% vs 9.6%) |"
+ },
+ "rec_yayadiaby_b": {
+  "value": "9.6",
+  "claim": "| **YaYa Diaby** (2023, 82, TB) | hand-down end | ok (0/51) | 93 / 94 | 10.5% vs 8.0% (1420) | **hit** (11.6% vs 9.6%) |"
+ },
+ "rel_8snaps": {
+  "value": "0.44",
+  "claim": "4. **Chart 24+ random rushes per young rusher** before trusting his first step (8 give reliability 0.44)."
+ },
+ "rel_fs_game": {
+  "value": "0.64",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "rho_fs_ngs_snap": {
+  "value": "0.51",
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "rule_hash": {
+  "value": "e3079960bd2d",
+  "claim": "**Pre-registration and what would change the call.** Rule, 11 names and test are frozen in `frozen_rule.json` (sha256 `e3079960bd2d…`, 24 October 2026, no 2026 data used). Test: in"
+ },
+ "sim_absmax": {
+  "value": "0.18",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "sl_ko": {
+  "value": 16,
+  "claim": "**First step** = a lineman's speed 0.3–0.5 s after he first moves. **Both** = NFL first step in the top third *and* official 40 time in the top half, cut-offs set on other classes."
+ },
+ "sl_ks": {
+  "value": 8,
+  "claim": "**First step** = a lineman's speed 0.3–0.5 s after he first moves. **Both** = NFL first step in the top third *and* official 40 time in the top half, cut-offs set on other classes."
+ },
+ "sl_no": {
+  "value": 59,
+  "claim": "**First step** = a lineman's speed 0.3–0.5 s after he first moves. **Both** = NFL first step in the top third *and* official 40 time in the top half, cut-offs set on other classes."
+ },
+ "sl_ns": {
+  "value": 10,
+  "claim": "**First step** = a lineman's speed 0.3–0.5 s after he first moves. **Both** = NFL first step in the top third *and* official 40 time in the top half, cut-offs set on other classes."
+ },
+ "sn_bot5": {
+  "value": "6.6",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_n": {
+  "value": 1279,
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or": {
+  "value": "1.49",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_ctl": {
+  "value": "1.51",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_hi": {
+  "value": "1.77",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_or_lo": {
+  "value": "1.25",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_players": {
+  "value": 69,
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "sn_top5": {
+  "value": "14.8",
+  "claim": "On 1279 random rushes by 69 linemen, a first step one sd faster than *his own* average multiplies that snap's odds of pressure by 1.49 [1.25, 1.77]: 14.8% for his fastest fifth of "
+ },
+ "snaps_for_07": {
+  "value": 24,
+  "claim": "4. **Chart 24+ random rushes per young rusher** before trusting his first step (8 give reliability 0.44)."
+ },
+ "snaps_med": {
+  "value": 19,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "tf_ks": {
+  "value": 6,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "tf_n": {
+  "value": 23,
+  "claim": "- **Not blind until 2026.** The two-signal form was chosen after seeing all three classes; only the cut-offs are held out. The frozen-2024 row has 23 rushers and overlaps the main "
+ },
+ "tf_ns": {
+  "value": 7,
+  "claim": "Each Both rusher faces the non-Both rusher of his class and role nearest in draft slot (median 9 picks apart) on raw pressure rate. Career: Both won 7 of 10 pairs, by 2.5 points on"
+ },
+ "tf_pp": {
+  "value": "0.4",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "tf_pp_hi": {
+  "value": "1.3",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "tf_pp_lo": {
+  "value": "-0.5",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "tr_fs": {
+  "value": "0.07",
+  "claim": "**First step** = a lineman's speed 0.3–0.5 s after he first moves. **Both** = NFL first step in the top third *and* official 40 time in the top half, cut-offs set on other classes."
+ },
+ "tr_fs_hi": {
+  "value": "0.28",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "tr_fs_lo": {
+  "value": "-0.14",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "tr_raw_15": {
+  "value": "0.57",
+  "claim": "Raw, the 40 ranks NFL speed at 1.5 s at 0.57, but that is weight. After size, the 40 first step previews the NFL first step at ρ = 0.07 [-0.14, 0.28] (n = 67). Noise is not the exc"
+ },
+ "vet_apy": {
+  "value": "5.5",
+  "claim": "A pass rush starts like a 40: from a stance, straight ahead, before anyone touches him. If Combine movement translates anywhere, it is here; of five groups screened, only DL starts"
+ },
+ "wc_cj_apy": {
+  "value": "1.04",
+  "claim": "A pass rush starts like a 40: from a stance, straight ahead, before anyone touches him. If Combine movement translates anywhere, it is here; of five groups screened, only DL starts"
+ },
+ "wc_rule_season": {
+  "value": "6.4",
+  "claim": "2. **Pro personnel: use Both as a ranking, not a regression input.** On held-out classes the list produced 6.4 more pressures a season over forecast than everyone else; as a contin"
+ },
+ "x_all": {
+  "value": 118,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "x_c40_full_hi": {
+  "value": "0.8",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "x_c40_full_lo": {
+  "value": "-0.4",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "x_c40_full_pp": {
+  "value": "0.2",
+  "claim": "| Tracked 40 start (Combine clip) | 52 | 0.3 [-0.2, 0.7] | 0.2 [-0.4, 0.8] | -0.07 [-0.17, 0.03] |"
+ },
+ "x_carry_full_hi": {
+  "value": "0.7",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "x_carry_full_lo": {
+  "value": "-0.3",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "x_carry_full_pp": {
+  "value": "0.2",
+  "claim": "| Carry-over (NFL start minus 40 start) | 52 | 0.2 [-0.1, 0.5] | 0.2 [-0.3, 0.7] | -0.08 [-0.17, 0.01] |"
+ },
+ "x_f40_pick_hi": {
+  "value": "1.5",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "x_f40_pick_lo": {
+  "value": "0.4",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "x_f40_pick_p": {
+  "value": "0.004",
+  "claim": "**Estimands.** Table 1's held-out slope (NFL first step 0.8 points per sd) is the headline; a rusher random-intercept binomial re-fit gives 0.7 [0.2, 1.2]. Beyond each rusher's own"
+ },
+ "x_f40_pick_pp": {
+  "value": "0.9",
+  "claim": "| Official 40 time (stopwatch) | 54 | 0.9 [0.4, 1.5] | in baseline | 0.00 [-0.11, 0.11] |"
+ },
+ "x_lowrush": {
+  "value": 16,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "x_nfl_full_hi": {
+  "value": "0.9",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "x_nfl_full_lo": {
+  "value": "0.0",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "x_nfl_full_pp": {
+  "value": "0.4",
+  "claim": "| **NFL first step (game tracking)** | 69 | **0.8 [0.1, 1.4]** | **0.4 [0.0, 0.9]** | -0.06 [-0.21, 0.05] |"
+ },
+ "x_nostarts": {
+  "value": 33,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ },
+ "x_pool": {
+  "value": 69,
+  "claim": "**Data.** Tracked Combine 40s, year-standardized, curves starting at first movement (removing the clip's pre-laser lead). NFL: random sampled pass rushes only, alignment-adjusted: "
+ }
+}

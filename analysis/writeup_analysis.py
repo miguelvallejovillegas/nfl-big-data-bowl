@@ -1,9 +1,29 @@
 """Break G: does the Combine route-drill cut predict NFL separation? And what does?
 
-Round 15, candidate 2 (revision of the round-14 winner, round_14/revised). Run from the repo root:
-    uv run python writeup/candidates/round_15/revised/analysis.py
+Round 17 revision of round_17/cand_2 (see "round 17 revision" before the figures). Run from the repo root:
+    uv run python writeup/candidates/round_17/revised/analysis.py
 
-Reads data/processed/*.parquet only (about six minutes). Writes, next to this file:
+Round 17 revision (judges' round-17 feedback): leave-one-pair-out day-3 gain and the season-fold shuffle null shown
+for all 20 pairs; TE-only gain; ridge baseline R^2; baseline_inputs.csv + reproduce_baseline.py (season SOE rebuilt from
+player_season_stats, R^2 / RMSE / slope re-derived in seconds); rule-based film clips per act-on name (clips_2026.csv);
+slot share; Fig 1A scatter with rugs and fitted band, Fig 1B gap marks; Fig 2 power as marker size; Fig 3 difference
+row; Fig 4 split into contrast, leave-one-pair-out, interval strips and cards.
+
+Round 17 changes (judges' round-16 feedback): one headline margin (upper 90% bound of the primary slope, in catches);
+baseline held-out R^2 / RMSE / rank correlation and the Break G increment as delta R^2 with a class-stratified interval;
+speed benchmark on the full-play window (90th percentile of per-snap max speed) with the window stated, the restricted
+snap-to-throw number kept for reference; earlier lists vs the base rate with Jeffreys intervals; the 20 day-3 pairs as a
+paired contrast of forecast errors, WR and TE separately; simulated power of the 2026 test; GO / HOLD calls.
+Fig 1 = five receivers spanning the Combine range against the league median with bootstrap ribbons; Fig 2 = one
+full-width family forest with the pooled band; Fig 4 = paired-contrast dot plot and 2026 cards.
+
+Round 16 revision changes: day-3 gain with the shrinkage refitted inside each season fold and in draft-class folds;
+the rule against naive raw last-season SOE; matched contrasts with a shuffle null and an interval on the gap over pick
+and routes; TOST of the Break G slope at +/-3 in; scout notes (route mix, coverage splits, passer) for the act-on names;
+Fig 1 = all 99 receivers plus the two rule-chosen extremes; Fig 3 = pooled top-vs-bottom-third NFL speed traces per
+route family (replaces the hand-picked pair); Fig 4 = one primary gain, naive baseline, contrasts on the same 20 pairs.
+
+Reads data/processed/*.parquet only (about eight minutes). Writes, next to this file:
 - numbers.json: every number quoted in writeup.md, one key each, and nothing else;
 - claims.json: for every key, the claim it backs (writeup/check.py verifies each value appears in the text);
 - figure_numbers.json: numbers printed only inside figures;
@@ -56,6 +76,7 @@ for _v in ("OPENBLAS_NUM_THREADS", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):  # sma
 from pathlib import Path
 
 import matplotlib
+import matplotlib.patches  # noqa: E402
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -2848,6 +2869,146 @@ print("film family", FILM_FAM, FILM)
 qput("price_full", float(NUM["price_ho"]), 0, "price beyond the 40, weight and NGS score (held out; earlier rounds)")
 tick("R6 done")
 
+# ============================================================================= round 16 additions (judges' round-15 feedback)
+# (a) one estimand per claim. Day-3 tiebreaker: the PRIMARY is the season-fold gain (fit on one season pair, forecast the
+#     other: the way the rule is used); leave-one-receiver-out is a sensitivity row. Drill-to-NFL: the raw observed rho
+#     (all receivers with a drill score and NFL breaks) and the noise-corrected true correlation (8+ NFL breaks) are two
+#     estimands, both reported in one appendix table.
+# (b) a pre-specified contrast instead of a hand-picked pair: every within-season pair of day-3 receivers; matched =
+#     pick-and-routes forecasts closer than the median gap. Share of contrasts where the higher shrunk-SOE receiver had
+#     the higher next-season SOE, receiver-clustered bootstrap.
+# (c) pre-registration of the 2026 holdout (frozen_rule_2026.json with sha256) and power of the 2026 test.
+# (d) shortlist usability: availability flag, act-on names, last list's hits and misses.
+from scipy.stats import binom as _binom  # noqa: E402
+
+FREEZE_DATE = "2026-10-24"
+D3P = PAIRS[PAIRS.day3].reset_index(drop=True)
+CT = []
+for s_ in (2023, 2024):
+    sub_ = D3P[D3P.s1 == s_]
+    ix_ = sub_.index.to_numpy()
+    for a_i in range(len(ix_)):
+        for b_i in range(a_i + 1, len(ix_)):
+            ra_, rb_ = D3P.loc[ix_[a_i]], D3P.loc[ix_[b_i]]
+            if ra_.pid == rb_.pid or ra_.y2 == rb_.y2:
+                continue
+            CT.append(dict(a=ix_[a_i], b=ix_[b_i], pa=ra_.pid, pb=rb_.pid, dpk=abs(ra_.f_m0 - rb_.f_m0),
+                           soe_ok=(ra_.y1s - rb_.y1s) * (ra_.y2 - rb_.y2) > 0,
+                           pk_ok=(ra_.f_m0 - rb_.f_m0) * (ra_.y2 - rb_.y2) > 0))
+CT = pd.DataFrame(CT)
+CT_MED = float(CT.dpk.median())
+CT["matched"] = CT.dpk < CT_MED
+
+
+def ct_rates(ct):
+    m_ = ct[ct.matched]
+    return np.array([100 * m_.soe_ok.mean(), 100 * ct.soe_ok.mean(), 100 * ct.pk_ok.mean()])
+
+
+CTR = ct_rates(CT)
+pids_ct = np.unique(np.r_[CT.pa, CT.pb])
+ct_bs = []
+for _ in range(NBOOT):
+    w_ = pd.Series(RNG.multinomial(len(pids_ct), np.full(len(pids_ct), 1 / len(pids_ct))), index=pids_ct)
+    wt_ = w_.reindex(CT.pa).to_numpy() * w_.reindex(CT.pb).to_numpy()
+    if wt_[CT.matched.to_numpy()].sum() == 0:
+        continue
+    mm_ = CT.matched.to_numpy()
+    ct_bs.append([100 * np.average(CT.soe_ok[mm_], weights=wt_[mm_]), 100 * np.average(CT.soe_ok, weights=wt_),
+                  100 * np.average(CT.pk_ok, weights=wt_)])
+ct_bs = np.array(ct_bs)
+qput("ct_n", int(CT.matched.sum()), 0, "matched within-season day-3 contrasts (pick-and-routes gap below median)")
+qput("ct_all_n", len(CT), 0, "all within-season day-3 contrasts")
+qput("ct_med", IN_YD * CT_MED, 1, "median pick-and-routes forecast gap used to define matched, inches")
+qput("ct_m", CTR[0], 0, "% of matched contrasts where higher shrunk SOE had higher next SOE")
+qput("ct_m_lo", pct(ct_bs[:, 0], 5), 0, "lower, receiver-clustered"); qput("ct_m_hi", pct(ct_bs[:, 0], 95), 0, "upper")
+qput("ct_a", CTR[1], 0, "% of all contrasts ordered right by shrunk SOE")
+qput("ct_a_lo", pct(ct_bs[:, 1], 5), 0, "lower"); qput("ct_a_hi", pct(ct_bs[:, 1], 95), 0, "upper")
+qput("ct_pk", CTR[2], 0, "% of all contrasts ordered right by the held-out pick-and-routes forecast")
+print("contrasts", len(CT), int(CT.matched.sum()), CTR, CT_MED * IN_YD)
+
+# (a) reconciliation numbers already exist: ev_d3_* (season folds), lo_d3_* (leave one receiver out), pl_* (raw rho),
+# fp_pool_* (true correlation). Here only the sd of each, for the appendix table.
+qput("sf_d3_pos", 100 * (EVAL["d3"]["bs"][:, 0] > 0).mean(), 0, "% of resamples with a positive season-fold gain")
+qput("pl_n8", len(P8), 0, "receivers with 8+ NFL breaks")
+
+# (c) power of the 2026 test. Expected 2025->26 day-3 pairs = 2025 day-3 pool x historical rate of keeping 100+ routes.
+d3ids_ = set(pl_r.index[pl_r.draft_round.isna() | (pl_r.draft_round >= 4)])
+keep_ = []
+for a_, b_ in ((2023, 2024), (2024, 2025)):
+    s_a = ss[(ss.season == a_) & (ss.routes >= 100) & ss.nfl_id.isin(d3ids_)].nfl_id
+    s_b = set(ss[(ss.season == b_) & (ss.routes >= 100)].nfl_id)
+    keep_ += [i in s_b for i in s_a]
+KEEP = float(np.mean(keep_))
+N26 = int(round(len(B26) * KEEP))
+se_old = float(np.std(EVAL["d3"]["bs"][:, 0], ddof=1))
+se_new = se_old * np.sqrt(EVAL["d3"]["n"] / N26)
+g_obs = EVAL["d3"]["mt"]["m1"]["rho"] - EVAL["d3"]["mt"]["m0"]["rho"]
+qput("pw_keep", 100 * KEEP, 0, "% of day-3 100+ route receivers who log 100+ routes next season")
+qput("pw_n26", N26, 0, "expected 2025->26 day-3 pairs")
+qput("pw_g", norm.cdf(g_obs / se_new - 1.645), 2, "power of the 2026 rank-gain test if the true gain = the observed")
+qput("pw_g02", norm.cdf(0.2 / se_new - 1.645), 2, "power if the true gain = 0.2")
+qput("pw_pool", norm.cdf(g_obs / (se_old * np.sqrt(EVAL["d3"]["n"] / (EVAL["d3"]["n"] + N26))) - 1.645), 2,
+     "power of the pooled 2023-26 day-3 test")
+base_ = float(PAIRS[PAIRS.day3].hit.mean())
+n_l = len(L26)
+kc_ = next(k for k in range(n_l + 1) if _binom.sf(k - 1, n_l, base_) <= 0.05)
+p_rule_ = float(PAIRS[PAIRS.day3 & PAIRS.rule].hit.mean())
+qput("pw_hit_k", kc_, 0, "hits of 13 needed to beat the day-3 base rate at 5%")
+qput("pw_hit", float(_binom.sf(kc_ - 1, n_l, p_rule_)), 2, "power of the 13-name hit-rate test at the observed rule rate")
+
+# frozen 2026 rule: coefficients on all 53 pairs, threshold, recalibration, names and probabilities, targets
+b_all_, sd_all_ = fitp(PAIRS, F1)
+b0_all_, sd0_all_ = fitp(PAIRS, F0)
+RULE26 = dict(frozen_on=FREEZE_DATE, data_through="2025 regular season (NGS full-season separation)",
+              pool="2025 day-3 (round 4+) or undrafted WR/TE with 100+ routes; outcome = 2026 route-weighted SOE",
+              forecast_m1=dict(cols=["1"] + F1, coef=[round(float(v), 6) for v in b_all_], resid_sd=round(sd_all_, 6)),
+              forecast_m0=dict(cols=["1"] + F0, coef=[round(float(v), 6) for v in b0_all_], resid_sd=round(sd0_all_, 6)),
+              shrinkage=dict(tau2=round(TAU2, 8), s2=round(S2, 8), mean=round(float(mu_), 6)),
+              platt_m1=[round(float(v), 6) for v in PLATT["m1"]], threshold_in=round(IN_YD * T_ALL, 3),
+              list=[dict(name=r_.display_name, nfl_id=int(r_.nfl_id), p_recal=round(float(r_.pc_m1), 1))
+                    for _, r_ in L26.iterrows()],
+              primary_test="day-3 2025->26 pairs with 100+ routes in both seasons: Spearman(M1 forecast, 2026 SOE) minus "
+                           "Spearman(M0 forecast, 2026 SOE) > 0, receiver bootstrap 90% interval",
+              secondary="hits (2026 SOE > 0) among the listed names vs the pick-and-routes list of the same size",
+              expected_pairs=N26, power_at_observed_gain=float(Q["pw_g"]), power_at_gain_0_2=float(Q["pw_g02"]))
+blob26 = json.dumps(RULE26, sort_keys=True).encode()
+SHA26 = hashlib.sha256(blob26).hexdigest()
+(OUT / "frozen_rule_2026.json").write_text(json.dumps(dict(rule=RULE26, sha256=SHA26), indent=1))
+Q["freeze_date"] = "24 October 2026"; CLAIM["freeze_date"] = "date the 2026 rule was frozen"
+Q["sha26"] = SHA26[:12]; CLAIM["sha26"] = "first 12 characters of the sha256 of the frozen 2026 rule"
+
+# (d) shortlist usability: availability flag (13 or fewer games in 2025), act-on names (top four recalibrated
+# probabilities among names who played 14+ games), and the rule's earlier lists with hits and misses.
+L26["avail"] = L26.games > 13
+act_ = L26[L26.avail].sort_values("pc_m1", ascending=False).head(4)
+L26["act"] = L26.nfl_id.isin(act_.nfl_id)
+qput("act_min", float(act_.pc_m1.min()), 0, "lowest recalibrated P among the act-on names")
+qput("l26_flag", int((~L26.avail).sum()), 0, "list names flagged for availability (13 or fewer games)")
+HIST = PAIRS[PAIRS.day3 & PAIRS.rule].sort_values(["s1", "y2"], ascending=[True, False])
+HIST[["display_name", "s1", "hit"]].to_csv(OUT / "rule_history.csv", index=False)
+for s_ in (2023, 2024):
+    h_ = HIST[HIST.s1 == s_]
+    qput(f"hist_{s_}_n", len(h_), 0, f"rule names, {s_} season list"); qput(f"hist_{s_}_hit", int(h_.hit.sum()), 0, "hits")
+sl_ = pd.read_csv(OUT / "shortlist_2026.csv")
+sl_["avail_flag"] = (~L26.avail).to_numpy()
+sl_["act"] = L26.act.to_numpy()
+sl_.to_csv(OUT / "shortlist_2026.csv", index=False)
+print(L26[["display_name", "games", "pc_m1", "act"]].to_string())
+print(HIST[["display_name", "s1", "hit"]].to_string())
+tick("R16 additions")
+
+# development checkpoint (off by default): BDB_CKPT=path saves the state here so the sections below can be re-run alone
+if os.environ.get("BDB_CKPT"):
+    import cloudpickle  # noqa: E402
+    import types  # noqa: E402
+
+    _st = {k: v for k, v in globals().items() if not k.startswith("__") and not isinstance(v, types.ModuleType)
+           and not type(v).__module__.startswith(("statsmodels", "patsy"))}
+    with open(os.environ["BDB_CKPT"], "wb") as _fh:
+        cloudpickle.dump(_st, _fh)
+# ##### CHECKPOINT #####
+
 # ============================================================================= figures (round 14 revision)
 FIGN: dict[str, str] = {}  # numbers printed only inside figures (not quoted in the text)
 plt.rcParams.update({"font.size": 11, "axes.titlesize": 12.5, "axes.labelsize": 11.5, "xtick.labelsize": 10.5,
@@ -2925,236 +3086,773 @@ def shade_phases(ax, tin, tout, ymax, labels=False, fs=9.5):
         ax.text(min(tout, 1.0) / 2 + 0.05, ymax * 0.97, "drive", ha="center", va="top", fontsize=fs, color="#1f5f8b")
 
 
-# ---- Fig 1. Six receivers chosen by rule: among the 99 with 8+ NFL breaks, the three whose Break G fell most from
-# drill to NFL and the three whose Break G rose most (both in z across those 99). For each, the route family with the
-# most NFL breaks that he also ran at the Combine: paths of drill reps and NFL snaps, and speed vs time through the cut.
+# ============================================================================= round 16 revision (R7, judges' round-16 feedback)
+# (a) the day-3 gain with every fitted piece nested in the folds. Season folds: the shrinkage (tau^2, s^2, mean) is
+#     estimated only on the two seasons of the training season pair, then M0 / M1 are fitted there and scored on the other
+#     pair. Class folds (sensitivity): train on the pairs and player-seasons of the other draft classes. A fold that is
+#     both season-out and class-out leaves no training pairs for the 2023 class in 2024 (2024 rookies have no 2023
+#     season), so the two are reported side by side rather than crossed.
+def shrink_fit(ssub):
+    s_ = ssub[ssub.routes >= 50]
+    mu = float(np.average(s_.ssoe, weights=s_.routes))
+    pv = s_.pivot_table(index="nfl_id", columns="season", values="ssoe")
+    seas = sorted(s_.season.unique())
+    cp = pd.concat([pv[[a, a + 1]].dropna().set_axis(["a", "b"], axis=1) for a in seas if a + 1 in seas])
+    tau2 = float(np.mean((cp.a - mu) * (cp.b - mu)))
+    iv = 1.0 / s_.routes.to_numpy(float)
+    s2 = float(np.sum(((s_.ssoe.to_numpy() - mu) ** 2 - tau2) * iv) / np.sum(iv ** 2))
+    return mu, tau2, s2
+
+
+def shr_with(par, y, r):
+    mu, tau2, s2 = par
+    return mu + tau2 / (tau2 + s2 / np.asarray(r, float)) * (np.asarray(y, float) - mu)
+
+
+def nested_fc(fold_col, ss_mask_fn):
+    """Held-out M0 / M1 forecasts with the shrinkage refitted on the training side of each fold."""
+    f0, f1, ys = np.empty(len(PAIRS)), np.empty(len(PAIRS)), np.empty(len(PAIRS))
+    for v_ in sorted(PAIRS[fold_col].unique()):
+        tst = (PAIRS[fold_col] == v_).to_numpy()
+        par = shrink_fit(ss[ss_mask_fn(v_)])
+        pp = PAIRS.assign(y1s=shr_with(par, PAIRS.y1, PAIRS.r1))
+        trn = pp[~tst]
+        if len(trn) < 8:
+            raise ValueError(f"fold {v_}: {len(trn)} training pairs")
+        b0_, _ = fitp(trn, F0); b1_, _ = fitp(trn, F1)
+        f0[tst], f1[tst], ys[tst] = predp(pp[tst], b0_, F0), predp(pp[tst], b1_, F1), pp.y1s.to_numpy()[tst]
+    return f0, f1, ys
+
+
+PAIRS["cls"] = PAIRS.draft_year.astype(int)
+NS0, NS1, NSY = nested_fc("s1", lambda v_: ss.season.isin([2024, 2025] if v_ == 2023 else [2023, 2024]))
+cls_of = players.set_index("nfl_id").draft_year
+NC0, NC1, _ = nested_fc("cls", lambda v_: cls_of.reindex(ss.nfl_id).to_numpy() != v_)
+PAIRS["f_n0"], PAIRS["f_n1"], PAIRS["y1n"] = NS0, NS1, NSY
+D3M = PAIRS.day3.to_numpy()
+Y2 = PAIRS.y2.to_numpy(float)
+G3 = clusters(PAIRS[D3M].pid)
+
+
+def rho3(fc, rows=None):
+    m_ = np.where(D3M)[0] if rows is None else rows
+    return spearmanr(np.asarray(fc)[m_], Y2[m_])[0]
+
+
+def gain_boot(fa, fb):
+    """day-3 rank-correlation of fa minus that of fb, with a receiver-clustered 90% interval (forecasts fixed)."""
+    d3ix = np.where(D3M)[0]
+    pt = rho3(fa) - rho3(fb)
+    bs = []
+    for _ in range(NBOOT):
+        ix = d3ix[np.concatenate([G3[i] for i in RNG.integers(0, len(G3), len(G3))])]
+        bs.append(rho3(fa, ix) - rho3(fb, ix))
+    return pt, pct(bs, 5), pct(bs, 95), 100 * float(np.mean(np.array(bs) > 0))
+
+
+NEST = {}
+for k_, fa_, fb_, lab_ in (("ns", NS1, NS0, "season folds, shrinkage nested"),
+                           ("nc", NC1, NC0, "draft-class folds, shrinkage nested"),
+                           ("nv", PAIRS.f_m1.to_numpy(), PAIRS.y1.to_numpy(), "rule vs naive raw last-season SOE"),
+                           ("nvp", PAIRS.y1.to_numpy(), PAIRS.f_m0.to_numpy(), "naive raw SOE vs pick and routes")):
+    NEST[k_] = gain_boot(fa_, fb_)
+    Q[f"{k_}_g"] = fmt(NEST[k_][0], 2); CLAIM[f"{k_}_g"] = f"day-3 rank-correlation gain, {lab_}"
+    Q[f"{k_}_lo"] = fmt(NEST[k_][1], 2); CLAIM[f"{k_}_lo"] = f"{lab_}: 90% lower, receiver-clustered"
+    Q[f"{k_}_hi"] = fmt(NEST[k_][2], 2); CLAIM[f"{k_}_hi"] = f"{lab_}: 90% upper"
+    qput(f"{k_}_pos", NEST[k_][3], 0, f"{lab_}: % of resamples with a positive gain")
+RHO3 = {"pk": rho3(PAIRS.f_m0), "naive": rho3(PAIRS.y1), "rule": rho3(PAIRS.f_m1), "nest": rho3(NS1)}
+for k_, v_ in RHO3.items():
+    Q[f"r3_{k_}"] = fmt(v_, 2); CLAIM[f"r3_{k_}"] = f"day-3 held-out rank correlation with next-season SOE: {k_}"
+print("nested / naive day-3 gains", {k: np.round(v, 3) for k, v in NEST.items()}, RHO3)
+
+# (b) the matched contrasts with a permutation null and an interval on the gap over pick and routes. Null: last
+#     season's shrunk SOE shuffled among the day-3 pairs of the same season (the matched set depends only on the
+#     pick-and-routes forecasts and is fixed).
+ya_, yb_ = D3P.y1s.to_numpy()[CT.a.to_numpy()], D3P.y1s.to_numpy()[CT.b.to_numpy()]
+dy2_ = D3P.y2.to_numpy()[CT.a.to_numpy()] - D3P.y2.to_numpy()[CT.b.to_numpy()]
+mm_ = CT.matched.to_numpy()
+ct_null = []
+for _ in range(NPERM):
+    y1p = D3P.y1s.to_numpy().copy()
+    for s_ in (2023, 2024):
+        ix_ = np.where(D3P.s1.to_numpy() == s_)[0]
+        y1p[ix_] = y1p[RNG.permutation(ix_)]
+    ok_ = (y1p[CT.a.to_numpy()] - y1p[CT.b.to_numpy()]) * dy2_ > 0
+    ct_null.append(100 * ok_[mm_].mean())
+ct_null = np.array(ct_null)
+qput("ctp_p", (1 + (ct_null >= CTR[0]).sum()) / (1 + NPERM), 2, "shuffle p of the matched-contrast share")
+qput("ctp_null", np.median(ct_null), 0, "median matched share under the shuffle, %")
+qput("ct_pk_lo", pct(ct_bs[:, 2], 5), 0, "pick-and-routes share of all contrasts, 90% lower")
+qput("ct_pk_hi", pct(ct_bs[:, 2], 95), 0, "upper")
+dct_ = ct_bs[:, 1] - ct_bs[:, 2]
+Q["ct_d"] = fmt(CTR[1] - CTR[2], 0, True); CLAIM["ct_d"] = "SOE minus pick-and-routes share of contrasts ordered right, pts"
+Q["ct_d_lo"] = fmt(pct(dct_, 5), 0, True); CLAIM["ct_d_lo"] = "90% lower, receiver-clustered"
+Q["ct_d_hi"] = fmt(pct(dct_, 95), 0, True); CLAIM["ct_d_hi"] = "90% upper"
+qput("ct_np", len(pids_ct), 0, "receivers in the day-3 contrasts")
+
+# (c) bounded null. Two one-sided tests (TOST) of the primary Break G slope against the pre-specified +/-3 in margin;
+#     the family-level true correlation's 90% interval is fp_pool_lo / fp_pool_hi (posterior, 8+ NFL breaks).
+p_dn_ = float(_norm.sf((PRIM_B + SESOI_IN) / PRIM_SE))
+qput("tost_dn", p_dn_, 2, "one-sided p against a -3 in effect (lower arm of TOST)")
+qput("tost_p", max(p_dn_, float(_norm.cdf((PRIM_B - SESOI_IN) / PRIM_SE))), 2, "TOST p at +/-3 in (max of the two arms)")
+fpp_ = EIVF[:, -1]
+qput("fp_pool_pneg", 100 * (fpp_ < -0.2).mean(), 0, "posterior % that the pooled true link is below -0.2")
+qput("fp_pool_pin", 100 * ((fpp_ > -0.2) & (fpp_ < 0.2)).mean(), 0, "posterior % that the pooled true link is within +/-0.2")
+
+# (d) stakes for the 'why receivers' paragraph: what a day-3 receiver costs and how many cuts a Combine scout sees
+apy_ = car_.contract_apy_m.reindex(B26.nfl_id).dropna()
+qput("why_apy", float(apy_.median()), 2, "median contract APY of 2025 day-3/UDFA WR/TE with 100+ routes, $M")
+reps_pl_ = cb.groupby("nfl_id").size()
+qput("why_reps", int(reps_pl_.median()), 0, "median graded route-drill reps per receiver at the Combine")
+qput("why_single", 100 * float((cb.groupby(["nfl_id", "drill_name"])
+                                 .size() == 1).mean()), 0, "% of receiver-drill cells with a single graded rep")
+
+# (e) scout notes for the act-on names: route mix and snap separation by coverage on the sampled 2025 snaps (any
+#     route), alignment, passer and games. Coverage splits are film prompts: their split-half reliability is low.
+ACT = L26[L26.act].sort_values("pc_m1", ascending=False)
+SCOUT = []
+for _, r_ in ACT.iterrows():
+    tg_ = r_.display_name.split()[-1].lower().replace("'", "").replace(".", "")
+    s25_ = gb[(gb.nfl_id == r_.nfl_id) & (gb.season == 2025)]
+    rm_ = s25_.route_ran.dropna().str.lower().value_counts(normalize=True)
+    sm_ = s25_[s25_.soe.notna()]
+    man_, zon_ = sm_[sm_.man], sm_[~sm_.man]
+    SCOUT.append(dict(tag=tg_, name=r_.display_name, n=len(s25_), r1=rm_.index[0], r1p=100 * rm_.iloc[0],
+                      r2=rm_.index[1], r2p=100 * rm_.iloc[1], nman=len(man_), nzon=len(zon_),
+                      sman=IN_YD * man_.soe.mean(), szon=IN_YD * zon_.soe.mean(), qb=r_.qb, games=int(r_.games),
+                      slot=100 * float(s25_.slotp.mean())))
+    qput(f"sc_{tg_}_n", len(s25_), 0, f"{r_.display_name}: sampled 2025 snaps")
+    qput(f"sc_{tg_}_r1p", 100 * rm_.iloc[0], 0, f"{r_.display_name}: share of sampled routes, top route")
+    qput(f"sc_{tg_}_r2p", 100 * rm_.iloc[1], 0, f"{r_.display_name}: share of sampled routes, second route")
+    qput(f"sc_{tg_}_nman", len(man_), 0, f"{r_.display_name}: sampled snaps vs man")
+    Q[f"sc_{tg_}_sman"] = fmt(IN_YD * man_.soe.mean(), 0, True); CLAIM[f"sc_{tg_}_sman"] = "snap SOE vs man, in"
+    Q[f"sc_{tg_}_szon"] = fmt(IN_YD * zon_.soe.mean(), 0, True); CLAIM[f"sc_{tg_}_szon"] = "snap SOE vs zone, in"
+    qput(f"sc_{tg_}_slot", 100 * float(s25_.slotp.mean()), 0, f"{r_.display_name}: % of sampled 2025 snaps in the slot")
+SCOUT = pd.DataFrame(SCOUT)
+SCOUT.round(1).to_csv(OUT / "scout_2026.csv", index=False)
+qput("sc_rel", float(NUM["sh_manzone_full"]), 2, "split-half reliability of a receiver's man-minus-zone snap SOE")
+print(SCOUT.round(1).to_string())
+WATCH = L26[~L26.act].sort_values("pc_m1", ascending=False)
+tick("R7 nested, contrasts, TOST, scout notes")
+
+# ============================================================================= round 17 (judges' round-16 feedback)
+# (a) one headline margin: the upper 90% bound of the primary slope (+1.0 in per sd) and what it is worth in catches.
+PRIM_HI = pct(COMBO["main"]["bs"][:, 1], 95)
+qput("hi_catch", catches(PRIM_HI)[0], 2, "catches a season at the upper 90% bound of the primary Break G slope")
+qput("hi_catch_hi", catches(PRIM_HI)[2], 2, "same, high end of the catch conversion (75th pct targets, upper catch rate)")
+
+# (b) baseline without tracking: held-out (leave-one-class-out) R^2, RMSE and rank correlation of the pre-specified
+#     forecast (log pick, 40, weight, NGS athleticism, TE) for career SOE, and the increment from adding Break G to it,
+#     both refitted inside every class-stratified resample. R^2 against the pooled route-weighted mean.
+def ho_r2(ix):
+    Xi, yi, wi, ci, bi = XB_[ix], Y_[ix], WT_[ix], cls_arr0[ix], BGV[ix]
+    Xb = np.column_stack([Xi, bi])
+    f0, f1 = np.empty(len(ix)), np.empty(len(ix))
+    for c in CLASSES:
+        t = ci == c
+        f0[t] = Xi[t] @ _wls(Xi[~t], yi[~t], wi[~t])
+        f1[t] = Xb[t] @ _wls(Xb[~t], yi[~t], wi[~t])
+    sst = np.sum(wi * (yi - np.average(yi, weights=wi)) ** 2)
+    r0, r1 = 1 - np.sum(wi * (yi - f0) ** 2) / sst, 1 - np.sum(wi * (yi - f1) ** 2) / sst
+    return np.array([r0, r1, r1 - r0, IN_YD * np.sqrt(np.average((yi - f0) ** 2, weights=wi)),
+                     IN_YD * np.sqrt(np.average((yi - f1) ** 2, weights=wi)),
+                     spearmanr(f0, yi)[0], spearmanr(f1, yi)[0]])
+
+
+HR = ho_r2(ALL)
+HRB = np.array([ho_r2(strat_sub(ALL)) for _ in range(NBOOT // 2)])
+for j_, (k_, nd_, lab_) in enumerate((("bl_r2", 2, "baseline held-out R2"), ("bg_r2", 2, "with Break G, held-out R2"),
+                                      ("dr2", 3, "Break G increment, delta R2"), ("bl_rmse", 1, "baseline RMSE, in"),
+                                      ("bg_rmse", 1, "with Break G RMSE, in"), ("bl_rho", 2, "baseline rank corr"),
+                                      ("bg_rho", 2, "with Break G rank corr"))):
+    qput(k_, HR[j_], nd_, f"career SOE, leave-one-class-out: {lab_}")
+    qput(f"{k_}_lo", pct(HRB[:, j_], 5), nd_, f"{lab_}: 90% lower, class-stratified bootstrap")
+    qput(f"{k_}_hi", pct(HRB[:, j_], 95), nd_, f"{lab_}: 90% upper")
+print("held-out R2 / RMSE / rho", np.round(HR, 3))
+
+# (c) speed benchmark with the window stated. Full play = every tracked frame of the sampled snap (the NGS speed
+#     column), receiver top speed = 90th percentile of his per-snap maxima (8+ snaps). The earlier 0.34 (spd_rho) used
+#     only snap-to-throw frames of snaps with a detected break, which caps speed on short routes.
+gfs_ = pd.read_parquet(P / "game_frames_sample.parquet", columns=["game_id", "play_id", "nfl_id", "s"])
+gfs_ = gfs_.merge(gp[["game_id", "play_id", "nfl_id"]].drop_duplicates(), on=["game_id", "play_id", "nfl_id"])
+pm_ = gfs_.groupby(["nfl_id", "game_id", "play_id"]).s.max().groupby("nfl_id")
+vfull_ = pm_.quantile(0.9)[pm_.size() >= 8]
+f40f_ = (X["forty_s"] if "forty_s" in X.columns else X["forty"]).reindex(vfull_.index).dropna()
+SPDF = boot_rho(-f40f_, vfull_.reindex(f40f_.index))
+qput("spdf_rho", SPDF[0], 2, "official 40 vs NFL top speed, full-play max (90th pct of per-snap max), rank corr")
+qput("spdf_lo", SPDF[1], 2, "90% lower"); qput("spdf_hi", SPDF[2], 2, "90% upper")
+qput("spdf_n", SPDF[3], 0, "receivers with 8+ sampled snaps and an official 40 (full-play window)")
+# the same window with the raw official 40 pooled over WR and TE (the position gap in speed inflates it); the primary
+# comparison above uses the 40 standardized within position and Combine year, the scale Break G is on
+f40r_ = X["forty"].reindex(vfull_.index).dropna()
+SPDR = boot_rho(-f40r_, vfull_.reindex(f40r_.index))
+qput("spdr_rho", SPDR[0], 2, "raw official 40 (WR and TE pooled) vs full-play NFL top speed, rank corr")
+qput("spdr_n", SPDR[3], 0, "receivers, raw pooled comparison")
+del gfs_
+
+# (d) the earlier lists against the base rate, binomial (Jeffreys) 90% intervals; calibration of high forecasts.
+d3_ = PAIRS[PAIRS.day3]
+
+
+def jeff(h, n):
+    return 100 * _beta.ppf(0.05, h + 0.5, n - h + 0.5), 100 * _beta.ppf(0.95, h + 0.5, n - h + 0.5)
+
+
+hk_, hn_ = int(d3_[d3_.rule].hit.sum()), int(d3_.rule.sum())
+qput("lh_k", hk_, 0, "day-3 names on the earlier SOE lists who hit"); qput("lh_n", hn_, 0, "day-3 names listed")
+qput("lh_pct", 100 * hk_ / hn_, 0, "hit rate of the earlier lists, %")
+qput("lh_lo", jeff(hk_, hn_)[0], 0, "Jeffreys 90% lower"); qput("lh_hi", jeff(hk_, hn_)[1], 0, "upper")
+bk_, bn_ = int(d3_.hit.sum()), len(d3_)
+qput("lb_k", bk_, 0, "day-3 pairs that hit (base)"); qput("lb_pct", 100 * bk_ / bn_, 0, "day-3 base rate, %")
+qput("lb_lo", jeff(bk_, bn_)[0], 0, "base rate, 90% lower"); qput("lb_hi", jeff(bk_, bn_)[1], 0, "upper")
+pk_k, pk_n = int(d3_[d3_.rule_pk].hit.sum()), int(d3_.rule_pk.sum())
+qput("lp_k", pk_k, 0, "pick-and-routes list of the same size: hits"); qput("lp_n", pk_n, 0, "listed")
+ch_ = CAL.set_index("k").loc["hi"]
+qput("calh_pct", 100 * ch_.hit / ch_.n, 0, "held-out forecasts of 60%+ (all rounds): observed hit rate, %")
+qput("calh_lo", jeff(int(ch_.hit), int(ch_.n))[0], 0, "Jeffreys 90% lower")
+qput("calh_hi", jeff(int(ch_.hit), int(ch_.n))[1], 0, "upper")
+
+# (e) the day-3 tiebreaker pair by pair: absolute held-out error of the rule vs pick and routes on every one of the 20
+#     day-3 pairs, WR and TE separately (receiver-clustered intervals of the mean error reduction, inches).
+E0 = IN_YD * np.abs(PAIRS.y2 - PAIRS.f_m0).to_numpy()
+E1 = IN_YD * np.abs(PAIRS.y2 - PAIRS.f_m1).to_numpy()
+PAIRS["e0"], PAIRS["e1"] = E0, E1
+PP = {}
+for k_, msk_ in (("d3", D3M), ("wr", D3M & (PAIRS.te == 0).to_numpy()), ("te", D3M & (PAIRS.te == 1).to_numpy())):
+    ix_ = np.where(msk_)[0]
+    gr_ = clusters(PAIRS.pid.iloc[ix_])
+    dd_ = E0[ix_] - E1[ix_]
+    bs_ = [dd_[np.concatenate([gr_[i] for i in RNG.integers(0, len(gr_), len(gr_))])].mean() for _ in range(NBOOT)]
+    PP[k_] = (len(ix_), int((dd_ > 0).sum()), dd_.mean(), pct(bs_, 5), pct(bs_, 95), PAIRS.pid.iloc[ix_].nunique())
+    qput(f"pp_{k_}_n", len(ix_), 0, f"{k_}: day-3 pairs"); qput(f"pp_{k_}_np", PP[k_][5], 0, f"{k_}: receivers")
+    qput(f"pp_{k_}_win", PP[k_][1], 0, f"{k_}: pairs where the rule's forecast is closer")
+    Q[f"pp_{k_}_d"] = fmt(PP[k_][2], 1, True); CLAIM[f"pp_{k_}_d"] = f"{k_}: mean error cut, rule vs pick+routes, in"
+    Q[f"pp_{k_}_lo"] = fmt(PP[k_][3], 1, True); CLAIM[f"pp_{k_}_lo"] = f"{k_}: 90% lower, receiver-clustered"
+    Q[f"pp_{k_}_hi"] = fmt(PP[k_][4], 1, True); CLAIM[f"pp_{k_}_hi"] = f"{k_}: 90% upper"
+qput("pp_sign_p", float(_binom.sf(PP["d3"][1] - 1, PP["d3"][0], 0.5)), 2, "sign test, rule closer on day-3 pairs")
+wr_ix = np.where(D3M & (PAIRS.te == 0).to_numpy())[0]
+gw_ = clusters(PAIRS.pid.iloc[wr_ix])
+GWR = rho3(PAIRS.f_m1, wr_ix) - rho3(PAIRS.f_m0, wr_ix)
+gwr_bs = []
+for _ in range(NBOOT):
+    ib_ = wr_ix[np.concatenate([gw_[i] for i in RNG.integers(0, len(gw_), len(gw_))])]
+    gwr_bs.append(rho3(PAIRS.f_m1, ib_) - rho3(PAIRS.f_m0, ib_))
+qput("wr_g", GWR, 2, "WR-only day-3 rank-correlation gain"); qput("wr_g_lo", pct(gwr_bs, 5), 2, "90% lower")
+qput("wr_g_hi", pct(gwr_bs, 95), 2, "90% upper")
+print("pair-by-pair", PP, GWR)
+
+
+# (f) 2026 power by simulation. A 2026 season = N26 day-3 pairs drawn from the 20 observed (true gain = observed);
+#     the pre-registered test passes when the receiver-bootstrap 90% lower bound of the gain is above 0. Also: how often
+#     the 2026 gain alone comes out negative even though the edge is real, and how often it comes out at or above the
+#     observed gain when there is no edge (forecasts' SOE term shuffled).
+def _rk(a):
+    return np.argsort(np.argsort(a, axis=-1), axis=-1).astype(float)
+
+
+def _rho_rows(F, Y):
+    rf, ry = _rk(F), _rk(Y)
+    rf -= rf.mean(-1, keepdims=True); ry -= ry.mean(-1, keepdims=True)
+    return (rf * ry).sum(-1) / np.sqrt((rf ** 2).sum(-1) * (ry ** 2).sum(-1))
+
+
+d3ix_all = np.where(D3M)[0]
+F0d, F1d, Yd = PAIRS.f_m0.to_numpy()[d3ix_all], PAIRS.f_m1.to_numpy()[d3ix_all], Y2[d3ix_all]
+NSIM, NIN = 1000, 300
+passes, neg = 0, 0
+for _ in range(NSIM):
+    s_ = RNG.integers(0, len(d3ix_all), N26)
+    inner = s_[RNG.integers(0, N26, (NIN, N26))]
+    gi_ = _rho_rows(F1d[inner], Yd[inner]) - _rho_rows(F0d[inner], Yd[inner])
+    g1_ = _rho_rows(F1d[s_][None], Yd[s_][None])[0] - _rho_rows(F0d[s_][None], Yd[s_][None])[0]
+    passes += np.nanpercentile(gi_, 5) > 0
+    neg += g1_ < 0
+qput("sim_pow", passes / NSIM, 2, "simulated power of the 2026 test (true gain = observed, N26 pairs)")
+qput("sim_neg", 100 * neg / NSIM, 0, "% of simulated 2026 seasons with a negative gain although the edge is real")
+qput("sim_n", NSIM, 0, "simulated seasons")
+tick("R17 additions")
+
+
+# ============================================================================= round 17 revision (judges' round-17 feedback)
+# (a) plain-language reliability of one NFL season: share of a 200-route season's SOE that is signal (the weight the
+#     empirical-Bayes shrinkage keeps), and the rest noise.
+SIG200 = 100 * TAU2 / (TAU2 + S2 / 200)
+qput("eb_sig", SIG200, 0, "% of a 200-route season's SOE that is signal (weight kept by the shrinkage)")
+qput("eb_noise", 100 - round(SIG200), 0, "% of a 200-route season's SOE that is noise")
+
+# (b) the day-3 tiebreaker: estimand = Spearman rho(held-out forecast, next-season SOE) with last season's shrunk SOE
+#     minus the same without it; folds = season pair (fit on 2024->25, score 2023->24 and the reverse).
+#     - leave-one-pair-out: drop each day-3 pair from fitting and scoring, refit both models, recompute the gain;
+#     - season-fold permutation (computed above as perm_rho_p): last season's SOE shuffled within each season, both
+#       models refitted; null distribution pr_;
+#     - TE-only gain with a receiver-bootstrap interval (WR-only = wr_g above).
+def gain_drop(drop):
+    df = PAIRS.drop(index=drop)
+    f0, f1 = np.empty(len(df)), np.empty(len(df))
+    for s_ in (2023, 2024):
+        t = (df.s1 == s_).to_numpy()
+        b0, _ = fitp(df[~t], F0)
+        b1, _ = fitp(df[~t], F1)
+        f0[t], f1[t] = predp(df[t], b0, F0), predp(df[t], b1, F1)
+    m = df.day3.to_numpy()
+    y = df.y2.to_numpy()[m]
+    return spearmanr(f1[m], y)[0] - spearmanr(f0[m], y)[0]
+
+
+G_FULL = gain_drop([])
+assert abs(G_FULL - (EVAL["d3"]["mt"]["m1"]["rho"] - EVAL["d3"]["mt"]["m0"]["rho"])) < 1e-9
+LOPO = pd.Series({i: gain_drop([i]) for i in np.where(D3M)[0]})
+qput("lopo_min", LOPO.min(), 2, "leave-one-pair-out day-3 gain: smallest of the 20")
+qput("lopo_max", LOPO.max(), 2, "leave-one-pair-out day-3 gain: largest of the 20")
+qput("lopo_pos", int((LOPO > 0).sum()), 0, "leave-one-pair-out gains above zero (of 20)")
+PRN = np.asarray(pr_, float)
+qput("perm_null_hi", np.nanpercentile(PRN, 95), 2, "season-fold permutation null: 95th percentile of the gain")
+te_ix = np.where(D3M & (PAIRS.te == 1).to_numpy())[0]
+GTE = rho3(PAIRS.f_m1, te_ix) - rho3(PAIRS.f_m0, te_ix)
+gte_ = clusters(PAIRS.pid.iloc[te_ix])
+gte_bs = []
+for _ in range(NBOOT):
+    ib_ = te_ix[np.concatenate([gte_[i] for i in RNG.integers(0, len(gte_), len(gte_))])]
+    if PAIRS.y2.iloc[ib_].nunique() > 2 and PAIRS.f_m0.iloc[ib_].nunique() > 2:
+        gte_bs.append(rho3(PAIRS.f_m1, ib_) - rho3(PAIRS.f_m0, ib_))
+gte_bs = np.array(gte_bs)
+gte_bs = gte_bs[np.isfinite(gte_bs)]
+qput("te_g", GTE, 2, "TE-only day-3 rank-correlation gain (5 pairs)")
+qput("te_g_lo", pct(gte_bs, 5), 2, "TE-only: 90% lower, receiver bootstrap")
+qput("te_g_hi", pct(gte_bs, 95), 2, "TE-only: 90% upper")
+print("LOPO", LOPO.round(2).to_dict(), "TE", GTE, pct(gte_bs, 5), pct(gte_bs, 95))
+
+# (c) ridge sensitivity of the near-zero baseline R^2: ridge forecast (penalty chosen by inner leave-one-class-out
+#     inside the training classes) fitted on two classes, scored on the third; class-stratified bootstrap.
+def ho_r2_ridge(ix):
+    Xi, yi, wi, ci = XB_[ix], Y_[ix], WT_[ix], cls_arr0[ix]
+    fr = np.empty(len(ix))
+    for c in CLASSES:
+        t = ci == c
+        fr[t] = ridge_cv(Xi[~t], yi[~t], wi[~t], ci[~t])[0](Xi[t])
+    sst = np.sum(wi * (yi - np.average(yi, weights=wi)) ** 2)
+    return 1 - np.sum(wi * (yi - fr) ** 2) / sst, IN_YD * np.sqrt(np.average((yi - fr) ** 2, weights=wi))
+
+
+RR = ho_r2_ridge(ALL)
+RRB = np.array([ho_r2_ridge(strat_sub(ALL)) for _ in range(NBOOT // 4)])
+qput("rdg_r2", RR[0], 2, "ridge baseline, held-out R2 (leave one class out)")
+qput("rdg_r2_lo", pct(RRB[:, 0], 5), 2, "ridge baseline R2, 90% lower"); qput("rdg_r2_hi", pct(RRB[:, 0], 95), 2, "upper")
+qput("rdg_rmse", RR[1], 1, "ridge baseline, held-out RMSE, in")
+print("ridge baseline", RR, pct(RRB[:, 0], 5), pct(RRB[:, 0], 95))
+
+# (d) reproducibility: per-receiver inputs of the baseline and the held-out forecasts; reproduce_baseline.py rebuilds
+#     season SOE from player_season_stats.parquet and re-derives R^2, RMSE and the Break G slope in seconds.
+f0_ = np.empty(len(D))
+for c in CLASSES:
+    t = cls_arr0 == c
+    f0_[t] = XB_[t] @ _wls(XB_[~t], Y_[~t], WT_[~t])
+BI = D[["draft_year"] + BASE + ["BG"]].copy()
+BI.insert(0, "display_name", players.set_index("nfl_id").display_name.reindex(D.index).to_numpy())
+BI["career_soe_in"], BI["routes"], BI["heldout_forecast_in"] = IN_YD * Y_, WT_, IN_YD * f0_
+BI.index.name = "nfl_id"
+BI.round(4).to_csv(OUT / "baseline_inputs.csv")
+
+# (e) the 2026 film checklist, by a fixed rule on each act-on name's graded NFL breaks (2025 tape first, else 2024):
+#     clip 1 = the hitch with the slowest turn (the sink), clip 2 = the slant or out with the fastest turn (speed
+#     through the cut), clip 3 = the snap against man coverage (Cover 0 / Cover 1) with the most separation at the throw.
+gopp_ = pd.read_parquet(P / "game_plays_sample.parquet", columns=["game_id", "team_abbr"]).drop_duplicates()
+HITS_ = set(HIST[HIST.hit].display_name)
+L26["go"] = L26.act & L26.display_name.isin(HITS_)
+qput("go_n", int(L26.go.sum()), 0, "GO names (listed again after an earlier hit)")
+ACT = L26[L26.act].sort_values(["go", "pc_m1"], ascending=False)
+COVN = {"COVER_0_MAN": "Cover 0", "COVER_1_MAN": "Cover 1", "COVER_2_ZONE": "Cover 2", "COVER_3_ZONE": "Cover 3",
+        "COVER_4_ZONE": "Cover 4", "COVER_6_ZONE": "Cover 6", "2_MAN": "2-man"}
+CLIPS = []
+
+
+def clip_row(tg_, k_, r_, what):
+    opp_ = sorted(set(gopp_[gopp_.game_id == r_.game_id].team_abbr) - {r_.team_abbr})
+    dn_ = {1: "1st", 2: "2nd", 3: "3rd", 4: "4th"}[int(r_.down)]
+    return dict(tag=tg_, k=k_, what=what, season=int(r_.season), week=int(r_.week), opp=opp_[0] if opp_ else "",
+                q=int(r_.quarter), clock=str(r_.game_clock), down=dn_, ytg=int(r_.yards_to_go),
+                route=str(r_.route_ran).lower(), cov=COVN.get(str(r_.team_coverage_type), str(r_.team_coverage_type)),
+                v=float(r_.v_apex), sep=float(r_.sep), align="slot" if r_.lined_up_position == "SLOT_WR" else "wide")
+
+
+for _, a_ in ACT.iterrows():
+    tg_ = a_.display_name.split()[-1].lower().replace("'", "").replace(".", "")
+    gg_ = g[g.nfl_id == a_.nfl_id]
+    yr_ = 2025 if (gg_.season == 2025).sum() >= 3 else int(gg_.season.max())
+    gg_ = gg_[gg_.season == yr_]
+    h_ = gg_[gg_.route_ran == "HITCH"].sort_values("v_apex")
+    s_ = gg_[gg_.route_ran.isin(["SLANT", "OUT"])].sort_values("v_apex", ascending=False)
+    m_ = gg_[gg_.team_coverage_type.isin(["COVER_0_MAN", "COVER_1_MAN", "2_MAN"])].sort_values("sep", ascending=False)
+    for k_, df_, what in ((1, h_, "sink"), (2, s_, "speed"), (3, m_, "man")):
+        if len(df_):
+            CLIPS.append(clip_row(tg_, k_, df_.iloc[0], what))
+CLIPS = pd.DataFrame(CLIPS)
+CLIPS.round(2).to_csv(OUT / "clips_2026.csv", index=False)
+for r_ in CLIPS.itertuples():
+    qput(f"clip_{r_.tag}_{r_.k}_v", r_.v, 1, f"{r_.tag} clip {r_.k}: speed at the slowest point of the cut, yd/s")
+    qput(f"clip_{r_.tag}_{r_.k}_sep", r_.sep, 1, f"{r_.tag} clip {r_.k}: separation at the throw, yd")
+print(CLIPS.to_string())
+for _, a_ in ACT.iterrows():
+    tg_ = a_.display_name.split()[-1].lower().replace("'", "").replace(".", "")
+    qput(f"sl_{tg_}_slot", 100 * float(gb[(gb.nfl_id == a_.nfl_id) & (gb.season == 2025)].slotp.mean()), 0,
+         f"{a_.display_name}: % of sampled 2025 snaps lined up in the slot")
+# shortlist-level base-rate comparison (identical wording in table and text): earlier day-3 lists hk_/hn_ vs day-3 base
+# bk_/bn_ (Jeffreys 90% intervals lh_*, lb_*); do the two intervals overlap?
+qput("ov_lists", int(jeff(hk_, hn_)[0] < jeff(bk_, bn_)[1]), 0, "1 if the list and base-rate intervals overlap")
+tick("R17 revision numbers")
+
+# =============================================================================================== figures (revision)
 P8z = P8.assign(zd=zs(P8.d), zg=zs(P8.gm))
-P8z["drop"] = P8z.zd - P8z.zg
-SIXP = list(P8z.sort_values("drop", ascending=False).index[:3]) + list(P8z.sort_values("drop").index[:3])
 nm_of = players.set_index("nfl_id").display_name
-yr_of = players.set_index("nfl_id").draft_year
 VMAX = 9.0
-fig = plt.figure(figsize=(FIGW, 15.0))
-outer = fig.add_gridspec(2, 3, left=0.045, right=0.99, top=0.835, bottom=0.075, hspace=0.30, wspace=0.16)
-for j, pid in enumerate(SIXP):
+REF = {}
+
+
+def fam_ref(fam):
+    if fam in REF:
+        return REF[fam]
+    out = {}
+    for side, df_ in ((0, cb[cb.family == fam]), (1, g[g.route_ran == fam])):
+        sp_ = [speed_trace(*rep_xy(r_, side), r_.i_apex) for r_ in df_.itertuples()]
+        out[side] = (None, np.nanmedian(np.stack(sp_), axis=0), df_.bg.median())
+    REF[fam] = out
+    return out
+
+
+QS = [5, 25, 50, 75, 95]
+SPAN = []
+for q_ in QS:
+    tgt_ = np.percentile(P8z.zd, q_)
+    pool_ = P8z.drop(index=[s_ for s_ in SPAN if s_ in P8z.index])
+    SPAN.append((pool_.zd - tgt_).abs().idxmin())
+C5 = [OI["blue"], OI["sky"], OI["grey"], OI["orange"], OI["verm"]]
+
+# ---- Fig 1. A: scatter of Combine Break G z vs NFL Break G z (99 receivers with 8+ NFL breaks), marginal rugs,
+# least-squares line with a 90% bootstrap band, five rule-chosen receivers labelled. B: their speed through the cut on
+# one route family, Combine median vs NFL median, with the Combine-minus-NFL gap at the slowest point marked.
+fig = plt.figure(figsize=(FIGW, 11.4))
+fig.text(0.01, 0.988, "The Combine cut does not predict the NFL cut", fontsize=17, fontweight="bold", va="top")
+fig.text(0.01, 0.952, f"Season separation: {Q['prim_b']} in per sd of Break G [90%: {Q['prim_lo']}, {Q['prim_hi']}], "
+         f"{Q['n_main']} receivers in unseen classes; pre-set margin ±3 in.\nSame route, Combine vs NFL, noise "
+         f"corrected: correlation {Q['fp_pool_med']} [{Q['fp_pool_lo']}, {Q['fp_pool_hi']}], {len(P8z)} receivers. "
+         f"Official 40 vs NFL top speed: {Q['spdf_rho']}.".replace("-", "−"), fontsize=12.5, va="top", color="#222222")
+axS = fig.add_axes([0.09, 0.515, 0.50, 0.36])
+xs_, ys_ = P8z.zd.to_numpy(), P8z.zg.to_numpy()
+bl_ = np.polyfit(xs_, ys_, 1)
+xg_ = np.linspace(-3, 3, 61)
+bsl_ = []
+for _ in range(NBOOT):
+    i_ = RNG.integers(0, len(xs_), len(xs_))
+    bsl_.append(np.polyval(np.polyfit(xs_[i_], ys_[i_], 1), xg_))
+bsl_ = np.array(bsl_)
+axS.fill_between(xg_, np.percentile(bsl_, 5, axis=0), np.percentile(bsl_, 95, axis=0), color="#BBBBBB", alpha=0.45,
+                 lw=0, zorder=1)
+axS.plot(xg_, np.polyval(bl_, xg_), color="black", lw=2.0, zorder=2)
+axS.plot(xg_, xg_, color="#888888", lw=1.0, ls=":", zorder=1)
+axS.text(2.15, 2.45, "perfect\ntransfer", fontsize=10.5, color="#555555", ha="center")
+axS.scatter(xs_, ys_, s=30, color="#A0A0A0", edgecolor="white", lw=0.5, zorder=3)
+axS.plot(xs_, np.full(len(xs_), -3.15), "|", color="#666666", ms=9, alpha=0.7, clip_on=False)
+axS.plot(np.full(len(ys_), -3.15), ys_, "_", color="#666666", ms=9, alpha=0.7, clip_on=False)
+LABXY = [(-3.0, 0.85), (-3.0, -1.75), (-1.2, 2.45), (0.85, -2.85), (0.25, -1.4)]  # label anchors, data units
+for k_, (pid_, col_) in enumerate(zip(SPAN, C5)):
+    r_ = P8z.loc[pid_]
+    axS.scatter([r_.zd], [r_.zg], s=120, color=col_, edgecolor="black", lw=1.2, zorder=5)
+    axS.annotate(f"{k_ + 1}. {nm_of[pid_]}", (r_.zd, r_.zg), xytext=LABXY[k_], fontsize=11.5, fontweight="bold",
+                 color="black", zorder=6, ha="left", va="center",
+                 bbox=dict(fc="white", ec=col_, lw=1.5, alpha=0.92, boxstyle="round,pad=0.2"),
+                 arrowprops=dict(arrowstyle="-", color="#444444", lw=1.0))
+axS.set_xlim(-3.2, 3.2); axS.set_ylim(-3.2, 3.2)
+axS.set_xlabel("Combine Break G, z (right = harder drill cut)", fontsize=12)
+axS.set_ylabel("NFL Break G, same receiver, z", fontsize=12)
+axS.axhline(0, color="#E5E5E5", lw=0.9, zorder=0); axS.axvline(0, color="#E5E5E5", lw=0.9, zorder=0)
+FIGN["fig1_slope"] = f"{bl_[0]:.2f}"
+fig.text(0.01, 0.895, f"A. All {len(P8z)} receivers with 8+ NFL breaks", fontsize=13, fontweight="bold", va="top")
+fig.text(0.63, 0.86, "How to read A", fontsize=12.5, fontweight="bold", va="top")
+fig.text(0.63, 0.83, f"Each dot is a receiver. If the drill cut\ncarried to the NFL, dots would follow\nthe "
+         f"dotted diagonal. The fitted line\n(black, grey band = 90% interval) is\nflat: slope {bl_[0]:.2f}.\n\n"
+         f"Ticks on the axes show where the\nreceivers sit on each scale.\n\nNumbered: the receivers closest to the\n"
+         f"5th, 25th, 50th, 75th and 95th\npercentile of Combine Break G,\nshown in B.".replace("-", "−"),
+         fontsize=11.5, va="top", color="#333333", linespacing=1.35)
+fig.text(0.01, 0.415, "B. The same five: speed through the cut at the Combine (dotted) and in the NFL (solid)",
+         fontsize=13, fontweight="bold", va="top")
+W5 = 0.172
+for k_, (pid, col_) in enumerate(zip(SPAN, C5)):
     dr_all, nf_all = cb[cb.nfl_id == pid], g[g.nfl_id == pid]
     fams = [f for f in nf_all.route_ran.value_counts().index if (dr_all.family == f).any()]
-    fam = fams[0] if fams else None
-    dr = dr_all[dr_all.family == fam] if fam else dr_all
-    nf = nf_all[nf_all.route_ran == fam] if fam else nf_all
-    inner = outer[j // 3, j % 3].subgridspec(3, 2, height_ratios=[3.1, 1.25, 1.55], hspace=0.10, wspace=0.05)
-    axSp = fig.add_subplot(inner[2, :])
-    tin_, tout_ = phase_times(pd.concat([dr, nf]))
-    shade_phases(axSp, tin_, tout_, VMAX, labels=True)
-    for side, (df_, col_, lab_) in enumerate(((dr, C_DR, "Combine"), (nf, C_NFL, "NFL"))):
-        ax = fig.add_subplot(inner[0, side])
-        paths, sps = [], []
-        for r_ in df_.itertuples():
-            xx_, yy_ = rep_xy(r_, side)
-            p_ = aligned(xx_, yy_, r_.i_break)
-            if p_ is not None:
-                paths.append(p_)
-                ax.plot(p_[:, 0], p_[:, 1], color=C_REP, lw=0.9, zorder=1)
-            sps.append(speed_trace(xx_, yy_, r_.i_apex))
-        if paths:
-            med = np.nanmedian(np.stack(paths), axis=0)
-            ax.plot(med[:, 0], med[:, 1], color=col_, lw=3.6, zorder=3, solid_capstyle="round")
-        if sps:
-            axSp.plot(TT, np.nanmedian(np.stack(sps), axis=0), color=col_, lw=2.6, zorder=3)
-        ax.plot(0, 0, "o", ms=7, mfc="white", mec="black", mew=1.3, zorder=5)
-        ax.set_xlim(-3.0, 6.5); ax.set_ylim(-7.0, 6.5); ax.set_aspect("equal")
-        ax.set_xticks([]); ax.set_yticks([])
-        for sp_ in ax.spines.values():
-            sp_.set_visible(True); sp_.set_color("#DDDDDD")
-        bg_, dc_, va_, ra_ = readout3(df_)
-        ax.set_title(f"{lab_} (n={len(df_)})", fontsize=11, color=col_, fontweight="bold", pad=3)
-        axT = fig.add_subplot(inner[1, side]); axT.axis("off")
-        axT.text(0.5, 0.98, f"Break G {bg_:.2f} g\nbrake {dc_:.2f} g\nthrough {va_ / MPH:.1f} yd/s\ndrive {ra_:.2f} g",
-                 transform=axT.transAxes, ha="center", va="top", fontsize=10.5, color="#222222", linespacing=1.2)
-        if j == 0 and side == 0:  # one shared scale bar: every path panel has the same limits and equal aspect
-            ax.plot([-2.6, -0.6], [-6.3, -6.3], color="black", lw=2.6, solid_capstyle="butt", zorder=6)
-            ax.text(-1.6, -6.0, "2 yd", ha="center", va="bottom", fontsize=10.5, zorder=6)
-    axSp.set_xlim(-1.0, 1.0); axSp.set_ylim(0, VMAX)
-    axSp.set_xticks([-1, -0.5, 0, 0.5, 1]); axSp.set_yticks([0, 4, 8])
-    axSp.tick_params(labelsize=10)
-    axSp.set_xlabel("s from slowest point", fontsize=10, labelpad=1)
-    if j % 3 == 0:
-        axSp.set_ylabel("speed, yd/s", fontsize=10)
-    pos_ = outer[j // 3, j % 3].get_position(fig)
-    fig.text(pos_.x0, pos_.y1 + 0.030, f"{nm_of[pid]} ({yr_of[pid]})", fontsize=12.5, fontweight="bold", ha="left")
-    fig.text(pos_.x0, pos_.y1 + 0.016, f"{(fam or 'all').lower()} routes · {'fell' if j < 3 else 'rose'} most, drill to NFL",
-             fontsize=10.5, color="#444444", ha="left")
-fig.suptitle("Same receiver, same route: the Combine cut does not predict the NFL cut", x=0.01, ha="left",
-             fontsize=15.5, fontweight="bold", y=0.992)
-fig.text(0.01, 0.968, "Paths: grey = single reps, bold = median, rotated to run upfield and break right; white dot = "
-         "sharpest point of the turn.\nSpeed panels (fixed scale): median speed through the cut, blue = Combine, "
-         "orange = NFL; shading = braking, speed through, drive out.", fontsize=10.5, color="#333333", va="top")
-fig.text(0.01, 0.912, f"SELECTED EXTREMES: 6 of {len(P8)} receivers, chosen for the biggest drill-to-NFL gaps.\n"
-         f"Both measures are noisy (reliability {d8[1]:.2f} drill, {d8[2]:.2f} NFL): a re-test would pull all six toward 0.",
-         fontsize=10.5, ha="left", va="top", color="#7a2e00", fontweight="bold",
-         bbox=dict(boxstyle="round,pad=0.4", fc="#FFF4E5", ec="#D55E00", lw=1.2))
-fig.text(0.01, 0.012, "Readouts are medians over the reps shown (1 g = his body weight). All path panels share one "
-         "scale (bar, top left).", fontsize=10.5, color="#333333")
+    fam = fams[0] if fams else nf_all.route_ran.value_counts().index[0]
+    dr, nf = dr_all[dr_all.family == fam], nf_all[nf_all.route_ran == fam]
+    if len(dr) == 0:
+        dr = dr_all
+    ref_ = fam_ref(fam)
+    ax = fig.add_axes([0.06 + k_ * (W5 + 0.016), 0.105, W5, 0.205])
+    ax.plot(TT, ref_[1][1], color="black", lw=1.4, ls="--", zorder=2)
+    sn_ = np.stack([speed_trace(*rep_xy(r_, 1), r_.i_apex) for r_ in nf.itertuples()])
+    bs_ = np.stack([np.nanmedian(sn_[RNG.integers(0, len(sn_), len(sn_))], axis=0) for _ in range(400)])
+    ax.fill_between(TT, np.nanpercentile(bs_, 5, axis=0), np.nanpercentile(bs_, 95, axis=0), color=col_, alpha=0.25,
+                    lw=0, zorder=1)
+    nmed_ = np.nanmedian(sn_, axis=0)
+    ax.plot(TT, nmed_, color=col_, lw=2.8, zorder=3)
+    sd_ = np.stack([speed_trace(*rep_xy(r_, 0), r_.i_apex) for r_ in dr.itertuples()])
+    dmed_ = np.nanmedian(sd_, axis=0)
+    ax.plot(TT, dmed_, color=col_, lw=2.4, ls=":", zorder=3)
+    i0_ = len(TT) // 2
+    gap_ = dmed_[i0_] - nmed_[i0_]
+    ax.plot([0.06, 0.06], [nmed_[i0_], dmed_[i0_]], color="black", lw=1.8, marker="_", ms=10, mew=1.8, zorder=5)
+    ax.text(0.98, 0.97, f"gap at turn\n{gap_:+.1f} yd/s".replace("-", "−"), transform=ax.transAxes, ha="right",
+            va="top", fontsize=11, bbox=dict(fc="white", ec="#BBBBBB", boxstyle="round,pad=0.2"))
+    FIGN[f"fig1_gap_{k_}"] = f"{gap_:+.1f}"
+    ax.axvline(0, color="#CCCCCC", lw=1.0, zorder=0)
+    ax.set_xlim(-1.0, 1.0); ax.set_ylim(0, VMAX); ax.set_xticks([-0.5, 0, 0.5]); ax.set_yticks([0, 3, 6, 9])
+    if k_:
+        ax.set_yticklabels([])
+    else:
+        ax.set_ylabel("speed, yd/s", fontsize=12)
+    r_ = P8z.loc[pid]
+    ax.set_title(f"{k_ + 1}. {nm_of[pid]}\n{fam.lower()}: Combine z {r_.zd:+.1f}\n{len(dr)} drill rep"
+                 f"{'s' if len(dr) > 1 else ''}, {len(nf)} NFL snaps".replace("-", "−"), fontsize=11, loc="left",
+                 fontweight="normal", color="black")
+    FIGN[f"fig1_{k_}"] = nm_of[pid]
+fig.text(0.5, 0.062, "seconds from the slowest point of the cut", ha="center", fontsize=12)
+fig.legend(handles=[plt.Line2D([], [], color="#555555", lw=2.8, label="his NFL median (band: 90%)"),
+                    plt.Line2D([], [], color="#555555", lw=2.4, ls=":", label="his Combine median"),
+                    plt.Line2D([], [], color="black", lw=1.4, ls="--", label="league NFL median, same route"),
+                    plt.Line2D([], [], color="black", lw=1.8, marker="|", ls="", ms=14, mew=1.8,
+                               label="gap at the turn")],
+           loc="lower left", bbox_to_anchor=(0.01, 0.012), ncol=4, frameon=False, fontsize=11)
 save(fig, "fig1_cards.png")
-for j, pid in enumerate(SIXP):
-    FIGN[f"fig1_{j}"] = nm_of[pid]
 
-# ---- Fig 2. A: the drill cut repeats across drills. B: it does not carry to NFL snaps (8+ break receivers marked).
-# C: same receiver, same route family, measurement noise modelled: posterior true link per family and pooled.
-fig = plt.figure(figsize=(FIGW, 10.0))
-LIM = 3.2
-xx_ = np.array([-LIM, LIM])
-axA = fig.add_axes([0.07, 0.585, 0.36, 0.37]); axB = fig.add_axes([0.56, 0.585, 0.36, 0.37])
-axA.scatter(zs(HH_BG.a), zs(HH_BG.b), s=22, color=C_DR, alpha=0.75, edgecolor="none")
-axA.plot(xx_, xx_ * REL["bg"][0], color="black", lw=2.0)
-axA.set_title(f"A. Drill cut repeats: ρ = {REL['bg'][0]:.2f} ({REL['bg'][3]} players)", loc="left")
-axA.set_xlabel("Break G, five route drills (z)"); axA.set_ylabel("Break G, the other five (z)")
-zx, zy = zs(JP.BG), zs(JP.g_bg)
-m8 = JP.index.isin(P8.index)
-axB.scatter(zx[~m8], zy[~m8], s=22, color="#BBBBBB", edgecolor="none", label="fewer than 8 NFL breaks")
-axB.scatter(zx[m8], zy[m8], s=32, color=C_NFL, edgecolor="black", lw=0.4, label=f"8+ NFL breaks ({len(P8)})")
-axB.plot(xx_, xx_ * pr[0], color="black", lw=2.0)
-axB.set_title(f"B. ...but not to NFL snaps: ρ = {pr[0]:.2f} ({pr[3]} players)", loc="left")
-axB.set_xlabel("Combine Break G (z)"); axB.set_ylabel("NFL Break G, same five route families (z)")
-axB.legend(loc="upper left", bbox_to_anchor=(0.0, -0.13), ncol=2, frameon=False)
-for a__ in (axA, axB):
-    a__.set_xlim(-LIM, LIM); a__.set_ylim(-LIM, LIM); a__.set_aspect("equal")
-axC = fig.add_axes([0.22, 0.13, 0.50, 0.27])
-axC.axvspan(0.2, 1.0, color="#EFEFEF", zorder=0)
+# ---- Fig 2. Family forest: power encoded as marker size (no repeated text column), P(link > 0.2) kept as a column.
+# speed benchmark, third window (appendix table): snap-to-throw frames of breaking snaps only
+vtop_ = {}
+for k_, tr_ in gtraces.items():
+    vx_, vy_, _, _ = kin(np.asarray(tr_[0], float), np.asarray(tr_[1], float))
+    sp_ = np.hypot(vx_, vy_)[tr_[2]:tr_[3] + 1]
+    if len(sp_):
+        vtop_.setdefault(k_[2], []).append(float(sp_.max()))
+vtop_ = pd.Series({k: np.percentile(v, 90) for k, v in vtop_.items() if len(v) >= 8})
+f40_ = (X["forty_s"] if "forty_s" in X.columns else X["forty"]).reindex(vtop_.index)
+spd_ = boot_rho(-f40_, vtop_)
+qput("spd_rho", spd_[0], 2, "speed benchmark, snap-to-throw window on breaking snaps: official 40 vs NFL top speed")
+qput("spd_n", spd_[3], 0, "receivers with 8+ breaking snaps and an official 40")
+FAMPOST["se"] = (FAMPOST.hi - FAMPOST.lo) / 3.29
+FAMPOST["pow"] = norm.cdf(0.2 / FAMPOST.se - 1.645)
+fp_ = FAMPOST.set_index("k").loc["pool"]
+fig = plt.figure(figsize=(FIGW, 6.6))
+axC = fig.add_axes([0.21, 0.20, 0.62, 0.55])
+axC.axvspan(fp_.lo, fp_.hi, color="#DDE8F3", zorder=0, lw=0)
+axC.axvspan(SPDF[1], SPDF[2], color="#D5EEE6", zorder=0, lw=0)
 axC.axvline(0, color="#888888", lw=0.9)
 axC.axvline(0.2, color="#555555", lw=1.2, ls="--")
-axC.text(0.21, -0.95, "0.2: smallest\nuseful link", fontsize=10, color="#333333", va="center")
+axC.axvline(SPDF[0], color=OI["green"], lw=2.4)
+axC.text(0.185, -1.25, "0.2 = smallest\nuseful link", fontsize=12.5, color="#333333", va="center", ha="right")
+axC.text(SPDF[2] + 0.02, -1.25, f"official 40 → NFL\ntop speed: {SPDF[0]:.2f}", fontsize=12.5, color="#00664a",
+         va="center", ha="left", fontweight="bold")
 for r, r_ in FAMPOST.reset_index(drop=True).iterrows():
     pooled_ = r_.k == "pool"
-    col_ = "black" if pooled_ else "#666666"
-    axC.plot([r_.lo, r_.hi], [r, r], color=col_, lw=3.0 if pooled_ else 2.2)
-    axC.plot(r_.med, r, "D" if pooled_ else "o", ms=9 if pooled_ else 8, color=col_, mec="black")
-    axC.text(1.04, r, f"{int(r_.n)}", transform=axC.get_yaxis_transform(), va="center", ha="right", fontsize=10.5)
-    axC.text(1.22, r, f"{r_.p02:.0f}%", transform=axC.get_yaxis_transform(), va="center", ha="right", fontsize=10.5,
-             fontweight="bold" if pooled_ else "normal")
-axC.text(1.04, -1.0, "receivers", transform=axC.get_yaxis_transform(), ha="right", va="center", fontsize=10.5,
-         fontweight="bold")
-axC.text(1.22, -1.0, "P(> 0.2)", transform=axC.get_yaxis_transform(), ha="right", va="center", fontsize=10.5,
-         fontweight="bold")
-axC.set_yticks(range(len(FAMPOST)), [f"{l_} only" if k_ != "pool" else l_ for l_, k_ in zip(FAMPOST.lab, FAMPOST.k)])
-axC.set_ylim(len(FAMPOST) - 0.5, -1.5); axC.set_xlim(-0.6, 0.6)
-axC.set_xticks([-0.5, -0.25, 0, 0.25, 0.5])
-axC.set_xlabel("true drill-to-NFL correlation, same route family (posterior median, 90% interval)")
-fig.text(0.01, 0.445, "C. Same route family, noise modelled: no family's link is distinguishable from zero",
-         fontsize=12.5, fontweight="bold", ha="left")
-fig.text(0.01, 0.012, f"Each dot in A and B is one receiver. C: receivers with 8+ NFL breaks; hierarchical "
-         f"errors-in-variables model, random slope per family ({len(EC)} receiver-family cells,\nmedian "
-         f"{int(EC.ng.median())} NFL breaks per cell). Every interval includes 0, hitch included. P(> 0.2) = posterior "
-         "chance the true link exceeds 0.2.", fontsize=10, color="#333333")
+    col_ = "black" if pooled_ else "#444444"
+    axC.plot([r_.lo, r_.hi], [r, r], color=col_, lw=3.4 if pooled_ else 2.4, alpha=1.0 if pooled_ else 0.85)
+    ms_ = 13 if pooled_ else 5 + 14 * float(r_["pow"])
+    axC.plot(r_.med, r, "D" if pooled_ else "o", ms=ms_, color=col_, mec="black", mew=1.2)
+    FIGN[f"fig2_pow_{r_.k}"] = f"{100 * r_['pow']:.0f}"
+axC.set_yticks(range(len(FAMPOST)), [f"{l_} ({int(n_)})" if k_ != "pool" else f"All five, pooled ({int(n_)})"
+                                     for l_, k_, n_ in zip(FAMPOST.lab, FAMPOST.k, FAMPOST.n)], fontsize=12.5)
+axC.set_ylim(len(FAMPOST) - 0.5, -1.9); axC.set_xlim(-0.65, 1.0)
+axC.set_xticks([-0.5, -0.25, 0, 0.25, 0.5, 0.75, 1.0])
+axC.tick_params(axis="x", labelsize=12)
+axC.set_xlabel("drill-to-NFL correlation of Break G, same route family, noise corrected (median, 90% interval)",
+               fontsize=12)
+axT = fig.add_axes([0.85, 0.20, 0.14, 0.55])
+axT.axis("off"); axT.set_ylim(len(FAMPOST) - 0.5, -1.9); axT.set_xlim(0, 1)
+axT.text(0.4, -1.2, "chance the\nlink > 0.2", ha="center", va="center", fontsize=12, fontweight="bold")
+for r, r_ in FAMPOST.reset_index(drop=True).iterrows():
+    axT.text(0.4, r, f"{r_.p02:.0f}%", ha="center", va="center", fontsize=13,
+             fontweight="bold" if r_.k == "pool" else "normal")
+fig.text(0.01, 0.975, "No route family carries the drill cut to NFL snaps; straight-line speed does carry",
+         fontsize=15.5, fontweight="bold", va="top")
+fig.text(0.01, 0.915, f"Receivers with 8+ NFL breaks in brackets; noise of few drill reps and few NFL snaps modelled "
+         f"({len(EC)} receiver-family cells).\nMarker size = chance a true link of 0.2 would be detected (bigger = more "
+         "snaps). Speed: official 40 within position\nand class vs NFL top speed over the full play.",
+         fontsize=12, va="top", color="#333333")
+fig.legend(handles=[matplotlib.patches.Patch(color="#DDE8F3", label="pooled 90% interval"),
+                    matplotlib.patches.Patch(color="#D5EEE6", label=f"40 vs top speed, 90% ({SPDF[3]} receivers)"),
+                    plt.Line2D([], [], color="#444444", marker="o", ls="", ms=5 + 14 * 0.2, mec="black",
+                               label="detection chance 20%"),
+                    plt.Line2D([], [], color="#444444", marker="o", ls="", ms=5 + 14 * 0.6, mec="black",
+                               label="60%")],
+           loc="lower left", bbox_to_anchor=(0.01, 0.0), ncol=4, frameon=False, fontsize=12)
 save(fig, "fig2_chain.png")
 
-# ---- Fig 3. Film use: Boutte (hard drill cutter) vs Washington (soft) on the NFL route family both ran most; speed vs
-# time through each NFL break, his median, the league median for that family, and his Combine median for the family.
-fig = plt.figure(figsize=(FIGW, 6.2))
-lg_sp = np.nanmedian(np.stack([speed_trace(*gtraces[(r_.game_id, r_.play_id, r_.nfl_id)][:2], r_.i_apex)
-                               for r_ in gl_.itertuples()]), axis=0)
-tin_l, tout_l = phase_times(gl_)
-for k, (tg_, nm_) in enumerate((("kb", "Kayshon Boutte"), ("mw", "Malik Washington"))):
-    ax = fig.add_axes([0.065 + 0.47 * k, 0.17, 0.40, 0.58])
-    pid_ = WK[tg_]["id"]
-    nf_ = g[(g.nfl_id == pid_) & (g.route_ran == FILM_FAM)]
-    dr_ = cb[(cb.nfl_id == pid_) & (cb.family == FILM_FAM)]
-    shade_phases(ax, tin_l, tout_l, VMAX, labels=True, fs=10.5)
-    sps = [speed_trace(*gtraces[(r_.game_id, r_.play_id, r_.nfl_id)][:2], r_.i_apex) for r_ in nf_.itertuples()]
-    for s_ in sps:
-        ax.plot(TT, s_, color="#E8A27A", lw=1.0, zorder=1)
-    ax.plot(TT, np.nanmedian(np.stack(sps), axis=0), color=C_NFL, lw=3.2, zorder=3, label=f"his NFL {FILM_FAM.lower()}es")
-    ax.plot(TT, lg_sp, color="black", lw=1.8, ls="--", zorder=2, label=f"league NFL median ({len(gl_)})")
-    if len(dr_):
-        dsp = [speed_trace(REPS[r_.event_id][0], REPS[r_.event_id][1], r_.i_apex) for r_ in dr_.itertuples()]
-        ax.plot(TT, np.nanmedian(np.stack(dsp), axis=0), color=C_DR, lw=2.2, ls=":", zorder=2,
-                label=f"his Combine {FILM_FAM.lower()} ({len(dr_)})")
-    ax.set_xlim(-1.0, 1.0); ax.set_ylim(0, VMAX)
-    ax.set_xlabel("seconds from the slowest point of the break"); ax.set_ylabel("speed, yd/s")
-    fm_ = FILM[tg_]
-    ax.set_title(f"{nm_} (pick {int(B26i.loc[nm_].pick)}; drill Break G {fmt(B26i.loc[nm_].BG, 1, True)} sd)",
-                 loc="left", fontsize=12.5)
-    ax.text(0.03, 0.05, f"{fm_['n']} NFL {FILM_FAM.lower()}es · in {fm_['vin']:.1f} yd/s · top {fm_['vap']:.1f} yd/s · "
-            f"Break G {fm_['bg']:.2f} g", transform=ax.transAxes, fontsize=10.5, va="bottom",
-            bbox=dict(fc="white", ec="#CCCCCC", boxstyle="round,pad=0.3"))
-    if k == 1:
-        ax.legend(loc="upper right", bbox_to_anchor=(1.0, 0.86), frameon=False, fontsize=10)
-fig.suptitle(f"Opposite drill cuts, the same NFL {FILM_FAM.lower()}: what to coach is the speed at the top, not the "
-             "drill score", x=0.01, ha="left", fontsize=14, fontweight="bold", y=0.975)
-fig.text(0.01, 0.885, f"League median {FILM_FAM.lower()}: in {FILM['lg']['vin']:.1f} yd/s, top "
-         f"{FILM['lg']['vap']:.1f} yd/s. Shading = league braking, speed-through and drive phases.", fontsize=10.5,
-         color="#333333")
-fig.text(0.01, 0.015, "Thin lines = single sampled NFL snaps (up to 40 sampled plays per receiver, half chosen for high "
-         "EPA); six snaps each is a film cue, not a grade.", fontsize=10, color="#333333")
+# ---- Fig 3. Pooled film check: top vs bottom third of Combine Break G, NFL speed through the cut per family (thin
+# ribbons with outlines), and beneath each family the top-minus-bottom difference trace with its 90% band.
+TER = pd.qcut(JP.BG, 3, labels=False)
+TOPI, BOTI = set(TER.index[TER == 2]), set(TER.index[TER == 0])
+PTR = {}
+for r_ in g.itertuples():
+    tr_ = gtraces[(r_.game_id, r_.play_id, r_.nfl_id)]
+    PTR.setdefault((r_.route_ran, r_.nfl_id), []).append(speed_trace(tr_[0], tr_[1], r_.i_apex))
+PMED = {k: np.nanmedian(np.stack(v), axis=0) for k, v in PTR.items()}
+VAP = g.groupby(["route_ran", "nfl_id"]).v_apex.median()
+FILM3 = {}
+fig, axs = plt.subplots(2, 5, figsize=(FIGW, 7.4), sharex=True, gridspec_kw=dict(height_ratios=[2.1, 1.0]))
+fig.subplots_adjust(left=0.07, right=0.985, top=0.75, bottom=0.12, wspace=0.10, hspace=0.12)
+for fi_, fam in enumerate(FAMILIES):
+    ax, axd = axs[0, fi_], axs[1, fi_]
+    res_, st3_ = {}, {}
+    for tg_, ids_, col_ in (("top", TOPI, OI["verm"]), ("bot", BOTI, OI["blue"])):
+        keys_ = [(fam, i) for i in ids_ if (fam, i) in PMED]
+        st_ = np.stack([PMED[k] for k in keys_])
+        st3_[tg_] = st_
+        bs_ = np.stack([np.nanmedian(st_[RNG.integers(0, len(st_), len(st_))], axis=0) for _ in range(500)])
+        lo_, hi_ = np.nanpercentile(bs_, 5, axis=0), np.nanpercentile(bs_, 95, axis=0)
+        ax.fill_between(TT, lo_, hi_, color=col_, alpha=0.12, lw=0)
+        ax.plot(TT, lo_, color=col_, lw=0.8, alpha=0.8); ax.plot(TT, hi_, color=col_, lw=0.8, alpha=0.8)
+        ax.plot(TT, np.nanmedian(st_, axis=0), color=col_, lw=2.6)
+        res_[tg_] = VAP.loc[fam].reindex([k[1] for k in keys_]).to_numpy(float)
+    a_, b_ = res_["top"], res_["bot"]
+    dd_ = [RNG.choice(a_, len(a_)).mean() - RNG.choice(b_, len(b_)).mean() for _ in range(NBOOT)]
+    FILM3[fam] = (a_.mean() - b_.mean(), pct(dd_, 5), pct(dd_, 95), len(a_), len(b_))
+    sa_, sb_ = st3_["top"], st3_["bot"]
+    dtr_ = np.stack([np.nanmedian(sa_[RNG.integers(0, len(sa_), len(sa_))], axis=0)
+                     - np.nanmedian(sb_[RNG.integers(0, len(sb_), len(sb_))], axis=0) for _ in range(500)])
+    axd.fill_between(TT, np.nanpercentile(dtr_, 5, axis=0), np.nanpercentile(dtr_, 95, axis=0), color="#999999",
+                     alpha=0.35, lw=0)
+    axd.plot(TT, np.nanmedian(sa_, axis=0) - np.nanmedian(sb_, axis=0), color="black", lw=2.0)
+    axd.axhline(0, color="#666666", lw=0.9)
+    axd.set_ylim(-3, 3); axd.set_yticks([-2, 0, 2])
+    for a__ in (ax, axd):
+        a__.axvline(0, color="#CCCCCC", lw=1.0, zorder=0)
+    ax.set_title(f"{fam.capitalize()}\ntop {len(a_)} vs bottom {len(b_)}", fontsize=12.5)
+    ax.text(0.5, 0.03, f"gap at the turn\n{FILM3[fam][0]:+.1f} [{FILM3[fam][1]:+.1f}, {FILM3[fam][2]:+.1f}]"
+            .replace("-", "−"), transform=ax.transAxes, ha="center", va="bottom", fontsize=11,
+            bbox=dict(fc="white", ec="#CCCCCC", boxstyle="round,pad=0.25"))
+    ax.set_xlim(-1.0, 1.0); ax.set_ylim(0, VMAX); ax.set_xticks([-0.5, 0, 0.5])
+    if fi_ == 0:
+        ax.set_ylabel("speed, yd/s", fontsize=12)
+        axd.set_ylabel("top − bottom,\nyd/s", fontsize=11.5)
+    else:
+        ax.set_yticklabels([]); axd.set_yticklabels([])
+fig.supxlabel("seconds from the slowest point of the cut (NFL snaps)", fontsize=12, y=0.02)
+fig.text(0.01, 0.975, "Hard and soft Combine cutters run the same NFL cut", fontsize=15.5, fontweight="bold", va="top")
+fig.text(0.01, 0.915, "Top row: orange = top third of Combine Break G (hard drill cutters), blue = bottom third; line = "
+         "median of each receiver's\nmedian NFL speed trace, outlined band = 90% interval over receivers. Bottom row: "
+         "difference, top minus bottom third, with its\n90% band, which covers zero at the turn in every family. Receivers "
+         "per third in titles (sampled snaps, half chosen for high EPA).", fontsize=11.5, va="top", color="#333333")
 save(fig, "fig3_film.png")
+fh_ = FILM3["HITCH"]
+Q["f3_hitch"] = fmt(fh_[0], 1, True); CLAIM["f3_hitch"] = "hitch: speed at the top, top minus bottom third, yd/s"
+Q["f3_hitch_lo"] = fmt(fh_[1], 1, True); CLAIM["f3_hitch_lo"] = "90% lower"
+Q["f3_hitch_hi"] = fmt(fh_[2], 1, True); CLAIM["f3_hitch_hi"] = "90% upper"
+qput("f3_ntop", fh_[3], 0, "top-third receivers with NFL hitches"); qput("f3_nbot", fh_[4], 0, "bottom third")
+qput("f3_cover", sum(v[1] < 0 < v[2] for v in FILM3.values()), 0, "families whose top-speed gap interval spans 0")
+for fam in FAMILIES:
+    qput(f"vap_{fam.lower()}", float(g[g.route_ran == fam].v_apex.median()), 1, f"league median speed at the turn, {fam}")
 
-# ---- Fig 4. A: the day-3 / UDFA season pairs, one row each, sorted by next-season SOE (the outcome); open = shrunk
-# season 1, filled = next season; tick / cross = held above zero or not; marks show who each list took.
-# B: rank-correlation gain over pick and routes, season folds and leave one receiver out, with the shuffle null band.
-# C: calibration of the held-out probabilities, three bins with 90% intervals, and the recalibration curve.
-D3 = PAIRS[PAIRS.day3].sort_values("y2").reset_index(drop=True)
+# ---- Fig 4. A: paired contrast of held-out forecast errors on all 20 day-3 pairs (WR / TE labelled). B: the same 20
+# pairs, leave-one-pair-out gain, against the full gain and the season-fold permutation null. C: intervals: gains (all
+# 53 pairs, day 3, WR, TE) and hit rates (SOE list, pick-and-routes list, day-3 base). D: 2026 cards.
+sl_ = pd.read_csv(OUT / "shortlist_2026.csv")
+assert list(sl_.name) == list(L26.display_name)
+sl_["go"] = L26.go.to_numpy()
+sl_["hist"] = [", ".join(f"{int(s)}→{str(int(s) + 1)[2:]} {'hit' if h else 'miss'}" for s, h in
+                         zip(HIST[HIST.display_name == n].s1, HIST[HIST.display_name == n].hit)) for n in sl_.name]
+sl_.to_csv(OUT / "shortlist_2026.csv", index=False)
+D3 = PAIRS[PAIRS.day3].assign(lopo=LOPO, de=lambda d: d.e0 - d.e1)
+D3 = D3.sort_values("de", kind="stable").reset_index(drop=True)
 twice = set(D3.pid[D3.pid.duplicated()])
-fig = plt.figure(figsize=(FIGW, 10.0))
-axA = fig.add_axes([0.235, 0.14, 0.27, 0.72])
-axA.axvline(0, color="#888888", lw=0.9)
+fig = plt.figure(figsize=(FIGW, 14.2))
+fig.text(0.01, 0.992, "Last season's SOE is a small day-3 tiebreaker, not a proven edge", fontsize=16.5,
+         fontweight="bold", va="top")
+fig.text(0.01, 0.968, f"Season folds, {len(D3)} day-3 pairs: gain in rank correlation over pick + routes "
+         f"{Q['ev_d3_drho']} [90%: {Q['ev_d3_drho_lo']}, {Q['ev_d3_drho_hi']}]. All {Q['ev_all_n']} pairs: "
+         f"{Q['ev_all_drho']} [{Q['ev_all_drho_lo']}, {Q['ev_all_drho_hi']}].".replace("-", "−"),
+         fontsize=12.5, va="top", color="#222222")
+Y0, H0 = 0.53, 0.37
+axA = fig.add_axes([0.25, Y0, 0.33, H0])
 for r, r_ in D3.iterrows():
-    x1, x2 = IN_YD * r_.y1s, IN_YD * r_.y2
-    col_ = C_DR if r_.hit else C_NFL
-    axA.plot([x1, x2], [r, r], color="#CCCCCC", lw=1.6, zorder=1)
-    axA.plot(x1, r, "o", ms=8, mfc="white", mec="black", zorder=3)
-    axA.plot(x2, r, "o", ms=9, color=col_, mec="black", zorder=4)
-    axA.text(27.5, r, "✓" if r_.hit else "✗", color=col_, fontsize=12, fontweight="bold", va="center", ha="center")
-    if r_.rule:
-        axA.plot(-30.5, r, "D", ms=7, color="black")
-    if r_.rule_pk:
-        axA.plot(-22.0, r, "s", ms=7, color=OI["orange"])
-lab4 = [f"{str(int(r_.s1))[2:]}→{str(int(r_.s1) + 1)[2:]}  {r_.display_name}{' †' if r_.pid in twice else ''}"
-        for _, r_ in D3.iterrows()]
-axA.set_yticks(range(len(D3)), lab4, fontsize=10.5)
-axA.set_xlim(-33, 30); axA.set_ylim(-0.7, len(D3) - 0.3)
-axA.text(-31.5, len(D3) - 0.35, "SOE\nrule", ha="center", va="bottom", fontsize=10)
-axA.text(-21.0, len(D3) - 0.35, "pick +\nroutes", ha="center", va="bottom", fontsize=10, color="#a36500")
-axA.text(27.5, len(D3) - 0.35, "next\n> 0?", ha="center", va="bottom", fontsize=10)
-axA.set_xlabel("SOE (in): ○ last season, shrunk   ● next season")
-fig.text(0.01, 0.915, f"A. Day-3 / UDFA season pairs ({len(D3)}), one row per\npair, sorted by next-season SOE",
-         fontsize=12.5, fontweight="bold")
-axA.legend(handles=[plt.Line2D([], [], color=C_DR, marker="o", ls="", ms=9, mec="black", label="held above 0"),
-                    plt.Line2D([], [], color=C_NFL, marker="o", ls="", ms=9, mec="black", label="fell below 0")],
-           loc="upper left", bbox_to_anchor=(-0.2, -0.07), ncol=2, frameon=False)
-axB = fig.add_axes([0.70, 0.62, 0.25, 0.22])
-BROWS = [("Day 3, season folds", SF_CI["d3"], (pct(pr_, 5), pct(pr_, 95)), "black", EVAL["d3"]["n"]),
-         ("Day 3, leave one\nreceiver out", LO_CI["d3"], LO_NULL["d3"], "black", EVAL["d3"]["n"]),
-         ("All rounds, leave one\nreceiver out", LO_CI["all"], LO_NULL["all"], "#8a8a8a", EVAL["all"]["n"])]
+    win_ = r_.e1 < r_.e0
+    axA.plot([r_.e0, r_.e1], [r, r], color=OI["blue"] if win_ else OI["verm"], lw=2.4, zorder=1)
+    axA.plot(r_.e0, r, "D", ms=8, color="#E8B04A", mec="black", zorder=3)
+    axA.plot(r_.e1, r, "o", ms=8.5, color="black", zorder=4)
+lab4 = [f"{str(int(r_.s1))[2:]}→{str(int(r_.s1) + 1)[2:]}  {r_.display_name} ({'TE' if r_.te == 1 else 'WR'})"
+        f"{' †' if r_.pid in twice else ''}" for _, r_ in D3.iterrows()]
+axA.set_yticks(range(len(D3)), lab4, fontsize=11.5)
+for tl_, (_, r_) in zip(axA.get_yticklabels(), D3.iterrows()):
+    if r_.te == 1:
+        tl_.set_color("#8a4f00"); tl_.set_fontweight("bold")
+axA.set_ylim(-0.7, len(D3) - 0.3); axA.set_xlim(0, max(D3.e0.max(), D3.e1.max()) * 1.08)
+axA.set_xlabel("held-out error, inches of next-season SOE", fontsize=12)
+fig.text(0.01, 0.925, f"A. Every day-3 pair: SOE rule closer on {PP['d3'][1]} of {PP['d3'][0]} "
+         f"(WR {PP['wr'][1]}/{PP['wr'][0]}, TE {PP['te'][1]}/{PP['te'][0]})", fontsize=13, fontweight="bold")
+axA.legend(handles=[plt.Line2D([], [], color="#E8B04A", marker="D", ls="", ms=8, mec="black", label="pick + routes"),
+                    plt.Line2D([], [], color="black", marker="o", ls="", ms=8.5, label="+ last season's SOE"),
+                    plt.Line2D([], [], color=OI["blue"], lw=2.4, label="SOE closer"),
+                    plt.Line2D([], [], color=OI["verm"], lw=2.4, label="SOE further")],
+           loc="upper left", bbox_to_anchor=(-0.62, -0.13), ncol=4, frameon=False, fontsize=11.5)
+axB = fig.add_axes([0.66, Y0, 0.31, H0])
+nlo_, nhi_ = np.nanpercentile(PRN, 5), np.nanpercentile(PRN, 95)
+axB.axvspan(nlo_, nhi_, color="#E6E6E6", lw=0, zorder=0)
 axB.axvline(0, color="#888888", lw=0.9)
-for r, (lab_, (pt_, lo_, hi_), (n0_, n1_), col_, n_) in enumerate(BROWS):
-    axB.add_patch(plt.Rectangle((n0_, r - 0.3), n1_ - n0_, 0.6, color="#E6E6E6", zorder=0, lw=0))
-    axB.plot([lo_, hi_], [r, r], color=col_, lw=3.0, zorder=2)
-    axB.plot(pt_, r, "D", ms=10, color=col_, mec="black", zorder=3)
-    axB.text(1.03, r, f"{pt_:+.2f}", transform=axB.get_yaxis_transform(), va="center", fontsize=11, color=col_,
-             fontweight="bold")
-axB.set_yticks(range(len(BROWS)), [f"{b_[0]} ({b_[4]})" for b_ in BROWS], fontsize=10.5)
-axB.set_ylim(len(BROWS) - 0.4, -0.6); axB.set_xlim(-0.6, 1.05)
-axB.set_xlabel("rank correlation gained over pick + routes")
-fig.text(0.56, 0.915, "B. Gain from last season's SOE\n(90% intervals; grey box = 90% of shuffles)",
-         fontsize=12.5, fontweight="bold")
-axCc = fig.add_axes([0.70, 0.13, 0.25, 0.33])
-fig.text(0.56, 0.505, "C. Calibration, held out (all 53 pairs)", fontsize=12.5, fontweight="bold")
-axCc.plot([0, 100], [0, 100], color="#888888", lw=1.0, ls="--", label="perfect")
-pg_grid = np.linspace(2, 98, 97)
-axCc.plot(pg_grid, platt(pg_grid, "m1"), color=OI["orange"], lw=2.2, label="recalibration used for 2026")
-for _, r_ in CAL.iterrows():
-    axCc.plot([r_.pred, r_.pred], [r_.lo, r_.hi], color=C_DR, lw=2.2)
-    axCc.plot(r_.pred, r_.obs, "o", ms=10, color=C_DR, mec="black", zorder=3)
-    axCc.text(r_.pred + 3, r_.obs - 4, f"{r_.hit} of {r_.n}", fontsize=10.5, ha="left", va="top")
-axCc.set_xlim(0, 100); axCc.set_ylim(0, 100)
-axCc.set_xlabel("forecast P(next SOE > 0), %"); axCc.set_ylabel("observed, %")
-axCc.legend(loc="upper left", frameon=False, fontsize=10)
-fig.suptitle("Last season's SOE is a small tiebreaker for day-3 receivers, not a proven edge",
-             x=0.01, ha="left", fontsize=14.5, fontweight="bold", y=0.985)
-fig.text(0.01, 0.012, "◆ SOE rule: shrunk SOE above a cut-off set on the other season pair. ■ pick + routes "
-         "list of the same size. † receiver in two pairs.\nB: bars resample receivers; grey boxes = shuffling last "
-         "season's SOE within season. C: bars = 90% intervals per bin; label = hits of pairs.",
-         fontsize=10, color="#333333")
+axB.axvline(G_FULL, color="black", lw=2.0)
+for r, r_ in D3.iterrows():
+    axB.plot([G_FULL, r_.lopo], [r, r], color="#BBBBBB", lw=1.2, zorder=1)
+    axB.plot(r_.lopo, r, "o", ms=8.5, color=OI["blue"] if r_.lopo > 0 else OI["verm"], mec="black", zorder=3)
+axB.set_yticks(range(len(D3)), [""] * len(D3))
+axB.set_ylim(-0.7, len(D3) - 0.3); axB.set_xlim(min(-0.15, nlo_ - 0.05), max(0.55, LOPO.max() + 0.05))
+axB.set_xlabel(f"gain with this pair left out\n(black line: all 20 pairs, {G_FULL:.2f})", fontsize=12)
+
+axB.text((nlo_ + nhi_) / 2, -0.65, "90% of\nshuffled\nseasons", fontsize=11, ha="center", va="bottom",
+         color="#444444")
+fig.text(0.64, 0.925, f"B. Drop any one pair: gain {Q['lopo_min']} to {Q['lopo_max']}", fontsize=13,
+         fontweight="bold")
+fig.text(0.64, 0.905, f"shuffle test, SOE shuffled within season: p = {Q['perm_rho_p']}", fontsize=11.5,
+         color="#333333")
+# C: interval strips
+axG = fig.add_axes([0.25, 0.255, 0.30, 0.15])
+GR = [(f"All rounds ({Q['ev_all_n']} pairs)", EVAL["all"]["mt"]["m1"]["rho"] - EVAL["all"]["mt"]["m0"]["rho"],
+       pct(EVAL["all"]["bs"][:, 0], 5), pct(EVAL["all"]["bs"][:, 0], 95)),
+      (f"Day 3 ({len(D3)})", G_FULL, pct(EVAL["d3"]["bs"][:, 0], 5), pct(EVAL["d3"]["bs"][:, 0], 95)),
+      (f"Day 3, WR ({PP['wr'][0]})", GWR, pct(gwr_bs, 5), pct(gwr_bs, 95)),
+      (f"Day 3, TE ({PP['te'][0]})", GTE, pct(gte_bs, 5), pct(gte_bs, 95))]
+for i_, (l_, m_, lo_, hi_) in enumerate(GR):
+    axG.plot([lo_, hi_], [i_, i_], color="black", lw=2.6)
+    axG.plot(m_, i_, "o", ms=9, color="black")
+axG.axvline(0, color="#888888", lw=0.9)
+axG.set_yticks(range(len(GR)), [x[0] for x in GR], fontsize=11.5); axG.set_ylim(len(GR) - 0.5, -0.6)
+axG.set_xlabel("gain in rank correlation [90%]", fontsize=12)
+fig.text(0.01, 0.43, "C. Gains and hit rates with 90% intervals", fontsize=13, fontweight="bold")
+axH = fig.add_axes([0.70, 0.255, 0.27, 0.15])
+HR_ = [(f"SOE list {hk_}/{hn_}", hk_, hn_, OI["blue"]), (f"Pick + routes list {pk_k}/{pk_n}", pk_k, pk_n, "#E8B04A"),
+       (f"All day-3 pairs {bk_}/{bn_}", bk_, bn_, "#777777")]
+for i_, (l_, h_, n_, c_) in enumerate(HR_):
+    lo_, hi_ = jeff(h_, n_)
+    axH.plot([lo_, hi_], [i_, i_], color=c_, lw=3.0)
+    axH.plot(100 * h_ / n_, i_, "o", ms=10, color=c_, mec="black")
+    axH.text(hi_ + 2, i_, f"{100 * h_ / n_:.0f}%", va="center", fontsize=11.5)
+axH.axvline(100 * bk_ / bn_, color="#777777", lw=1.0, ls="--")
+axH.set_yticks(range(len(HR_)), [x[0] for x in HR_], fontsize=11.5); axH.set_ylim(len(HR_) - 0.5, -0.6)
+axH.set_xlim(0, 100); axH.set_xlabel("% who stayed above zero SOE next season", fontsize=12)
+# D: 2026 cards
+fig.text(0.01, 0.175, "D. 2026 calls (frozen rule); GO = listed again after a hit, confirmed on the film checklist",
+         fontsize=13, fontweight="bold")
+for i_, (_, r_) in enumerate(ACT.iterrows()):
+    tg_ = r_.display_name.split()[-1].lower().replace("'", "").replace(".", "")
+    x0_ = 0.01 + i_ * 0.2475
+    go_ = bool(r_.go)
+    axc = fig.add_axes([x0_, 0.012, 0.235, 0.145])
+    axc.set_xlim(0, 1); axc.set_ylim(0, 1); axc.set_xticks([]); axc.set_yticks([])
+    for sp_ in axc.spines.values():
+        sp_.set_visible(True); sp_.set_color(OI["blue"] if go_ else OI["orange"]); sp_.set_linewidth(2.2)
+    axc.add_patch(matplotlib.patches.Rectangle((0, 0.76), 1, 0.24, color=OI["blue"] if go_ else OI["orange"], lw=0))
+    axc.text(0.04, 0.88, f"{'GO' if go_ else 'HOLD'}  {r_.display_name}", color="white" if go_ else "black",
+             fontsize=13, fontweight="bold", va="center")
+    prev_ = HIST[HIST.display_name == r_.display_name]
+    rec_ = (", ".join(f"{str(int(s))[2:]}→{str(int(s) + 1)[2:]} {'hit' if h else 'miss'}"
+                      for s, h in zip(prev_.s1, prev_.hit)) if len(prev_) else "first listing")
+    axc.text(0.04, 0.60, f"{r_.position_group}, {r_.team25}; {int(r_.routes)} routes, slot {Q[f'sl_{tg_}_slot']}%", fontsize=11.5,
+             va="center")
+    axc.text(0.04, 0.37, f"shrunk SOE {IN_YD * r_.y1s:+.1f} in; P {r_.pc_m1:.0f}%".replace("-", "−"), fontsize=11.5,
+             va="center")
+    axc.text(0.04, 0.13, f"lists: {rec_}", fontsize=11.5, va="center", color="#333333")
 save(fig, "fig4_shortlist.png")
 tick("figures")
 
@@ -3190,4 +3888,5 @@ if (OUT / "writeup_template.md").exists():
     import runpy  # noqa: E402
 
     runpy.run_path(str(OUT / "render.py"))
+    runpy.run_path(str(OUT / "reproduce_baseline.py"))  # re-derives R2, RMSE and the Break G slope from the CSVs
 

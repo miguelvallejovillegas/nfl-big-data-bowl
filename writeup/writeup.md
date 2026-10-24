@@ -1,108 +1,105 @@
-# Combine Cuts Don't Get Receivers Open
+# Combine Cuts Don't Predict NFL Separation
 
-**A receiver's Combine cut does not predict how open he gets in the NFL. For day-3 receivers, last season's separation is a small tiebreaker, not a grade. Stop paying for the drill cut, and use the tracking on film to coach the break.**
+*Break G* is how hard a receiver pushes off the ground at the sharpest point of a route cut, measured at 10 Hz in the Combine route drills. *Separation over expected (SOE)* is how open he is when the ball is thrown, beyond what his alignment and cushion predict (Next Gen Stats, full season).
 
-*Break G is how hard a receiver pushes off the ground around his cut: mean acceleration in g (1 g = body weight) over the second centred on the sharpest point of the turn. One sd is the spread of true receiver Break G, 0.021 g. Separation over expected (SOE) is the space at the throw beyond what alignment, cushion and position predict (NGS, full season).*
+**On 116 receivers from draft classes the model never saw, one sd of Break G is worth −1.2 inches of season SOE (90% interval −3.6 to +1.0). The best case, +1.0 inch (0.14 catches a season), sits inside the ±3 inch margin (0.44 catches) set before testing. Speed carries from Combine to NFL (ρ = 0.43); the cut does not. Between day-3 receivers, lean on last season's SOE, then check the film.**
 
-![Figure 1. Six receivers with the largest drill-to-NFL gaps, picked by a stated rule, so expect regression to the mean: paths and speed through the cut on the same route family.](figures/fig1_cards.png)
+![Figure 1. All 99 receivers with 8+ NFL breaks, Combine against NFL Break G (A), and five receivers that span the Combine range (B).](figures/fig1_cards.png)
+
+## Why receivers, why now
+
+The last receiver spot usually goes to a day-3 or undrafted player, every summer. The 2025 day-3 and undrafted receivers and tight ends who ran 100+ routes earn a median $1.08M a year. A miss is cheap but blocks a younger player.
+
+The scout's evidence on getting open is thin. At the Combine he sees a median of 7 graded route-drill cuts per receiver, and 91% of drill-receiver cells hold a single rep. In the NFL, one 200-route season of SOE is about 60% signal and 40% noise.
+
+Since 2023 the route drills are tracked at 10 Hz, so one piece of code grades the cut on Combine and NFL tracking. Straight-line speed carries: over the full play, the official 40 ranks NFL top speed at ρ = 0.43 [0.29, 0.54] within position and class (100 receivers). Does the cut carry the same way? If not, what breaks the tie?
 
 ## The roster decision
 
-In August a club picks its sixth receiver from day-3 players on minimum deals. Tape rarely settles who gets open, so scouts lean on Combine "suddenness". The 2023–2025 route drills were tracked at 10 Hz, so the cut can now be measured. Does it become NFL separation, and if not, what breaks the tie?
-
 | Question (n) | Held-out result [90% interval] | Verdict |
 |---|---|---|
-| Does Break G add season SOE? (116 receivers, unseen classes) | −1.2 in per sd [−3.6, +1.0]; a +3 in effect rejected | **No** |
-| Does the drill cut carry to the same NFL route family? (99) | true correlation 0.02 [−0.27, 0.32] | **No visible transfer** |
-| Does last season's SOE beat pick and routes on day 3? (20 pairs, 38 receivers pooled) | rank-correlation gain 0.63 [−0.08, 0.90], leaving one receiver out | **Not proven: tiebreaker only** |
-| Same, all rounds (53 pairs) | gain 0.68 [0.14, 0.90] | **Clearer in the larger pool** |
+| Does Break G add season SOE beyond pick, 40, weight and NGS score? (116 receivers, unseen classes) | −1.2 in per sd [−3.6, +1.0]; inside the ±3 in margin | **No** |
+| Does the drill cut carry to the same NFL route? (99 with 8+ NFL breaks) | correlation 0.02 [−0.27, 0.32], noise corrected | **No visible transfer** |
+| Does last season's SOE rank receivers better than pick and routes? | all rounds, 53 pairs: gain 0.33 [0.13, 0.53]; day 3, 20 pairs: 0.31 [−0.08, 0.63] | **Yes overall; day 3 same size, unproven** |
+| Did earlier day-3 SOE lists beat the base rate? | 7 of 13 hit (54% [32, 75]) vs 8 of 20 (40% [24, 58]) | **Intervals overlap: a lean** |
 
-**Verdict.** On day 3 the edge is not statistically distinguished from zero: its interval includes 0, it wins 1 of 2 season folds, and as a yes/no list it hits 7 of 13 against 6 of 13 for pick and routes. Separation persists at every pick, so on day 3, where little else is known, it is the best tiebreaker available.
+The gain is the rank correlation of the held-out forecast with next-season SOE when last season's SOE is added, minus the same without it. Folds are season pairs (fit on 2024→25, score 2023→24, and the reverse); receivers are resampled. An earlier brief quoted 0.63 [−0.08, 0.90] from leave-one-receiver-out folds, where the pick-and-routes forecast itself scored −0.43, inflating the gain.
 
 ## What to do
 
-1. **Break ties between day-3 receivers with last season's route-shrunk SOE** (2026 list below).
-2. **Take Break G out of the price.** Clubs draft +1 sd 9% earlier beyond position, 14% beyond the 40, weight and NGS score, the figure quoted in earlier rounds. Its best case is worth 0.14 catches a season.
-3. **Use the tracking on film, not on the board.** Read entry speed, speed at the top and drive out of the break by route family (Figure 3): a coachable cue, not a grade.
-4. **2026 Combine protocol.** If you time cut drills, run slant, dagger and comeback twice: one rep is 14% player, and a second rep on those three lifts reliability from 0.53 to 0.62. Read speed from the official 40, not the tracked clip, which starts about 0.3 s before the laser.
+1. **If you must choose between two day-3 receivers with similar pick and routes, lean to the one with higher last-season SOE.** On day 3 the gain matches the 53-pair result but its interval includes zero, so a lean is all it supports. For 2026: Malik Washington and Demario Douglas, if the film checklist confirms them.
+2. **Use it for wide receivers, not tight ends.** WR only, the day-3 gain is 0.56 [−0.02, 0.99] on 15 pairs; on the 5 tight-end pairs it is −0.50 [−1.12, 0.00].
+3. **Take Break G out of the price.** At the same position, clubs draft a receiver 1 sd harder in the cut 9% earlier [2, 17] and get no separation for it.
+4. **2026 Combine protocol.** If you time cut drills, run slant, dagger and comeback twice: a second rep lifts reliability from 0.53 to 0.62.
 
-## The worked case: a hard cutter and a soft one at the same pick
+## The drill cut does not show up in NFL routes
 
-Kayshon Boutte (2023, pick 187) and Malik Washington (2024, pick 184) are chosen by their drill cuts, not by forecast: they are the two list names with the closest picks and opposite cuts (+1.8 and −0.3 sd). Pick and routes (357 and 339 in 2025) give both 42%. Their 2025 SOE does not tie (+0.8 vs +22.5 in), and the recalibrated chance of SOE above zero in 2026 moves to 44% vs 95%.
+Break G is found on 96% of 926 drill reps, standardized within drill and Combine year and averaged over a median of 7 drills. It is a real drill trait: Break G on five drills predicts the other five at ρ = 0.28 (145 players). It is not a speed score (ρ with the 40: −0.01). NFL snaps are graded with the same code on slant, out, hitch, in and corner routes.
 
-Context: Boutte played 14 games for New England with Drake Maye and saw man coverage on 27% of routes; Washington played 17 for Miami with Tua Tagovailoa and saw man on 19%. Both earn about $1M ($1.01M and $1.05M), so the call is free. The forecast gap of 13.3 inches is worth 2.0 catches a season (1.1 to 3.3 across the plausible range of 7.0 to 10.7 catch-rate points per yard and 43 to 84 targets). Keep Washington. A drill-priced board would have done the opposite.
+![Figure 2. Same receiver, same route family, with the noise of few reps and few snaps modelled: every family's interval includes zero. The official 40 against NFL top speed is shown for scale.](figures/fig2_chain.png)
 
-This pair is not typical. Across the 24 2025 day-3 receiver pairs matched on pick and routes, the median gap is 30 points; the largest is 71.
+After correcting for that noise, the drill-to-NFL correlation for the same receiver on the same route is 0.02, and below 0.32 with 90% probability, against 0.43 for the 40 and top speed. A useful link (above 0.2) has a 17% chance.
 
-![Figure 3. Boutte (hard drill cutter) and Washington (soft) on NFL hitches: speed through each break against the league median.](figures/fig3_film.png)
+![Figure 3. NFL speed through the cut for the top and bottom thirds of Combine Break G, by route family, with the difference beneath: hard drill cutters do not cut differently on Sundays.](figures/fig3_film.png)
 
-**The film cue.** On NFL hitches the two look alike: they enter at 5.4 and 5.5 yd/s, faster than the league's 4.7, with similar Break G (0.48 and 0.45 g). The difference is at the top: Boutte is still moving at 2.0 yd/s where Washington sinks to 0.9. Coach Boutte to sink fully at the top of hitches and outs against off coverage. The drill score does not show this; six sampled snaps each make it a cue to check on film, not a grade.
+Hard and soft drill cutters reach the same speed at the top of the NFL cut: on the hitch the gap is −0.2 yd/s [−0.5, +0.1], and all 5 families' intervals include zero. On slants, outs and corners the NFL cut is taken at speed (median 3.6, 4.8 and 6.4 yd/s at the turn), so a drill brake has little to transfer to.
 
-## Drill to tape
+## Break G adds nothing to season separation
 
-Break G is found on 96% of 926 drill reps, standardized within drill and Combine year, and averaged over route drills (median 7). The same code grades NFL snaps on slant, out, hitch, in and corner routes.
+The outcome is full-season SOE, route-weighted over each career (213 player-seasons, median 231 routes). The forecast without tracking was fixed before the test: log pick, official 40, weight, NGS athleticism score and a TE flag. Fitted on two classes and scored on the third, it is weak: held-out R² 0.00 [−0.51, 0.14], error 8.6 inches, rank correlation 0.12. A ridge version gives R² 0.03 [−0.28, 0.14], so the near-zero baseline is not a fitting accident. Adding Break G changes R² by 0.013 [−0.157, 0.085], and what little it adds comes through a negative slope.
 
-![Figure 2. The drill cut repeats across drills (A) but does not carry to NFL snaps (B), on any route family once noise is modelled (C).](figures/fig2_chain.png)
-
-- **The drill trait is real.** Break G on five drills predicts the other five at ρ = 0.28 (145 players), and it is not a speed score (ρ with the 40 is −0.01).
-- **It does not reach NFL routes.** Game cuts are softer (median 0.57 g in drills, 0.42 g on NFL snaps), and drill order is lost.
-- **It is the metric, not only thin data.** A route-family errors-in-variables model with a random slope per family (399 receiver-family cells) models the noise of a few reps and a few snaps. Every family's interval includes zero, hitch included (0.09 [−0.18, 0.39]). The chance that the true link exceeds 0.2 is 17% pooled and at most 27% for any family.
-
-## Season separation on unseen classes
-
-The outcome is full-season SOE, route-weighted over each career (213 player-seasons, median 231 routes). The forecast without tracking, fixed before the test, uses log pick, official 40, weight, NGS athleticism score and a TE flag. Fitted on two classes and scored on the third, it leaves nothing for Break G to explain (table above). Every variant in the appendix stays at or below +1.8 inches per sd. A +3 inch effect would be worth only 0.44 catches a season (0.25 to 0.75).
+`reproduce_baseline.py` rebuilds season SOE from `player_season_stats.parquet` (`soe_season.csv`) and, with `baseline_inputs.csv`, re-derives R² 0.00, error 8.6 inches and the −1.2 inch slope in seconds.
 
 ## The 2026 day-3 shortlist
 
-Day-3 or undrafted, 100+ routes and SOE above zero in 2025, with SOE shrunk toward the mean by routes. Probabilities are for SOE above zero in 2026, recalibrated on the held-out season pairs. § = Combine-discounted (NGS athleticism score below his class average).
+Pool: day-3 or undrafted receivers with 100+ routes and SOE above zero in 2025. **GO**: listed again after an earlier hit, and confirmed on film. **HOLD**: first listing. P: model chance of 2026 SOE above zero, an ordering.
 
-| Receiver (class, pick) | 2025: team, alignment, games, % vs man, QB | Routes | SOE, raw → shrunk (in) | P(2026 SOE > 0) | Pick + routes only | Break G, sd |
-|---|---|---|---|---|---|---|
-| Malik Washington (2024, 184) | MIA, wide, 17, 19%, Tagovailoa | 339 | +22.5 → +16.1 | 95% | 42% | −0.3 |
-| Demario Douglas (2023, 210) | NE, slot, 17, 25%, Maye | 220 | +21.6 → +13.4 | 89% | 42% | +0.5 |
-| Tez Johnson § (2025, 235) | TB, wide, 16, 29%, Mayfield | 282 | +16.2 → +10.9 | 85% | 42% | −0.1 |
-| Arian Smith (2025, 110) | NYJ, wide, 16, 25%, Taylor | 231 | +15.8 → +10.0 | 81% | 42% | +1.7 |
-| Troy Franklin § (2024, 102) | DEN, wide, 17, 20%, Nix | 461 | +4.4 → +3.4 | 61% | 41% | −0.1 |
-| A.J. Barner, TE § (2024, 121) | SEA, inline, 17, 23%, Darnold | 330 | +14.0 → +9.9 | 60% | 30% | −0.1 |
-| Gunnar Helm, TE § (2025, 120) | TEN, slot, 16, 24%, Ward | 231 | +16.4 → +10.4 | 59% | 30% | 0.0 |
-| Isaiah Bond (2025, UDFA) | CLE, wide, 16, 32%, Sanders | 333 | +4.3 → +3.1 | 56% | 42% | −1.3 |
-| Jaylin Lane (2025, 128) | WAS, wide, 14, 33%, Daniels | 186 | +4.8 → +2.8 | 47% | 42% | +0.2 |
-| Kayshon Boutte § (2023, 187) | NE, wide, 14, 27%, Maye | 357 | +0.8 → +0.6 | 44% | 42% | +1.8 |
-| Mitch Tinsley § (2023, UDFA) | CIN, wide, 17, 28%, Flacco | 134 | +3.6 → +1.8 | 39% | 42% | +0.5 |
-| Mitchell Evans, TE § (2025, 163) | CAR, inline, 17, 18%, Young | 123 | +13.9 → +6.7 | 34% | 31% | −0.1 |
-| Ja'Tavion Sanders, TE § (2024, 101) | CAR, slot, 12, 27%, Young | 220 | +6.4 → +4.0 | 29% | 30% | −0.2 |
+| Call | Receiver (class, pick; 2025 team, QB) | 2025 games, routes; slot share | Shrunk SOE; P | Earlier lists |
+|---|---|---|---|---|
+| **GO** | **Malik Washington**, WR (2024, 184; MIA, Tagovailoa) | 17 g, 339; 23% slot | +16.1 in; 95% | 2024→25 hit |
+| **GO** | **Demario Douglas**, WR (2023, 210; NE, Maye) | 17 g, 220; 67% slot | +13.4 in; 89% | 2023→24 hit, 2024→25 hit |
+| **HOLD** | **Tez Johnson**, WR (2025, 235; TB, Mayfield) | 16 g, 282; 35% slot | +10.9 in; 85% | first listing |
+| **HOLD** | **Arian Smith**, WR (2025, 110; NYJ, Taylor) | 16 g, 231; 42% slot | +10.0 in; 81% | first listing |
 
-Below Isaiah Bond it is a coin flip or worse. Sanders played 12 games, so his sample is thin. Of the 13, 7 are soft drill cutters a drill-priced board would mark down, and 8 (§) were already discounted on the standard Combine.
+**Base rates for reading P.** Earlier day-3 lists hit 7 of 13 (54% [32, 75]) against 8 of 20 for all day-3 pairs (40% [24, 58]); the intervals overlap. Held-out forecasts of 60% or more came true 14 of 23 times (61% [44, 76]). Slot share is shown, but 20 pairs cannot separate slot from wide alignment.
 
-## How the rule scored
+**Film checklist for the GO names** (picked by rule from sampled 2025 snaps: slowest hitch turn, fastest slant or out turn, most open snap against man; league hitch median 1.5 yd/s):
+- **Malik Washington.** (1) *Hitch sink* (2025 wk 4 vs NYJ, Q1 12:14, 3rd & 7, Cover 4): 0.6 yd/s at the top, 3.8 yd open. (2) *Slant at speed* (2025 wk 9 vs BAL, Q2 4:17, 3rd & 7, Cover 3, wide): 5.8 yd/s at the turn, 5.8 yd open. (3) *Against man* (2025 wk 1 vs IND, Q4 6:29, 4th & 11, Cover 0, slant): 2.9 yd open.
+- **Demario Douglas.** (1) *Hitch sink* (2025 wk 9 vs ATL, Q3 14:13, 2nd & 14, Cover 3): 6.3 yd/s at the top, 2.2 yd open. **No sink: check his other hitches first.** (2) *Out at speed* (2025 wk 11 vs NYJ, Q3 14:20, 3rd & 7, Cover 1, slot): 5.4 yd/s at the turn, 1.0 yd open. (3) *Against man* (2025 wk 11 vs NYJ, Q1 3:56, 4th & 2, Cover 1, out): 3.8 yd open.
 
-![Figure 4. Day-3 and undrafted season pairs sorted by outcome (A), the gain over pick and routes against a shuffle null (B), and calibration with the recalibration used for 2026 (C).](figures/fig4_shortlist.png)
+GO flips to HOLD if his full 2025 tape shows no sink at the top of hitches, or if his 2026 SOE is below zero after 150 routes.
 
-- **Nested test.** All 53 pairs share one model with a receiver random intercept; each receiver is forecast by models that never saw him. Last season's SOE persists at every pick: 0.71 inches per inch at pick 200 [0.15, 1.28] and 0.54 at pick 40, with no pick-by-SOE interaction (0.11 [−0.35, 0.57]). Left-out pick-and-routes forecasts rank day-3 pairs badly (−0.43), which flatters that gain. Reading: SOE carries real information, and day 3 has too few pairs to show its own edge.
-- **Calibration.** Raw held-out probabilities ran high (day 3: 50% forecast, 40% observed). Rescaling fitted on the held-out pairs brings the cross-fitted day-3 forecast to 41%; the 2026 list shows rescaled values.
+![Figure 4. All 20 day-3 pairs as forecast errors (A) and with each pair left out (B), gains and hit rates with intervals (C), and the 2026 calls (D).](figures/fig4_shortlist.png)
+
+**What would change the call** (pre-registered): drop the tiebreaker if the 2026 day-3 gain is negative and the 2026 list hits no better than the base rate; upgrade it from a lean to a rule if the list hits 9 of 13. Power is low (0.27 for the gain, 0.20 for the list).
 
 ## Limitations
 
-- **Not a blind test, small day-3 sample.** Earlier rounds saw all three classes, and day 3 has 20 pairs. The 2026 class is the first true out-of-sample score (power 0.85 against a 3-inch gain).
-- **The downside is open.** The primary interval rules out gains above +1.0 inch per sd, not losses down to −3.6.
-- **Game tracking is a sample.** Up to 40 plays per player, half chosen for high EPA, with no defenders and no ball. That limits the film cue and the drill-to-game link, not the season SOE test. Games played is a rough injury proxy.
-- **Survivorship.** 33 of 149 drill-scored receivers never logged NFL routes with separation; re-weighting changes little (appendix).
+- **Not blind, small day-3 sample.** All three classes were seen while building this; day 3 has 20 pairs from 16 receivers. Dropping any one pair leaves the gain between 0.19 and 0.37, and a test that shuffles last season's SOE within season gives p = 0.01; still, the bootstrap interval includes zero.
+- **The downside is open.** The interval rules out gains above +1.0 inch per sd, not losses down to −3.6.
+- **Game tracking is a sample.** Up to 40 plays per player, half chosen for high EPA, without defenders or ball. That limits the clips and the drill-to-NFL link, not the season test.
+- **Availability and survivorship.** 33 of 149 drill-scored receivers never logged NFL routes with separation; re-weighting for this changes little.
+- **The freeze is late.** The 2026 rule was frozen on 24 October 2026, after the season began but before any full-season SOE existed.
 
 ## Appendix
 
-**Break G slopes, inches of season SOE per sd, held out unless stated.**
+**Pre-registration.** `frozen_rule_2026.json` holds coefficients, threshold, names and probabilities (sha256 5c1beda70454…). Primary test: day-3 gain over pick and routes, 18 expected 2026 pairs (61% of day-3 receivers keep 100+ routes).
 
-| Version (n) | Slope [90%] | p against +3 in |
+| Speed benchmark: official 40 vs NFL top speed (90th percentile of per-snap maximum) | ρ (receivers) |
+|---|---|
+| Full play, 40 standardized within position and class (used in the text) | 0.43 (100) |
+| Full play, raw 40, WR and TE pooled (mostly the WR–TE speed gap) | 0.74 (100) |
+| Snap to throw on breaking snaps only (short routes cap top speed) | 0.34 (99) |
+
+**Every estimate and its alternatives** (90% intervals; receivers resampled).
+
+| Claim | Primary (n) | Alternatives |
 |---|---|---|
-| **Pre-specified offset forecast, primary (116)** | **−1.2 [−3.6, +1.0]** | **0.001** |
-| Ridge forecast (116) | −0.4 [−2.2, +1.8] | 0.003 |
-| No offset: Break G beside the five inputs, all classes (116) | −0.6 [−2.5, +1.2] | 0.001 |
-| Re-weighted by 1 / P(reaching the NFL sample) (116) | −0.8 [−2.8, +1.3] | 0.002 |
-| Player-seasons, receiver random intercept, in-sample (167) | −0.5 [−2.8, +1.8] | 0.006 |
-| Without Puka Nacua, most influential (115) | −0.5 [−2.7, +1.5] | 0.003 |
-| SOE adjusted for route mix and depth (116) | −1.8 [−4.3, +0.4] | 0.001 |
-| SOE adjusted for quarterback (116) | −1.2 [−3.6, +0.9] | 0.001 |
+| Break G slope, in of SOE per sd | offset forecast −1.2 [−3.6, +1.0] (116) | re-weighted for survival −0.8 [−2.8, +1.3]; without Puka Nacua −0.5 [−2.7, +1.5]; QB-adjusted −1.2 [−3.6, +0.9] |
+| Day-3 gain over pick and routes | season folds 0.31 [−0.08, 0.63] (20 pairs) | shrinkage refitted in each fold 0.31 [−0.08, 0.65]; draft-class folds 0.15 [−0.10, 0.39]; rule vs raw last-season SOE 0.09 [−0.19, 0.40]; mean error cut +0.8 in [−0.3, +1.8] |
 
-**Day-3 tests.** Season-fold rank correlation 0.06 for pick and routes vs 0.37 with SOE (gain 0.31 [−0.08, 0.63]); within-fold shuffle p 0.01; yes/no gap shuffle p 0.11. Leave-one-receiver-out shuffle p 0.03 (day 3) and 0.0015 (all); RMSE removed 0.9 inches [−0.7, 3.0]. Intervals resample receivers and redo the leave-one-out loop. **Calibration.** Platt rescaling, intercept −0.63, slope 1.19; cross-fitted Brier 0.213 raw, 0.210 rescaled. **Selection model.** Logistic regression of reaching the NFL sample on the five inputs and Break G; Break G odds ratio 0.76 [0.30, 1.69]. **Family model.** Gibbs sampler, conjugate updates; within-cell rep and snap variances plug in the measurement noise; random family slopes around a pooled slope. **Shrinkage.** Skill variance = covariance of SOE across consecutive seasons (76 pairs); 0.60 of SOE is kept at 200 routes. **Units.** 8.8 catch-rate points per yard, 60 targets a season.
+**Notes.** P is rescaled to held-out hit rates (day 3: 50% forecast, 40% observed). The noise-corrected correlation uses an errors-in-variables model, one slope per route family (399 receiver-family cells). 1 sd of Break G = 0.021 g; catches use 8.8 catch-rate points per yard and 60 targets.
 
-Reproduce: `uv run python writeup/candidates/round_15/revised/analysis.py` (about ten minutes). It writes `numbers.json`, the figures and this text from `writeup_template.md`; `claims.json` names the claim behind each number.
+**Rest of the 2026 list** (team; shrunk SOE; P): Troy Franklin (DEN; +3.4 in; 61%); A.J. Barner, TE (SEA; +9.9 in; 60%); Gunnar Helm, TE (TEN; +10.4 in; 59%); Isaiah Bond (CLE; +3.1 in; 56%); Jaylin Lane (WAS; +2.8 in; 47%); Kayshon Boutte (NE; +0.6 in; 44%); Mitch Tinsley (CIN; +1.8 in; 39%); Mitchell Evans, TE (CAR; +6.7 in; 34%); Ja'Tavion Sanders, TE ⚑ (CAR; +4.0 in; 29%). ⚑ = 13 or fewer games in 2025.
+
+Reproduce: `uv run python writeup/candidates/round_17/revised/analysis.py` (about nine minutes) writes every number, figure and this text.
