@@ -1,0 +1,14 @@
+{
+ "angle": "DL/EDGE: Run-the-Hoop bend (Hoop G) vs NFL pressure rate, with pass-rush-drill get-off burst vs same-player NFL first-second burst as the carry-over check; year-standardized; baseline = log pick + official 10-yd split + 3-cone + NGS athleticism + weight + EDGE share + games per season",
+ "metric_name": "Hoop G: hardest sideways push held for 0.5 s while rounding the hoops (g, z within Combine year), corrected for one-run reliability 0.41",
+ "headline_number": "0.6 extra pressures per 450-rush season per sd of bend, 90% [-0.4, 1.7] (Bayesian beta-binomial, n=90); fully nested out-of-class R2 change -0.026 [-0.286, 0.185] (n=63); pick 100 vs pick 80 (80% range 47 to 106). Drill burst -> NFL burst rho 0.32 [0.12, 0.51], n=85, no pressure link.",
+ "what_changed_from_previous": "Revision of round_05/revised (the post-judging revision of the round-5 winner, which already applied the round-5 top_changes: 0.6 as the only planning number, null out-of-class result in the lede, per-class sign table, complete-case/MI sensitivities, role-split calls, hero Fig 1, merged Fig 3, Fig 5 dumbbell). This round: (1) wc word count cut from 1,985 to 1,940 (check.py 1,675) by dropping the 2023-24 name list (names live in Fig 5) and two appendix rows (Fig 3 slopes, already in its legend; no-times out-of-class); (2) lede ends in a one-line verdict ('break ties between EDGE rushers with similar film grades, never move a player up a board') and the motivation is rewritten around bend as the unscored scouting trait; (3) uncaveated 3-cone rho 0.63 (n=27) removed from the text; (4) n mismatch fixed: per-class table shows n for the headline model and the 100+-rush out-of-class test (28/21, 27/22, 35/20), matching Fig 4; (5) message conflict removed: Finding 1 heading and Fig 2 title no longer say 'the stopwatch carries the signal' (which contradicted the appendix), Fig 3 title is neutral; (6) pre-registration states what a miss vs a negative estimate means; appendix note on the 3-cone subset rewritten. All numbers reproduce exactly from the round-5 revision; script runs in about 1:45.",
+ "open_risks": [
+  "Headline remains a near-null; judges may read the tiebreaker framing as soft.",
+  "The wide-prior posterior is 2.0 [0.5, 3.8], so the small headline depends on the skeptical prior (disclosed in appendix and limitations).",
+  "Fig 5 tally (7 of 8 plus calls above forecast) is partly in-sample because 2023-24 helped choose the hoop; labelled as a consistency check.",
+  "No film: path direction is a tracking proxy; no film validation of the named rushers is possible here.",
+  "Laplace sensitivities sit about 0.1 above the MCMC headline and have narrower lower tails.",
+  "Pre-registered test has power 0.12 for the headline effect."
+ ]
+}

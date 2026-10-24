@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics: Combine route drills matched to the same NFL route family (SLANT/OUT/HITCH/IN/CORNER), one metric (Speed Kept) tested against separation over expected with a pre-registered, time-forward holdout",
+ "metric_name": "Speed Kept (SK, %): speed at the slowest point of the break / peak speed in the 1.0 s before it; identical code on Combine drills and NFL snaps; NFL snaps graded only if the break apex is >= 0.2 s before the throw",
+ "headline_number": "Pre-registered 2025 holdout: rho(SK, SOE) = -0.03 [-0.11, 0.07] on 498 graded snaps / 87 players, one-sided p = 0.64 (failed; plan committed at d6d2360 before opening 2025). Combine SK vs NFL SK rho = -0.03 [-0.22, 0.15], n = 115; SK ICC 0.012 (upper 0.031). 47% of NFL break-route 'breaks' finish < 0.2 s before the throw (63% of hitches), which explains round 3's zone penalty (post-throw -0.17 vs pre-throw -0.03).",
+ "what_changed_from_previous": "Revision of round_03/cand_2 (7.44), addressing its fatal flaws (non-replicating man/zone lead, selection): (1) one metric chosen on 2023-24 seasons and a single test pre-registered in prereg.json and committed to git before 2025 outcomes were opened; context model fitted on 2023-24 only; (2) new timing correction: breaks that finish after the throw are excluded, and the round-3 zone penalty is shown to live in those post-throw breaks; (3) reliability of eight break components at both venues plus ICC and snaps-needed, to answer 'is this a trait'; (4) snap-level held-out-season and player-level out-of-class baselines (pick, 40, weight, NGS); (5) named Combine extremes table with NFL intervals; (6) concrete team decision rules and one 2026 hypothesis; (7) ~60-word football-first opening, coach definition first, stats in appendix, all decimals from numbers.json.",
+ "open_risks": [
+  "The headline is a failed test: judges may score a rigorous null low on Football even with decision rules",
+  "Out/corner rho 0.16 in both periods is post hoc and worth under an inch per 10 SK points; could read as fishing even though it is flagged and not recommended",
+  "SK is capped at 100% (72% of graded slants, 64% of corners), which limits the metric on speed routes; kept as registered",
+  "Round 3 had seen pooled ungraded components across all seasons, so the 2025 holdout is not perfectly blind to the author",
+  "Sample: ~9 graded breaks per player; no defenders or ball in the game tracking; half the plays are high-|EPA| picks",
+  "Table count is 4 plus 5 figures (9 total, at the limit)"
+ ]
+}

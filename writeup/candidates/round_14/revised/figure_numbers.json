@@ -1,0 +1,19 @@
+{
+ "fig1_0": "KeAndre Lambert-Smith",
+ "fig1_1": "Trey Palmer",
+ "fig1_2": "Darnell Washington",
+ "fig1_3": "Terrance Ferguson",
+ "fig1_4": "Jermaine Burton",
+ "fig1_5": "A.T. Perry",
+ "fig2_rel_all": "0.36",
+ "fig2_rel_p8": "0.35",
+ "fig2_p8_rho": "-0.03",
+ "fig2_p8_lo": "-0.20",
+ "fig2_p8_hi": "0.14",
+ "fig3_bg": "9 [2, 17] / 0.0 [-1.4, 1.5]",
+ "fig3_forty": "16 [8, 23] / 1.6 [-0.0, 3.4]",
+ "fig3_three_cone": "25 [9, 36] / 1.3 [-3.2, 3.7]",
+ "fig3_short_shuttle": "24 [10, 35] / -1.3 [-7.3, 2.6]",
+ "fig3_combine_weight": "6 [-3, 14] / -3.2 [-4.9, -1.6]",
+ "fig3_ngs_athleticism_score": "23 [16, 30] / -0.6 [-2.3, 1.1]"
+}

@@ -1,0 +1,145 @@
+{
+ "round": 12,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_12/cand_2/",
+   "angle": "WR/TE Break G drill-to-game chain, held-out null, price lead, decision cards",
+   "score": 8.4,
+   "judge_scores": {
+    "judge-football": 8.2,
+    "judge-datascience": 8.6,
+    "judge-writeup": 8.4,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_12/cand_3/",
+   "angle": "DL Combine 40 start vs NFL first step carry-over; official 40 underpriced",
+   "score": 8.24,
+   "judge_scores": {
+    "judge-football": 8.2,
+    "judge-datascience": 8.4,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_12/cand_1/",
+   "angle": "Hoop G tie-break lead for DL, frozen rule vs no-tracking forecast",
+   "score": 8.14,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.3,
+    "judge-writeup": 8.0,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_12/revised/",
+  "score": 8.41
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.3,
+   "subscores": {
+    "usable": 8.3,
+    "confounders": 8.7,
+    "unique": 8.0,
+    "terminology": 8.3
+   },
+   "justification": "Usable (8.3): The three actions (leave Break G out of the grade, don't pay for it, run slant/dagger/comeback reps twice) are concrete. The ten-player board has per-player actions, and the price-discount angle with Malik Washington is a positive use. The actions are still mostly 'do nothing' or 'grade on tape', and the board actions rest on wide 90% intervals that include zero. Confounders (8.7): Draft-slot opportunity is handled through a pick-based forecast with held-out classes and a price test. Quarterback effect, Nacua influence, scheme-split reliability, the 57-test count, drill reliability and the ceiling are all reported. Missing are injuries and an explicit EDGE/DB check. Unique (8.0): Following one movement trait from drill to game to season, with a drill-to-game reliability ceiling and a price-versus-value frame, goes beyond public 40-time audits. Still a null result on one metric. Terminology (8.3): Football language is sound, named players used, Nacua caveat sensible. Jargon (Holm, REML, shuffle p) leaks into main text and the table is dense for a GM.",
+   "top_changes": [
+    "Make the positive use the headline: a shortlist rule of day-3/undrafted receivers with soft cuts and strong full-season SOE, with a held-out hit rate against a base rate (current 5 of 8 has no comparison group).",
+    "Cut jargon and density in the main text. Move 57-test accounting, Holm, shuffle and jackknife detail to the appendix, reduce the results table to 4 rows, and open with Figure 2 or 4.",
+    "Replace the board's generic actions with scheme- or role-specific ones tied to deployment mix. Add one case where Break G disagrees with tape (hard cutter with poor SOE) and say what a position coach should change."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.6,
+   "subscores": {
+    "correctness": 9.0,
+    "evidence": 8.7,
+    "model": 8.3,
+    "innovation": 8.4
+   },
+   "justification": "Re-ran analysis.py end to end (3 minutes); all 852 numbers.json keys matched the shipped file. Headline values match the text: held-out slope -1.2 in [-3.5, +1.0], shuffle p 0.38, split-half 0.28 (n=145), rho with the 40 of -0.01, SOE stability 0.44, mixed-model reliability 0.53 rising to 0.62 with a second rep, price/Holm figures 14%, 0.06, 0.16. Strong design: no-tracking baseline, leave-one-class-out validation, interval refits the forecast on every resample, frozen hashed rule, shuffle null, pre-set equivalence margin, n per claim, year-standardized drills, shrinkage, mixed-model reliability, QB variance check, leave-out-Nacua, 57 tests with Holm. Model fits n=116. Innovation high (hard-cut detector from 10 Hz, matched drill-to-play on same routes, reliability ceiling). Weaknesses: forecast poorly calibrated out of class (slopes 0.40, 0.64, 1.33) with ridge fix only in appendix; wide null with downside to -3.5; 2025 class has one season; game tracking is a biased sample (half high-EPA); price lead not significant after correction; no target-quality adjustment beyond QB check; wc -w gives 2137, may exceed 2,000 depending on check.py counting.",
+   "top_changes": [
+    "Fix the word budget: wc -w gives 2137 vs 2,000 limit. Run writeup/check.py, cut Combine-week protocol paragraph, 'Why receivers, why now' and Figure 4 check list; move the 57-test sentence to the appendix.",
+    "Replace the poorly calibrated forecast with a ridge/shrunken baseline in the main test, show the leave-one-class-out slope and a player-level cluster-bootstrap interval under it.",
+    "Add a target-quality/air-yards adjustment to season SOE and test Break G against an outcome not dependent on one player (catch-over-expected or yards per route run, with and without Nacua); test the price lead on a held-out basis."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8.3,
+   "subscores": {
+    "clarity": 8.4,
+    "structure": 8.4,
+    "motivation": 8.0,
+    "density": 7.9
+   },
+   "justification": "check.py passes: 1,936 words, 5 figures plus 2 tables. Title and bold lede state result, football question and action in about 60 words; SOE defined right after. Strong structure: so-what first as three actions, tests table with 57-test count, named-player board with per-player actions. Honest tone; price result labelled a lead. Weaknesses: density and jargon. Lede and so-what packed with numbers; tests table dense; metric section mixes a coach sentence with a long code definition; Why-now motivation thin and asserts vendors will sell suddenness scores without evidence; Combine-week protocol is a stub repeating action 3; chain bullets and checks paragraph carry heavy statistics; word count near cap.",
+   "top_changes": [
+    "Simplify the lede and so-what: result, 116 players, action; move the 14% price number and caveat to the Price section. Reduce tests table to 5-6 verdict rows.",
+    "Merge 'Combine-week protocol' into so-what action 3 and delete the code-style paragraph in 'The metric', keeping one coach-repeatable sentence plus Appendix pointer. Spend ~100 freed words on motivation.",
+    "Strengthen 'Why receivers, why now' with evidence the question is live (who sells suddenness metrics, how teams use them, cost of a wrong grade). Turn the 'checks' run-on into a short table and move QB-model and Holm details to the Appendix."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.4,
+   "subscores": {
+    "accessible": 8.4,
+    "accurate": 8.3,
+    "innovative": 8.4,
+    "economy": 8.5
+   },
+   "per_figure": [
+    {
+     "file": "figures/fig1_gm.png",
+     "note": "Clear hero scatter with named players, pre-set +3 in line, held-out fit; leader lines long and crossing, Malik Washington label overlaps axis; not tracking-native; dot size encodes routes with no legend or per-dot uncertainty.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig2_cards.png",
+     "note": "Best and most innovative: six players, drill and NFL paths side by side in common frame, median path over faint reps, n per panel, Break G overlaid, colorblind-safe, bottom interval strips deliver takeaway. In-panel text small, legend pink/green applies only to strips, 'g' units unexplained. Consider promoting above Fig 1.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig3_chain.png",
+     "note": "Three panels (reliability, transfer, within-player); shuffle-null band and ceiling line; per-player caterpillar with pooled band. Panel 3 y-label cramped, range -100 to 100 dwarfs pooled band, x-axis rank with no names; message split across three panels.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig4_heldout.png",
+     "note": "Clean forest plot of 13 versions with n, pre-set margin zone, catches axis. 2025 class interval pokes past margin (+3.3 vs +3), contradicting the title; many rows for one message; grey reference row distracting.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig5_price_value.png",
+     "note": "Price vs value quadrant, effective. Accuracy problem: Break G at about 9% earlier [2,17] here vs 14% [5,23] in lede, and value about 0 vs -1.2 headline, unexplained in caption. Corner labels decorative; 3-cone and shuttle labels sit on crosses.",
+     "keep": true
+    }
+   ],
+   "justification": "Five figures, each with one message; Fig 2 tracking-native small multiples; main issues are number mismatches between Fig 5/Fig 4 and the text, and label clutter.",
+   "top_changes": [
+    "Make Fig 2 the hero (as Figure 1), enlarge in-panel readouts to 9 pt+, put strips directly beneath, move pink/green legend next to strips, label Break G in sd on strip and g on paths. Reduce Fig 1 to compact scatter with 4 labels and no crossing leaders.",
+    "Fix number mismatches: Fig 5 shows Break G price about 9% [2,17] and value about 0 vs lede 14% [5,23] and -1.2 in; plot the same adjusted estimates or state the model in the caption. Correct Fig 4 title or 2025 row (upper end +3.3 crosses +3 margin).",
+    "Cut Fig 4 to about 8 rows and merge in Fig 5's value axis; replace Fig 5 corner labels with a shaded 'clubs pay but no value' region and an explicit +3 in margin line. Clip Fig 3 panel 3 to about +/-60 in and name the 5 most extreme players."
+   ],
+   "fatal_flaws": []
+  }
+ },
+ "changelog": [
+  "Round 12 winner is the revised version of cand_2 (WR/TE Break G drill-to-game chain), 8.41 vs 8.29 prior.",
+  "Added a 57-test ledger with Holm, QB variance check, leave-out-Nacua and mixed-model reliability (0.53 to 0.62 with repeat reps).",
+  "Added a ten-player price-versus-value board and a fifth figure (price vs value) with per-player actions.",
+  "Held-out slope -1.2 in [-3.5, +1.0] with shuffle null and pre-set +3 in margin; price lead 14% earlier (p=0.06 raw, 0.16 Holm) labelled a lead.",
+  "Open items: word count near cap, Fig 4/5 number mismatches, jargon in lede and tests table, calibration of the forecast."
+ ]
+}

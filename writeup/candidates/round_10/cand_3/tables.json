@@ -1,0 +1,416 @@
+{
+ "md": {
+  "roles": "| NFL first step (third) | EDGE: n, pressure vs forecast, beat | Interior: n, pressure vs forecast, beat |\n|---|---|---|\n| Top third (credit) | 14: {{rt_top_e_rate}}% vs {{rt_top_e_fc}}%, 8 of 14 | 9: {{rt_top_i_rate}}% vs {{rt_top_i_fc}}%, 6 of 9 |\n| Middle (no call) | 12: {{rt_mid_e_rate}}% vs {{rt_mid_e_fc}}%, 3 of 12 | 11: {{rt_mid_i_rate}}% vs {{rt_mid_i_fc}}%, 4 of 11 |\n| Bottom third (no credit) | 10: {{rt_bot_e_rate}}% vs {{rt_bot_e_fc}}%, 1 of 10 | 13: {{rt_bot_i_rate}}% vs {{rt_bot_i_fc}}%, 2 of 13 |",
+  "groups": "| Group | Players (40 + 8 NFL starts) | Sunday first step, reliability | Combine \u2192 Sunday, raw | Combine \u2192 Sunday, after size | Sunday first step \u2192 production beyond pick [90%] (n) |\n|---|---|---|---|---|---|\n| **DL** | 67 | {{g_DL_rel}} | {{g_DL_trraw}} | {{g_DL_tradj}} | **{{g_DL_pay}}** [{{g_DL_paylo}}, {{g_DL_payhi}}] (69, pressure rate) |\n| WR | 61 | {{g_WR_rel}} | {{g_WR_trraw}} | {{g_WR_tradj}} | {{g_WR_pay}} [{{g_WR_paylo}}, {{g_WR_payhi}}] (58, yards per route) |\n| OL | 58 | {{g_OL_rel}} | {{g_OL_trraw}} | {{g_OL_tradj}} | {{g_OL_pay}} [{{g_OL_paylo}}, {{g_OL_payhi}}] (64, fewer pressures allowed) |\n| DB | 58 | {{g_DB_rel}} | {{g_DB_trraw}} | {{g_DB_tradj}} | {{g_DB_pay}} [{{g_DB_paylo}}, {{g_DB_payhi}}] (65, solo tackles per 100 snaps) |\n| TE | 20 | {{g_TE_rel}} | {{g_TE_trraw}} | {{g_TE_tradj}} | {{g_TE_pay}} [{{g_TE_paylo}}, {{g_TE_payhi}}] (24, snaps per season) |",
+  "card": "| Rusher (class, pick, role) | 40 first step | NFL first step (starts) | NGS get-off | Pressure rate vs forecast | Call |\n|---|---|---|---|---|---|\n| Warren Brinson (2025*, 198, interior) | {{b_brinson_c}} | {{b_brinson_s}} (19) | {{b_brinson_go}} | {{b_brinson_rate}}% vs {{b_brinson_fc}}% | Plus: credit the start |\n| Ashton Gillotte (2025*, 66, EDGE) | no 40 | {{b_gillotte_s}} (20) | {{b_gillotte_go}} | {{b_gillotte_rate}}% vs {{b_gillotte_fc}}% | Plus: credit the start |\n| Princely Umanmielen (2025*, 77, EDGE) | {{b_umanmielen_c}} | {{b_umanmielen_s}} (16) | {{b_umanmielen_go}} | {{b_umanmielen_rate}}% vs {{b_umanmielen_fc}}% | Minus flag: 40 start not on tape |\n| Maason Smith (2024, 48, interior) | {{b_smith_c}} | {{b_smith_s}} (18) | {{b_smith_go}} | {{b_smith_rate}}% vs {{b_smith_fc}}% | Plus: credit the start |\n| Ruke Orhorhoro (2024, 35, interior) | {{b_orhorhoro_c}} | {{b_orhorhoro_s}} (18) | {{b_orhorhoro_go}} | {{b_orhorhoro_rate}}% vs {{b_orhorhoro_fc}}% | Plus: tape over the 40 |\n| YaYa Diaby (2023, 82, EDGE) | {{b_diaby_c}} | {{b_diaby_s}} (18) | {{b_diaby_go}} | {{b_diaby_rate}}% vs {{b_diaby_fc}}% | Plus: credit the start |\n| Keeanu Benton (2023, 49, interior) | {{b_benton_c}} | {{b_benton_s}} (19) | {{b_benton_go}} | {{b_benton_rate}}% vs {{b_benton_fc}}% | Film first: grade hands and power |\n| Zacch Pickens (2023, 64, interior) | {{b_pickens_c}} | {{b_pickens_s}} (20) | {{b_pickens_go}} | {{b_pickens_rate}}% vs {{b_pickens_fc}}% | Minus flag: 40 start not on tape |\n| Eric Watts (2024, UDFA, EDGE) | {{b_watts_c}} | {{b_watts_s}} (20) | {{b_watts_go}} | {{b_watts_rate}}% vs {{b_watts_fc}}% | Minus flag: 40 start not on tape |"
+ },
+ "loco_window": [
+  {
+   "yr": 2023,
+   "best": 0.5,
+   "kt": 4,
+   "nt": 5,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2024,
+   "best": 0.3,
+   "kt": 7,
+   "nt": 9,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2025,
+   "best": 1.3,
+   "kt": 2,
+   "nt": 6,
+   "kb": 1,
+   "nb": 9
+  }
+ ],
+ "per_class": [
+  {
+   "yr": 2023,
+   "kt": 5,
+   "nt": 7,
+   "kb": 1,
+   "nb": 8,
+   "fisher": 0.03496503496503497,
+   "midp": 0.018181818181818184
+  },
+  {
+   "yr": 2024,
+   "kt": 7,
+   "nt": 9,
+   "kb": 1,
+   "nb": 6,
+   "fisher": 0.034965034965034975,
+   "midp": 0.01818181818181818
+  },
+  {
+   "yr": 2025,
+   "kt": 2,
+   "nt": 7,
+   "kb": 1,
+   "nb": 9,
+   "fisher": 0.4,
+   "midp": 0.23125
+  }
+ ],
+ "exposure_ooc": [
+  {
+   "yr": 2023,
+   "dll": 0.21355328683978314,
+   "coef": 0.08170644274144469,
+   "n": 25
+  },
+  {
+   "yr": 2024,
+   "dll": 0.14019923019219505,
+   "coef": 0.10029780239044911,
+   "n": 23
+  },
+  {
+   "yr": 2025,
+   "dll": 0.18288366546062207,
+   "coef": 0.07523294507676223,
+   "n": 21
+  }
+ ],
+ "grid": [
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 14.634,
+   "p": 0.118
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 15.741,
+   "p": 0.17
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 14.286,
+   "p": 0.26
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 34.146,
+   "p": 0.001
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 37.566,
+   "p": 0.003
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 38.095,
+   "p": 0.012
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 26.829,
+   "p": 0.009
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 30.423,
+   "p": 0.019
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 23.81,
+   "p": 0.104
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 17.143,
+   "p": 0.099
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 21.739,
+   "p": 0.111
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 16.667,
+   "p": 0.244
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 40.0,
+   "p": 0.0
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 47.826,
+   "p": 0.001
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 55.556,
+   "p": 0.001
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 31.429,
+   "p": 0.006
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 39.13,
+   "p": 0.008
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 44.444,
+   "p": 0.009
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 24.138,
+   "p": 0.05
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 31.579,
+   "p": 0.05
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 20.0,
+   "p": 0.225
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 37.931,
+   "p": 0.003
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 47.368,
+   "p": 0.003
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 46.667,
+   "p": 0.01
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 24.138,
+   "p": 0.053
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 42.105,
+   "p": 0.011
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 40.0,
+   "p": 0.033
+  }
+ ],
+ "false_positive": "Maason Smith",
+ "groups": [
+  {
+   "grp": "DL",
+   "n_tr": 67,
+   "tr_raw": 0.155,
+   "tr_adj": 0.022,
+   "tr_lo": -0.195,
+   "tr_hi": 0.233,
+   "rel": 0.641,
+   "n_pay": 69,
+   "pay": 0.22,
+   "pay_lo": 0.013,
+   "pay_hi": 0.419,
+   "lab": "Pressure rate"
+  },
+  {
+   "grp": "WR",
+   "n_tr": 61,
+   "tr_raw": -0.132,
+   "tr_adj": -0.135,
+   "tr_lo": -0.335,
+   "tr_hi": 0.074,
+   "rel": 0.717,
+   "n_pay": 58,
+   "pay": -0.051,
+   "pay_lo": -0.247,
+   "pay_hi": 0.158,
+   "lab": "Yards per route"
+  },
+  {
+   "grp": "OL",
+   "n_tr": 58,
+   "tr_raw": -0.16,
+   "tr_adj": -0.311,
+   "tr_lo": -0.505,
+   "tr_hi": -0.111,
+   "rel": 0.136,
+   "n_pay": 64,
+   "pay": -0.023,
+   "pay_lo": -0.248,
+   "pay_hi": 0.195,
+   "lab": "Fewer pressures allowed"
+  },
+  {
+   "grp": "DB",
+   "n_tr": 58,
+   "tr_raw": -0.061,
+   "tr_adj": -0.1,
+   "tr_lo": -0.297,
+   "tr_hi": 0.125,
+   "rel": 0.204,
+   "n_pay": 65,
+   "pay": 0.136,
+   "pay_lo": -0.076,
+   "pay_hi": 0.332,
+   "lab": "Solo tackles per 100 snaps"
+  },
+  {
+   "grp": "TE",
+   "n_tr": 20,
+   "tr_raw": 0.123,
+   "tr_adj": 0.052,
+   "tr_lo": -0.318,
+   "tr_hi": 0.442,
+   "rel": 0.189,
+   "n_pay": 24,
+   "pay": -0.183,
+   "pay_lo": -0.581,
+   "pay_hi": 0.144,
+   "lab": "Snaps per season"
+  }
+ ],
+ "card_names": [
+  "Warren Brinson",
+  "Ashton Gillotte",
+  "Princely Umanmielen",
+  "Maason Smith",
+  "Ruke Orhorhoro",
+  "YaYa Diaby",
+  "Keeanu Benton",
+  "Zacch Pickens",
+  "Eric Watts"
+ ],
+ "hero": {
+  "sunday_only": "Byron Young",
+  "false_pos": "Maason Smith",
+  "combine_only": "Eric Watts"
+ }
+}

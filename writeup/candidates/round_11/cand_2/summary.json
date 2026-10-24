@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics from Combine route drills (decel, speed through break, re-acceleration; combined as Break G) matched to the same NFL route families (SLANT/OUT/HITCH/IN/CORNER), tested against season separation over expected on held-out draft classes",
+ "metric_name": "Break G: mean acceleration magnitude (g) over the 1.0 s centred on the sharpest point of the first route break, z-scored within drill x Combine year, averaged over route drills and reliability-shrunk; identical code on NFL snaps; rule frozen and hashed (frozen_rule.json, SHA-256 prefix 00666c1d61bc)",
+ "headline_number": "Held-out (leave-one-class-out, baseline forecast as offset) slope: -1.2 in season SOE per sd of Break G (90% CI -3.0 to +0.9, n=116), within-class shuffle p=0.39, gain of 3 in ruled out p=0.0002; negative in all 3 held-out classes; upper bound = 0.13 catches per 60-target season",
+ "what_changed_from_previous": "Revision of round_10/cand_2 (8.20). (1) One clean primary test: continuous leave-one-class-out offset slope with class intercepts and a 2,000-shuffle within-class null, replacing the in-sample bound as headline (in-sample kept as row 2; best-of-4 component test labelled post hoc). (2) Rule frozen in a hashed config file. (3) Hero figure replaced: two hand-picked players -> rule-picked six-player small multiple with drill vs NFL acceleration profiles, rep/break counts and SOE-vs-forecast intervals. (4) Price-vs-payoff figure (repeated the null) dropped; price kept as two sentences. Fig 3 now merges per-class held-out slopes, components, 18-definition grid and the shuffle null. (5) Decision card differentiated: per-player pick-if-paid cost, slot/go-route profile, interval and a distinct action. (6) Plain lede without brackets; 'So what for a team' section; power moved to Limitations. (7) 1,751 words by check.py (1,852 wc, down from 1,973), 3 figures + 2 tables.",
+ "open_risks": [
+  "Headline remains a bounded null; the held-out interval touches -3.0 so two-sided equivalence p is 0.066 (only the upside is ruled out)",
+  "Not a blind test: all three classes and the snap-level null were seen before the rule was frozen; 2026 is the first true out-of-sample score",
+  "Cut-to-throw timing result is exploratory and sample-based (40 plays per player, no defenders)",
+  "Player SOE intervals are approximate (sampled-snap spread over season targets) and ignore forecast error",
+  "Draft price (14% per sd, p=0.06) is an association and marginal; targets-per-route channel (+1.9 pts, Nacua-dependent) may read as contradicting the title",
+  "Card actions rest on few sampled breaks per player (4 to 14)"
+ ]
+}
