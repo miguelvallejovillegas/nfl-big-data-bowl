@@ -1,0 +1,19 @@
+{
+ "baseline_inputs.csv": {
+  "nfl_id": "player id",
+  "draft_year": "Combine class (fold label)",
+  "logpick": "log overall pick, undrafted = 262",
+  "forty_f": "official 40, z in class x position, missing = 0",
+  "combine_weight_f": "weight, same",
+  "ngs_athleticism_score_f": "NGS score, same",
+  "te": "1 = tight end",
+  "BG": "Break G receiver score (sd units)",
+  "career_soe_in": "route-weighted career SOE, in",
+  "routes": "career routes"
+ },
+ "speed_inputs.csv": {
+  "nfl_id": "receivers in Fig 1 (8+ graded NFL breaks, 8+ sampled snaps, official 40)",
+  "pos": "WR or TE",
+  "nfl_bg_z_raw": "mean NFL Break G z over his graded breaks"
+ }
+}

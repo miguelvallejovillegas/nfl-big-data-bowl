@@ -1,0 +1,255 @@
+{
+ "round": 20,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_20/cand_2/",
+   "angle": "receiver Break G drill-to-route transfer null + day-3 SOE film queue",
+   "score": 8.38,
+   "per_judge_scores": {
+    "football": 8.3,
+    "datascience": 8.5,
+    "writeup": 8.2,
+    "viz": 8.5
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_20/cand_1/",
+   "angle": "DL Hoop G bend day-3 pass-rush film flag",
+   "score": 8.2,
+   "per_judge_scores": {
+    "football": 8.0,
+    "datascience": 8.4,
+    "writeup": 8.0,
+    "viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_20/cand_3/",
+   "angle": "DL drill-start vs NFL-start Carry-over null",
+   "score": 7.89,
+   "per_judge_scores": {
+    "football": 7.9,
+    "datascience": 8.0,
+    "writeup": 7.6,
+    "viz": 8.0
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_20/revised/",
+   "angle": "revision of round winner (cand_2)",
+   "score": 8.4,
+   "per_judge_scores": {
+    "football": 8.4,
+    "datascience": 8.6,
+    "writeup": 8.0,
+    "viz": 8.5
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_20/revised/",
+  "score": 8.4
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.4,
+   "subscores": {
+    "usable": 8.2,
+    "football_difficulty": 8.7,
+    "unique": 8.6,
+    "terminology": 8.1
+   },
+   "justification": "Usable (8.2): concrete drill protocol (at least 15 graded cuts, re-stem hitch family at about 4.7 yd/s) and a named day-3 film queue with what-flips-each-name thresholds. SOE rule does not beat pick order (3 of 10 vs 4 of 10), so action is film order only; list is 3 detailed names plus 6 one-liners. Difficulty (8.7): pre-set margin, power, reliability attenuation, draft-class holdout, year-standardized drills, entry-speed mismatch, role/workload changes, injury ambiguity. Man/zone and slot/wide splits in appendix on small cells; no injury data. Unique (8.6): drill-to-game cut translation by route, same receiver in both settings, bounded null with mechanism. Terminology (8.1): largely correct, named players; Break G and SOE are invented metrics, Break G hard to repeat without a force plate; true SOE shrinkage and off-the-list columns dense.",
+   "top_changes": [
+    "Make Break G coach-repeatable and simplify its definition in one line (plant-to-exit speed-change or time metric timeable from film). Show 2 or 3 named receivers with drill rep vs NFL rep numbers in a small table.",
+    "Add the what-flips-each-name column and man/zone and slot/wide SOE splits for all 9 queue names in the body, with cell n. State plainly the queue is a coin-flip prioritization tool (50% [28,72]). Consider cutting Section 4 rule machinery (GO/HOLD, shrinkage, off-the-list thresholds).",
+    "Cut density to about 1,500 words. Trim Section 2 table to 4 rows, move Section 1 robustness rows to appendix, make closing decisive: do not price Break G; fix the drill; use pick order, with SOE for film only."
+   ]
+  },
+  "judge-datascience": {
+   "score": 8.6,
+   "subscores": {
+    "correctness": 9,
+    "evidence": 8.8,
+    "model": 8.4,
+    "innovation": 8.3
+   },
+   "spot_checks": [
+    {
+     "claim": "Headline slope -1.2 in/sd [-3.8,+1.0], delta R2 0.013 [-0.141,0.079], baseline R2 0.00 (8.6 in), n=116",
+     "reproduced": true,
+     "note": "verify.py rebuilt Break G scores from combine_frames and NFL tables; 72 of 72 numbers matched."
+    },
+    {
+     "claim": "Speed transfer rho 0.48 [0.35,0.60] vs Break G transfer -0.04 [-0.22,0.14], n=92; noise ceiling 0.43",
+     "reproduced": true,
+     "note": "Matches; old 0.43 vs 0.46 clash gone."
+    },
+    {
+     "claim": "Day-3 back-test: top half by SOE 3 of 10 vs by pick 4 of 10, diff -10 [-36,+12], p=0.81; queue hit rate 6 of 12 [28,72]",
+     "reproduced": true,
+     "note": "Matches in verify.py; both rules recomputed from season stats."
+    },
+    {
+     "claim": "Reliability 0.50, EIV interval [-3.6,+1.0]; hierarchical -0.5 [-2.8,1.8], n=167/91; MDE 3.5 in, power 68%; pick price 9% [1,17]",
+     "reproduced": true,
+     "note": "All match; verify.py shares per-statistic seeds with analysis.py, so identical intervals show same code path, not independent resampling."
+    }
+   ],
+   "justification": "All spot-checked numbers reproduce; code split into core.py, analysis.py, appendix.py, verify.py; verify.py run (72 of 72). analysis.py itself and core.py not re-run/opened; verify.py docstring claims no shared code but uses same seeds. Design strong: no-tracking baseline (log pick, official 40, weight, NGS, TE flag), leave-one-draft-class-out, drill scores z-scored within drill and year, reliability shrinkage redrawn in resamples, hierarchical cross-check, equivalence/MDE/power against 3-inch margin (68% power at margin, 80% at 3.5 in), honest that null is underpowered. Innovation high: Break G from 10 Hz signal around plant, same code grades NFL breaks, entry speed matched by route family, noise-ceiling logic. Weaknesses: day-3 rule rests on 20 pairs from 16 receivers and did not beat pick order yet a named list is built on it; interval [-3.8,+1.0] wider than effect ruled out; classes never seen is not blind; multiplicity count not stated; 92 and 116 samples selected; some subsets small (43 and 70 pairs).",
+   "top_changes": [
+    "Make day-3 evidence receiver-level and powered: pool all eligible day-3 receivers with cluster bootstrap, leave-one-class-out hit rate vs pick-only with interval, pre-state minimum difference, drop SOE-ordered list if it cannot clear it.",
+    "Make verify.py truly independent: different bootstrap seeds, second implementation of LOCO fit (statsmodels vs numpy), report max seed-to-seed interval drift.",
+    "Add no-tracking benchmark for transfer claim (Break G vs official 3-cone and shuttle in same LOCO model), inverse-probability weight for having routes or a 40 (116 of 149), and a multiplicity count."
+   ]
+  },
+  "judge-writeup": {
+   "score": 8.0,
+   "subscores": {
+    "clarity": 8,
+    "structure": 8.3,
+    "motivation": 7.8,
+    "density": 7.6
+   },
+   "justification": "check.py passes (1,667 words, 5 figures, 3 tables). Bold opener states finding (-1.2 in per sd, 116 held-out receivers) plainly; headings carry results; closing decisive. Weaknesses: title is a two-clause semicolon stack; Break G definition long and buried in bullets; Section 2 table has 7 rows and dense reliability paragraph (0.51, 0.37, 0.43, 0.22, -0.08); Section 3 run-on bullets; Section 4 long (rule paragraph, 3-row table, HOLD list, GM Q&A) and spends words on a null; headline interval (-3.8) differs from brief's -3.6; 80% power sentence reads contradictory. Tone confident, no overclaim.",
+   "top_changes": [
+    "Retitle to a single-clause finding; move a one-sentence coach-repeatable Break G definition under the bold finding and cut the following bullet to that sentence.",
+    "Cut Section 2 to a 4-row table (40 to top speed; Combine to NFL Break G; ceiling given noise; same-route family); move split-half, ICC, odd/even rows and the noise paragraph to appendix. Keep entry-speed explanation and Boutte example.",
+    "Compress Section 4 and power language: day-3 in two sentences (3 of 10 vs 4 of 10, p=0.81, pick order stands); drop Rule mechanics; one line per name; fix power sentence to '68% power at +/-3 in; 80% only for 3.5 in'; reconcile -3.8 vs -3.6."
+   ]
+  },
+  "judge-viz": {
+   "score": 8.5,
+   "subscores": {
+    "accessible": 8.6,
+    "accurate": 8.4,
+    "innovative": 8.3,
+    "economy": 8.8
+   },
+   "per_figure": [
+    {
+     "file": "figures/fig1_null.png",
+     "note": "Strong forest plot vs pre-set +/-3 in margin, n in row labels, rotated Combine-curl vs NFL-hitch trace. Trace panel small, annotation under 9 pt; primary interval -3.8 vs text -3.6; trace stem speeds differ (6.9 vs 3.4 yd/s); orange used for both Break G and Combine.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig2_transfer.png",
+     "note": "Clean paired scatter with bootstrap band; rho 0.48 on n=92 in figure vs 0.43 on n=100 in text; plain correlation plot, low innovation; consider merging with Fig 4B or dropping A.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig3_cuts.png",
+     "note": "Best figure: six small multiples at evenly spaced ranks, drill vs NFL speed traces with IQR bands, league-median ghost, per-panel n. Subtitles ~9 pt; SOE values distract; panels not overlaid on one normalised axis.",
+     "keep": true
+    },
+    {
+     "file": "figures/fig4_protocol.png",
+     "note": "Reliability curve and protocol subsets are honest but two messages in one; reliability mostly mechanical; panel B repeats Fig 2B and Fig 1; green dashed reference colourblind-risky.",
+     "keep": false
+    },
+    {
+     "file": "figures/fig5_queue.png",
+     "note": "Practical queue in watch order with 90% intervals and drop-off axis; blue circle/orange square GO/HOLD redundant encoding; not tracking-native; right panel number lacks anchor; row order may be misread as SOE ranking.",
+     "keep": true
+    }
+   ],
+   "top_changes": [
+    "Resolve figure/text mismatches (Fig 2 rho 0.48 n=92 vs text 0.43 n=100; Fig 1 -3.8 vs text -3.6); put n and interval definition in captions; merge Fig 4B into Fig 2 or Fig 1; move Fig 4A to appendix or table; leaves 4 figures.",
+    "Make Fig 3 the hero and move it first; overlay drill and NFL traces per receiver normalised to own entry speed, shade the graded 1-second window, takeaway in panel title, remove SOE clutter, text at least 10 pt; add 2x3 grid of top-speed vs cut-speed.",
+    "Upgrade Fig 5 into player cards with mini NFL route trace and 2025 SOE sparkline per receiver, GO/HOLD marker and colour shared with Fig 3; enlarge Fig 1 trace panel; replace green dashed reference in Fig 4 with a dark neutral."
+   ]
+  }
+ },
+ "changelog": [
+  "Revised cand_2 (receiver Break G transfer null) with errors-in-variables and MDE/power added",
+  "Code split into core.py, analysis.py, appendix.py, verify.py (72 of 72 numbers verified)",
+  "Single speed-transfer figure rho 0.48 (n=92) replaces the 0.43/0.46 clash",
+  "Day-3 SOE back-test (3 vs 4 of 10) kept as film-order queue, not a pick override",
+  "Drill protocol prescription added (15+ graded cuts, hitch stem about 4.7 yd/s)"
+ ],
+ "previous_score": 8.38,
+ "adopted": true,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  },
+  {
+   "round": 15,
+   "score": 8.51
+  },
+  {
+   "round": 17,
+   "score": 8.52
+  },
+  {
+   "round": 18,
+   "score": 8.48
+  },
+  {
+   "round": 19,
+   "score": 8.38
+  },
+  {
+   "round": 20,
+   "score": 8.4
+  }
+ ],
+ "done": false
+}
