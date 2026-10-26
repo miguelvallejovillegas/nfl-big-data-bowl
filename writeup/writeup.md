@@ -1,98 +1,107 @@
-# Combine Route-Drill Cuts Do Not Carry to NFL Separation
+# Run-the-Hoop Bend Points Toward NFL Pass Rush, but Not Yet Past Draft Order
 
-**A receiver who cuts 1 sd harder in Combine route drills is no more open in the NFL: −1.2 inches of separation over expected per sd (90% interval −3.8 to +1.0), across 116 receivers from draft classes the model never saw.**
+Defensive linemen who lean harder through the Combine's Run-the-Hoop turn went on to get slightly more NFL pressure than their draft slot predicted. The edge is real enough to guide day-3 film study and a frozen 2026 test, but too small and noisy to move anyone on a draft board.
 
-**Break G is how much speed a receiver sheds into his plant and how hard he drives out**, counted as the yards per second of velocity he changes in the second around his first cut. Receivers 1 sd apart differ by 0.22 yd/s. On film, read three speeds: in, slowest, out (Table 3).
+- **Scout, Monday:** queue day-3 edges in their class's top third on Hoop G beside pick order, not ahead of it, and check on tape whether he flattens at the top of the rush.
+- **Coach:** low Hoop G gets tight-circle and dip-and-rip reps off a live get-off; high Hoop G who still loses gets first-step work.
+- **Combine:** grade four hoop laps, not one.
 
-Why receivers and tight ends: route-breaking is the skill the Combine films most directly. Ten route drills are tracked at 10 Hz, and we grade every cut with the same code we run on NFL snaps. Why now: clubs already price it. A receiver 1 sd higher in Break G goes 9% earlier in the draft [1, 17] at the same position (149 receivers). The 2023 class's rookie deals expire after this season.
+## Hoop G in coach terms
 
-- **Separation over expected (SOE)**: inches more open at the throw than Next Gen Stats separation predicts from alignment, cushion and season, over full regular seasons (213 player-seasons, median 231 career routes).
-- **Combine years**: every rep is compared only with the same drill in the same year, so protocol changes do not leak in.
-- **Samples**: 149 receivers with a drill score; 116 with NFL separation (season tests); 92 of those with 8+ sampled NFL breaks and an official 40 (transfer tests).
+Hoop G is how hard a lineman leans through the tightest half-second of the hoop's figure-eight: speed squared over turn radius, in g, ranked within his Combine class. The median lineman carries 7.1 mph around a 1.8-yard radius, which is 0.62 g. His hardest lean on a sampled NFL rush comes at 5.6 mph around 4.1 yards, which is 0.18 g.
 
-![Figure 1. Player cards for the three receivers of Table 3, the hardest, middle and softest drill cutters among 49 wide receivers with 200+ career routes and 5+ sampled NFL breaks. Top: speed through the cut on route families he ran in both settings, aligned on the slowest point. Bottom: his Break G and its three parts in sd against peers. The drill order not surviving means that across 92 receivers, drill and NFL Break G rank-correlate −0.04: a receiver's drill rank says nothing about where his Sunday breaks rank.](figures/fig1_cuts.png)
+**Why NFL turns are wider.** The hoop is a painted circle with nobody on it; on Sunday the tackle's set and hands push the arc out and contact bleeds speed. A rusher's NFL turn is a median 2.7 times wider than his own hoop turn (10th–90th percentile 1.2 to 4.8, n = 78). Only 23% of sampled rushes turn as tight as the same man's hoop lap, and tighter hoop turners do not run tighter NFL arcs (Table 1). The drill measures the ability to lean, not the NFL path, so we compare men within a class, never raw g across drill and game.
 
-## 1. Break G adds nothing to a no-tracking forecast
+**Why the hoop, why day 3.** A pressured snap cost the offense 0.52 expected points [0.35, 0.67] on 1655 randomly sampled pass plays. The pass-rush drill times get-off, which NGS already measures every snap, and one burst rep repeats at only 0.13; bend has no box-score column. 69% of the 118 linemen in the 2023–25 classes went on day 3 or undrafted, where tape is thinnest.
 
-The baseline uses log pick, official 40, weight, NGS athleticism score and a tight-end flag. It was fixed before the test, fitted on two draft classes and scored on the third. Intervals are 90%, from resampling receivers within class.
+![Figure 1. One panel per man: his Combine hoop lap (top) and his randomly sampled NFL rushes (bottom), on one yard scale and one colour scale. The dashed circle is the turn implied by the defining half-second. Left: beat his forecast. Middle: fell below it. Right: on par, the null case.](figures/fig1_hero.png)
 
-| Held-out test | Estimate [90%] | P(\|effect\| < 3 in) | n |
-|---|---|---|---|
-| No-tracking baseline R² (error per receiver) | 0.00 (8.6 in) | | 116 |
-| Change in R² from adding Break G | 0.013 [−0.141, 0.079] | | 116 |
-| **Break G, inches per sd** | **−1.2 [−3.8, +1.0]** | **90%** | 116 |
-| Break G, weighted for who reached the NFL | −1.1 [−3.3, +0.9] | | 116 of 149 |
-| Official 3-cone, inches per sd (no tracking) | −0.5 [−6.3, +3.5] | 67% | 38 |
-| Official short shuttle, inches per sd (no tracking) | −1.0 [−4.4, +2.3] | 80% | 45 |
+## Film check: do high-Hoop-G men turn the corner on Sunday?
 
-The error is the root-mean-square miss on career SOE, each receiver weighted by his routes: 8.6 in, the size of the spread itself. Counting every receiver once it is 14.9 in, because short careers are noisy. Power is 68% at ±3 in; 80% only at 3.5 in. So the third column states the null directly: with a flat prior, the Break G effect has a 90% probability of being smaller than 3 inches either way. That is likely small, not proven zero. Cut quality as the Combine measures it, tracked or timed, does not price separation.
+A sampled rush is a **corner turn** when its hardest half-second of lean in the first 2 s is in the top quarter of all sampled rushes (at least 0.24 g). Linemen in their class's top third on Hoop G turned the corner on 29% of rushes, the bottom third on 21%: a gap of 9 points [3, 15], n = 78. Corner-turn rushes ended in pressure 15% of the time, against 7% for other rushes (1437 rushes; gap 90% interval 4 to 11 points, resampling linemen).
 
-![Figure 2. Held-out slopes of season SOE per sd with 90% intervals, against the ±3 inch margin fixed before testing. None of the 8 excludes zero. Official-time rows are the subset of receivers who ran the drill.](figures/fig2_forest.png)
+The NFL half of the chain is strong. The drill half is weak per lineman:
 
-## 2. Why: the drill grades a different cut
-
-| What is compared | Rank corr. [90%] | n |
+| Link (controls: weight, edge share) | Partial ρ [90%] | n |
 |---|---|---|
-| Official 40 → NFL top speed | 0.48 [0.35, 0.60] | 92 |
-| Same, random plays only | 0.43 [0.27, 0.56] | 87 |
-| **Combine → NFL Break G** | **−0.04 [−0.22, 0.14]** | 92 |
-| Same, random plays only | 0.13 [−0.05, 0.30] | 94 |
-| Same, top-EPA plays only | −0.19 [−0.34, −0.03] | 102 |
-| Same route family, NFL breaks entered at drill speed | 0.04 [−0.05, 0.13] | 98 |
-| Same route family, entry speed removed on both sides | −0.03 [−0.11, 0.05] | 114 |
+| Hoop G → NFL bend | 0.14 [−0.06, 0.32] | 78 |
+| Hoop turn radius → NFL turn radius | 0.01 [−0.19, 0.20] | 78 |
+| NFL bend → pressure rate | 0.36 [0.20, 0.52] | 85 |
+| NGS get-off → pressure rate | 0.41 [0.27, 0.54] | 85 |
 
-Speed carries; the cut does not. Noise is not the reason: given both measures' reliabilities, a true 0.5 would still read 0.22.
+*Table 1. Partial Spearman ρ, bootstrap within class. NFL movement: median 17 randomly sampled rushes lasting the full 2 s, for the 85 linemen with 8+ such rushes (all have 30+ career rushes; before the 2-s filter, median 20 across 86).*
 
-The drill demands a cut at 6.9 yd/s and the NFL asks for 4.7 (hitch family). 47 of 49 wide receivers enter the drill cut faster than the same NFL route, by a median 1.4 yd/s, and Break G rises with entry speed (rank corr. 0.37 in drills, 0.56 in games). We tested that explanation. Keeping only NFL breaks entered at drill speed (37% of them) moves the transfer from −0.07 to 0.04. Removing entry speed from both sides gives −0.03. Both stay well short of 0.22. Entry speed is part of the gap, not all of it: even at matched speed the drill does not rank receivers the way Sunday breaks do.
+## Held out by class, against three baselines
 
-Half of each receiver's sampled plays are his top-EPA plays, which biases these rows. The two halves pull in opposite directions: −0.19 on top-EPA plays, +0.13 [−0.05, 0.30] on random plays. So the sample may hide a small transfer, but the season tests in Section 1 use full-season NGS and find no separation from it.
+**Outcome:** career pressure rate through 2025, shrunk toward the 8.1% mean, for linemen with 30+ rushes. **Out of class:** each class (27/23/27 rushers) is forecast by a model fitted on the other two. Drill measures are standardized within Combine year, and a missing 10-yard split or 3-cone takes the training-fold median. We set the smallest effect worth acting on before fitting: 2.25 pressures per 450 rushes per sd.
 
-| Receiver (drill Break G rank of 49) | Drill cut, yd/s: in → slowest → out | NFL cut, yd/s: in → slowest → out | Takeaway |
-|---|---|---|---|
-| Kayshon Boutte (#1, +1.8 sd) | 7.1 → 4.5 → 5.9 | 5.7 → 5.0 → 5.9 | sheds 2.6 yd/s into the drill plant, 0.7 on Sundays (least of the three) |
-| Ryan Flournoy (#25, +0.3 sd) | 7.2 → 3.9 → 6.5 | 4.7 → 2.4 → 4.8 | sheds 3.3 yd/s into the drill plant, 2.3 on Sundays (most of the three) |
-| Jake Bobo (#49, −1.4 sd) | 6.7 → 3.1 → 5.6 | 5.0 → 3.9 → 5.5 | sheds 3.6 yd/s into the drill plant, 1.1 on Sundays (middle of the three) |
+| Baseline without tracking (n = 77) | Baseline R² | + Hoop G R² | R² gain [90%] | Hoop G, pressures per 450 rushes per sd [90%] |
+|---|---|---|---|---|
+| Pick only | 0.03 | 0.16 | 0.13 [−0.05, 0.32] | +3.2 [1.7, 4.6] |
+| Pick + edge role | 0.10 | 0.16 | 0.06 [−0.10, 0.20] | +2.3 [0.9, 3.7] |
+| **Full (pre-specified):** pick, role, weight, NGS score, split, 3-cone | −0.04 | 0.07 | 0.11 [−0.12, 0.31] | **+2.2 [0.4, 3.8]** |
+| Chosen inside each training fold | −0.08 | 0.08 | 0.16 [−0.06, 0.28] | +2.4 [1.1, 4.0] |
 
-Kayshon Boutte, the hardest drill cutter, barely slows on Sundays. Ryan Flournoy, in the middle of the drill order, sheds the most. Career SOE does not follow the drill order either: the eight hardest and eight softest drill cutters average +1.0 and −2.3 inches.
+*Table 2. Intervals come from resampling linemen within each class and refitting every fold (1.72 = outcome sd in rate points). The fold-chosen baseline picked pick only for 2023, pick + role for 2024, full no-tracking for 2025.*
 
-![Figure 3. The same 92 receivers in both panels, with least-squares line and 90% bootstrap band. The noise ceiling (0.43) is what a perfect true link would show through both measures' noise; a true 0.5 would show 0.22. Dotted diagonal: drill z equals NFL z. The four receivers furthest from the centre in B are named.](figures/fig3_transfer.png)
+Every slope interval excludes zero; every R² gain interval includes it. The full baseline, fixed in the project rules beforehand, overfits (held-out R² below zero); against the strongest forecast, pick plus role, Hoop G is worth +2.3.
 
-## 3. What a Combine staff and a position coach can do
+![Figure 3. The six pre-listed drill measures, each scored against the full no-tracking forecast (n = 77). Bars show 90% intervals and diamonds show each held-out class. Dotted lines mark how far the best of six shuffled measures reaches 5% of the time.](figures/fig3_screen.png)
 
-Grade at least 15 cuts per receiver (today's median is 7). Keep the slant, re-stem the curl, comeback and hook at NFL hitch speed (about 4.7 yd/s, a controlled three-quarter stem), and give Break G zero weight until a re-stemmed drill transfers. For a position coach: rep breaks at game tempo, because nothing here says a harder full-speed plant buys separation.
+Hoop G leads the six but stays just inside the chance line. Its p is 0.01 alone and 0.10 as the best of six. Three checks:
 
-## 4. The 2025 day-3 receivers: a coin-flip film aid
+- **Class by class:** 2.4, 3.3, 0.6. The 2025 class is flat, not reversed (−2.9 to 3.5). Across 200 random three-way splits that ignore class, the slope stays between 1.7 and 2.4.
+- **Edge and interior:** +2.3 [−0.2, 4.9] (n = 38) against +2.4 [−0.1, 5.0] (n = 39); alike, so one class-wide scale is fine.
+- **One-lap noise (Figure 2):** one lap has reliability 0.43 [0.21, 0.58]. Simulating known true slopes through that noise, one lap shows about 65% of a true slope, and true slopes from 1.1 to 5.9 fit the observed +2.2. At a true 3.4, four laps would show 2.8, and a one-sided 10% test on 77 linemen would catch it 97% of the time (one lap: 87%).
 
-These are the day-3 or undrafted wide receivers who were more open than expected in 2025. The table shows what each name's drill and NFL breaks look like and what 2026 result would drop him off the list. Read it as a film aid, not a ranking:
+![Figure 2. A: reliability of a lineman's drill average by number of reps, with 90% bands. The ticks at right show NFL-side reliabilities. B: the slope a study of 77 linemen would see for each true slope, with one lap (band = 90% of simulations) and with four laps.](figures/fig2_reliability.png)
 
-| 2025 day-3 receiver (team) | Above zero | True 2025 SOE, in | Off the list if first 150 routes of 2026 below, in | Drill Break G, sd | Speed shed into plant, drill → NFL, yd/s | Man / zone snaps | Slot / wide snaps |
-|---|---|---|---|---|---|---|---|
-| Malik Washington (MIA) | 2024 and 2025 | +16.1 | −51 | −0.3 | 3.6 → 0.6 | 5 / 34 | 11 / 26 |
-| Demario Douglas (NE) | 2024 and 2025 | +13.4 | −32 | +0.5 | 2.4 → 1.2 | 14 / 26 | 27 / 11 |
-| Troy Franklin (DEN) | 2024 and 2025 | +3.4 | −14 | −0.1 | 3.5 → 2.2 | 9 / 31 | 12 / 27 |
-| Tez Johnson (TB) | 2025 | +10.9 | −30 | −0.1 | 2.6 → 0.8 | 14 / 26 | 14 / 25 |
-| Arian Smith (NYJ) | 2025 | +10.0 | −24 | +1.7 | 5.0 → 2.1 | 11 / 29 | 17 / 23 |
-| Isaiah Bond (CLE) | 2025 | +3.1 | −10 | −1.3 | 3.9 → 1.9 | 14 / 26 | 16 / 24 |
-| Jaylin Lane (WAS) | 2025 | +2.8 | −6 | +0.2 | 3.0 → 2.7 | 19 / 21 | 13 / 25 |
-| Mitch Tinsley (CIN) | 2025 | +1.8 | −3 | +0.5 | 2.3 → 1.6 | 14 / 26 | 7 / 33 |
-| Kayshon Boutte (NE) | 2025 | +0.6 | −2 | +1.8 | 2.6 → 0.7 | 9 / 30 | 4 / 35 |
+## Day 3: a film queue, not a board
 
-Only 5 of 36 man/zone and slot/wide cells reach 30 sampled snaps. The splits themselves are in the appendix.
+Among 47 day-3 and undrafted rushers in held-out classes, the top third by forecast plus Hoop G beat its class's day-3 median 10 of 15 times; pick order's top third, 9 of 15. The gap, 7 points [−13, 40], misses the +20 we required for board use, and the forecast alone also went 10 of 15. The Hoop G top third beat its own forecast 47% of the time, the same as the rest (47%). **Hoop G has not shown it picks better day-3 tape; it is a reason to open tape and a hypothesis to test.**
 
-## Bottom line
+The 8 flagged 2024–25 day-3 rushers with 100+ NFL rushes, in Hoop G order (pressures a season against forecast):
 
-1. **Take Break G out of the price.** Clubs pay 9% in pick position per sd of it and get no separation back.
-2. **Fix the drill before grading it.** Grade 15+ cuts, re-stem the hitch family at NFL entry speed, and give it zero weight until it transfers.
-3. **On day 3, draft order stands.** Across 28 day-3 receivers, pick plus last season's SOE called the next season above or below zero 39% of the time, against 54% for pick alone (−14 points [−32, 0]). That is too few receivers to order names either way, which is why Table 4 is a film aid.
+**Open first** (beat the no-tracking forecast by the margin):
+
+- **Javon Solomon** (BUF, EDGE, 2024 #168): Hoop G +1.9 sd, NFL bend +0.6 sd, NFL +16.2. Top hoop lap of his class, above-average NFL bend; same wide passing-down role.
+- **Jack Sawyer** (PIT, EDGE, 2025 #123): Hoop G +1.4 sd, NFL bend +2.0 sd, NFL +4.5. Hardest NFL bend of the eight; widen his passing-down role.
+- **Warren Brinson** (GB, interior, 2025 #198): Hoop G +1.3 sd, NFL bend −0.7 sd, NFL +4.4. A 315-lb interior man, so compare him with interior linemen only; loop him on end-tackle stunts.
+- **Cedric Johnson** (CIN, EDGE, 2024 #214): Hoop G +1.1 sd, NFL bend +0.7 sd, NFL +19.1. The bend carries to Sunday; give him third-down snaps from a wide alignment.
+- **Austin Booker** (CHI, EDGE, 2024 #144): Hoop G +1.1 sd, NFL bend +1.0 sd, NFL +2.7. Most rushes of the eight, a steady small plus; keep his rotation share.
+
+**Flag missed or unproven** (fell below it):
+
+- **Tyrion Ingram-Dawkins** (MIN, EDGE, 2025 #139): Hoop G +1.0 sd, NFL bend 0.0 sd, NFL −4.6. Hips there, first step not: slowest NGS get-off of the eight; rep dip-and-rip off a live get-off.
+- **Eric Watts** (MIA, EDGE, 2024 UDFA): Hoop G +0.6 sd, NFL bend +0.1 sd, NFL −7.3. Shortest first-second burst of the eight on sampled rushes; coach the get-off before the corner.
+- **Jaylen Harrell** (TEN, EDGE, 2024 #252): Hoop G +0.4 sd, NFL bend +1.7 sd, NFL −8.4. Second-hardest NFL bend of the eight, yet furthest below forecast: the bend is not becoming pressure. The flag missed.
+
+The three misses have the three lowest Hoop G of the eight; with eight names, that may be chance.
+
+![Figure 4. Player cards for the eight flagged day-3 rushers, sorted by Hoop G. Each card shows the hoop lap, the sampled NFL rush fan and the NFL result with a 90% interval. An interval that overlaps the action margin is grey.](figures/fig4_cards.png)
+
+## The one action: a frozen 2026 test
+
+Stored in `frozen_rule.json` (sha256 `ad1cc734cdd4…`): grade the 2026 class's hoop laps; after Week 18, regress pressure rate minus the pick-plus-role forecast frozen on 2023–25 on Hoop G. Positive at one-sided p < 0.10 keeps the flag; zero or below retires it. Hoop G reaches the board only if its day-3 top third beats pick order by 20+ points over two classes. At the observed slope, power is 52% for one class and 87% for three.
 
 ## Limitations
 
-- **Not blind.** All three classes were seen while this was built. The ±3 inch margin and the baseline were fixed before each test.
-- **Power.** 68% at the margin, and harm is not excluded (lower bound −3.8 inches per sd).
-- **Selection.** 116 of 149 drill-scored receivers logged NFL routes. Weights for who reached the NFL give −1.1, but they cannot repair receivers who never played.
-- **Game tracking is a sample.** Up to 40 plays per player, half top-EPA, with no defenders or ball. This affects Tables 2–4 and Figures 1 and 3, not the season tests, which use full-season NGS.
-- **Small benchmarks.** Few receivers run the official 3-cone (38) or shuttle (45).
+- **Small samples, single reps.** 77 rushers are in the model and 47 are on day 3; 91% ran one hoop lap.
+- **Reused classes.** Earlier rounds screened ideas on these classes; 2026 is the first clean test.
+- **Thin NFL tracking, no blockers.** Corner turns and pressure may both follow from beating the tackle, so the film check shows co-occurrence, not cause.
+- **Missed time.** Rates are per rush; the 33 linemen under 30 rushes are left out.
+- **The reads are ours,** from 16–19 sampled rushes each, not scheme film.
+
+## Bottom line
+
+Hoop G is a small, consistent bend signal worth a look at day-3 edge tape, not a board input. Grade four laps and let the frozen 2026 test decide.
 
 ## Appendix
 
-`verify.py` rebuilds both Break G pipelines from the raw frames and refits the held-out model a second way, with its own bootstrap seeds. It reproduces 124 of 124 checked numbers, including both error definitions: 68 exactly, 56 resampled within tolerance. `appendix.md` holds the reliability table, error definitions, measurement-error and multiplicity checks, the protocol-subset figure and the man/zone and slot/wide splits.
+- **Sources.** The EPA figure comes from the play-level `time_to_pressure` (rusher credited) and `sack` fields on 1655 distinct randomly sampled DL plays (132 pressured), using nflverse EPA. `pressure_allowed` is a blocker field and is empty on 100% of DL rows.
+- **One set, one fill rule.** `verify.py` shares no code with `analysis.py`; it rebuilds the same 77 rushers from raw frames (exact match) with the same median fill but different smoothing, shrinkage and fitting code, and gives +2.2 [0.3, 3.8], with classes 2.4, 3.5 and 0.4. Round 22's regression fill gave 1.8; adding the one rusher without a valid burst rep gives 2.4 (n = 78).
+- **Multiplicity.** Of 36 tests, 2 survive Holm at 0.10 (both NFL trait-to-pressure links) and 10 survive Benjamini–Hochberg (`multiplicity.csv`). The six-measure Bonferroni slope interval is −0.2 to 4.8, and the R² gain interval is −0.26 to 0.49.
+- **Variants.** Priors and rush minimums: 1.8 to 2.5; weighting for drill completeness: 2.2; dropping one rusher at a time: 1.8 to 2.4; averaging both turns instead of the harder one: 1.3 [−0.5, 3.0].
+- **Simulation.** Observed Hoop G = true bend plus noise at each lineman's own reliability, redrawn from its bootstrap every run; outcome noise matches the observed residual. Reliability: the two turns of one lap agree at ρ = 0.27 (n = 109); the 10 two-lap linemen agree at 0.37.
+
+`analysis.py` (about 6 minutes) rebuilds every number, figure and this text from `data/processed`, and runs `verify.py`.
