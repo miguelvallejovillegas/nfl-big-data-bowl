@@ -1,0 +1,36 @@
+{
+ "go": "Cedric Johnson (CIN), Javon Solomon (BUF), Warren Brinson (GB), Austin Booker (CHI) and Jack Sawyer (PIT)",
+ "nogo": "Eric Watts (MIA), Tyrion Ingram-Dawkins (MIN) and Jaylen Harrell (TEN)",
+ "hold": "Zeek Biggers (MIA), Nazir Stackhouse (TEN) and Kyle Kennard (LAC)",
+ "aud": "Mohamed Kamara (2024, 158, TB), Gabe Hall (2024, UDFA, PHI), Nelson Ceaser (2024, UDFA, FA), Tim Smith (2025, 190, IND), Antwaun Powell-Ryland (2025, 209, CIN), Jah Joyner (2025, UDFA, FA), Ethan Downs (2025, UDFA, KC)",
+ "go_names": [
+  "Cedric Johnson",
+  "Javon Solomon",
+  "Warren Brinson",
+  "Austin Booker",
+  "Jack Sawyer"
+ ],
+ "go_teams": [
+  "CIN",
+  "BUF",
+  "GB",
+  "CHI",
+  "PIT"
+ ],
+ "go_roles": [
+  "EDGE",
+  "EDGE",
+  "interior",
+  "EDGE",
+  "EDGE"
+ ],
+ "hash": "8277b10e1492",
+ "h0": "Javon Solomon",
+ "h0_team": "BUF",
+ "h1": "Cedric Johnson",
+ "h1_team": "CIN",
+ "h2": "Tyrion Ingram-Dawkins",
+ "h2_team": "MIN",
+ "h3": "Byron Murphy",
+ "h3_team": "SEA"
+}
