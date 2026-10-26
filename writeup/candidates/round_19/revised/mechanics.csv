@@ -1,0 +1,5 @@
+k,lab,b,lo,hi,p,rel,tost,p_holm
+bg,Break G (all three),-1.1961,-3.6387,0.967,0.3863,0.2809,0.1035,
+decel,Decel into the break,-1.6116,-4.4646,1.1868,0.2939,0.1236,0.1965,0.8816
+v_apex,Speed through the break,1.3838,-2.0625,4.4214,0.4258,-0.0406,0.185,0.8816
+reaccel,Re-acceleration out,-2.1592,-6.9748,2.6127,0.4298,0.0459,0.3955,0.8816

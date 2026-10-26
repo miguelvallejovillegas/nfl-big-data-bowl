@@ -1,0 +1,37 @@
+{
+ "baseline_inputs.csv": {
+  "nfl_id": "player id (players.parquet)",
+  "display_name": "name",
+  "draft_year": "Combine class = fold label",
+  "logpick": "log overall pick (undrafted = 262)",
+  "forty_f": "official 40 time, z-scored within Combine class and position, missing set to 0 (the mean)",
+  "combine_weight_f": "Combine weight, z within position and class, missing = 0",
+  "ngs_athleticism_score_f": "NGS athleticism score, z within position and class, missing = 0",
+  "te": "1 = tight end",
+  "BG": "Break G score, z units (shrunk mean of drill-x-year z-scores)",
+  "career_soe_in": "route-weighted career SOE, inches (from soe_season.csv)",
+  "routes": "career routes (weight)",
+  "heldout_forecast_in": "no-tracking forecast for this receiver, fitted on the other two classes, inches"
+ },
+ "pairs_inputs.csv": {
+  "pid": "player id",
+  "s1": "first season of the pair (fold label: 2023 -> 2023/24, 2024 -> 2024/25)",
+  "day3": "round 4+ or undrafted",
+  "te": "1 = tight end",
+  "logpick": "log pick (undrafted = 262)",
+  "lr1": "log routes, season 1",
+  "y1": "season-1 SOE, yd",
+  "r1": "season-1 routes",
+  "y1s": "season-1 SOE shrunk by routes (empirical Bayes), yd",
+  "y2": "season-2 SOE, yd (outcome)",
+  "r2": "season-2 routes",
+  "f_m0": "held-out pick-and-routes forecast (fitted on the other season pair), yd",
+  "f_m1": "held-out forecast with y1s added, yd"
+ },
+ "speed_inputs.csv": {
+  "forty_std": "official 40, z within position and class",
+  "forty_raw": "official 40, seconds",
+  "vtop_full": "NFL top speed: 90th pct of per-snap max over the full sampled play, yd/s (8+ snaps)",
+  "vtop_break": "same, snap-to-throw frames of breaking snaps only (8+ snaps), yd/s"
+ }
+}
