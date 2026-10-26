@@ -1,0 +1,27 @@
+test,p,bh_q10,holm_10
+family: burst_z,0.6306738652269546,False,False
+family: rpa_z,0.9672065586882623,False,False
+family: rts_z,0.4673065386922616,False,False
+family: hoop_z,0.026794641071785644,False,False
+family: hts_z,0.6700659868026395,False,False
+family: hlap_z,0.3097380523895221,False,False
+chain: burst->get-off,0.15184815184815184,False,False
+chain: burst->NFL burst,0.011988011988011988,True,False
+chain: hoop->NFL bend,0.22577422577422576,False,False
+chain: hoop->get-off,0.4195804195804196,False,False
+bench: 3-cone->NFL bend,0.4155844155844156,False,False
+bench: split->get-off,0.3176823176823177,False,False
+bench: 3-cone->get-off,0.08791208791208792,False,False
+trait->pressure: get-off,0.001998001998001998,True,True
+trait->pressure: burst,0.003996003996003996,True,True
+trait->pressure: bend,0.001998001998001998,True,True
+R2 gain: hoop,0.8051948051948052,False,False
+R2 gain: burst,0.4835164835164835,False,False
+burst equivalence,0.06,False,False
+day3 rho: fc+hoop vs fc,0.2037962037962038,False,False
+day3 rho: fc+hoop vs pick,0.06393606393606394,False,False
+day3 rho: hoop vs pick,0.23176823176823177,False,False
+day3 top-third gap,0.7892107892107892,False,False
+day3 flag Fisher,0.69,False,False
+R2 gain: ridge + hoop,0.48151848151848153,False,False
+R2 gain: pick + role + hoop,0.6293706293706294,False,False
