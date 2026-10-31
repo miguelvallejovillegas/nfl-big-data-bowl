@@ -1,0 +1,14 @@
+{
+ "angle": "Movement translation: per-player similarity between the Combine matched-drill first-second speed profile and the in-game first-second profile on the same movement type (DL pass rush, OL pass set, WR/TE routes, DB coverage); does translation explain production beyond pick? Audit across all five groups, deep dive on DL (clearest signal).",
+ "metric_name": "Burst Translation (BT) = NFL first-second burst z (within group x alignment) minus Combine matched-drill first-second burst z (within drill x year), both from one onset-aligned speed-curve function; group-level Movement Translation Coefficient = Spearman rho drill vs game with noise ceiling",
+ "headline_number": "DL Combine pass-rush-drill burst vs NFL pass-rush burst rho = 0.02 [-0.18, 0.23], n = 97 (noise ceiling 0.35); BT adds -0.019 [-0.132, 0.058] out-of-class R2 to pressure rate over pick + alignment + weight + 40 + NGS (n = 68); only top speed translates (TE 0.53, DL 0.20)",
+ "what_changed_from_previous": "Round 1, no prior state. New: shared onset-aligned burst function for drills and games; matched drill/play pairs for 5 groups; ICC reliability + Spearman-Brown noise ceilings and reps-needed (11 drill reps / 34 NFL snaps for 0.7); leave-one-class-out with bootstrap CIs vs no-tracking baseline and vs NGS get-off; random-half sensitivity exposing a top-|EPA| selection artifact in best-effort-speed stats (OL rho 0.49 -> -0.09).",
+ "open_risks": [
+  "Headline is a null result; Football score may suffer even though the reliability/ceiling framing gives a reason and an actionable recommendation",
+  "Game side is the repo's 12-snap-per-player sample (half top-|EPA|); NFL burst reliability only 0.44 for DL; must re-run on full game tracking",
+  "OL composite Combine burst adds +0.063 out-of-class in 3/3 classes with counterintuitive sign; reported as a lead, could be read as a buried positive or as noise",
+  "DL NFL-burst vs pressure partial rho 0.25 (p = 0.043) is nominal only after 15 tests; does not survive out-of-class",
+  "Onset threshold (1.0 yd/s) and 1.0 s window chosen after viewing 0.5/1.0/1.5 s windows (disclosed)",
+  "Overlaps sibling candidate 2 on WR translation null; differentiation is the cross-group audit and reliability ceilings"
+ ]
+}

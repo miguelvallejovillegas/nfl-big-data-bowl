@@ -1,0 +1,702 @@
+{
+ "arc_snaps_per_player": {
+  "value": "20",
+  "claim": "- **Thin NFL data.** Season pressure counts ignore rotation, injuries, opponents and scheme. Sampled tracking has about 20 rushes per player and no blockers."
+ },
+ "bayes_all": {
+  "value": "0.6",
+  "claim": "table/sentence 'tests10'"
+ },
+ "bayes_all_hi": {
+  "value": "1.7",
+  "claim": "table/sentence 'tests10'"
+ },
+ "bayes_all_lo": {
+  "value": "-0.4",
+  "claim": "table/sentence 'tests10'"
+ },
+ "bayes_n": {
+  "value": 90,
+  "claim": "table/sentence 'tests10'"
+ },
+ "ccnohoop_n": {
+  "value": 56,
+  "claim": "table/sentence 'tests10'"
+ },
+ "ccnohoop_r2_hi": {
+  "value": "32.2",
+  "claim": "table/sentence 'tests10'"
+ },
+ "ccnohoop_r2_lo": {
+  "value": "-6.8",
+  "claim": "table/sentence 'tests10'"
+ },
+ "cmp3_hi": {
+  "value": "0.72",
+  "claim": "table/sentence 'tests10'"
+ },
+ "cmp3_lo": {
+  "value": "-0.01",
+  "claim": "table/sentence 'tests10'"
+ },
+ "cmp3_n": {
+  "value": 27,
+  "claim": "table/sentence 'tests10'"
+ },
+ "cmp3_r": {
+  "value": "0.41",
+  "claim": "table/sentence 'tests10'"
+ },
+ "co_mi_dn": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_fc": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_hi": {
+  "value": "39",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_n": {
+  "value": 6,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_n25": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_rate": {
+  "value": "4.7",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_dn": {
+  "value": 12,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_fc": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_hi": {
+  "value": "34",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_k": {
+  "value": 6,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_lo": {
+  "value": "8",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_n": {
+  "value": 32,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_n25": {
+  "value": 10,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_rate": {
+  "value": "8.4",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_dn": {
+  "value": 11,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_fc": {
+  "value": "7.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_hi": {
+  "value": "23",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_k": {
+  "value": 3,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_lo": {
+  "value": "3",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_n": {
+  "value": 31,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_n25": {
+  "value": 13,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_rate": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_dn": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_fc": {
+  "value": "7.8",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_hi": {
+  "value": "87",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_k": {
+  "value": 4,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_lo": {
+  "value": "23",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_n": {
+  "value": 7,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_rate": {
+  "value": "10.0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_dn": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_fc": {
+  "value": "8.0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_hi": {
+  "value": "78",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_n": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_rate": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "f9_phillips_pb": {
+  "value": "6.6",
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_phillips_pr": {
+  "value": "1.9",
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_phillips_wt": {
+  "value": 312,
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_solomon_hoop": {
+  "value": "0.73",
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_solomon_n": {
+  "value": 211,
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_solomon_pb": {
+  "value": "6.9",
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_solomon_pick": {
+  "value": 168,
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "f9_solomon_pr": {
+  "value": "12.3",
+  "claim": "Solomon (pick 168, no 3-cone) is the use case: 0.73 g in the hoop, then 12.3% pressure against a 6.9% forecast over 211 rushes. Phillips (312 lb) pairs a low ho"
+ },
+ "fr_all_k": {
+  "value": 4,
+  "claim": "table/sentence 'tests10'"
+ },
+ "fr_all_n": {
+  "value": 9,
+  "claim": "table/sentence 'tests10'"
+ },
+ "fr_clean_n": {
+  "value": 2,
+  "claim": "table/sentence 'tests10'"
+ },
+ "fr_perm_p": {
+  "value": "0.05",
+  "claim": "table/sentence 'tests10'"
+ },
+ "hoop_g_median": {
+  "value": "0.62",
+  "claim": "**Hoop G is how hard a lineman can lean into a curve at speed when nobody is blocking him.** It is the peak half-second of acceleration across his path, standar"
+ },
+ "hoop_radius": {
+  "value": "1.8",
+  "claim": "**Hoop G is how hard a lineman can lean into a curve at speed when nobody is blocking him.** It is the peak half-second of acceleration across his path, standar"
+ },
+ "hoop_v_mph": {
+  "value": "7",
+  "claim": "**Hoop G is how hard a lineman can lean into a curve at speed when nobody is blocking him.** It is the peak half-second of acceleration across his path, standar"
+ },
+ "hoop_v_peak": {
+  "value": "3.5",
+  "claim": "**Hoop G is how hard a lineman can lean into a curve at speed when nobody is blocking him.** It is the peak half-second of acceleration across his path, standar"
+ },
+ "mult_obs": {
+  "value": "0.32",
+  "claim": "table/sentence 'tests10'"
+ },
+ "mult_p": {
+  "value": "0.12",
+  "claim": "table/sentence 'tests10'"
+ },
+ "mx9_e": {
+  "value": "0.002",
+  "claim": "It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [-0.006, 0.01"
+ },
+ "mx9_e_hi": {
+  "value": "0.011",
+  "claim": "It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [-0.006, 0.01"
+ },
+ "mx9_e_lo": {
+  "value": "-0.006",
+  "claim": "It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [-0.006, 0.01"
+ },
+ "n_power80": {
+  "value": 840,
+  "claim": "- **Not confirmed.** Out of class, both leads' intervals span zero; a confirmatory test needs about 840 rushers."
+ },
+ "r10_c0_s": {
+  "value": "0.94",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c0_tc": {
+  "value": "7.58",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c1_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c1_pr": {
+  "value": "6.9",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c2_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c2_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c2_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c2_tc": {
+  "value": "6.94",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c3_pb": {
+  "value": "8.5",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c3_pr": {
+  "value": "9.7",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c3_s": {
+  "value": "0.56",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c4_pb": {
+  "value": "8.0",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c4_pr": {
+  "value": "4.4",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c4_s": {
+  "value": "-0.62",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c5_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c5_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c5_s": {
+  "value": "-0.80",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c5_tc": {
+  "value": "8.19",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c6_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c6_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c6_s": {
+  "value": "-0.75",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_c6_tc": {
+  "value": "7.63",
+  "claim": "table/sentence 'card10'"
+ },
+ "r10_cm_3": {
+  "value": "0.3",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_cm_3_n": {
+  "value": 34,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_cm_no3": {
+  "value": "1.0",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_cm_no3_hi": {
+  "value": "2.5",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_cm_no3_lo": {
+  "value": "-0.1",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_cm_no3_n": {
+  "value": 56,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_dir_n": {
+  "value": 38,
+  "claim": "It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [-0.006, 0.01"
+ },
+ "r10_dir_rho": {
+  "value": "0.07",
+  "claim": "It is not a measure of how he wins. In sampled NFL rushes, a high Hoop G does not show up as harder turning at matched speed (EDGE: 0.002 g per sd [-0.006, 0.01"
+ },
+ "r10_ed0_i": {
+  "value": "15",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed0_o": {
+  "value": "15",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed0_pb": {
+  "value": "6.9",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed0_pr": {
+  "value": "12.3",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed0_s": {
+  "value": "0.80",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed0_t": {
+  "value": "70",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_i": {
+  "value": "50",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_o": {
+  "value": "8",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_t": {
+  "value": "42",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed1_tc": {
+  "value": "6.94",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_i": {
+  "value": "48",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_o": {
+  "value": "8",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_pb": {
+  "value": "5.8",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_pr": {
+  "value": "7.2",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_s": {
+  "value": "-0.48",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_t": {
+  "value": "44",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed2_tc": {
+  "value": "7.39",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_i": {
+  "value": "30",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_o": {
+  "value": "4",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_pb": {
+  "value": "8.0",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_pr": {
+  "value": "4.4",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_s": {
+  "value": "-0.62",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_ed3_t": {
+  "value": "67",
+  "claim": "table/sentence 'edges'"
+ },
+ "r10_epa_diff": {
+  "value": "0.53",
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_epa_hi": {
+  "value": "0.68",
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_epa_lo": {
+  "value": "0.37",
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_epa_n": {
+  "value": 1681,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_hit_pb": {
+  "value": "7.2",
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_hit_pick": {
+  "value": 214,
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_hit_pr": {
+  "value": "13.0",
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_lr_dw_k": {
+  "value": 4,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_lr_dw_n": {
+  "value": 13,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_lr_k": {
+  "value": 4,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_lr_n": {
+  "value": 12,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_lr_rk": {
+  "value": 9,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_lr_rn": {
+  "value": 66,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_miss_pb": {
+  "value": "8.4",
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_miss_pick": {
+  "value": 110,
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_miss_pr": {
+  "value": "8.6",
+  "claim": "Plus calls went 4 of 9, every hit a 2023–24 EDGE; rushers without a call went 9 of 69. By name: Cedric Johnson (pick 214) rushed at 13.0% against a 7.2% forecas"
+ },
+ "r10_nc25_n": {
+  "value": 23,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_pool_minus": {
+  "value": "2.2",
+  "claim": "Plus calls out-rushed their twins' rate over forecast in 7 of 9 pairs, by 3.2 points on average, and 1 of 2 in 2025. The 6 interior minus flags sit 2.2 points u"
+ },
+ "r10_pp_nc": {
+  "value": "0.96",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_pp_plus": {
+  "value": "0.22",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_t3_25_k": {
+  "value": 15,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_t3_25_n": {
+  "value": 44,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_t3_all_k": {
+  "value": 43,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_t3_all_n": {
+  "value": 118,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_t3_all_pct": {
+  "value": "36",
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r10_t3_loco": {
+  "value": "0.36",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_t3_loco_hi": {
+  "value": "0.67",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_t3_loco_k": {
+  "value": 3,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_t3_loco_lo": {
+  "value": "-0.22",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_t3_loco_pos": {
+  "value": 1,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw25_better": {
+  "value": 1,
+  "claim": "Plus calls out-rushed their twins' rate over forecast in 7 of 9 pairs, by 3.2 points on average, and 1 of 2 in 2025. The 6 interior minus flags sit 2.2 points u"
+ },
+ "r10_tw25_n": {
+  "value": 2,
+  "claim": "Plus calls out-rushed their twins' rate over forecast in 7 of 9 pairs, by 3.2 points on average, and 1 of 2 in 2025. The 6 interior minus flags sit 2.2 points u"
+ },
+ "r10_tw_better": {
+  "value": 7,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw_diff": {
+  "value": "3.2",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw_hi": {
+  "value": "4.9",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw_lo": {
+  "value": "1.6",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw_n": {
+  "value": 9,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_tw_p": {
+  "value": "0.004",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r10_wr2_no3": {
+  "value": "11.6",
+  "claim": "table/sentence 'tests10'"
+ },
+ "r9_hoop_all": {
+  "value": 109,
+  "claim": "A pressure is the play a pass rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 expected points more on snaps he pressure"
+ },
+ "r9_nc_k": {
+  "value": 9,
+  "claim": "table/sentence 'tests10'"
+ },
+ "r9_nc_n": {
+  "value": 69,
+  "claim": "table/sentence 'tests10'"
+ },
+ "rel_hoop_2runs": {
+  "value": "0.58",
+  "claim": "3. **Time two hoop runs per player.** One run has reliability 0.41; two raise it to 0.58."
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "3. **Time two hoop runs per player.** One run has reliability 0.41; two raise it to 0.58."
+ }
+}

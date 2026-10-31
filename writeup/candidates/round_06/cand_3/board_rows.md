@@ -1,0 +1,10 @@
+| Chop Robinson (2024, 21, EDGE) | 2.39 | 2.14 | +0.55 | 11.8 vs 10.1 |
+| Ruke Orhorhoro (2024, 35, interior) | 2.55 | 2.04 | +0.44 | 8.2 vs 8.0 |
+| Byron Young (2023, 77, EDGE) | 2.36 | 1.97 | +0.38 | 11.3 vs 8.3 |
+| Maason Smith (2024, 48, interior) | 2.77 | 1.94 | +0.33 | 3.9 vs 7.3 |
+| Will Anderson (2023, 3, EDGE) | 2.26 | 1.82 | +0.24 | 13.0 vs 11.3 |
+| McKinnley Jackson (2024, 97, interior) | 2.67 | 1.40 | -0.21 | 5.1 vs 6.1 |
+| Zacch Pickens (2023, 64, interior) | 2.70 | 1.38 | -0.22 | 6.1 vs 6.8 |
+| Yahya Black (2025, 164, interior) | 2.00 | 1.31 | -0.27 | 5.8 vs 4.3 |
+| Tyrus Wheat (2023, UDFA, EDGE) | 2.46 | 1.26 | -0.34 | 6.2 vs 6.7 |
+| Eric Watts (2024, UDFA, EDGE) | 2.91 | 1.17 | -0.45 | 3.6 vs 7.1 |

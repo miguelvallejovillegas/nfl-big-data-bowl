@@ -1,0 +1,60 @@
+{
+ "go": "Cedric Johnson (CIN), Javon Solomon (BUF), Jack Sawyer (PIT), Warren Brinson (GB) and Austin Booker (CHI)",
+ "nogo": "Tyrion Ingram-Dawkins (MIN), Eric Watts (MIA) and Jaylen Harrell (TEN)",
+ "hold": "Zeek Biggers (MIA), Nazir Stackhouse (TEN) and Kyle Kennard (LAC)",
+ "aud": "Mohamed Kamara (2024, 158, TB), Gabe Hall (2024, UDFA, PHI), Nelson Ceaser (2024, UDFA, FA), Tim Smith (2025, 190, IND), Antwaun Powell-Ryland (2025, 209, CIN), Jah Joyner (2025, UDFA, FA), Ethan Downs (2025, UDFA, KC)",
+ "go_names": [
+  "Cedric Johnson",
+  "Javon Solomon",
+  "Jack Sawyer",
+  "Warren Brinson",
+  "Austin Booker"
+ ],
+ "go_teams": [
+  "CIN",
+  "BUF",
+  "PIT",
+  "GB",
+  "CHI"
+ ],
+ "go_roles": [
+  "EDGE",
+  "EDGE",
+  "EDGE",
+  "interior",
+  "EDGE"
+ ],
+ "hash": "ad1cc734cdd4",
+ "h0": "Javon Solomon",
+ "h0_team": "BUF",
+ "h1": "Tyrion Ingram-Dawkins",
+ "h1_team": "MIN",
+ "h2": "Zeek Biggers",
+ "h2_team": "MIA",
+ "film_open": "- **Javon Solomon** (BUF, EDGE, 2024 #168): Hoop G +1.9 sd, NFL bend +0.6 sd, NFL +16.2. Top hoop lap of his class, above-average NFL bend; same wide passing-down role.\n- **Jack Sawyer** (PIT, EDGE, 2025 #123): Hoop G +1.4 sd, NFL bend +2.0 sd, NFL +4.5. Hardest NFL bend of the eight; widen his passing-down role.\n- **Warren Brinson** (GB, interior, 2025 #198): Hoop G +1.3 sd, NFL bend \u22120.7 sd, NFL +4.4. A 315-lb interior man, so compare him with interior linemen only; loop him on end-tackle stunts.\n- **Cedric Johnson** (CIN, EDGE, 2024 #214): Hoop G +1.1 sd, NFL bend +0.7 sd, NFL +19.1. The bend carries to Sunday; give him third-down snaps from a wide alignment.\n- **Austin Booker** (CHI, EDGE, 2024 #144): Hoop G +1.1 sd, NFL bend +1.0 sd, NFL +2.7. Most rushes of the eight, a steady small plus; keep his rotation share.",
+ "film_miss": "- **Tyrion Ingram-Dawkins** (MIN, EDGE, 2025 #139): Hoop G +1.0 sd, NFL bend 0.0 sd, NFL \u22124.6. Hips there, first step not: slowest NGS get-off of the eight; rep dip-and-rip off a live get-off.\n- **Eric Watts** (MIA, EDGE, 2024 UDFA): Hoop G +0.6 sd, NFL bend +0.1 sd, NFL \u22127.3. Shortest first-second burst of the eight on sampled rushes; coach the get-off before the corner.\n- **Jaylen Harrell** (TEN, EDGE, 2024 #252): Hoop G +0.4 sd, NFL bend +1.7 sd, NFL \u22128.4. Second-hardest NFL bend of the eight, yet furthest below forecast: the bend is not becoming pressure. The flag missed.",
+ "bh_tests": [
+  "family: hoop_z",
+  "chain: burst->NFL burst",
+  "trait->pressure: get-off",
+  "trait->pressure: burst",
+  "trait->pressure: bend",
+  "hoop slope: pick residual",
+  "hoop slope: pick + role residual",
+  "hoop slope: nested residual",
+  "film: corner-turn rate by Hoop G third",
+  "film: pressure on corner-turn rushes"
+ ],
+ "holm_tests": [
+  "trait->pressure: get-off",
+  "trait->pressure: bend"
+ ],
+ "nest_choice": {
+  "2023": "Pick only",
+  "2024": "Pick + role",
+  "2025": "Full no-tracking"
+ },
+ "nest_list": "pick only for 2023, pick + role for 2024, full no-tracking for 2025",
+ "lopo25_name": "Yahya Black",
+ "extra78": "Chop Robinson"
+}

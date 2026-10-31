@@ -1,0 +1,395 @@
+{
+ "named": [
+  {
+   "tag": "Top Combine SK",
+   "name": "Kyle Williams",
+   "pos": "WR",
+   "cls": 2025,
+   "pick": 69,
+   "c_sk": 1.2,
+   "c_raw": 91.0,
+   "reps": 6,
+   "g_sk": 0.13,
+   "g_lo": -0.15,
+   "g_hi": 0.41,
+   "n": 13
+  },
+  {
+   "tag": "Top Combine SK",
+   "name": "Javon Baker",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": 110,
+   "c_sk": 0.95,
+   "c_raw": 93.0,
+   "reps": 9,
+   "g_sk": -0.35,
+   "g_lo": -0.82,
+   "g_hi": 0.11,
+   "n": 20
+  },
+  {
+   "tag": "Top Combine SK",
+   "name": "Isaiah Williams",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": null,
+   "c_sk": 0.85,
+   "c_raw": 87.0,
+   "reps": 7,
+   "g_sk": 0.17,
+   "g_lo": -0.16,
+   "g_hi": 0.5,
+   "n": 21
+  },
+  {
+   "tag": "Top Combine SK",
+   "name": "Michael Wilson",
+   "pos": "WR",
+   "cls": 2023,
+   "pick": 94,
+   "c_sk": 0.7,
+   "c_raw": 93.0,
+   "reps": 7,
+   "g_sk": 0.02,
+   "g_lo": -0.22,
+   "g_hi": 0.25,
+   "n": 16
+  },
+  {
+   "tag": "Top Combine SK",
+   "name": "Luke McCaffrey",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": 100,
+   "c_sk": 0.59,
+   "c_raw": 63.0,
+   "reps": 6,
+   "g_sk": 0.04,
+   "g_lo": -0.42,
+   "g_hi": 0.49,
+   "n": 21
+  },
+  {
+   "tag": "Bottom Combine SK",
+   "name": "Devin Culp",
+   "pos": "TE",
+   "cls": 2024,
+   "pick": 246,
+   "c_sk": -0.66,
+   "c_raw": 70.0,
+   "reps": 4,
+   "g_sk": -0.51,
+   "g_lo": -0.89,
+   "g_hi": -0.13,
+   "n": 20
+  },
+  {
+   "tag": "Bottom Combine SK",
+   "name": "Devaughn Vele",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": 235,
+   "c_sk": -0.74,
+   "c_raw": 79.0,
+   "reps": 7,
+   "g_sk": -0.08,
+   "g_lo": -0.44,
+   "g_hi": 0.27,
+   "n": 24
+  },
+  {
+   "tag": "Bottom Combine SK",
+   "name": "Elijah Higgins",
+   "pos": "TE",
+   "cls": 2023,
+   "pick": 197,
+   "c_sk": -0.89,
+   "c_raw": 85.0,
+   "reps": 8,
+   "g_sk": 0.27,
+   "g_lo": -0.02,
+   "g_hi": 0.56,
+   "n": 17
+  },
+  {
+   "tag": "Bottom Combine SK",
+   "name": "Rome Odunze",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": 9,
+   "c_sk": -0.92,
+   "c_raw": 82.0,
+   "reps": 6,
+   "g_sk": -0.03,
+   "g_lo": -0.47,
+   "g_hi": 0.42,
+   "n": 15
+  },
+  {
+   "tag": "Bottom Combine SK",
+   "name": "Adonai Mitchell",
+   "pos": "WR",
+   "cls": 2024,
+   "pick": 52,
+   "c_sk": -0.93,
+   "c_raw": 79.0,
+   "reps": 9,
+   "g_sk": 0.14,
+   "g_lo": -0.22,
+   "g_hi": 0.5,
+   "n": 23
+  }
+ ],
+ "season": [
+  {
+   "outcome": "Season separation (yd)",
+   "base": 0.05319063643232025,
+   "plus": 0.03054420589071849,
+   "d": -0.02264643054160176,
+   "lo": -0.08773146093123037,
+   "hi": 0.030209262058004463
+  },
+  {
+   "outcome": "Yards per route run",
+   "base": 0.03500070694288926,
+   "plus": -0.03662044746017745,
+   "d": -0.07162115440306671,
+   "lo": -0.1901026921851313,
+   "hi": 0.003975014118173779
+  }
+ ],
+ "fam": [
+  {
+   "family": "SLANT",
+   "period": "2023-24 (development)",
+   "rho": -0.058,
+   "lo": -0.3,
+   "hi": 0.194,
+   "n": 70
+  },
+  {
+   "family": "SLANT",
+   "period": "2025 (held out)",
+   "rho": -0.068,
+   "lo": -0.323,
+   "hi": 0.202,
+   "n": 88
+  },
+  {
+   "family": "OUT",
+   "period": "2023-24 (development)",
+   "rho": 0.129,
+   "lo": -0.103,
+   "hi": 0.361,
+   "n": 109
+  },
+  {
+   "family": "OUT",
+   "period": "2025 (held out)",
+   "rho": 0.119,
+   "lo": -0.064,
+   "hi": 0.286,
+   "n": 109
+  },
+  {
+   "family": "HITCH",
+   "period": "2023-24 (development)",
+   "rho": 0.091,
+   "lo": -0.126,
+   "hi": 0.297,
+   "n": 96
+  },
+  {
+   "family": "HITCH",
+   "period": "2025 (held out)",
+   "rho": -0.092,
+   "lo": -0.282,
+   "hi": 0.105,
+   "n": 115
+  },
+  {
+   "family": "IN",
+   "period": "2023-24 (development)",
+   "rho": -0.145,
+   "lo": -0.35,
+   "hi": 0.079,
+   "n": 101
+  },
+  {
+   "family": "IN",
+   "period": "2025 (held out)",
+   "rho": -0.062,
+   "lo": -0.287,
+   "hi": 0.189,
+   "n": 94
+  },
+  {
+   "family": "CORNER",
+   "period": "2023-24 (development)",
+   "rho": 0.25,
+   "lo": 0.03,
+   "hi": 0.463,
+   "n": 69
+  },
+  {
+   "family": "CORNER",
+   "period": "2025 (held out)",
+   "rho": 0.169,
+   "lo": -0.036,
+   "hi": 0.352,
+   "n": 92
+  }
+ ],
+ "rel": [
+  {
+   "comp": "sk",
+   "c_rho": 0.091,
+   "c_lo": -0.073,
+   "c_hi": 0.255,
+   "c_n": 145,
+   "g_rho": 0.034,
+   "g_lo": -0.156,
+   "g_hi": 0.219,
+   "g_n": 113
+  },
+  {
+   "comp": "brr",
+   "c_rho": 0.281,
+   "c_lo": 0.121,
+   "c_hi": 0.429,
+   "c_n": 145,
+   "g_rho": 0.228,
+   "g_lo": 0.043,
+   "g_hi": 0.405,
+   "g_n": 113
+  },
+  {
+   "comp": "v_in",
+   "c_rho": 0.333,
+   "c_lo": 0.162,
+   "c_hi": 0.487,
+   "c_n": 145,
+   "g_rho": 0.033,
+   "g_lo": -0.164,
+   "g_hi": 0.229,
+   "g_n": 113
+  },
+  {
+   "comp": "v_apex",
+   "c_rho": -0.041,
+   "c_lo": -0.216,
+   "c_hi": 0.135,
+   "c_n": 145,
+   "g_rho": 0.032,
+   "g_lo": -0.164,
+   "g_hi": 0.228,
+   "g_n": 113
+  },
+  {
+   "comp": "v_out",
+   "c_rho": 0.064,
+   "c_lo": -0.108,
+   "c_hi": 0.234,
+   "c_n": 145,
+   "g_rho": 0.057,
+   "g_lo": -0.141,
+   "g_hi": 0.255,
+   "g_n": 113
+  },
+  {
+   "comp": "decel",
+   "c_rho": 0.124,
+   "c_lo": -0.044,
+   "c_hi": 0.293,
+   "c_n": 145,
+   "g_rho": 0.13,
+   "g_lo": -0.058,
+   "g_hi": 0.312,
+   "g_n": 113
+  },
+  {
+   "comp": "reaccel",
+   "c_rho": 0.046,
+   "c_lo": -0.124,
+   "c_hi": 0.214,
+   "c_n": 145,
+   "g_rho": 0.199,
+   "g_lo": 0.006,
+   "g_hi": 0.375,
+   "g_n": 113
+  },
+  {
+   "comp": "angle",
+   "c_rho": 0.201,
+   "c_lo": 0.041,
+   "c_hi": 0.351,
+   "c_n": 145,
+   "g_rho": -0.054,
+   "g_lo": -0.24,
+   "g_hi": 0.145,
+   "g_n": 113
+  }
+ ],
+ "timing": [
+  {
+   "subset": "Break before the throw",
+   "coverage": "man",
+   "rho": 0.151,
+   "lo": 0.046,
+   "hi": 0.256,
+   "n": 288
+  },
+  {
+   "subset": "Break before the throw",
+   "coverage": "zone",
+   "rho": -0.025,
+   "lo": -0.108,
+   "hi": 0.06,
+   "n": 655
+  },
+  {
+   "subset": "Break at or after the throw",
+   "coverage": "man",
+   "rho": 0.035,
+   "lo": -0.1,
+   "hi": 0.17,
+   "n": 223
+  },
+  {
+   "subset": "Break at or after the throw",
+   "coverage": "zone",
+   "rho": -0.17,
+   "lo": -0.24,
+   "hi": -0.101,
+   "n": 597
+  }
+ ],
+ "lead_bins": [
+  {
+   "lead": "after throw",
+   "n": 777,
+   "soe": 0.057
+  },
+  {
+   "lead": "0-0.2 s",
+   "n": 43,
+   "soe": -0.228
+  },
+  {
+   "lead": "0.2-1 s",
+   "n": 439,
+   "soe": 0.054
+  },
+  {
+   "lead": "1-2 s",
+   "n": 285,
+   "soe": 0.125
+  },
+  {
+   "lead": ">2 s",
+   "n": 219,
+   "soe": -0.147
+  }
+ ]
+}

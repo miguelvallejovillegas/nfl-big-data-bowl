@@ -1,0 +1,94 @@
+{
+ "md": {
+  "groups": "| Group | Players (40 + 8 NFL starts) | Sunday first step, reliability | Combine \u2192 Sunday, raw | Combine \u2192 Sunday, after size | Sunday first step \u2192 production beyond pick [90%] (n) |\n|---|---|---|---|---|---|\n| **DL** | 67 | {{g_DL_rel}} | {{g_DL_trraw}} | {{g_DL_tradj}} | **{{g_DL_pay}}** [{{g_DL_paylo}}, {{g_DL_payhi}}] (69, pressure rate) |\n| WR | 61 | {{g_WR_rel}} | {{g_WR_trraw}} | {{g_WR_tradj}} | {{g_WR_pay}} [{{g_WR_paylo}}, {{g_WR_payhi}}] (58, yards per route) |\n| OL | 58 | {{g_OL_rel}} | {{g_OL_trraw}} | {{g_OL_tradj}} | {{g_OL_pay}} [{{g_OL_paylo}}, {{g_OL_payhi}}] (64, fewer pressures allowed) |\n| DB | 58 | {{g_DB_rel}} | {{g_DB_trraw}} | {{g_DB_tradj}} | {{g_DB_pay}} [{{g_DB_paylo}}, {{g_DB_payhi}}] (65, solo tackles per 100 snaps) |\n| TE | 20 | {{g_TE_rel}} | {{g_TE_trraw}} | {{g_TE_tradj}} | {{g_TE_pay}} [{{g_TE_paylo}}, {{g_TE_payhi}}] (24, snaps per season) |",
+  "card": "| Rusher (class, pick, role) | Combine first step, pct | Sunday first step, pct (starts) | Pressure rate vs forecast | Call |\n|---|---|---|---|---|\n| Warren Brinson (2025, 198, interior) | {{b_brinson_c}} | {{b_brinson_s}} (19) | {{b_brinson_rate}}% vs {{b_brinson_fc}}% | Credit the start as a tie-break |\n| Ashton Gillotte (2025, 66, EDGE) | no 40 | {{b_gillotte_s}} (20) | {{b_gillotte_rate}}% vs {{b_gillotte_fc}}% | Credit the start as a tie-break |\n| Princely Umanmielen (2025, 77, EDGE) | {{b_umanmielen_c}} | {{b_umanmielen_s}} (16) | {{b_umanmielen_rate}}% vs {{b_umanmielen_fc}}% | Film check: his 40 start is not on tape |\n| Maason Smith (2024, 48, interior) | {{b_smith_c}} | {{b_smith_s}} (18) | {{b_smith_rate}}% vs {{b_smith_fc}}% | Credit the start as a tie-break |\n| Ruke Orhorhoro (2024, 35, interior) | {{b_orhorhoro_c}} | {{b_orhorhoro_s}} (18) | {{b_orhorhoro_rate}}% vs {{b_orhorhoro_fc}}% | Trust the tape over the 40 |\n| YaYa Diaby (2023, 82, EDGE) | {{b_diaby_c}} | {{b_diaby_s}} (18) | {{b_diaby_rate}}% vs {{b_diaby_fc}}% | Credit the start as a tie-break |\n| Zacch Pickens (2023, 64, interior) | {{b_pickens_c}} | {{b_pickens_s}} (20) | {{b_pickens_rate}}% vs {{b_pickens_fc}}% | Film check: his 40 start is not on tape |\n| Eric Watts (2024, UDFA, EDGE) | {{b_watts_c}} | {{b_watts_s}} (20) | {{b_watts_rate}}% vs {{b_watts_fc}}% | Film check: his 40 start is not on tape |"
+ },
+ "groups": [
+  {
+   "grp": "DL",
+   "n_tr": 67,
+   "tr_raw": 0.155,
+   "tr_adj": 0.022,
+   "tr_lo": -0.166,
+   "tr_hi": 0.228,
+   "rel": 0.641,
+   "n_pay": 69,
+   "pay": 0.22,
+   "pay_lo": 0.006,
+   "pay_hi": 0.431,
+   "lab": "Pressure rate"
+  },
+  {
+   "grp": "WR",
+   "n_tr": 61,
+   "tr_raw": -0.132,
+   "tr_adj": -0.135,
+   "tr_lo": -0.342,
+   "tr_hi": 0.083,
+   "rel": 0.717,
+   "n_pay": 58,
+   "pay": -0.051,
+   "pay_lo": -0.255,
+   "pay_hi": 0.155,
+   "lab": "Yards per route"
+  },
+  {
+   "grp": "OL",
+   "n_tr": 58,
+   "tr_raw": -0.16,
+   "tr_adj": -0.311,
+   "tr_lo": -0.515,
+   "tr_hi": -0.087,
+   "rel": 0.136,
+   "n_pay": 64,
+   "pay": -0.023,
+   "pay_lo": -0.242,
+   "pay_hi": 0.191,
+   "lab": "Fewer pressures allowed"
+  },
+  {
+   "grp": "DB",
+   "n_tr": 58,
+   "tr_raw": -0.061,
+   "tr_adj": -0.1,
+   "tr_lo": -0.306,
+   "tr_hi": 0.115,
+   "rel": 0.204,
+   "n_pay": 65,
+   "pay": 0.136,
+   "pay_lo": -0.078,
+   "pay_hi": 0.342,
+   "lab": "Solo tackles per 100 snaps"
+  },
+  {
+   "grp": "TE",
+   "n_tr": 20,
+   "tr_raw": 0.123,
+   "tr_adj": 0.052,
+   "tr_lo": -0.334,
+   "tr_hi": 0.414,
+   "rel": 0.189,
+   "n_pay": 24,
+   "pay": -0.183,
+   "pay_lo": -0.575,
+   "pay_hi": 0.138,
+   "lab": "Snaps per season"
+  }
+ ],
+ "card_names": [
+  "Warren Brinson",
+  "Ashton Gillotte",
+  "Princely Umanmielen",
+  "Maason Smith",
+  "Ruke Orhorhoro",
+  "YaYa Diaby",
+  "Zacch Pickens",
+  "Eric Watts"
+ ],
+ "hero": {
+  "fast_both": "YaYa Diaby",
+  "sunday_only": "Byron Young",
+  "combine_only": "Eric Watts",
+  "slow": "Brenton Cox"
+ }
+}

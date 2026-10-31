@@ -1,0 +1,23 @@
+{
+ "nogo": "Tyrion Ingram-Dawkins",
+ "nogo_team": "MIN",
+ "teams": [
+  "PIT",
+  "GB"
+ ],
+ "names": [
+  "Jack Sawyer",
+  "Warren Brinson"
+ ],
+ "cards": "| **Jack Sawyer** (123, PIT) | EDGE | +1.4 | 176 | 9.0% vs 8.4% | **Go** | 7.4% |\n| **Warren Brinson** (198, GB) | interior | +1.3 | 173 | 7.4% vs 6.5% | **Go** | 5.1% |\n| **Tyrion Ingram-Dawkins** (139, MIN) | EDGE | +1.0 | 113 | 6.7% vs 7.9% | **No-go** | 10.2% |\n| **Zeek Biggers** (253, MIA) | interior | +0.9 | 142 | 6.4% vs 6.2% | **Hold** | 5.9% |\n| **Nazir Stackhouse** (UDFA, TEN) | interior | +0.4 | 71 | 5.6% vs 5.8% | **Hold** | needs 100 rushes |\n| **Kyle Kennard** (125, LAC) | EDGE | +1.2 | 50 | 6.3% vs 8.2% | **Hold** | needs 100 rushes |",
+ "aud": "Ethan Downs (UDFA, KC), Tim Smith (190, IND), Antwaun Powell-Ryland (209, CIN), Jah Joyner (UDFA, FA)",
+ "hist_hit": "Javon Solomon, Adetomiwa Adebawore, Nick Hampton",
+ "hist_miss": "Robert Beal, Jaylen Harrell, Eric Watts",
+ "best": "Cedric Johnson",
+ "hash": "f55a9b189ab6",
+ "laps": [
+  "Jerrod Clark",
+  "Ty Robinson",
+  "Tuli Tuipulotu"
+ ]
+}

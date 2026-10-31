@@ -1,0 +1,14 @@
+result,variant,value,n
+"Break G slope, in per sd","primary (shrunk score, all 116)",-1.196,116
+"Break G slope, in per sd","raw drill mean, no shrinkage",-1.044,116
+"Break G slope, in per sd",100+ career routes,-1.257,84
+"Break G slope, in per sd",200+ career routes,-0.93,64
+"Drill-to-NFL Break G, raw rank corr.",5+ graded NFL breaks,-0.095,110
+"Drill-to-NFL Break G, raw rank corr.",8+ graded NFL breaks,-0.047,101
+"Drill-to-NFL Break G, raw rank corr.",12+ graded NFL breaks,-0.073,93
+Day-3 gain in rank corr.,"primary (100+ routes, shrunk)",0.31,20
+Day-3 gain in rank corr.,"raw last-season SOE, no shrinkage",0.251,20
+Day-3 gain in rank corr.,half the shrinkage,0.263,20
+Day-3 gain in rank corr.,double the shrinkage,0.296,20
+Day-3 gain in rank corr.,50+ routes both seasons,0.11,38
+Day-3 gain in rank corr.,150+ routes both seasons,0.402,17

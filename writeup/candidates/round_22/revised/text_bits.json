@@ -1,0 +1,46 @@
+{
+ "go": "Cedric Johnson (CIN), Javon Solomon (BUF), Warren Brinson (GB), Austin Booker (CHI) and Jack Sawyer (PIT)",
+ "nogo": "Eric Watts (MIA), Tyrion Ingram-Dawkins (MIN) and Jaylen Harrell (TEN)",
+ "hold": "Zeek Biggers (MIA), Nazir Stackhouse (TEN) and Kyle Kennard (LAC)",
+ "aud": "Mohamed Kamara (2024, 158, TB), Gabe Hall (2024, UDFA, PHI), Nelson Ceaser (2024, UDFA, FA), Tim Smith (2025, 190, IND), Antwaun Powell-Ryland (2025, 209, CIN), Jah Joyner (2025, UDFA, FA), Ethan Downs (2025, UDFA, KC)",
+ "go_names": [
+  "Cedric Johnson",
+  "Javon Solomon",
+  "Warren Brinson",
+  "Austin Booker",
+  "Jack Sawyer"
+ ],
+ "go_teams": [
+  "CIN",
+  "BUF",
+  "GB",
+  "CHI",
+  "PIT"
+ ],
+ "go_roles": [
+  "EDGE",
+  "EDGE",
+  "interior",
+  "EDGE",
+  "EDGE"
+ ],
+ "hash": "a8f5e5be6e51",
+ "h0": "Javon Solomon",
+ "h0_team": "BUF",
+ "h1": "Tyrion Ingram-Dawkins",
+ "h1_team": "MIN",
+ "film": "1. **Cedric Johnson** (CIN, EDGE, 2024 #214), +18.0 a season: the bend carries to Sunday; third-down snaps from a wide alignment.\n2. **Javon Solomon** (BUF, EDGE, 2024 #168), +16.1 a season: top hoop lap of his class, above-average NFL bend; same wide passing-down role.\n3. **Warren Brinson** (GB, interior, 2025 #198), +4.0 a season: 315-lb interior, read against interior linemen only; the looper on end-tackle stunts.\n4. **Austin Booker** (CHI, EDGE, 2024 #144), +3.0 a season: largest sample on the list, a steady small plus; keep his rotation share.\n5. **Jack Sawyer** (PIT, EDGE, 2025 #123), +2.7 a season: hardest NFL bend of the eight; widen his passing-down role.\n6. **Eric Watts** (MIA, EDGE, 2024 UDFA), \u22125.1 a season: bend without a first step (slowest NFL burst of the eight); run downs until the get-off improves.\n7. **Tyrion Ingram-Dawkins** (MIN, EDGE, 2025 #139), \u22125.1 a season: hips there, rush plan not; rep dip-and-rip off a live get-off.\n8. **Jaylen Harrell** (TEN, EDGE, 2024 #252), \u22128.5 a season: most rushes of the eight, furthest below forecast: the flag missed; run downs only.",
+ "bh_tests": [
+  "chain: burst->NFL burst",
+  "trait->pressure: get-off",
+  "trait->pressure: burst",
+  "trait->pressure: bend",
+  "hoop slope: pick + role residual"
+ ],
+ "holm_tests": [
+  "trait->pressure: get-off",
+  "trait->pressure: bend"
+ ],
+ "lopo25_name": "Yahya Black",
+ "extra78": "Chop Robinson"
+}

@@ -1,0 +1,590 @@
+{
+ "md": {
+  "roles": "| NFL first step (third) | EDGE: n, pressure vs forecast, beat | Interior: n, pressure vs forecast, beat |\n|---|---|---|\n| Top third (credit) | 14: {{rt_top_e_rate}}% vs {{rt_top_e_fc}}%, 8 of 14 | 9: {{rt_top_i_rate}}% vs {{rt_top_i_fc}}%, 6 of 9 |\n| Middle (no call) | 12: {{rt_mid_e_rate}}% vs {{rt_mid_e_fc}}%, 3 of 12 | 11: {{rt_mid_i_rate}}% vs {{rt_mid_i_fc}}%, 4 of 11 |\n| Bottom third (no credit) | 10: {{rt_bot_e_rate}}% vs {{rt_bot_e_fc}}%, 1 of 10 | 13: {{rt_bot_i_rate}}% vs {{rt_bot_i_fc}}%, 2 of 13 |",
+  "groups": "| Group | Players (40 + 8 NFL starts) | Sunday first step, reliability | Combine \u2192 Sunday, raw | Combine \u2192 Sunday, after size | Sunday first step \u2192 production beyond pick [90%] (n) |\n|---|---|---|---|---|---|\n| **DL** | 67 | {{g_DL_rel}} | {{g_DL_trraw}} | {{g_DL_tradj}} | **{{g_DL_pay}}** [{{g_DL_paylo}}, {{g_DL_payhi}}] (69, pressure rate) |\n| WR | 61 | {{g_WR_rel}} | {{g_WR_trraw}} | {{g_WR_tradj}} | {{g_WR_pay}} [{{g_WR_paylo}}, {{g_WR_payhi}}] (58, yards per route) |\n| OL | 58 | {{g_OL_rel}} | {{g_OL_trraw}} | {{g_OL_tradj}} | {{g_OL_pay}} [{{g_OL_paylo}}, {{g_OL_payhi}}] (64, fewer pressures allowed) |\n| DB | 58 | {{g_DB_rel}} | {{g_DB_trraw}} | {{g_DB_tradj}} | {{g_DB_pay}} [{{g_DB_paylo}}, {{g_DB_payhi}}] (65, solo tackles per 100 snaps) |\n| TE | 20 | {{g_TE_rel}} | {{g_TE_trraw}} | {{g_TE_tradj}} | {{g_TE_pay}} [{{g_TE_paylo}}, {{g_TE_payhi}}] (24, snaps per season) |",
+  "ledger": "| Measure, one sd faster (DL) | n | Pts beyond pick, weight, role | Pts beyond that + 40 + NGS get-off | Held-out \u0394R\u00b2 |\n|---|---|---|---|---|\n| Tracked 40 start (Combine clip) | 52 | {{ht_c40_pp}} [{{ht_c40_lo}}, {{ht_c40_hi}}] | {{x_c40_full_pp}} [{{x_c40_full_lo}}, {{x_c40_full_hi}}] | {{dc40_r2}} [{{dc40_lo}}, {{dc40_hi}}] |\n| Carry-over (NFL start minus 40 start) | 52 | {{ht_carry_pp}} [{{ht_carry_lo}}, {{ht_carry_hi}}] | {{x_carry_full_pp}} [{{x_carry_full_lo}}, {{x_carry_full_hi}}] | {{dcarry_r2}} [{{dcarry_lo}}, {{dcarry_hi}}] |\n| Official 40 time (stopwatch) | 54 | {{x_f40_pick_pp}} [{{x_f40_pick_lo}}, {{x_f40_pick_hi}}] | in baseline | {{d40_r2}} [{{d40_lo}}, {{d40_hi}}] |\n| **NFL first step (game tracking)** | 69 | **{{ht_nfl_pp}} [{{ht_nfl_lo}}, {{ht_nfl_hi}}]** | **{{x_nfl_full_pp}} [{{x_nfl_full_lo}}, {{x_nfl_full_hi}}]** | {{dnfl_r2}} [{{dnfl_lo}}, {{dnfl_hi}}] |\n| Both flag (rule, 0/1) | 69 | Table 2 | Table 2 | {{dboth_r2}} [{{dboth_lo}}, {{dboth_hi}}] |",
+  "card": "| Rusher (class, pick, team, role) | 40 time | 40 start | NFL first step | Pressure vs forecast | Call: action |\n|---|---|---|---|---|---|\n| Byron Young (2023, 77, LAR, EDGE) | {{b_young_t}} | {{b_young_c}} | {{b_young_s}} | {{b_young_rate}}% vs {{b_young_fc}}% | **Both:** Extension-grade: wide on every passing down |\n| Cedric Johnson (2024, 214, CIN, EDGE) | {{b_johnson_t}} | {{b_johnson_c}} | {{b_johnson_s}} | {{b_johnson_rate}}% vs {{b_johnson_fc}}% | **Both:** Day-3 hit: third-down reps before paying a veteran |\n| Jordan Burch (2025*, 78, ARI, EDGE) | {{b_burch_t}} | \u2013 | {{b_burch_s}} | {{b_burch_rate}}% vs {{b_burch_fc}}% | **Both:** Miss so far: keep passing-down snaps, re-score at midseason |\n| Maason Smith (2024, 48, JAX, interior) | {{b_smith_t}} | {{b_smith_c}} | {{b_smith_s}} | {{b_smith_rate}}% vs {{b_smith_fc}}% | **Start only:** Rule and tape disagree: grade hands and a counter first |\n| Laiatu Latu (2024, 15, IND, EDGE) | {{b_latu_t}} | {{b_latu_c}} | {{b_latu_s}} | {{b_latu_rate}}% vs {{b_latu_fc}}% | **Speed only:** Meets forecast: keep him wide; do not project a jump |\n| Eric Watts (2024, UDFA, NYJ, EDGE) | {{b_watts_t}} | {{b_watts_c}} | {{b_watts_s}} | {{b_watts_rate}}% vs {{b_watts_fc}}% | **Speed only:** Ignore the stopwatch: early-down edge-setter until the start shows |",
+  "robust": "| Check | Shortlist beat forecast [90%] | Everyone else [90%] | Gap, pts [90%] |\n|---|---|---|---|\n| Main: pick, weight, role forecast | 8 of 10 [{{rb_main_js_lo}}\u2013{{rb_main_js_hi}}%] | 16 of 59 [{{rb_main_jo_lo}}\u2013{{rb_main_jo_hi}}%] | {{rb_main_gap}} [{{rb_main_lo}}, {{rb_main_hi}}] |\n| Forecast adds official 40 time, NGS get-off | 6 of 10 [{{rb_full_js_lo}}\u2013{{rb_full_js_hi}}%] | 15 of 59 [{{rb_full_jo_lo}}\u2013{{rb_full_jo_hi}}%] | {{rb_full_gap}} [{{rb_full_lo}}, {{rb_full_hi}}] |\n| Sampled snaps removed from the outcome | 7 of 10 [{{rb_x_js_lo}}\u2013{{rb_x_js_hi}}%] | 16 of 59 [{{rb_x_jo_lo}}\u2013{{rb_x_jo_hi}}%] | {{rb_x_gap}} [{{rb_x_lo}}, {{rb_x_hi}}] |\n| Day 3 and UDFA only (pick 103+) | 2 of 3 [{{rb_d3_js_lo}}\u2013{{rb_d3_js_hi}}%] | 9 of 33 [{{rb_d3_jo_lo}}\u2013{{rb_d3_jo_hi}}%] | {{rb_d3_gap}} [{{rb_d3_lo}}, {{rb_d3_hi}}] |\n| Frozen after 2024, scored on 2025 vs own past pressure | 6 of 7 [{{rb_tf_js_lo}}\u2013{{rb_tf_js_hi}}%] | 6 of 16 [{{rb_tf_jo_lo}}\u2013{{rb_tf_jo_hi}}%] | {{rb_tf_gap}} [{{rb_tf_lo}}, {{rb_tf_hi}}] |",
+  "list26": "| Rusher (class, pick, team) | Role | Availability (games missed) | 40 / first step pct | Pressure vs forecast (rushes) | 2024 call scored on 2025 |\n|---|---|---|---|---|---|\n| **Byron Young** (2023, 77, LAR) | hand-down end | ok (0/51) | 89 / 96 | {{l26_byronyoung_rate}}% vs {{l26_byronyoung_fc}}% (1501) | **hit** ({{rec_byronyoung_a}}% vs {{rec_byronyoung_b}}%) |\n| **YaYa Diaby** (2023, 82, TB) | hand-down end | ok (0/51) | 93 / 94 | {{l26_yayadiaby_rate}}% vs {{l26_yayadiaby_fc}}% (1420) | **hit** ({{rec_yayadiaby_a}}% vs {{rec_yayadiaby_b}}%) |\n| **Chop Robinson** (2024, 21, MIA) | hand-down end | ok (2/34) | 98 / 97 | {{l26_choprobinson_rate}}% vs {{l26_choprobinson_fc}}% (726) | **miss** ({{rec_choprobinson_a}}% vs {{rec_choprobinson_b}}%) |\n| Cedric Johnson (2024, 214, CIN) | hand-down end | flag (18/34) | 70 / 91 | {{l26_cedricjohnson_rate}}% vs {{l26_cedricjohnson_fc}}% (216) | **hit** ({{rec_cedricjohnson_a}}% vs {{rec_cedricjohnson_b}}%) |\n| Adetomiwa Adebawore (2023, 110, IND) | interior | flag (14/51) | 100 / 77 | {{l26_adetomiwaadeba_rate}}% vs {{l26_adetomiwaadeba_fc}}% (511) | untested (<100 rushes) |\n| Byron Murphy (2024, 16, SEA) | interior | ok (3/34) | 81 / 86 | {{l26_byronmurphy_rate}}% vs {{l26_byronmurphy_fc}}% (682) | **hit** ({{rec_byronmurphy_a}}% vs {{rec_byronmurphy_b}}%) |\n| T'Vondre Sweat (2024, 38, TEN) | interior | ok (5/34) | 74 / 87 | {{l26_tvondresweat_rate}}% vs {{l26_tvondresweat_fc}}% (496) | **hit** ({{rec_tvondresweat_a}}% vs {{rec_tvondresweat_b}}%) |\n| Ruke Orhorhoro (2024, 35, ATL) | interior | flag (9/34) | 69 / 99 | {{l26_rukeorhorhoro_rate}}% vs {{l26_rukeorhorhoro_fc}}% (498) | untested (<100 rushes) |\n| Yasir Abdullah (2023, 136, JAX) | hand-down end | flag (33/51) | 54 / 72 | {{l26_yasirabdullah_rate}}% vs {{l26_yasirabdullah_fc}}% (149) | untested (<100 rushes) |\n| Jordan Burch (2025, 78, ARI) | hand-down end | ok (0/17) | 85 / 88 | {{l26_jordanburch_rate}}% vs {{l26_jordanburch_fc}}% (344) | 2025 class |\n| Ty Robinson (2025, 111, PHI) | interior | flag (8/17) | 69 / 90 | {{l26_tyrobinson_rate}}% vs {{l26_tyrobinson_fc}}% (55) | 2025 class |"
+ },
+ "loco_window": [
+  {
+   "yr": 2023,
+   "best": 0.5,
+   "kt": 4,
+   "nt": 5,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2024,
+   "best": 0.3,
+   "kt": 7,
+   "nt": 9,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2025,
+   "best": 1.3,
+   "kt": 2,
+   "nt": 6,
+   "kb": 1,
+   "nb": 9
+  }
+ ],
+ "per_class": [
+  {
+   "yr": 2023,
+   "kt": 5,
+   "nt": 7,
+   "kb": 1,
+   "nb": 8,
+   "fisher": 0.03496503496503497,
+   "midp": 0.018181818181818184
+  },
+  {
+   "yr": 2024,
+   "kt": 7,
+   "nt": 9,
+   "kb": 1,
+   "nb": 6,
+   "fisher": 0.034965034965034975,
+   "midp": 0.01818181818181818
+  },
+  {
+   "yr": 2025,
+   "kt": 2,
+   "nt": 7,
+   "kb": 1,
+   "nb": 9,
+   "fisher": 0.4,
+   "midp": 0.23125
+  }
+ ],
+ "exposure_ooc": [
+  {
+   "yr": 2023,
+   "dll": 0.21355328683978314,
+   "coef": 0.08170644274144469,
+   "n": 25
+  },
+  {
+   "yr": 2024,
+   "dll": 0.14019923019219505,
+   "coef": 0.10029780239044911,
+   "n": 23
+  },
+  {
+   "yr": 2025,
+   "dll": 0.18288366546062207,
+   "coef": 0.07523294507676223,
+   "n": 21
+  }
+ ],
+ "grid": [
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 14.634,
+   "p": 0.118
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 15.741,
+   "p": 0.17
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 14.286,
+   "p": 0.26
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 34.146,
+   "p": 0.001
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 37.566,
+   "p": 0.003
+  },
+  {
+   "min_rush": 50,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 38.095,
+   "p": 0.012
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 82,
+   "nt": 41,
+   "diff": 26.829,
+   "p": 0.009
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 82,
+   "nt": 27,
+   "diff": 30.423,
+   "p": 0.019
+  },
+  {
+   "min_rush": 50,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 82,
+   "nt": 21,
+   "diff": 23.81,
+   "p": 0.104
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 17.143,
+   "p": 0.099
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 21.739,
+   "p": 0.111
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 16.667,
+   "p": 0.244
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 40.0,
+   "p": 0.0
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 47.826,
+   "p": 0.001
+  },
+  {
+   "min_rush": 100,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 55.556,
+   "p": 0.001
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 69,
+   "nt": 35,
+   "diff": 31.429,
+   "p": 0.006
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 69,
+   "nt": 23,
+   "diff": 39.13,
+   "p": 0.008
+  },
+  {
+   "min_rush": 100,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 69,
+   "nt": 18,
+   "diff": 44.444,
+   "p": 0.009
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 24.138,
+   "p": 0.05
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 31.579,
+   "p": 0.05
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick only",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 20.0,
+   "p": 0.225
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 37.931,
+   "p": 0.003
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 47.368,
+   "p": 0.003
+  },
+  {
+   "min_rush": 150,
+   "spec": "pick, weight, role",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 46.667,
+   "p": 0.01
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "halves",
+   "n": 57,
+   "nt": 29,
+   "diff": 24.138,
+   "p": 0.053
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "thirds",
+   "n": 57,
+   "nt": 19,
+   "diff": 42.105,
+   "p": 0.011
+  },
+  {
+   "min_rush": 150,
+   "spec": "+ rotation",
+   "cut": "quartiles",
+   "n": 57,
+   "nt": 15,
+   "diff": 40.0,
+   "p": 0.033
+  }
+ ],
+ "false_positive": "Maason Smith",
+ "groups": [
+  {
+   "grp": "DL",
+   "n_tr": 67,
+   "tr_raw": 0.155,
+   "tr_adj": 0.022,
+   "tr_lo": -0.195,
+   "tr_hi": 0.233,
+   "rel": 0.641,
+   "n_pay": 69,
+   "pay": 0.22,
+   "pay_lo": 0.013,
+   "pay_hi": 0.419,
+   "lab": "Pressure rate"
+  },
+  {
+   "grp": "WR",
+   "n_tr": 61,
+   "tr_raw": -0.132,
+   "tr_adj": -0.135,
+   "tr_lo": -0.335,
+   "tr_hi": 0.074,
+   "rel": 0.717,
+   "n_pay": 58,
+   "pay": -0.051,
+   "pay_lo": -0.247,
+   "pay_hi": 0.158,
+   "lab": "Yards per route"
+  },
+  {
+   "grp": "OL",
+   "n_tr": 58,
+   "tr_raw": -0.16,
+   "tr_adj": -0.311,
+   "tr_lo": -0.505,
+   "tr_hi": -0.111,
+   "rel": 0.136,
+   "n_pay": 64,
+   "pay": -0.023,
+   "pay_lo": -0.248,
+   "pay_hi": 0.195,
+   "lab": "Fewer pressures allowed"
+  },
+  {
+   "grp": "DB",
+   "n_tr": 58,
+   "tr_raw": -0.061,
+   "tr_adj": -0.1,
+   "tr_lo": -0.297,
+   "tr_hi": 0.125,
+   "rel": 0.204,
+   "n_pay": 65,
+   "pay": 0.136,
+   "pay_lo": -0.076,
+   "pay_hi": 0.332,
+   "lab": "Solo tackles per 100 snaps"
+  },
+  {
+   "grp": "TE",
+   "n_tr": 20,
+   "tr_raw": 0.123,
+   "tr_adj": 0.052,
+   "tr_lo": -0.318,
+   "tr_hi": 0.442,
+   "rel": 0.189,
+   "n_pay": 24,
+   "pay": -0.183,
+   "pay_lo": -0.581,
+   "pay_hi": 0.144,
+   "lab": "Snaps per season"
+  }
+ ],
+ "held_out": {
+  "c40": {
+   "b": [
+    -0.00388283780639728,
+    0.08664006969972927,
+    0.1254518771806361
+   ],
+   "se": [
+    0.04021174681817762,
+    0.06758169003341775,
+    0.10777942979365548
+   ],
+   "mu": 0.03356571262190492,
+   "s": 0.03604903594032953,
+   "p": 0.48375812093953025
+  },
+  "carry": {
+   "b": [
+    0.0548041065008477,
+    -0.023131441068121004,
+    0.03055120249597418
+   ],
+   "se": [
+    0.03594664242423601,
+    0.045581937157035415,
+    0.08058550083822312
+   ],
+   "mu": 0.02553545054589369,
+   "s": 0.02663889626471429,
+   "p": 0.48375812093953025
+  },
+  "nfl": {
+   "b": [
+    0.18839919257266424,
+    0.030951897374943086,
+    0.05140564441368733
+   ],
+   "se": [
+    0.04988805761246541,
+    0.06330162265846395,
+    0.07882225521417609
+   ],
+   "mu": 0.09930847874652105,
+   "s": 0.05504643971592003,
+   "p": 0.012993503248375811
+  }
+ },
+ "loo_min_name": "Byron Young",
+ "loo_max_name": "Maason Smith",
+ "rule_hash": "3726d741954d",
+ "card_names": [
+  "Byron Young",
+  "Cedric Johnson",
+  "Jordan Burch",
+  "Maason Smith",
+  "Laiatu Latu",
+  "Eric Watts"
+ ],
+ "shortlist": [
+  {
+   "display_name": "Byron Murphy",
+   "draft_year": 2024,
+   "pick": 16.0,
+   "role": "interior"
+  },
+  {
+   "display_name": "Chop Robinson",
+   "draft_year": 2024,
+   "pick": 21.0,
+   "role": "EDGE"
+  },
+  {
+   "display_name": "Ruke Orhorhoro",
+   "draft_year": 2024,
+   "pick": 35.0,
+   "role": "interior"
+  },
+  {
+   "display_name": "T'Vondre Sweat",
+   "draft_year": 2024,
+   "pick": 38.0,
+   "role": "interior"
+  },
+  {
+   "display_name": "Byron Young",
+   "draft_year": 2023,
+   "pick": 77.0,
+   "role": "EDGE"
+  },
+  {
+   "display_name": "Jordan Burch",
+   "draft_year": 2025,
+   "pick": 78.0,
+   "role": "EDGE"
+  },
+  {
+   "display_name": "YaYa Diaby",
+   "draft_year": 2023,
+   "pick": 82.0,
+   "role": "EDGE"
+  },
+  {
+   "display_name": "Adetomiwa Adebawore",
+   "draft_year": 2023,
+   "pick": 110.0,
+   "role": "interior"
+  },
+  {
+   "display_name": "Yasir Abdullah",
+   "draft_year": 2023,
+   "pick": 136.0,
+   "role": "EDGE"
+  },
+  {
+   "display_name": "Cedric Johnson",
+   "draft_year": 2024,
+   "pick": 214.0,
+   "role": "EDGE"
+  }
+ ],
+ "robust": [
+  {
+   "tag": "rb_main",
+   "lab": "Main: pick, weight, role forecast",
+   "ks": 8,
+   "ns": 10,
+   "ko": 16,
+   "no": 59,
+   "gap": 52.8813559322034,
+   "lo": 27.59050671550672,
+   "hi": 74.57627118644068,
+   "p": 0.008995502248875561,
+   "base": 0.34782608695652173
+  },
+  {
+   "tag": "rb_full",
+   "lab": "Forecast adds official 40 time, NGS get-off",
+   "ks": 6,
+   "ns": 10,
+   "ko": 15,
+   "no": 59,
+   "gap": 34.57627118644068,
+   "lo": 7.982043623228677,
+   "hi": 61.555811571940566,
+   "p": 0.07396301849075462,
+   "base": 0.30434782608695654
+  },
+  {
+   "tag": "rb_x",
+   "lab": "Sampled snaps removed from the outcome",
+   "ks": 7,
+   "ns": 10,
+   "ko": 16,
+   "no": 59,
+   "gap": 42.881355932203384,
+   "lo": 14.388195063931015,
+   "hi": 71.3595641646489,
+   "p": 0.033483258370814596,
+   "base": 0.3333333333333333
+  },
+  {
+   "tag": "rb_d3",
+   "lab": "Day 3 and UDFA only (pick 103+)",
+   "ks": 2,
+   "ns": 3,
+   "ko": 9,
+   "no": 33,
+   "gap": 39.39393939393939,
+   "lo": -25.71428571428571,
+   "hi": 81.81818181818181,
+   "p": 0.21989005497251374,
+   "base": 0.3055555555555556
+  },
+  {
+   "tag": "rb_tf",
+   "lab": "Frozen after 2024, scored on 2025 vs own past pressure",
+   "ks": 6,
+   "ns": 7,
+   "ko": 6,
+   "no": 16,
+   "gap": 48.21428571428571,
+   "lo": 14.705882352941174,
+   "hi": 75.0,
+   "p": 0.04097951024487756,
+   "base": 0.5217391304347826
+  }
+ ]
+}

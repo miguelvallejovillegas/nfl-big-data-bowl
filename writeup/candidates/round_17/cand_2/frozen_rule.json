@@ -1,0 +1,38 @@
+{
+ "rule": {
+  "metric": "Break G: mean |accel| (g) over 1.0 s centred on sharpest point of first >=30 deg turn after 1.5 yd, entry > 2.5 yd/s; z within drill x year; mean over route drills; reliability-shrunk",
+  "drills": [
+   "COMEBACK_ROUTE_RIGHT",
+   "CORNER_ROUTE",
+   "CURL_ROUTE_RIGHT",
+   "DAGGER_ROUTE_LEFT",
+   "HOOK_ROUTE_RIGHT",
+   "IN_ROUTE_LEFT",
+   "SLANT_ROUTE_LEFT",
+   "SLOT_SAIL_ROUTE_RIGHT",
+   "SLOT_STRIKE_ROUTE_LEFT",
+   "SPEED_OUT_ROUTE_LEFT"
+  ],
+  "nfl_families": [
+   "SLANT",
+   "OUT",
+   "HITCH",
+   "IN",
+   "CORNER"
+  ],
+  "smoothing": "savgol w7 o2",
+  "outcome": "route-weighted season SOE (NGS avg separation adjusted for slot, inline, TE, cushion, season)",
+  "forecast": [
+   "logpick",
+   "forty_f",
+   "combine_weight_f",
+   "ngs_athleticism_score_f",
+   "te"
+  ],
+  "test": "held-out offset slope, class intercepts, routes weights, within-class shuffle null",
+  "margin_in": 3.0,
+  "score_class": 2026,
+  "score_after": "2026 regular season"
+ },
+ "sha256": "00666c1d61bc0a8cf71c87acd68ef436504ee18e9194a99228f0532a574427e1"
+}
