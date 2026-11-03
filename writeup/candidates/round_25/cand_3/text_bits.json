@@ -1,0 +1,44 @@
+{
+ "t2": [
+  {
+   "name": "Will Anderson",
+   "team": "HOU",
+   "cls": 2023,
+   "pick": "#3"
+  },
+  {
+   "name": "Tyleik Williams",
+   "team": "DET",
+   "cls": 2025,
+   "pick": "#28"
+  },
+  {
+   "name": "Justin Eboigbe",
+   "team": "LAC",
+   "cls": 2024,
+   "pick": "#105"
+  },
+  {
+   "name": "Eric Watts",
+   "team": "MIA",
+   "cls": 2024,
+   "pick": "UDFA"
+  },
+  {
+   "name": "Ashton Gillotte",
+   "team": "KC",
+   "cls": 2025,
+   "pick": "#66"
+  },
+  {
+   "name": "Jalyx Hunt",
+   "team": "PHI",
+   "cls": 2024,
+   "pick": "#94"
+  }
+ ],
+ "pair": [
+  "Byron Young",
+  "Jalyx Hunt"
+ ]
+}

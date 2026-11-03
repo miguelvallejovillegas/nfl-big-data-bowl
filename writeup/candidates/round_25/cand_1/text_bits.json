@@ -1,0 +1,79 @@
+{
+ "go": "Cedric Johnson (CIN), Javon Solomon (BUF), Warren Brinson (GB), Jack Sawyer (PIT) and Austin Booker (CHI)",
+ "nogo": "Tyrion Ingram-Dawkins (MIN), Jaylen Harrell (TEN) and Eric Watts (MIA)",
+ "hold": "Zeek Biggers (MIA), Nazir Stackhouse (TEN) and Kyle Kennard (LAC)",
+ "aud": "Mohamed Kamara (2024, 158, TB), Gabe Hall (2024, UDFA, PHI), Nelson Ceaser (2024, UDFA, FA), Tim Smith (2025, 190, IND), Antwaun Powell-Ryland (2025, 209, CIN), Jah Joyner (2025, UDFA, FA), Ethan Downs (2025, UDFA, KC)",
+ "go_names": [
+  "Cedric Johnson",
+  "Javon Solomon",
+  "Warren Brinson",
+  "Jack Sawyer",
+  "Austin Booker"
+ ],
+ "go_teams": [
+  "CIN",
+  "BUF",
+  "GB",
+  "PIT",
+  "CHI"
+ ],
+ "go_roles": [
+  "EDGE",
+  "EDGE",
+  "interior",
+  "EDGE",
+  "EDGE"
+ ],
+ "hash": "ad1cc734cdd4",
+ "h0": "Javon Solomon",
+ "h0_team": "BUF",
+ "h1": "Jaylen Harrell",
+ "h1_team": "TEN",
+ "h2": "Zeek Biggers",
+ "h2_team": "MIA",
+ "four_rows": "",
+ "four_names": [
+  "Javon Solomon",
+  "Cedric Johnson",
+  "Jaylen Harrell",
+  "Eric Watts"
+ ],
+ "plog_hit": "Javon Solomon",
+ "plog_miss": "Jaylen Harrell",
+ "clips": "Javon Solomon: 2024 wk 18 Q4 12:22 v NE (pressure); 2024 wk 5 Q2 00:12 v HOU (incompletion). Cedric Johnson: 2025 wk 9 Q2 02:26 v CHI (pressure); 2024 wk 16 Q3 01:35 v CLE (scramble). Jaylen Harrell: 2024 wk 12 Q4 11:24 v HOU (pressure); 2024 wk 12 Q2 02:00 v HOU (completion). Eric Watts: 2024 wk 5 Q2 08:46 v MIN (incompletion); 2024 wk 18 Q1 09:23 v MIA (incompletion)",
+ "v0_verdict": "supports the flag",
+ "v0_name": "Javon Solomon",
+ "v1_verdict": "beat it, but not by bending",
+ "v1_name": "Cedric Johnson",
+ "v2_verdict": "bends, no finish",
+ "v2_name": "Jaylen Harrell",
+ "v3_verdict": "against the flag",
+ "v3_name": "Eric Watts",
+ "verdict_rows": "| Javon Solomon (BUF), 2024 #168 | 1 of 35 | +16.4 [+3.8, +29.1] | 6 of 16 | 3 of 4 | 0.89 s | **supports the flag** |\n| Cedric Johnson (CIN), 2024 #214 | 4 of 35 | +18.6 [+5.8, +31.4] | 7 of 19 | 2 of 5 | 0.85 s | **beat it, but not by bending** |\n| Jaylen Harrell (TEN), 2024 #252 | 12 of 35 | \u22128.1 [\u221215.0, \u22121.3] | 9 of 16 | 1 of 4 | 0.85 s | **bends, no finish** |\n| Eric Watts (MIA), 2024 UDFA | 10 of 35 | \u22128.7 [\u221217.5, +0.1] | 4 of 17 | 0 of 2 | 0.97 s | **against the flag** |",
+ "bh_tests": [
+  "family: hoop_z",
+  "chain: burst->NFL burst",
+  "trait->pressure: get-off",
+  "trait->pressure: burst",
+  "trait->pressure: bend",
+  "burst equivalence",
+  "hoop slope: pick residual",
+  "hoop slope: pick + role residual",
+  "hoop slope: nested residual",
+  "hoop slope: interior only",
+  "film: corner-turn rate by Hoop G third",
+  "film: pressure on corner-turn rushes"
+ ],
+ "holm_tests": [
+  "trait->pressure: get-off",
+  "trait->pressure: bend"
+ ],
+ "nest_choice": {
+  "2023": "Pick only",
+  "2024": "Pick + role",
+  "2025": "Full no-tracking"
+ },
+ "nest_list": "pick only for 2023, pick + role for 2024, full no-tracking for 2025",
+ "lopo25_name": "Jordan Phillips",
+ "extra78": "Chop Robinson"
+}

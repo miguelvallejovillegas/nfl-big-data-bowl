@@ -1,112 +1,138 @@
 {
- "round": 24,
+ "round": 25,
  "candidates": [
   {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/revised/",
-   "angle": "DL Run-the-Hoop bend (Hoop G) day-3 edge film flag (revised)",
-   "score": 8.54,
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_25/cand_1/",
+   "angle": "DL Hoop G: Combine hoop-lap lean vs NFL pass-rush pressure, day-3 film flag",
+   "score": 8.51,
    "per_judge": {
     "judge-football": 8.5,
-    "judge-datascience": 8.7,
-    "judge-writeup": 8.3,
-    "judge-viz": 8.6
+    "judge-datascience": 8.6,
+    "judge-writeup": 8.4,
+    "judge-viz": 8.5
    },
    "fatal_flaws": []
   },
   {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_1/",
-   "angle": "DL Hoop G day-3 edge film flag",
-   "score": 8.4,
-   "per_judge": {
-    "judge-football": 8.5,
-    "judge-datascience": 8.5,
-    "judge-writeup": 8.3,
-    "judge-viz": 8.2
-   },
-   "fatal_flaws": [
-    "Fig 2 legend clipped",
-    "Harrell colour inconsistent between Fig 1 and Fig 3"
-   ]
-  },
-  {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_3/",
-   "angle": "DL Launch Carry: Combine vs NFL acceleration envelope (alignment artifact null)",
-   "score": 7.83,
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_25/cand_2/",
+   "angle": "WR Break G: Combine route-drill cut grade vs NFL separation (bounded null)",
+   "score": 7.86,
    "per_judge": {
     "judge-football": 7.6,
-    "judge-datascience": 8.3,
-    "judge-writeup": 7.4,
-    "judge-viz": 7.9
-   },
-   "fatal_flaws": [
-    "Hero figure illustrates a null metric",
-    "Fig 3B intervals unreadable, duplicate forest plots"
-   ]
-  },
-  {
-   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_2/",
-   "angle": "WR Break G: Combine route cut vs NFL separation (bounded null)",
-   "score": 7.78,
-   "per_judge": {
-    "judge-football": 7.6,
-    "judge-datascience": 8.2,
+    "judge-datascience": 8.0,
     "judge-writeup": 7.6,
-    "judge-viz": 7.6
+    "judge-viz": 8.3
    },
    "fatal_flaws": [
-    "No x-y route paths in figures",
-    "Three of five figures are null forest plots",
-    "Figure filenames mismatch caption numbering"
+    "Headline result is a null and the only action is negative; no positive testable prescription.",
+    "No coverage (man/zone) or alignment adjustment in separation outcome beyond NGS expected separation; injuries not addressed.",
+    "Fig 1 title cropped on both sides.",
+    "Fig 3 overlapping legend/labels with redundant panel B.",
+    "Fig 4 has 5 hand-picked players and no uncertainty."
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_25/cand_3/",
+   "angle": "DL Envelope Match: drill-to-game movement translation (weight dominates, bounded null)",
+   "score": 7.35,
+   "per_judge": {
+    "judge-football": 6.6,
+    "judge-datascience": 7.9,
+    "judge-writeup": 7.6,
+    "judge-viz": 7.4
+   },
+   "fatal_flaws": [
+    "Bounded null with no actionable ranked output.",
+    "Weight confound not separated from edge vs interior alignment.",
+    "Injuries and 40 clip offset not addressed; weight-held reliability ceiling (0.27) leaves null underpowered.",
+    "No figure shows raw tracking paths or a drill-vs-game trace.",
+    "Fig 1B, 3A, 4A repeat one null message.",
+    "Label and box overlaps in Figs 1, 2, 4.",
+    "Fig 2B has no per-player lines and no uncertainty."
    ]
   }
  ],
  "winner": {
-  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/revised/",
-  "score": 8.54
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_25/cand_1/",
+  "score": 8.51
  },
  "winner_feedback": {
   "judge-football": {
    "score": 8.5,
+   "subscores": {
+    "usable": 8.3,
+    "football_difficulty": 8.9,
+    "unique": 8.6,
+    "terminology_plausibility": 8.3
+   },
+   "justification": "Usable (8.3): The Monday action is concrete: flag day-3 and undrafted linemen in the top third of Hoop G, about 8 names in 2026, and watch their tape first. There is a named-player verdict table (Solomon, Johnson, Harrell, Watts) and a frozen 2026 rule. The writeup admits the flag ties pick order at 9 of 15, so it earns a film queue and nothing more. The football value is the 7 names pick order would skip, and only 4 of those hit.\n\nFootball difficulty (8.9): It handles draft slot and role as the baseline, year-standardizes within Combine class, and tests leave-one-class-out. It covers edge versus interior, single-lap repeatability of 0.43, 17 sampled rushes per man, a best-of-6 selection correction, clustering by club, a flat 2025, and the mismatch between hoop radius and the NFL rush arc (2.7 times). Injuries and missed time are only touched through rate normalization. Scheme and blocker effects are acknowledged as unmeasured.\n\nUnique idea (8.6): It treats the Combine drill as a bend proxy and translates it to in-game rush kinematics. Few submissions do that, and this one is more original than a regression of production on Combine numbers. Its weakness is that the drill-to-game link is not found (0.14), so the mechanism is unexplained.\n\nTerminology and plausibility (8.3): Bend, get-off, corner turn, day-3 and film order are all used correctly, and the players are named. \"Hoop G\", \"corner turn\" from a play log, and \"pressures per 450 rushes\" are slightly invented jargon. Because the drill is only weakly connected to the NFL bend, some claims remain hard to believe. The writeup is well hedged against overclaiming.",
    "top_changes": [
-    "Make film check real: verdict table for Solomon, Johnson, Harrell, Watts with play-log evidence; cut conditional 'tape confirms if' bullets.",
-    "Reconcile headline with 9/15 vs 9/15 day-3 tie against pick order; state flag is a film-order tie-breaker or show unique names added; give expected 2026 flagged count.",
-    "Cut statistical load from body; move controls, mediation, 2025 R2 to appendix; add a ranked day-3 shortlist example."
-   ]
+    "Resolve the mechanism gap. Show a small multiples panel of actual hoop laps next to NFL rush arcs for the 4 table players, and test an alternative bend measure on NFL rushes (for example peak lateral g normalized by each man's own distribution) so the 0.14 link is either improved or clearly attributed to noise.",
+    "Give the film queue more value than pick order. Rank the 7 incremental names by name with their pick, Hoop G and what to look for on tape, and add a precomputed list of 2026 day-3 names (using Combine data only) so scouts can act now.",
+    "Cut statistical load in the body. Move the wave-lean, club-resampling and 2025 interaction bullets to the appendix. Control for scheme, alignment and snap load (stand-up edge versus hand-in-dirt, team pass-rush scheme) and use the space for a short football explanation of why a lean would produce pressure."
+   ],
+   "fatal_flaws": []
   },
   "judge-datascience": {
-   "score": 8.7,
+   "score": 8.6,
+   "subscores": {
+    "correctness": 8.6,
+    "evidence": 8.8,
+    "model": 8.5,
+    "innovation": 8.7
+   },
+   "justification": "Spot-checks: I re-ran the independent verify.py. It reproduced n=77, the slope +2.30 [0.75, 3.83], the per-class slopes 2.78/3.52/0.56 and the full-model slope 2.17 from data/processed. These match the headline +2.3 [0.7, 4.0], the class-by-class 2.9/3.3/0.6 and the independent-script row. I did not run analysis.py (about 9 minutes), so the R2 0.10->0.16 and the permutation p-values are checked only against numbers.json and summary.json. Those two files agree with the text (slope_pfw1 0.019, gain_pfw 0.047, club-bootstrap p 0.298, interaction p 0.33). Table 2's Solomon figure (+16.4 per season) matches board.csv (0.0365 x 450). Word count is 1,992, under the limit.\n\nStrengths: an explicit no-tracking baseline (pick + role, and a shrunk full model with weight, NGS, 10-yd split and 3-cone). Leave-one-class-out validation with CIs, and n stated per claim. Drill measures are standardized within Combine year. Single-lap reliability (0.43) is addressed and the multiplicity is reported (best-of-six p, 36-test family correction, placebo shuffles). The 2025 class is handled with the interaction test, a hierarchical model and a rookie-year split. A frozen 2026 rule with a power statement is included. Candour is high: the R2 gain fails the club bootstrap (p 0.30) and the day-3 flag ties pick order at 9/15.\n\nWeaknesses: the effect is modest and the forking paths are acknowledged. The R2 gain is fragile. The wave-drill separation is inconclusive, since wave lean's interval crosses zero and the two measures are not cleanly separated. The drill-to-play mediation is weak (0.14 and 8%). The Table 2 verdicts rest on play-log reads of 2-6 pressure snaps, which is anecdotal. n=77 is small, but the ridge-style, few-parameter models fit it. Innovation is strong: a hoop-lean kinematic metric (v^2/r at the hardest half-second), matching of NFL rush turns to the hoop radius, and bend detection from the 10 Hz signal.",
    "top_changes": [
-    "Joint model with wave-drill lean to separate hoop-specific from general lateral agility.",
-    "Cluster bootstrap by team on pick+role R2 gain, one-sided test; lead with best-of-six-adjusted p.",
-    "Hierarchical model with Hoop G x class interaction to explain flat 2025; precompute expected 2026 flag count and tie-rate."
-   ]
+    "Run a nested, pre-specified selection check, with the best-of-six choice repeated inside each training fold of the leave-one-class-out loop. Report the held-out R2 gain from that honest procedure rather than a post-hoc adjusted p, because the R2 gain (0.047 adjusted) fails the club bootstrap (0.30).",
+    "Add a direct drill-to-play test of the hoop mechanism. For each rusher, match his hoop turn to his NFL corner-turn rushes by tightness-matched radius, and fit a mixed model (player random effect) of pressure on corner-turn lean. Use the full sample of about 1,400 rushes instead of per-man summaries, which weakens the reliability-attenuated 0.14 link.",
+    "Replace the anecdotal Table 2 verdicts with a quantitative day-3 evaluation. Compute the pooled held-out hit rate and Brier or rank-correlation of Hoop G + pick versus pick alone on all 47 day-3 men, with bootstrap CIs (not the top-third 9/15 tie), and add the wave-lean joint model's R2 gain interval to show whether the hoop-specific claim survives."
+   ],
+   "fatal_flaws": []
   },
   "judge-writeup": {
-   "score": 8.3,
+   "score": 8.4,
+   "subscores": {
+    "clarity": 8.3,
+    "structure": 8.7,
+    "motivation": 8.3,
+    "density": 8.2
+   },
+   "justification": "check.py passes: 1,833 words, 5 figures, 3 tables, no problems. The lede gives the result in under 80 words, with both caveats and the action. Structure follows the finalist pattern: question, metric, test, results with named players and a chart, film queue, 2026 test, limitations, appendix. The honest tone and the play-log table are strengths. Weaknesses: the lede is dense with jargon (Hoop G, per 450 rushes per sd, one-sided p). The body still carries statistical load (club resampling, interaction p, 88% posterior) that belongs in the appendix. The 0.36 vs 0.14 paragraph is hard to follow. The headline says the flag \"draft order misses\", but the 9/15 vs 9/15 tie undercuts it. The title names the metric before the finding.",
    "top_changes": [
-    "Shrink Controls, 2025 and mediation paragraphs; move intervals to appendix table.",
-    "Add caveat to lede (1 of 6 measures, flat 2025); state each lede number once.",
-    "Rewrite Why now with football reason; replace jargon with scout language; reconcile 0.36 vs 0.14."
-   ]
+    "Rewrite the title and lede in scout language. Replace 'Linemen who lean hardest ... +2.3 pressures per 450 rushes per sd [95%: 0.7, 4.0]' with one plain sentence ('Day-3 linemen who turn the tightest Combine corner hardest out-rush their draft slot by about 2 pressures a year'). Move the CI, n and one-sided p to Table 1 and state each once. The title should say 'a film flag, not a board input'.",
+    "Cut the four bullets under Table 1 (wave drill, club resampling, why 2025 is flat, controls) to one or two sentences. Move the interaction p, 88% posterior, 70% resample share and rookie-year detail to Table A1. Keep only 'holds with wave lean, flat in 2025'.",
+    "Rewrite 'Drill to Sunday' without the 0.36/0.14/0.05 chain. Say: 'NFL bend tracks pressure, but the hoop does not predict NFL bend, so we cannot say why the signal exists'. Put the arithmetic in the appendix. Also drop or soften 'a draft order misses' in the title, since the day-3 hit rate ties pick order at 9/15."
+   ],
+   "fatal_flaws": []
   },
   "judge-viz": {
-   "score": 8.6,
+   "score": 8.5,
+   "subscores": {
+    "accessible": 8.3,
+    "accurate": 8.7,
+    "innovative": 8.7,
+    "economy": 8.5
+   },
+   "justification": "Per-figure review: fig1_hero.png (keep): strong tracking-native hero with overlaid Combine hoop laps and small multiples of 16 sampled NFL rushes per player; problems: subtitle collides with the '2: 0.66 g' label, large empty band between panels, muddy two-part message (Solomon vs Harrell vs Sunday rushes look alike), identical 1-of-16 pressure counts, hoop colors reuse beat/par/miss palette. fig2_tests.png (keep): clean forest plot, 95% intervals, n per row, takeaway title; shaded-band label overprinted by zero line, 13 rows dense, color meaning unexplained, OL row in different unit. fig3_film_list.png (keep): player-card film queue with sparklines and 2026 preview; sparklines small, 90% intervals vs 95% in Fig 2, wide intervals same weight as points, cramped preview strip, awkward right axis crop, tall at 1600x2190. figA1_screen.png (keep): best-of-six chance line, 90% intervals. figA2_placebo.png (keep=false): standard permutation histogram, overlaps A1/Fig 2, merge or cut.",
    "top_changes": [
-    "Fig1: takeaway title, overlaid hoop laps, small multiples of NFL rushes, pressure counts in figure.",
-    "Fig2: widen canvas, move labels off bars, same interval level in A and B, add control n; consider demoting B.",
-    "Fig3: larger sparklines or drop, caption takeaway, beat/par/miss count and 2026 preview strip."
+    "Fix Fig 1. Remove the label collision, close the dead space, and pick one message. The panel should show Solomon vs Harrell on the same hoop-lean scale, with a numeric strip under each player showing hoop g, NFL g and the pressures. Make the bottom row a bigger, 2-row multiple (hoop lap vs NFL rushes for the same player) so the viewer sees whether the Sunday traces match the drill. Make the title state what the figure shows, which is that the hoop ranks the men but the Sunday traces look alike.",
+    "Rework Fig 3 for legibility and consistency. Use 95% intervals, or show 90% everywhere. Enlarge the sparklines and drop the 'sampled rushes' column or give it width. Add a beat/par/miss tally bar at the top. Make the 2026 preview a labeled mini-panel: 'simulated top-5 of a 16-man class, n sims, flag list better / tie / pick better'. Shrink the canvas height so it stays readable at column width.",
+    "Slim Fig 2 to the 8 rows that carry the argument (test, wave-drill control, club resample, 2025 split, one pooled control), move the other controls to A1, and add a legend for the color meanings. Keep the intervals at one level. Merge A2 into A1 as a panel to reduce the figure count. Optionally add a drill-vs-game scatter of Hoop G against pressures vs forecast, with the 77 players dotted, flagged names labeled and a fit band."
+   ],
+   "fatal_flaws": [
+    "No fatal flaw. Moderate issues: Fig 1 has overlapping text and a muddled takeaway. Interval levels are inconsistent (90% in Fig 3 and A1, 95% in Fig 2). Fig 3 is a tall, dense graphic that will shrink at column width."
    ]
   }
  },
  "changelog": [
-  "Revised cand_1 (DL Hoop G) with pick+role comparator, leave-one-class-out validation and placebo.",
-  "Added OL and wave-drill negative controls, multiplicity count, mediation split, independent verify.py.",
-  "Documented EPA trace (1681 rows/1655 plays) and 2025 flat-class result openly.",
-  "Frozen sha256 2026 test rule and day-3 film-order Monday action with Table 2 named players.",
-  "Figures: tracking-native hero, forest plot with controls, player-card film list, two appendix figures."
+  "Round 25 judged three candidates: DL Hoop G (8.51), WR Break G null (7.86), DL Envelope Match null (7.35).",
+  "Winner cand_1 (DL Hoop G): pick+role comparator, leave-one-class-out, placebo, OL and wave-drill negative controls, multiplicity count.",
+  "Frozen 2026 rule and day-3 film-order action with named-player Table 2; independent verify.py reproduced the headline slope.",
+  "Judge asks: scout-language title and lede, move statistical bullets to appendix, fix Fig 1 collision, unify interval levels, slim Fig 2.",
+  "Winner 8.51 is below previous best 8.54, so writeup/ was NOT replaced; only state recorded."
  ],
- "previous_score": 8.5,
- "adopted": true,
+ "previous_score": 8.54,
+ "adopted": false,
  "history": [
   {
    "round": 1,
@@ -195,7 +221,10 @@
   {
    "round": 23,
    "score": 8.5
+  },
+  {
+   "round": 24,
+   "score": 8.54
   }
- ],
- "done": true
+ ]
 }
