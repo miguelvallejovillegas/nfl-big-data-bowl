@@ -1,0 +1,13 @@
+{
+ "angle": "Movement translation, wide receivers (the only group with a same-movement drill/game pair, the Combine go-route drill vs NFL go/post/corner stems): per-receiver share of his own drill speed used 1.0-2.0 s after release on NFL vertical stems, censored at the throw, aligned on the 1.5 yd/s release crossing; transfer vs a no-tracking benchmark (official 40 -> NFL top speed); held-out (leave-one-draft-class-out) test against career yards per route beyond log pick, 40, weight and NGS score; next-season test.",
+ "metric_name": "Stem Gear: % of his own Combine go-route speed a receiver carries 1-2 s into NFL vertical stems before the throw (median 88%, 10th-90th pct 82-96%; split-half reliability 0.56)",
+ "headline_number": "Combine go-route speed -> NFL stem speed rho -0.02 [-0.21, 0.19] (n=70) vs official 40 -> NFL top speed 0.45; Stem Gear held-out slope -0.10 yds/route per sd [90%: -0.24, +0.02], n=55, inside a +/-0.15 margin (29% of draws beyond); next season 0.00 [-0.15, 0.13] (42 pairs); NFL side alone -0.17, drill side alone +0.01; uncensored window trap -0.24 [-0.38, -0.04].",
+ "what_changed_from_previous": "New angle and metric, not a revision of the Break G line (sibling cand_2 revises that). Same-movement drill/game pair (go route), one nameable metric, censoring at the throw (and a shown trap when it is not), release-crossing alignment that handles the 0.3 s 40-clip offset, year-adjusted drill speed, no-tracking transfer benchmark, held-out slope with refit-in-every-resample class-stratified and pooled bootstraps, shuffle test, next-season test, named five-receiver drill-vs-NFL mph table with one coaching line each, single bottom-line action for scouts, missed-season handling stated; 1,494 words, 3 figures + 3 tables.",
+ "open_risks": [
+  "Headline is again a null/lean (91% of draws negative but inside the margin; shuffle p=0.12); the 2025 class runs the other way (+0.19, n=13).",
+  "Primary window chosen after looking at five windows; not pre-registered.",
+  "Small n (55 receivers with drill, 3+ clean NFL stems and 100+ routes); gear rests on a median 11 sampled stems, reliability 0.56.",
+  "No defenders/ball: a slow stem can be assignment (clear-out vs read) or press; slot share and cushion controls shrink the lean to -0.07.",
+  "The no-tracking forecast itself has negative held-out R2 (-0.10) at this n; coaching lines are hand-written readings, not model output; no verify.py independent recomputation this round."
+ ]
+}

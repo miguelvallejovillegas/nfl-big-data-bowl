@@ -1,0 +1,27 @@
+{
+ "rule": "Day 3 (pick>=103) or UDFA: when two rushers' no-tracking forecasts are within 0.5 pressure-rate points, prefer the higher year-standardized Hoop G; otherwise follow the forecast",
+ "forecast": "OLS of shrunk career pressure rate on log pick, weight, EDGE share, NGS athleticism, official 10-yd split, 3-cone, fit on other classes",
+ "test": "primary: 2026 Combine class after its first NFL season, slope of Hoop G on (pressure rate - frozen forecast), within-class permutation, one-sided p<0.10; slope <= 0 drops Hoop G. Secondary: tied-pair win rate of Hoop G vs 50%",
+ "calls_2026_board": {
+  "Cedric Johnson": "Go",
+  "Javon Solomon": "Go",
+  "Warren Brinson": "Go",
+  "Austin Booker": "Go",
+  "Jack Sawyer": "Go",
+  "Eric Watts": "No-go",
+  "Tyrion Ingram-Dawkins": "No-go",
+  "Jaylen Harrell": "No-go",
+  "Zeek Biggers": "Hold",
+  "Nazir Stackhouse": "Hold",
+  "Kyle Kennard": "Hold",
+  "Mohamed Kamara": "Audition",
+  "Gabe Hall": "Audition",
+  "Nelson Ceaser": "Audition",
+  "Tim Smith": "Audition",
+  "Antwaun Powell-Ryland": "Audition",
+  "Jah Joyner": "Audition",
+  "Ethan Downs": "Audition"
+ },
+ "recheck": "after the 2026 regular season with 2026 pressure counts; flip rates in board",
+ "sha256": "bae8a667e32a53ca56860554819bfc40122c93afb15ff9da96823661baf119d2"
+}

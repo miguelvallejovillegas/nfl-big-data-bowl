@@ -1,0 +1,15 @@
+{
+ "angle": "WR/TE break mechanics: one metric (Break G, average g-force over the second around the first cut: braking in, turning, driving out) graded by the same code on Combine route drills and on sampled NFL snaps of the same route family (slant/out/hitch/in/corner), tested against full-season NGS separation over expected on held-out draft classes.",
+ "metric_name": "Break G (how hard a receiver plants: average g over the one second around his first real cut; z-scored within drill and Combine year, averaged over drills, shrunk by between-drill reliability). Film read: three speeds, into the cut, at the plant, out.",
+ "headline_number": "-1.2 in of career SOE per sd of drill Break G [90%: -3.7, +1.0], n=116, leave-one-class-out vs the pre-specified no-tracking baseline (pick, 40, weight, NGS, TE); pick-only -0.1 [-2.0, +2.0], pick+role 0.1 [-2.1, +2.3]. Drill vs NFL Break G rho -0.05 (n=101) against official 40 -> NFL top speed 0.46 (n=100). Clubs pay 14% earlier pick per sd [4, 24], n=149.",
+ "what_changed_from_previous": "Fresh, self-contained analysis.py (one file, seeded, ~1 min) instead of the accreted core/analysis/appendix/verify stack. Lede is two plain sentences (<60 words). New hero figure: league speed-through-the-cut traces, drill vs NFL, for each of the five route families (entry 6.9 vs 4.7 yd/s on hitches; 18% of NFL breaks entered at drill speed). New family x component transfer grid (entry speed, braking, plant speed, drive-out, Break G; 343 receiver-family pairs, clustered CIs), finding braking is the only part that carries (+0.12 [0.02, 0.21]) flagged as one of 30 cells. Three baselines side by side (pick only, pick+role, pre-specified full) with nested LOCO refitted in every receiver-level bootstrap draw. Measurement-error simulation of the full pipeline: power 67% at +3 in, P(slope <= -1.2 | true +3) = 0.4%, true effects >= +2 in unlikely. Player-card grid (8 hardest / 8 softest drill cutters) with greyed intervals crossing zero, Arian Smith and Puka Nacua cards. Day-3 coin-flip film list dropped. Single 'what to do on Monday' block for scouts, Combine staff and coaches. 1,688 words, 4 figures + 2 tables.",
+ "open_risks": [
+  "Still a null-result paper; the re-stem prescription is an untested design proposal.",
+  "Braking transfer (+0.12) is one of 30 grid cells with no multiplicity correction, and braking alone does not predict SOE (-1.7 [-3.8, +0.4]).",
+  "No independent verify.py this round; every number comes from the single analysis.py (seeded bootstraps).",
+  "Draft-price estimate changed from 9% (earlier rounds) to 14% because this script uses OLS on log pick with year-position-standardised covariates and a receiver-level bootstrap; judges who remember 9% may ask.",
+  "Slant drill traces start close to the line, so the slant panel of Fig 1 has a shorter pre-cut window; Fig 1 hides time points reached by fewer than 95% of reps.",
+  "Coach's reads in Table 2 and the Smith/Nacua characterisations are hand-written interpretations of the numbers, not model outputs.",
+  "Game tracking is a 40-play sample, half top-EPA, with no defenders or ball."
+ ]
+}

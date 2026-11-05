@@ -1,0 +1,79 @@
+{
+ "fig1_slope": "-0.05",
+ "fig1_gap_0": "+0.4",
+ "fig1_0": "Johnny Wilson",
+ "fig1_gap_1": "+0.7",
+ "fig1_1": "Andrei Iosivas",
+ "fig1_gap_2": "-0.9",
+ "fig1_2": "Oronde Gadsden",
+ "fig1_gap_3": "-0.6",
+ "fig1_3": "Darnell Washington",
+ "fig1_gap_4": "+1.5",
+ "fig1_4": "KeAndre Lambert-Smith",
+ "fig2_tost_bg": "0.10",
+ "fig2_tost_decel": "0.20",
+ "fig2_tost_v_apex": "0.18",
+ "fig2_tost_reaccel": "0.40",
+ "fig3_vap_0": "2.0",
+ "fig3_bg_0": "0.56",
+ "fig3_vap_1": "0.8",
+ "fig3_bg_1": "0.50",
+ "fig3_washington": {
+  "fam": "HITCH",
+  "dvin": "7.1",
+  "nvin": "5.5",
+  "dbg": "0.61",
+  "nbg": "0.45"
+ },
+ "fig3_douglas": {
+  "fam": "HITCH",
+  "dvin": "7.5",
+  "nvin": "5.2",
+  "dbg": "0.50",
+  "nbg": "0.36"
+ },
+ "fig3_franklin": {
+  "fam": "HITCH",
+  "dvin": "7.2",
+  "nvin": "6.2",
+  "dbg": "0.68",
+  "nbg": "0.45"
+ },
+ "fig3_johnson": {
+  "fam": "IN",
+  "dvin": "8.1",
+  "nvin": "6.8",
+  "dbg": "0.57",
+  "nbg": "0.49"
+ },
+ "fig3_smith": {
+  "fam": "HITCH",
+  "dvin": "7.8",
+  "nvin": "5.9",
+  "dbg": "0.73",
+  "nbg": "0.47"
+ },
+ "fig3_bond": {
+  "fam": "HITCH",
+  "dvin": "7.1",
+  "nvin": "5.1",
+  "dbg": "0.63",
+  "nbg": "0.37"
+ },
+ "fig4_wr_closer": 10,
+ "fig4_ov_16": {
+  "wrong": "43",
+  "be": "86",
+  "loss": "4.3"
+ },
+ "fig4_ov_32": {
+  "wrong": "46",
+  "be": "67",
+  "loss": "9.2"
+ },
+ "fig4_ov_999": {
+  "wrong": "37",
+  "be": "67",
+  "loss": "8.1"
+ }
+}

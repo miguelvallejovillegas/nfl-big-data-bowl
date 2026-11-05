@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics: Combine route drills matched to the same NFL route family (SLANT/OUT/HITCH/IN/CORNER); drill-to-game translation and in-game separation over expected, split by man/zone coverage",
+ "metric_name": "Break Redirect Rate (BRR, yd/s^2): mean |acceleration| over the 1.0 s centred on the break, identical code on Combine drills and NFL snaps",
+ "headline_number": "In-game BRR vs separation over expected: man rho 0.09 [0.01, 0.17] vs zone -0.09; man-zone gap 0.18 [0.08, 0.28], Holm p 0.018 over 18 contrasts, replicates on random half (0.27). Combine BRR vs NFL BRR rho -0.13 [-0.31, 0.04], n=115, 15.3 break snaps/player; power for latent 0.3 only 25% but equivalence p=0.004, latent 95% upper bound 0.08.",
+ "what_changed_from_previous": "Revision of round_01/cand_2 (same angle). Uses the 40-play sample (15.3 vs 5.2 break snaps/player, game reliability 0.37 vs 0.06) and the stored random-half flag; adds power/MDE, one-sided equivalence test and reliability-propagated bootstrap bound (null reframed as conditional 'cannot be linked'); new positive lead (man vs zone interaction) with 18-contrast Holm correction, random-half replication and within- vs between-player split; slot/wide and man/zone translation subsets; empirical-Bayes shrunk player cards with 80% intervals and drill-vs-film disagreement flag (hero Fig 1, 4 WR + 4 TE); per-position draft-room card with 'what would change my mind' rules; year x position standardized 40 and weight, per-fold LOCO incl. 2025, season-to-season outcome reliability; injury/opportunity limitation; 7 figures + 2 tables cut to 4 figures + 2 tables; stats moved to appendix; shorter title.",
+ "open_risks": [
+  "Man/zone lead is small (rho 0.09) and was found after looking; between-player not within-player, so a player-level confound (route tree, leverage, QB) cannot be excluded without defender tracking",
+  "Holm p 0.018 uses a 1000-draw bootstrap p floored at 0.001; true p could be smaller but is not exactly known",
+  "Equivalence bound depends on disattenuation with uncertain reliabilities (game split-half CI 0.04-0.40); the bootstrap bound propagates this but resamples only players",
+  "Several translation subsets are significantly negative (slot, man, 2023 class, TE -0.35); not explained, likely multiplicity but a judge may ask",
+  "Game sample: half of plays are high-|EPA| selected; per-player intervals ~+-1 sd so named-player cards are flags not rankings",
+  "Season LOCO has only 78 players (20 in 2025 fold)"
+ ]
+}

@@ -1,0 +1,196 @@
+{
+ "round": 26,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_26/cand_1/",
+   "angle": "DL Hoop G: Combine hoop-lap lean vs NFL pass-rush pressure, day-3 film flag",
+   "score": 8.47,
+   "per_judge": {
+    "judge-football": 8.5,
+    "judge-datascience": 8.6,
+    "judge-writeup": 8.0,
+    "judge-viz": 8.7
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_26/cand_3/",
+   "angle": "DL first step: Combine 40 start vs NFL pass-rush get-off translation",
+   "score": 8.1,
+   "per_judge": {
+    "judge-football": 8.3,
+    "judge-datascience": 8.1,
+    "judge-writeup": 7.6,
+    "judge-viz": 8.3
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_26/cand_2/",
+   "angle": "WR Break G: Combine route-drill cut grade vs NFL separation (bounded null)",
+   "score": 8.01,
+   "per_judge": {
+    "judge-football": 7.7,
+    "judge-datascience": 8.2,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.3
+   },
+   "fatal_flaws": [
+    "Lede overloaded and promotes a soft-third +2.2 inch result whose interval includes zero",
+    "'Take the discount' goes beyond day-3 evidence",
+    "Word count 2132 over limit; Fig 3A/3B color reuse and label overlaps"
+   ]
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_26/cand_1/",
+  "score": 8.47
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.5,
+   "top_changes": [
+    "Show hoop-lap versus NFL-rush small multiples for 2-3 flagged names plus one film-style description (Hampton or Johnson).",
+    "Simplify the selection result to one headline test; re-chosen-measure CI [-0.30, 0.21] and 2025 flat; state evidence is weak.",
+    "Tighten football framing: cut g derivation to two lines, plainer cue than corner-turn, note no coverage/scheme context, add frozen 2026 day-3 list or date."
+   ],
+   "justification": "Usable: names real day-3 players with film order and frozen 2026 rule, but effect small (R2 0.10 to 0.16) and 2026 list not yet available. Difficulty: handles draft slot, edge vs interior, snap load, club effects, single-rep reliability, forking paths; not man/zone or injuries; 2025 flat. Unique: drill-to-game lean mechanism, rush-level model, frozen preregistered test beyond public audits. Terminology: mostly sound; g lean in hoop vs rush, corner turn label and roster-listed stance proxy are loose; Table 2 cues from play logs not film."
+  },
+  "judge-datascience": {
+   "score": 8.6,
+   "top_changes": [
+    "Replace best-of-6 headline with pre-registered composite or ridge/Bayesian-shrunk model over all six measures; report nested leave-one-class-out R2 gain with CI.",
+    "Fit one joint hierarchical pressure model (rush-level binomial, random rusher intercept, Hoop G x own-lean), leave-one-class-out, with measurement-error correction for 0.43 reliability.",
+    "Quantify 2025 flat result (+0.6): class-heterogeneity posterior/prediction interval for 2026; per-class placebo permuting Hoop G within class and role."
+   ],
+   "justification": "Spot-checks reproduced via independent verify.py: leave-one-class-out Hoop G slope +2.30 [0.75, 3.83], n=77, matching Table 1 (+2.3 [0.7, 4.0]) and per-class slopes 2.8, 3.5, 0.6. 69% day-3/UDFA share of 118 DL recomputed. numbers.json consistent with text. 11-minute analysis.py not re-run. Strong design for n~77: pick+role baselines with NGS, 10-yd split, 3-cone; LOCO with bootstrap CIs; year-standardized; reliability 0.43; forking paths handled (best-of-6 shuffle p, FWER/FDR over 41 tests, frozen 2026 rule with power). Innovation high: centripetal-lean (v2/r) metric, rush-level mixed model, rule-based tape cue. Weaknesses: nested R2 gain +0.06 [-0.30, 0.21], nested slope +1.6 [-0.7, 3.6]; 2025 flat (+0.6); club-resampling p=0.30; day-3 rank corr CI includes zero; top-third hit rate ties pick order 9/15; rank corr with NFL bend 0.14; own-lean x Hoop G touches 0; R2 gain modest 0.10 to 0.16 on n=77."
+  },
+  "judge-writeup": {
+   "score": 8.0,
+   "top_changes": [
+    "Rewrite title and first paragraph: plain statement with number, n=77 and action in first 80 words; move caveats below bullets.",
+    "Cut statistical machinery from body (selection reruns, shuffle/fold rows, Chance-it-is-luck column, FWER detail) to Table A1; condense mechanism's four intervals.",
+    "Define Hoop G in one coach-repeatable sentence; move g formula, 0.62 g vs 0.18 g and 2.7x radius to a note; diversify Table 2 cues."
+   ],
+   "suggested_title": "Day-3 Pass Rushers Who Hold Speed Through the Combine's Tightest Turn Beat Their Draft Slot by About 2 Pressures a Season",
+   "justification": "check.py passes (1,958 words, 5 figures, 3 tables). Structure near finalist pattern with meaningful headings and honest tone. Weak: result not in first 80 words in scout language; Run-the-Hoop Lean is jargon; lede spends second paragraph on caveats; Hoop G definition via speed-squared-over-radius; statistical machinery in body; mechanism section stacks four intervals; Table 2 cue column repeats the same phrase on four rows; validation section mixes Outcome/Test/The one test inline."
+  },
+  "judge-viz": {
+   "score": 8.7,
+   "top_changes": [
+    "Fig 1: true drill-vs-game comparison for 7 names; drop 'look alike' title claim; overlay pressured snaps and 2.7x radius gap; per-man strip of rush lean peak vs hoop peak.",
+    "Fig 4C: move legend off the Hampton bar, order by film queue, add Table 2 cue labels, unify colour meaning (blue/orange vs gold).",
+    "Fig 3/2: add n per quarter in 3A, declutter 3B, define grey band (+/-2.25) in caption, fold weak rows into one marker, consider merging A1 panel A into Fig 2."
+   ],
+   "justification": "5 figures + 3 tables = 8 exhibits. Colourblind-safe (Okabe-Ito), large text, 95% intervals with n. Accurate: no truncated axes, chance band and shuffle nulls shown, weak rows flagged in Fig 2 title. Fig 1 tracking-native, shared yard scale and lean colour scale. Weaknesses: Fig 1 title (look alike) mismatches table; Fig 4C legend collides with a bar; Figs 2, 3B, 4A/B, A1A all forest-plot style, lacking small multiples for mechanism."
+  }
+ },
+ "changelog": [
+  "Round 26 winner cand_1: DL Hoop G (run-the-hoop lean) day-3 film flag, score 8.47.",
+  "Candidates: cand_1 8.47, cand_3 8.10 (first-step translation), cand_2 8.01 (WR Break G null, over word limit).",
+  "Judges: football 8.5, datascience 8.6, writeup 8.0, viz 8.7; no fatal flaws for winner.",
+  "Main requested fixes: plainer lede/title, move selection machinery to appendix, hero figure and Fig 4C legend fixes.",
+  "Not adopted: 8.47 does not beat previous best 8.51 (round 25); writeup/ unchanged."
+ ],
+ "previous_score": 8.51,
+ "adopted": false,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  },
+  {
+   "round": 15,
+   "score": 8.51
+  },
+  {
+   "round": 17,
+   "score": 8.52
+  },
+  {
+   "round": 18,
+   "score": 8.48
+  },
+  {
+   "round": 19,
+   "score": 8.38
+  },
+  {
+   "round": 20,
+   "score": 8.4
+  },
+  {
+   "round": 21,
+   "score": 8.44
+  },
+  {
+   "round": 22,
+   "score": 8.42
+  },
+  {
+   "round": 23,
+   "score": 8.5
+  },
+  {
+   "round": 24,
+   "score": 8.54
+  },
+  {
+   "round": 25,
+   "score": 8.51
+  }
+ ],
+ "done": true
+}

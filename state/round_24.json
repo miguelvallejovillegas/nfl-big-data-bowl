@@ -1,0 +1,201 @@
+{
+ "round": 24,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/revised/",
+   "angle": "DL Run-the-Hoop bend (Hoop G) day-3 edge film flag (revised)",
+   "score": 8.54,
+   "per_judge": {
+    "judge-football": 8.5,
+    "judge-datascience": 8.7,
+    "judge-writeup": 8.3,
+    "judge-viz": 8.6
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_1/",
+   "angle": "DL Hoop G day-3 edge film flag",
+   "score": 8.4,
+   "per_judge": {
+    "judge-football": 8.5,
+    "judge-datascience": 8.5,
+    "judge-writeup": 8.3,
+    "judge-viz": 8.2
+   },
+   "fatal_flaws": [
+    "Fig 2 legend clipped",
+    "Harrell colour inconsistent between Fig 1 and Fig 3"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_3/",
+   "angle": "DL Launch Carry: Combine vs NFL acceleration envelope (alignment artifact null)",
+   "score": 7.83,
+   "per_judge": {
+    "judge-football": 7.6,
+    "judge-datascience": 8.3,
+    "judge-writeup": 7.4,
+    "judge-viz": 7.9
+   },
+   "fatal_flaws": [
+    "Hero figure illustrates a null metric",
+    "Fig 3B intervals unreadable, duplicate forest plots"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/cand_2/",
+   "angle": "WR Break G: Combine route cut vs NFL separation (bounded null)",
+   "score": 7.78,
+   "per_judge": {
+    "judge-football": 7.6,
+    "judge-datascience": 8.2,
+    "judge-writeup": 7.6,
+    "judge-viz": 7.6
+   },
+   "fatal_flaws": [
+    "No x-y route paths in figures",
+    "Three of five figures are null forest plots",
+    "Figure filenames mismatch caption numbering"
+   ]
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_24/revised/",
+  "score": 8.54
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.5,
+   "top_changes": [
+    "Make film check real: verdict table for Solomon, Johnson, Harrell, Watts with play-log evidence; cut conditional 'tape confirms if' bullets.",
+    "Reconcile headline with 9/15 vs 9/15 day-3 tie against pick order; state flag is a film-order tie-breaker or show unique names added; give expected 2026 flagged count.",
+    "Cut statistical load from body; move controls, mediation, 2025 R2 to appendix; add a ranked day-3 shortlist example."
+   ]
+  },
+  "judge-datascience": {
+   "score": 8.7,
+   "top_changes": [
+    "Joint model with wave-drill lean to separate hoop-specific from general lateral agility.",
+    "Cluster bootstrap by team on pick+role R2 gain, one-sided test; lead with best-of-six-adjusted p.",
+    "Hierarchical model with Hoop G x class interaction to explain flat 2025; precompute expected 2026 flag count and tie-rate."
+   ]
+  },
+  "judge-writeup": {
+   "score": 8.3,
+   "top_changes": [
+    "Shrink Controls, 2025 and mediation paragraphs; move intervals to appendix table.",
+    "Add caveat to lede (1 of 6 measures, flat 2025); state each lede number once.",
+    "Rewrite Why now with football reason; replace jargon with scout language; reconcile 0.36 vs 0.14."
+   ]
+  },
+  "judge-viz": {
+   "score": 8.6,
+   "top_changes": [
+    "Fig1: takeaway title, overlaid hoop laps, small multiples of NFL rushes, pressure counts in figure.",
+    "Fig2: widen canvas, move labels off bars, same interval level in A and B, add control n; consider demoting B.",
+    "Fig3: larger sparklines or drop, caption takeaway, beat/par/miss count and 2026 preview strip."
+   ]
+  }
+ },
+ "changelog": [
+  "Revised cand_1 (DL Hoop G) with pick+role comparator, leave-one-class-out validation and placebo.",
+  "Added OL and wave-drill negative controls, multiplicity count, mediation split, independent verify.py.",
+  "Documented EPA trace (1681 rows/1655 plays) and 2025 flat-class result openly.",
+  "Frozen sha256 2026 test rule and day-3 film-order Monday action with Table 2 named players.",
+  "Figures: tracking-native hero, forest plot with controls, player-card film list, two appendix figures."
+ ],
+ "previous_score": 8.5,
+ "adopted": true,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  },
+  {
+   "round": 15,
+   "score": 8.51
+  },
+  {
+   "round": 17,
+   "score": 8.52
+  },
+  {
+   "round": 18,
+   "score": 8.48
+  },
+  {
+   "round": 19,
+   "score": 8.38
+  },
+  {
+   "round": 20,
+   "score": 8.4
+  },
+  {
+   "round": 21,
+   "score": 8.44
+  },
+  {
+   "round": 22,
+   "score": 8.42
+  },
+  {
+   "round": 23,
+   "score": 8.5
+  }
+ ],
+ "done": false
+}

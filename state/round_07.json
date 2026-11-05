@@ -1,0 +1,106 @@
+{
+ "round": 7,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_07/revised/",
+   "angle": "Hoop G lateral-force tiebreaker, revised (DL Run-the-Hoop)",
+   "score": 8.18,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.5,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_07/cand_1/",
+   "angle": "DL Run-the-Hoop lateral-force (Hoop G) tiebreaker",
+   "score": 8.06,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.3,
+    "judge-writeup": 7.6,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_07/cand_3/",
+   "angle": "Get-off translation: 40 launch as film-equivalent rushes",
+   "score": 7.83,
+   "judge_scores": {
+    "judge-football": 7.5,
+    "judge-datascience": 8.2,
+    "judge-writeup": 7.4,
+    "judge-viz": 8.2
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_07/cand_2/",
+   "angle": "WR/TE Break G targets per route",
+   "score": 7.61,
+   "judge_scores": {
+    "judge-football": 7.1,
+    "judge-datascience": 8.0,
+    "judge-writeup": 7.4,
+    "judge-viz": 8.0
+   },
+   "fatal_flaws": [
+    "Writeup is 2,138 words, over the 2,000 limit",
+    "Hero figure is a forest plot, not tracking-native"
+   ]
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_07/revised/",
+  "score": 8.18
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 7.9,
+   "top_changes": [
+    "Cut statistical scaffolding (7-row robustness table, shuffle p-values, pre-registration power paragraph); add a decision card for 6-8 named 2025/2026 prospects with adjusted Hoop G, 3-cone if any, one plain call.",
+    "Split EDGE and interior in rules and film checks; show raw pressure rates for plus-call vs no-call groups; say what a position coach does with the number.",
+    "Use one metric name (lateral force); explain what a 0.62 g peak means on the field; caveat 20-rush samples carry no scheme/stunt/blocker context; label the 4 hits as from tuning classes; Phillips is a film flag only."
+   ],
+   "summary": "Usable 7.7, difficulty 8.7, unique 7.7, terminology 7.8. Honest that effect is unproven out of class and 3-cone beats it on the 22 common rushers; action is only a tie-break worth 0.6 pressures a season."
+  },
+  "judge-datascience": {
+   "score": 8.5,
+   "top_changes": [
+    "Resolve plus-call count (10 in CSV vs 9 in text) and Phillips label (minus in board vs no call in text); report Hoop G vs weight rho within interior DL (-0.34); add numbers.json claim-to-key map.",
+    "Replace anecdotal 4/9 plus-call hit rate and Sawyer/Sorrell with a leave-one-class-out calibration with exact binomial intervals; include 2025-only line.",
+    "Add within-player validation that Hoop G tracks self-referenced in-game peak lateral acceleration (bootstrap by player); report multiplicity-adjusted selection probability over the 14 screened pairs."
+   ],
+   "summary": "Spot checks reproduced (board 109 rows, median Hoop G 0.617, named players, 63 players with 100+ rushes, rho -0.447). Nested weighted R2 +0.013 [-0.047,0.087]; shuffle control p=0.01; failed claims disclosed. Weaknesses: selection among 14 pairs, gains from one class, 3-cone beats Hoop G on 22 players."
+  },
+  "judge-writeup": {
+   "score": 7.9,
+   "top_changes": [
+    "Cut robustness load: shrink 7-row Check table to 3 rows, one-sentence shuffle control, drop head-to-head pair and Phillips detail.",
+    "Rewrite bold lede as two sentences ~55 words; replace top table out-of-class row with one plain number and interval.",
+    "Strip jargon (weighted R2 change, selection-adjusted, skeptical prior, count model, odds ratio, screen re-chosen per fold); add why-now beat; support or soften 'nobody publishes a number'; cut 2025 board to 2 plus calls and Phillips."
+   ],
+   "summary": "Clarity 8.3, structure 8.0, motivation 7.6, density 7.3. check.py passes (1,677 words, 4 figures, 4 tables). Reads as defensive audit; tiebreaker-unproven stance repeated."
+  },
+  "judge-viz": {
+   "score": 8.4,
+   "top_changes": [
+    "Fig 1: cut to 4-row by 3-panel hero with hoop and NFL traces on same time axis, drop pink labels and redundant dumbbell numbers, add pressure-rate bar, one low-Hoop-G example per position.",
+    "Fig 3: label right-panel rows with held-out class and n; one p-value with one shuffle definition; neutral title; single ghost null interval under All 90.",
+    "Fig 4: enlarge sparklines with common y-axis; separate clean 2025 from 2023-24 rows using hollow markers; draw 14% and 35% base-rate bands; consider merging Fig 2 into Fig 3."
+   ],
+   "summary": "Accessible 8.2, accurate 8.6, innovative 8.7, economy 8.4. All four figures kept.",
+   "per_figure": "fig1 hero, dense and tall, competing encodings; fig2 clean forest plot overlapping fig3; fig3 good uncertainty, unlabeled rows and conflicting p-values; fig4 strong format, tiny sparklines, headline includes tuning classes."
+  }
+ },
+ "changelog": [
+  "Rebuilt candidate as revised Hoop G lateral-force writeup using round-6 judge asks (nested screen, shuffle negative control, no-tracking baseline).",
+  "Added film-style traces for Robinson, Tuipulotu, Ezeiruaku and Phillips (Fig 1) and a forecast-vs-actual call board with hoop sparklines (Fig 4).",
+  "Unified metric name to Hoop G and added coach-repeatable definition; reported nested weighted R2 +0.013 and per-class values.",
+  "Disclosed failed claims (log score retired, power 0.12) and kept 3-cone-beats-Hoop-G framing; stated tie-break only use.",
+  "Writeup 1,677 words, 4 figures, 4 tables; check.py passes; numbers.json regenerated."
+ ]
+}

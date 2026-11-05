@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics: Combine route drills (slant, slot strike, speed out, curl, comeback, hook, dagger, TE in, slot sail, TE corner) matched to the same NFL route family (SLANT/OUT/HITCH/IN/CORNER), vs separation over expected and season separation/YPRR",
+ "metric_name": "Break Redirect Rate (BRR, yd/s^2): mean |acceleration vector| over the 1.0 s centred on the break, computed by identical code on drill and game 10 Hz x/y",
+ "headline_number": "Drill BRR vs in-game BRR: Spearman rho = -0.08 [-0.27, 0.08], n = 115 (same-family pairs: -0.03 [-0.16, 0.09], n = 303); latent correlation bounded at <= 0.16 after reliability correction; NFL breaks run at 74% of Combine BRR",
+ "what_changed_from_previous": "Round 1, first candidate for this angle (no prior state). New: a unified break detector and BRR applied identically to drills and games; family-matched design; per-snap reliability and snaps-needed (39); leave-one-class-out SOE model; LOCO incremental R2 vs pick+40+weight+NGS baseline; drill-vs-game intensity profile by route family.",
+ "open_risks": [
+  "Game side uses the repo's 12-play-per-player sample (5.2 break snaps/player; half selected by high |EPA|); headline is a null that must be re-run on full game tracking, which was not on disk",
+  "Mostly a negative result; judges may score Football/insight lower despite rigor",
+  "Break detector (first sharp turn) can mis-assign double moves/option routes; HITCH drill (110 deg stop) vs NFL hitch (70 deg) may not be the same movement",
+  "BRR chosen after exploratory look at six components (disclosed); single significant component (re-acceleration, rho -0.10) is likely multiplicity",
+  "Expected-separation model is linear with OOF R2 0.20; no defender/leverage information",
+  "Word count at 1,995 of 2,000 and 7 figures + 2 tables = 9 of 9: no headroom for additions without cuts"
+ ]
+}

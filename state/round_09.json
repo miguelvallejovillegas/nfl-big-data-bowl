@@ -1,0 +1,160 @@
+{
+ "round": 9,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_09/revised/",
+   "angle": "Hoop G tiebreaker for DL who skipped the 3-cone, twins + decision card, revised",
+   "score": 8.26,
+   "judge_scores": {
+    "judge-football": 8.3,
+    "judge-datascience": 8.3,
+    "judge-writeup": 8.0,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_09/cand_1/",
+   "angle": "Hoop G tiebreaker / 3-cone protocol ask, pre-registered plus calls",
+   "score": 8.18,
+   "judge_scores": {
+    "judge-football": 8.3,
+    "judge-datascience": 8.3,
+    "judge-writeup": 7.6,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_09/cand_3/",
+   "angle": "Combine 40 start vs NFL first step carry-over for DL (honest null)",
+   "score": 7.82,
+   "judge_scores": {
+    "judge-football": 7.5,
+    "judge-datascience": 8.3,
+    "judge-writeup": 7.4,
+    "judge-viz": 8.0
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_09/cand_2/",
+   "angle": "WR/TE Break G drill-to-game chain, equivalence bound (null)",
+   "score": 7.77,
+   "judge_scores": {
+    "judge-football": 7.0,
+    "judge-datascience": 8.3,
+    "judge-writeup": 8.0,
+    "judge-viz": 7.9
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_09/revised/",
+  "score": 8.26
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.3,
+   "subscores": {
+    "usable": 8.5,
+    "football_confounders": 8.2,
+    "unique": 8.2,
+    "terminology": 8.3
+   },
+   "justification": "Usable (8.5): The ask, the plus/film-first/minus board with named 2025 players, and the position-specific film checklists with named tie-break comparisons are actionable this draft cycle. Lede softened to 'leads, not rules'. Evidence is thin: plus calls hit 4 of 9, 2025 test is 0 of 2, out-of-class intervals span zero. Confounders (8.2): handles pick and weight, EDGE vs interior, no-tracking forecast, matched twins, reliability 0.41 shrinkage, best-of-14 p=0.12, rotation and injury caveats. Weak: scheme/alignment only inferred, hoop-to-game link null, twin test added after the rule on same rushers. Unique (8.2): Run-the-Hoop as lateral-g stand-in for a missing 3-cone is a real reframing; pre-registered rule with forecast and twins is distinctive; honest null on in-game turning weakens story. Terminology (8.3): Wide-9, ghost alignment, T-E/E-T stunts, looper, bull rush used correctly; Hoop G 'flattening at the top' not supported by in-game data; 'points of rusher-to-rusher spread' opaque.",
+   "top_changes": [
+    "Strengthen or reframe the mechanism: Hoop G does not predict in-game turning (0.002 g per sd) or outside rushes (rho 0.07); show one in-game proxy with n or say it is an empirical correlate with no mechanism.",
+    "Shrink the stats table from 8 rows to 3-4 deciding rows; replace opaque phrasing with pressure-rate or board-slot translation; resolve Brinson/Downs/Ezeiruaku 'within noise' into plain scout actions.",
+    "Add minus-flag and false-positive case study with film cues (Phillips vs Black, plus-call miss such as Adebawore), cost of a wrong call, and scheme/alignment context for named players."
+   ]
+  },
+  "judge-datascience": {
+   "score": 8.3,
+   "subscores": {
+    "correctness": 8.4,
+    "evidence": 8.6,
+    "model": 8.2,
+    "innovation": 8
+   },
+   "justification": "Re-derived call-table counts from board_2023_2025.csv: plus EDGE 4/7, plus interior 0/2, no-call EDGE 6/32, no-call interior 3/31, minus interior 0/6; pooled 4/9 vs 9/69 reproduce. Named 2025 players match card. Hoop coverage reproduces (109/118 DL; 44 DL in 2025). Not reproduced exactly: 3-cone runners 45 (14 in 2025) vs writeup 43 (15), likely official vs tracked definition; pooled rates are rush-weighted. Shuffle p, Bayesian model, nested held-out gains, twin matching not rerun. Strengths: no-tracking baseline, leave-one-class-out, frozen rule, exact intervals, shrinkage with reliability, year-standardization, null-per-test table, 2025 posterior predictive. Weaknesses: no confirmatory power (9 plus calls, 4 hit); p-values conditional on rule and post-hoc twin design; best-of-14 prices only drill-outcome pairs; 3-cone claim on 27 rushers spans zero, positive in 1 of 3 held-out classes; season counts ignore rotation/opponent.",
+   "top_changes": [
+    "Report per-class hit rate of the frozen rule with Fisher/mid-p for 4/9 vs 9/69; add sensitivity grid over 80% cutoff, 30-rush minimum, forecast spec, with shuffle p across grid.",
+    "Reconcile 43 vs 45 3-cone counts in a footnote; replace the 27-rusher correlation with the Bayesian shrinkage count model used for Hoop G; report sign in each held-out class with forecast-only ridge baseline.",
+    "Refit shrinkage count model with rushes as explicit exposure plus pick x rotation-share term; show Hoop G effect for 100+ vs 30-99 rushes with intervals; add power statement for 2026 prospective test."
+   ]
+  },
+  "judge-writeup": {
+   "score": 8,
+   "subscores": {
+    "clarity": 7.6,
+    "structure": 8.4,
+    "motivation": 8,
+    "density": 7.8
+   },
+   "justification": "Check passes: 1,615 words, 2 figures, 4 tables. Structure close to finalist pattern; prior fixes visible (motivation section, softened lede, stats table, ask before results). Weak point is the first paragraph: no magnitude, hit rate, or statement that out-of-class gain is unconfirmed. Statistical scaffolding in body; stacked 90/80/95% intervals hard to hold; some paragraphs run-on with numbers. 'Why a tiebreak' never says why 3-cone and Hoop G specifically; 3-cone gets almost no explanation. 2025 0 of 2 sits in last table row. Jargon unexplained: twins, EDGE/Int, ghost alignment, T-E stunts.",
+   "top_changes": [
+    "Rewrite bold lede in under 80 words with numbers (held-out 3-cone rho 0.36, interval spans zero; Hoop G 4 of 9 plus calls; 0 of 2 in 2025; a lead for film, not a rule); move Hoop G definition to one coach-repeatable sentence after.",
+    "Collapse 'How sure we are' table from 8 rows to about 4 and drop stacked intervals; move technical rows to appendix; one plain-English line per row.",
+    "Tighten prose; add a sentence on what the 3-cone measures and why it should relate to pressure; replace number-heavy sentences with pointers to tables; define or cut twin, ghost alignment, T-E/E-T stunt."
+   ]
+  },
+  "judge-viz": {
+   "score": 8.4,
+   "subscores": {
+    "accessible": 8.5,
+    "accurate": 8.6,
+    "innovative": 8.4,
+    "economy": 8.2
+   },
+   "justification": "Fig1 hero: strong tracking-native, three rows (plus call, plus call that missed, minus flag) pairing drill path with hardest sampled NFL rush on shared 2 yd scale coloured by lateral g, pressure vs forecast with 80% interval. Weaknesses: dead whitespace; axis convention differs from Fig 2; inconsistent colour semantics; NFL path is a selected best case with no play count; tiny colourbar title; only 1 clear hit. Fig2 twins: clear dumbbell/forest of plus calls vs matched twins with pooled rows; blue/orange colourblind-safe; title '7 of 9 pairs' matches. Weaknesses: two messages; 2025 not marked; no left summary row; per-pair differences lack intervals; post-hoc twin choice may overstate vs 0.12 screening p; cramped axis labels. Both keep.",
+   "top_changes": [
+    "Fig 1: remove whitespace; put pressure vs forecast on same 'minus forecast, pp' axis as Fig 2; one colour key throughout; print sampled-play count and add light-grey strip of other 3-4 sampled rushes.",
+    "Fig 2: split two messages; drop left Hoop G dots or add pooled gap row; mark 2025 class (hollow ring/divider, 'clean out-of-class test: 0 of 2'); add intervals on differences and shuffle p row (0.004 twin vs 0.12 screen).",
+    "Add a third figure: 2025 decision-card small multiple (Downs, Brinson, Sawyer, Baron, Black) with hoop path coloured by lateral g and rookie pressure-vs-forecast interval; or a held-out calibration plot."
+   ]
+  }
+ },
+ "changelog": [
+  "Softened lede to 'leads, not rules' and placed the protocol ask before results.",
+  "Added matched-twin test and plus/film-first/minus board with named 2025 players and film checklists.",
+  "Reported 4 of 9 plus calls, 0 of 2 in 2025, and best-of-14 screening p=0.12 alongside twin p=0.004.",
+  "Condensed stats into a table of tests with the null each one uses; kept honest null on hoop-to-game link.",
+  "Reduced to 2 figures (hero drill-vs-game paths; twins dumbbell); 1,615 words."
+ ],
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  }
+ ]
+}

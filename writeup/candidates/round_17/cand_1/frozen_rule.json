@@ -1,0 +1,18 @@
+{
+ "rule": "pick>=103 or UDFA AND top third of year-standardized Hoop G among DL hoop runners of the class",
+ "hit": "career EB pressure rate above leave-one-class-out baseline forecast (pick, weight, EDGE share, NGS athleticism, official 10-yd split, 3-cone); 30+ rushes",
+ "test": "primary: OLS slope of year-z Hoop G on (EB pressure rate - frozen baseline forecast) in the 2026 class after the 2026 season, one-sided p<0.10; slope <= 0 drops Hoop G as a tiebreaker; secondary: shortlist vs rest of day 3 hit rate, one-sided Fisher",
+ "shortlist_2025": [
+  "Antwaun Powell-Ryland",
+  "Ethan Downs",
+  "Jack Sawyer",
+  "Jah Joyner",
+  "Kyle Kennard",
+  "Nazir Stackhouse",
+  "Tim Smith",
+  "Tyrion Ingram-Dawkins",
+  "Warren Brinson",
+  "Zeek Biggers"
+ ],
+ "sha256": "48512deeddaa0bbcb9796e75e65c958df6ea906385a0d44ebac493fdba24a4cd"
+}

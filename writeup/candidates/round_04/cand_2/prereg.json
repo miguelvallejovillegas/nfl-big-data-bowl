@@ -1,0 +1,14 @@
+{
+ "written_before_opening": "2025 NFL season break snaps (outcome side). Development used 2023-24 NFL seasons only.",
+ "metric": "Speed Kept (SK, %): receiver speed at the slowest point of the break (apex) divided by his peak speed in the 1.0 s before it; z-scored within route family x position group. Identical code on Combine route drills and NFL snaps.",
+ "snap_rule": "Route in SLANT/OUT/HITCH/IN/CORNER; break detected by the round-3 detector (first >=30 deg turn after 1.5 yd, entry >2.5 yd/s); break apex at least 0.2 s before pass_forward (breaks finishing after the ball is out cannot create separation at the throw).",
+ "outcome": "Separation over expected (SOE) at pass_forward; the context model (route, depth, cushion, man/zone, alignment, time to throw, target, down, distance) is fitted on 2023-24 season snaps only and applied to 2025.",
+ "primary_test": "Spearman rho(SK_z, SOE) on 2025-season qualifying snaps > 0, one-sided p < 0.05 from a player-cluster permutation (SK shuffled within player, 2000 draws) and a player-cluster bootstrap 90% CI lower bound > 0.",
+ "secondary": [
+  "Direction: rho > 0 in at least 3 of 5 route families in 2025.",
+  "Beyond baseline: adding SK to a snap model with the player's 40, weight, log pick and NGS score (fit on 2023-24) raises held-out 2025 correlation with SOE.",
+  "Combine translation: player Combine SK vs player NFL SK; expected null, reported with reliability-conditional bound."
+ ],
+ "dev_estimate": "rho(SK_z, SOE) = about 0.07 on 445 qualifying 2023-24 snaps; retain chosen over apex speed / exit speed (0.06 / 0.06) as the coach-readable ratio.",
+ "kill_rule": "If the primary test fails, the writeup reports SK as not confirmed and gives route-drill and in-game break kinematics zero draft weight."
+}

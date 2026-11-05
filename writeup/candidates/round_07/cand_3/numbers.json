@@ -1,0 +1,450 @@
+{
+ "alt_10_fe": {
+  "text": "1.9"
+ },
+ "alt_10_r": {
+  "text": "0.33"
+ },
+ "alt_40_fe": {
+  "text": "2.4"
+ },
+ "alt_40_r": {
+  "text": "0.36"
+ },
+ "alt_prd_fe": {
+  "text": "0.7"
+ },
+ "alt_prd_n": {
+  "text": "84"
+ },
+ "alt_prd_r": {
+  "text": "0.21"
+ },
+ "dl_beyond_forty": {
+  "text": "0.19",
+  "claim": "tracked 40 launch vs NFL launch beyond official 40 and weight"
+ },
+ "dl_c_med": {
+  "text": "5.4"
+ },
+ "dl_c_rep": {
+  "text": "0.61",
+  "claim": "40 launch rep-to-rep"
+ },
+ "dl_c_rep_n": {
+  "text": "56"
+ },
+ "dl_fe": {
+  "text": "1.7",
+  "claim": "DL film equivalent of the 40 launch"
+ },
+ "dl_fe_hi": {
+  "text": "7.1"
+ },
+ "dl_fe_lo": {
+  "text": "0.3"
+ },
+ "dl_g_med": {
+  "text": "4.2"
+ },
+ "dl_k": {
+  "text": "9.5",
+  "claim": "noise-to-signal ratio, rushes"
+ },
+ "dl_n": {
+  "text": "67"
+ },
+ "dl_n_rushes": {
+  "text": "1,271",
+  "claim": "random at-rest NFL rushes for DL with a tracked 40"
+ },
+ "dl_r": {
+  "text": "0.32"
+ },
+ "dl_r2": {
+  "text": "0.15",
+  "claim": "share of true NFL launch variance the 40 explains"
+ },
+ "dl_r_hi": {
+  "text": "0.56"
+ },
+ "dl_r_lo": {
+  "text": "0.03"
+ },
+ "dl_rel1": {
+  "text": "0.10",
+  "claim": "one-rush reliability of NFL launch"
+ },
+ "dl_rel20": {
+  "text": "0.67"
+ },
+ "dl_rt": {
+  "text": "0.39"
+ },
+ "dl_rush_med": {
+  "text": "20"
+ },
+ "eff_pp": {
+  "text": "0.7",
+  "claim": "pressure-rate points per sd of NFL launch"
+ },
+ "eff_pp_hi": {
+  "text": "1.4"
+ },
+ "eff_pp_lo": {
+  "text": "0.0"
+ },
+ "eff_press": {
+  "text": "1.2",
+  "claim": "pressures per season per sd NFL launch"
+ },
+ "eff_press_hi": {
+  "text": "2.3"
+ },
+ "eff_press_lo": {
+  "text": "0.0"
+ },
+ "eff_ratio": {
+  "text": "4",
+  "claim": "launch sd effect / pick 100->80 effect"
+ },
+ "flag_beat": {
+  "text": "2",
+  "claim": "flags beating forecast"
+ },
+ "flag_fc": {
+  "text": "7.3"
+ },
+ "flag_n": {
+  "text": "7",
+  "claim": "film-first flags"
+ },
+ "flag_press": {
+  "text": "6.8"
+ },
+ "gap_hi_beat": {
+  "text": "71"
+ },
+ "gap_hi_press": {
+  "text": "8.5"
+ },
+ "gap_lo_beat": {
+  "text": "28"
+ },
+ "gap_lo_press": {
+  "text": "6.0"
+ },
+ "gap_psd_med": {
+  "text": "0.56",
+  "claim": "typical posterior sd of a player's gap"
+ },
+ "gap_sd_spread": {
+  "text": "0.78",
+  "claim": "sd of gap across players, in sd of true launch"
+ },
+ "gap_ter_n": {
+  "text": "17"
+ },
+ "implied": {
+  "text": "0.14",
+  "claim": "implied Combine->pressure partial rho via translation"
+ },
+ "implied_n80": {
+  "text": "430",
+  "claim": "players needed for 80% power"
+ },
+ "k_prime": {
+  "text": "11",
+  "claim": "rushes at which film outweighs the 40 prior"
+ },
+ "lc_blend_12": {
+  "text": "0.30"
+ },
+ "lc_blend_2": {
+  "text": "0.15"
+ },
+ "lc_film_12": {
+  "text": "0.28"
+ },
+ "lc_film_2": {
+  "text": "0.15"
+ },
+ "n_sure": {
+  "text": "7",
+  "claim": "players whose 90% interval for gap excludes zero"
+ },
+ "oc_base": {
+  "text": "0.205",
+  "claim": "baseline held-out R2"
+ },
+ "oc_c": {
+  "text": "−0.020",
+  "magnitude": "0.020",
+  "claim": "held-out R2 change, c"
+ },
+ "oc_c_hi": {
+  "text": "0.125"
+ },
+ "oc_c_lo": {
+  "text": "−0.329",
+  "magnitude": "0.329"
+ },
+ "oc_gap": {
+  "text": "−0.073",
+  "magnitude": "0.073",
+  "claim": "held-out R2 change, gap"
+ },
+ "oc_n_2025": {
+  "text": "10"
+ },
+ "oc_nfl": {
+  "text": "−0.022",
+  "magnitude": "0.022",
+  "claim": "held-out R2 change, nfl"
+ },
+ "oc_nfl_better": {
+  "text": "1"
+ },
+ "oc_nfl_hi": {
+  "text": "0.238"
+ },
+ "oc_nfl_lo": {
+  "text": "−0.449",
+  "magnitude": "0.449"
+ },
+ "p_10": {
+  "text": "0.25"
+ },
+ "p_40": {
+  "text": "0.30"
+ },
+ "p_c": {
+  "text": "0.06",
+  "claim": "Combine launch vs pressure beyond baseline"
+ },
+ "p_c_given_nfl": {
+  "text": "−0.04",
+  "magnitude": "0.04",
+  "claim": "Combine launch beyond NFL launch"
+ },
+ "p_c_hi": {
+  "text": "0.36"
+ },
+ "p_c_lo": {
+  "text": "−0.32",
+  "magnitude": "0.32"
+ },
+ "p_g": {
+  "text": "0.28",
+  "claim": "NFL launch vs pressure beyond baseline"
+ },
+ "p_g_hi": {
+  "text": "0.58"
+ },
+ "p_g_lo": {
+  "text": "−0.04",
+  "magnitude": "0.04"
+ },
+ "p_g_ppos": {
+  "text": "96"
+ },
+ "p_gap": {
+  "text": "0.26",
+  "claim": "translation gap vs pressure beyond baseline"
+ },
+ "p_gap_given_nfl": {
+  "text": "0.04",
+  "claim": "gap beyond NFL launch"
+ },
+ "pick_80_100": {
+  "text": "0.2",
+  "claim": "pressure-rate pts from pick 100 to 80"
+ },
+ "pick_80_100_press": {
+  "text": "0.3"
+ },
+ "pl_robinson_fc": {
+  "text": "10.1"
+ },
+ "pl_robinson_y": {
+  "text": "11.8"
+ },
+ "pl_smith_fc": {
+  "text": "7.3"
+ },
+ "pl_smith_y": {
+  "text": "3.9"
+ },
+ "pl_watts_c": {
+  "text": "7.6"
+ },
+ "pl_watts_fc": {
+  "text": "7.1"
+ },
+ "pl_watts_g": {
+  "text": "3.3"
+ },
+ "pl_watts_gap": {
+  "text": "−2.48",
+  "magnitude": "2.48"
+ },
+ "pl_watts_y": {
+  "text": "3.6"
+ },
+ "pl_young_c": {
+  "text": "5.6"
+ },
+ "pl_young_fc": {
+  "text": "8.3"
+ },
+ "pl_young_g": {
+  "text": "5.0"
+ },
+ "pl_young_y": {
+  "text": "11.3"
+ },
+ "pr_med": {
+  "text": "6.5"
+ },
+ "pr_n": {
+  "text": "52",
+  "claim": "DL with tracked 40, 8+ random rushes and a pressure rate"
+ },
+ "pr_rt_true": {
+  "text": "0.39"
+ },
+ "rel_min": {
+  "text": "0.05",
+  "claim": "pricing threshold for one-snap reliability"
+ },
+ "rel_noisy_max": {
+  "text": "0.03",
+  "claim": "highest one-snap reliability among unpriced groups"
+ },
+ "role_e_hi": {
+  "text": "10.4"
+ },
+ "role_e_lo": {
+  "text": "6.4"
+ },
+ "role_e_n": {
+  "text": "24"
+ },
+ "role_e_rc": {
+  "text": "0.02"
+ },
+ "role_i_hi": {
+  "text": "6.6"
+ },
+ "role_i_lo": {
+  "text": "5.7"
+ },
+ "role_i_pr": {
+  "text": "0.12"
+ },
+ "role_i_rc": {
+  "text": "0.37"
+ },
+ "rush_season": {
+  "text": "168"
+ },
+ "sc_WR_fe": {
+  "text": "6.7",
+  "claim": "WR film equivalent"
+ },
+ "sc_WR_py": {
+  "text": "−0.23",
+  "magnitude": "0.23",
+  "claim": "WR NFL movement partial rho with production"
+ },
+ "sc_WR_r": {
+  "text": "0.39",
+  "claim": "WR Combine-to-NFL correlation of matched movement"
+ },
+ "val_play_n": {
+  "text": "1,271"
+ },
+ "val_play_rho": {
+  "text": "−0.51",
+  "magnitude": "0.51",
+  "claim": "per-rush launch vs NGS get-off"
+ },
+ "_table_values": [
+  "0.01",
+  "0.02",
+  "0.03",
+  "0.04",
+  "0.07",
+  "0.10",
+  "0.12",
+  "0.14",
+  "0.16",
+  "0.19",
+  "0.21",
+  "0.23",
+  "0.25",
+  "0.28",
+  "0.29",
+  "0.3",
+  "0.30",
+  "0.31",
+  "0.32",
+  "0.35",
+  "0.37",
+  "0.38",
+  "0.39",
+  "0.41",
+  "0.44",
+  "0.5",
+  "0.50",
+  "0.52",
+  "0.54",
+  "0.56",
+  "0.57",
+  "0.58",
+  "0.59",
+  "0.65",
+  "0.82",
+  "0.84",
+  "0.89",
+  "0.91",
+  "0.92",
+  "0.94",
+  "0.95",
+  "0.97",
+  "1.22",
+  "1.51",
+  "1.7",
+  "1.81",
+  "10.1",
+  "10.4",
+  "11.3",
+  "11.8",
+  "2.21",
+  "2.48",
+  "3.3",
+  "3.6",
+  "3.7",
+  "3.8",
+  "3.9",
+  "4.8",
+  "4.9",
+  "5.0",
+  "5.2",
+  "5.3",
+  "5.4",
+  "5.6",
+  "5.7",
+  "5.8",
+  "6.4",
+  "6.6",
+  "6.7",
+  "7.1",
+  "7.3",
+  "7.6",
+  "8.0",
+  "8.2",
+  "8.3",
+  "8.5"
+ ]
+}

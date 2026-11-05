@@ -20,3 +20,6 @@ __pycache__/
 
 # os
 .DS_Store
+
+# analysis caches (derived from data/, never commit)
+data/cache/

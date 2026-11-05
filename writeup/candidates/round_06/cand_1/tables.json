@@ -1,0 +1,239 @@
+{
+ "signals": [
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.626,
+   "lo": 0.285,
+   "hi": 0.818,
+   "n": 27,
+   "mde": 0.517
+  },
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.659,
+   "lo": 0.343,
+   "hi": 0.855,
+   "n": 27,
+   "mde": 0.517
+  },
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.686,
+   "lo": 0.421,
+   "hi": 0.844,
+   "n": 32,
+   "mde": 0.478
+  },
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.5,
+   "lo": 0.275,
+   "hi": 0.677,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.706,
+   "lo": 0.537,
+   "hi": 0.818,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.673,
+   "lo": 0.514,
+   "hi": 0.779,
+   "n": 70,
+   "mde": 0.33
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.327,
+   "lo": 0.101,
+   "hi": 0.536,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.223,
+   "lo": -0.033,
+   "hi": 0.455,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.133,
+   "lo": -0.083,
+   "hi": 0.316,
+   "n": 86,
+   "mde": 0.298
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush drill: first-second burst",
+   "kind": "tracking",
+   "outcome": "press_eb",
+   "rho": 0.045,
+   "lo": -0.183,
+   "hi": 0.278,
+   "n": 68,
+   "mde": 0.334
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush drill: first-second burst",
+   "kind": "tracking",
+   "outcome": "quick",
+   "rho": 0.053,
+   "lo": -0.181,
+   "hi": 0.283,
+   "n": 68,
+   "mde": 0.334
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush drill: first-second burst",
+   "kind": "tracking",
+   "outcome": "arc_random",
+   "rho": 0.16,
+   "lo": -0.074,
+   "hi": 0.385,
+   "n": 85,
+   "mde": 0.3
+  },
+  {
+   "col": "hoop_z",
+   "label": "Run-the-hoop bend",
+   "kind": "tracking",
+   "outcome": "press_eb",
+   "rho": 0.434,
+   "lo": 0.201,
+   "hi": 0.618,
+   "n": 63,
+   "mde": 0.347
+  },
+  {
+   "col": "hoop_z",
+   "label": "Run-the-hoop bend",
+   "kind": "tracking",
+   "outcome": "quick",
+   "rho": 0.391,
+   "lo": 0.127,
+   "hi": 0.603,
+   "n": 63,
+   "mde": 0.347
+  },
+  {
+   "col": "hoop_z",
+   "label": "Run-the-hoop bend",
+   "kind": "tracking",
+   "outcome": "arc_random",
+   "rho": 0.374,
+   "lo": 0.163,
+   "hi": 0.538,
+   "n": 79,
+   "mde": 0.311
+  }
+ ],
+ "screen": [
+  {
+   "col": "hoop_z",
+   "pr_press": 0.323,
+   "pr_getoff": 0.127,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "hoop_speed_z",
+   "pr_press": -0.036,
+   "pr_getoff": 0.151,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "hoop_time_z",
+   "pr_press": 0.16,
+   "pr_getoff": 0.239,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "rush_bend_z",
+   "pr_press": 0.032,
+   "pr_getoff": 0.063,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "rush_acc_z",
+   "pr_press": 0.133,
+   "pr_getoff": 0.125,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "rush_t3_z",
+   "pr_press": -0.015,
+   "pr_getoff": 0.054,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "d1_z",
+   "pr_press": -0.026,
+   "pr_getoff": -0.096,
+   "n_press": 68,
+   "n_getoff": 68
+  }
+ ],
+ "loo_min_player": "Tuli Tuipulotu",
+ "loo_max_player": "Brenton Cox",
+ "md_txt": {
+  "old_edge_plus": "Nick Hampton ('23), Javon Solomon ('24), Chop Robinson ('24), Tuli Tuipulotu ('23), Cedric Johnson ('24), Austin Booker ('24)",
+  "old_int_plus": "Adetomiwa Adebawore ('23)",
+  "old_int_minus": "Keondre Coburn ('23), McKinnley Jackson ('24), Jerrod Clark ('23), T'Vondre Sweat ('24), Darius Robinson ('24), Justin Rogers ('24)",
+  "old_edge_minus": "none",
+  "old_film": "Byron Murphy ('24), Isaiah McGuire ('23)",
+  "loo_player": "Tuli Tuipulotu"
+ },
+ "md": {
+  "board25": "| # | Player | Pick | Role | Bend, sd [80%] | Rookie pressure vs forecast (rushes) | Call |\n|---|---|---|---|---|---|---|\n| 1 | Ethan Downs | UDFA | EDGE | 0.94 [0.31, 1.57] | \u2014 (7 rushes) | **bend +** |\n| 2 | Warren Brinson | 198 | Int | 0.77 [0.14, 1.41] | 6.9% vs 6.6% (173) | agility note |\n| 3 | Donovan Ezeiruaku | 44 | EDGE | 0.77 [0.14, 1.40] | 7.7% vs 9.5% (402) | **bend +** |\n| 4 | Jah Joyner | UDFA | EDGE | 0.60 [\u22120.03, 1.23] | \u2014 (no rushes) | neutral |\n| 5 | Tyrion Ingram-Dawkins | 139 | EDGE | 0.58 [\u22120.06, 1.21] | 5.3% vs 8.0% (113) | neutral |\n| 6 | Jack Sawyer | 123 | EDGE | 0.56 [\u22120.07, 1.19] | 9.7% vs 8.5% (176) | neutral |\n| 7 | Kyle Kennard | 125 | EDGE | 0.51 [\u22120.12, 1.14] | 2.0% vs 8.2% (50) | neutral |\n| 8 | Jordan Burch | 78 | EDGE | 0.49 [\u22120.14, 1.12] | 5.8% vs 8.5% (344) | film first (under) |\n| 39 | Ashton Gillotte | 66 | EDGE | \u22120.55 [\u22121.18, 0.08] | 6.4% vs 9.3% (342) | neutral |\n| 40 | Tyler Baron | 176 | EDGE | \u22120.62 [\u22121.26, 0.01] | 4.4% vs 8.0% (68) | neutral |\n| 41 | Yahya Black | 164 | Int | \u22120.75 [\u22121.38, \u22120.12] | 5.8% vs 5.2% (189) | no call (size) |\n| 42 | Jordan Phillips | 143 | Int | \u22120.80 [\u22121.43, \u22120.17] | 1.9% vs 6.6% (215) | no call (size) |",
+  "old_edge_plus": "Nick Hampton ('23), Javon Solomon ('24), Chop Robinson ('24), Tuli Tuipulotu ('23), Cedric Johnson ('24), Austin Booker ('24)",
+  "old_int_plus": "Adetomiwa Adebawore ('23)",
+  "old_int_minus": "Keondre Coburn ('23), McKinnley Jackson ('24), Jerrod Clark ('23), T'Vondre Sweat ('24), Darius Robinson ('24), Justin Rogers ('24)",
+  "old_edge_minus": "none",
+  "old_film": "Byron Murphy ('24), Isaiah McGuire ('23)",
+  "loo_player": "Tuli Tuipulotu"
+ }
+}

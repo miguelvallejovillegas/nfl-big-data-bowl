@@ -1,0 +1,626 @@
+{
+ "al_or_int": {
+  "value": "1.20",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_or_int_hi": {
+  "value": "1.45",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_or_int_lo": {
+  "value": "0.96",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_or_wide": {
+  "value": "1.05",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_or_wide_hi": {
+  "value": "1.32",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_or_wide_lo": {
+  "value": "0.85",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_players": {
+  "value": 79,
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "al_snaps": {
+  "value": 1541,
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "alpha_prereg": {
+  "value": "0.05",
+  "claim": "**Pre-registered test:** among 2026–27 DL with 100+ rushes by the end of 2027 (about 40), the Hoop G effect after the full baseline must be above zero (one-side"
+ },
+ "bayes_all": {
+  "value": "0.6",
+  "claim": "# A Combine Hoop Drill Hints at Extra Pass Rush: 0.6 Pressures a Season, Not Yet Confirmed Out of Class"
+ },
+ "bayes_all_hi": {
+  "value": "1.7",
+  "claim": "**Can the Combine's Run-the-Hoop drill, which has no published time, help sort pass rushers who look alike on draft slot and stopwatch times? One standard devia"
+ },
+ "bayes_all_lo": {
+  "value": "-0.4",
+  "claim": "**Can the Combine's Run-the-Hoop drill, which has no published time, help sort pass rushers who look alike on draft slot and stopwatch times? One standard devia"
+ },
+ "bayes_edge": {
+  "value": "0.6",
+  "claim": "| Plus call | Break ties his way against EDGEs picked within 30% of his slot | Same rule against interior DL; the interior slope (0.7) matches the EDGE slope (0"
+ },
+ "bayes_int": {
+  "value": "0.7",
+  "claim": "| Plus call | Break ties his way against EDGEs picked within 30% of his slot | Same rule against interior DL; the interior slope (0.7) matches the EDGE slope (0"
+ },
+ "bayes_n": {
+  "value": 90,
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "bayes_n_10yd_obs": {
+  "value": 71,
+  "claim": "2. **The drills that carry that signal are often skipped.** Of our 90 hoop runners with an NFL rush, only 34 ran the 3-cone and 71 the 10-yd split. Nearly every"
+ },
+ "bayes_n_3cone_obs": {
+  "value": 34,
+  "claim": "2. **The drills that carry that signal are often skipped.** Of our 90 hoop runners with an NFL rush, only 34 ran the 3-cone and 71 the 10-yd split. Nearly every"
+ },
+ "board_n": {
+  "value": 42,
+  "claim": "**2025 class, every call** (rank of 42; Hoop G shrunk for the number of runs):"
+ },
+ "calls24_n": {
+  "value": 7,
+  "claim": "![Figure 4. Takeaway: of the 7 plus calls from 2023–24, Chop Robinson, Tuli Tuipulotu, Javon Solomon and Cedric Johnson beat their no-tracking forecast clearly;"
+ },
+ "cc10_n": {
+  "value": 71,
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "cc10_t": {
+  "value": "0.5",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "cc10_t_hi": {
+  "value": "1.6",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "cc10_t_lo": {
+  "value": "-0.4",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "clear_hit": {
+  "value": 6,
+  "claim": "![Figure 4. Takeaway: of the 7 plus calls from 2023–24, Chop Robinson, Tuli Tuipulotu, Javon Solomon and Cedric Johnson beat their no-tracking forecast clearly;"
+ },
+ "clear_miss": {
+  "value": 3,
+  "claim": "![Figure 4. Takeaway: of the 7 plus calls from 2023–24, Chop Robinson, Tuli Tuipulotu, Javon Solomon and Cedric Johnson beat their no-tracking forecast clearly;"
+ },
+ "clear_n": {
+  "value": 18,
+  "claim": "![Figure 4. Takeaway: of the 7 plus calls from 2023–24, Chop Robinson, Tuli Tuipulotu, Javon Solomon and Cedric Johnson beat their no-tracking forecast clearly;"
+ },
+ "cmp10_hi": {
+  "value": "0.36",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp10_lo": {
+  "value": "-0.14",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp10_n": {
+  "value": 54,
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp10_r": {
+  "value": "0.11",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp3_hi": {
+  "value": "0.72",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp3_lo": {
+  "value": "-0.01",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp3_n": {
+  "value": 27,
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmp3_r": {
+  "value": "0.41",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmph_hi": {
+  "value": "0.53",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmph_lo": {
+  "value": "0.07",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmph_n": {
+  "value": 63,
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "cmph_r": {
+  "value": "0.32",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "ex_dpress": {
+  "value": "0.7",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_gap": {
+  "value": "0.50",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pb_h": {
+  "value": "8.5",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pb_l": {
+  "value": "8.2",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pick_from": {
+  "value": 124,
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pick_to": {
+  "value": 94,
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pr_h": {
+  "value": "9.7",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "ex_pr_l": {
+  "value": "7.6",
+  "claim": "**Draft-room example:** Jack Sawyer (pick 123) and Barryn Sorrell (pick 124) in 2025. Sawyer's Hoop G is 0.50 sd higher (shrunk). On the planning number that is"
+ },
+ "f1_edge_max": {
+  "value": "0.72",
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "f1_edge_min": {
+  "value": "0.67",
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "f1_ezeiruaku_out": {
+  "value": "15",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "f1_hoop_min": {
+  "value": "0.54",
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "f1_nfl_max": {
+  "value": "0.57",
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "f1_robinson_out": {
+  "value": "8",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "f1_tuipulotu_out": {
+  "value": "12",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ },
+ "hoop_dur_s": {
+  "value": "7.5",
+  "claim": "**Ask for 3–4 hoop runs.** A run lasts about 7.5 s inside a workout that is already tracked, so it costs only a few minutes."
+ },
+ "hoop_g_median": {
+  "value": "0.62",
+  "claim": "**Coach's version: the hardest sideways push he holds for half a second while rounding the hoop.** Formally, it is the peak half-second average of acceleration "
+ },
+ "imin_below": {
+  "value": 2,
+  "claim": "| Minus call | None in 2023–25; check film for a power plan, do not drop him | Ignore. Hoop G falls with weight (ρ = -0.44), every interior minus weighs 285+ lb"
+ },
+ "imin_n": {
+  "value": 6,
+  "claim": "| Minus call | None in 2023–25; check film for a power plan, do not drop him | Ignore. Hoop G falls with weight (ρ = -0.44), every interior minus weighs 285+ lb"
+ },
+ "int_minus_min_wt": {
+  "value": 285,
+  "claim": "| Minus call | None in 2023–25; check film for a power plan, do not drop him | Ignore. Hoop G falls with weight (ρ = -0.44), every interior minus weighs 285+ lb"
+ },
+ "loo_max": {
+  "value": "0.8",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "loo_min": {
+  "value": "0.5",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "mi": {
+  "value": "0.6",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "mi_hi": {
+  "value": "1.7",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "mi_lo": {
+  "value": "-0.3",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "mi_m": {
+  "value": 20,
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "n_d1_game": {
+  "value": 85,
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "n_hoop_arc": {
+  "value": 79,
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "neg_bp": {
+  "value": "0.09",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "neg_bp_n": {
+  "value": 38,
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "nf_dr2": {
+  "value": "-0.026",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_dr2_2023": {
+  "value": "-0.042",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_dr2_2024": {
+  "value": "-0.014",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_dr2_2025": {
+  "value": "-0.151",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_dr2_hi": {
+  "value": "0.185",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_dr2_lo": {
+  "value": "-0.286",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_n": {
+  "value": 63,
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_n_2023": {
+  "value": 21,
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_n_2024": {
+  "value": 22,
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nf_n_2025": {
+  "value": 20,
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "nlpd_double": {
+  "value": "0.88",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_double_se": {
+  "value": "0.91",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_hoop_folds": {
+  "value": 2,
+  "claim": "**Out of class, everything is re-chosen inside each fold:** the drill screen, the chosen drill's reliability and the prior scale, all on the two training classe"
+ },
+ "nlpd_n": {
+  "value": 90,
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_n_2023": {
+  "value": 28,
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_n_2024": {
+  "value": 27,
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_n_2025": {
+  "value": 35,
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_skeptical": {
+  "value": "0.58",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_skeptical_2023": {
+  "value": "0.32",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_skeptical_2024": {
+  "value": "0.14",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_skeptical_2025": {
+  "value": "0.11",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_skeptical_lr": {
+  "value": "1.8",
+  "claim": "**Out of class, everything is re-chosen inside each fold:** the drill screen, the chosen drill's reliability and the prior scale, all on the two training classe"
+ },
+ "nlpd_skeptical_se": {
+  "value": "0.49",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_wide": {
+  "value": "-0.18",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "nlpd_wide_se": {
+  "value": "1.39",
+  "claim": "| **Out of class, log score** (± SE): gain over the same model without the drill; screen, prior and reliability re-chosen in each fold | 90 (28 / 27 / 35) | +0."
+ },
+ "ob10_dr2": {
+  "value": "-0.002",
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "ob10_n": {
+  "value": 49,
+  "claim": "**Against what a team already has**, after the same baseline (pick, weight, role, NGS score), the partial ρ with pressure is 0.41 [-0.01, 0.72] for the 3-cone ("
+ },
+ "olsfix_dr2": {
+  "value": "0.088",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "olsfix_pos": {
+  "value": 3,
+  "claim": "**Out of class, everything is re-chosen inside each fold:** the drill screen, the chosen drill's reliability and the prior scale, all on the two training classe"
+ },
+ "pair_n": {
+  "value": 14,
+  "claim": "Head to head, across all 14 same-class EDGE pairs picked within 30% of each other with a 0.4+ sd gap, the higher-Hoop G rusher finished further above his foreca"
+ },
+ "pair_null_pct": {
+  "value": "50",
+  "claim": "Head to head, across all 14 same-class EDGE pairs picked within 30% of each other with a 0.4+ sd gap, the higher-Hoop G rusher finished further above his foreca"
+ },
+ "pair_win_pct": {
+  "value": "57",
+  "claim": "Head to head, across all 14 same-class EDGE pairs picked within 30% of each other with a 0.4+ sd gap, the higher-Hoop G rusher finished further above his foreca"
+ },
+ "pair_wins": {
+  "value": 8,
+  "claim": "Head to head, across all 14 same-class EDGE pairs picked within 30% of each other with a 0.4+ sd gap, the higher-Hoop G rusher finished further above his foreca"
+ },
+ "pick_equiv": {
+  "value": 80,
+  "claim": "On our draft-slot model, 0.6 pressures is the gap between pick 100 and pick 80 (80% range 47 to 106)."
+ },
+ "pick_equiv_hi": {
+  "value": 106,
+  "claim": "On our draft-slot model, 0.6 pressures is the gap between pick 100 and pick 80 (80% range 47 to 106)."
+ },
+ "pick_equiv_lo": {
+  "value": 47,
+  "claim": "On our draft-slot model, 0.6 pressures is the gap between pick 100 and pick 80 (80% range 47 to 106)."
+ },
+ "plc_runstop": {
+  "value": "0.02",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "plc_runstop_n": {
+  "value": 60,
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "power_prereg": {
+  "value": "0.12",
+  "claim": "**Pre-registered test:** among 2026–27 DL with 100+ rushes by the end of 2027 (about 40), the Hoop G effect after the full baseline must be above zero (one-side"
+ },
+ "ppc_cov80": {
+  "value": "88",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "ppc_sd_p": {
+  "value": "0.75",
+  "claim": "**Checks.** The model's 80% predictive intervals cover 88% of rushers, and the simulated spread of pressure rates matches the observed spread (p = 0.75). With o"
+ },
+ "pr_d1_press": {
+  "value": "-0.03",
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "pr_double": {
+  "value": "1.5",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "pr_double_hi": {
+  "value": "3.1",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "pr_double_lo": {
+  "value": "0.0",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "pr_hoop_arc": {
+  "value": "0.10",
+  "claim": "![Figure 1. Takeaway: the three plus-Hoop G EDGEs hold 0.67–0.72 g around the hoop and Phillips holds 0.54 g. On their hardest-turning sampled NFL rush, none re"
+ },
+ "pr_wide": {
+  "value": "2.0",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "pr_wide_hi": {
+  "value": "4.0",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "pr_wide_lo": {
+  "value": "0.1",
+  "claim": "| **In sample:** extra pressures per 450-rush season per sd [90%] | 90 hoop runners with an NFL rush | **0.6** [-0.4, 1.7], skeptical prior | 2× prior 1.5 [0.0,"
+ },
+ "rel_drill_d1_player": {
+  "value": "0.22",
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "rel_hoop_3runs": {
+  "value": "0.68",
+  "claim": "| Call rests on one run (most prospects) | Still a tiebreak only. Ask for 2–3 more runs at his pro day: three runs lift reliability from 0.41 to 0.68 | Same |"
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "**Coach's version: the hardest sideways push he holds for half a second while rounding the hoop.** Formally, it is the peak half-second average of acceleration "
+ },
+ "rho_d1_game": {
+  "value": "0.32",
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "rho_d1_game_hi": {
+  "value": "0.50",
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "rho_d1_game_lo": {
+  "value": "0.12",
+  "claim": "Get-off burst (yards covered in the rush drill's first second) tracks the player's first second on random NFL snaps (ρ = 0.32 [0.12, 0.50], n = 85). It is unrel"
+ },
+ "rho_hoop_wt": {
+  "value": "-0.44",
+  "claim": "| Minus call | None in 2023–25; check film for a power plan, do not drop him | Ignore. Hoop G falls with weight (ρ = -0.44), every interior minus weighs 285+ lb"
+ },
+ "ridge_dr2": {
+  "value": "0.056",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "ridge_dr2_hi": {
+  "value": "0.155",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "ridge_dr2_lo": {
+  "value": "-0.200",
+  "claim": "| **Out of class, R² change** [95%], fully nested | 63 with 100+ rushes (21 / 22 / 20) | -0.026 [-0.286, 0.185]; by class -0.042 / -0.014 / -0.151 | ridge 0.056"
+ },
+ "tb_b25_0_h": {
+  "value": "1.57",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_0_l": {
+  "value": "0.31",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_0_s": {
+  "value": "0.94",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_1_h": {
+  "value": "1.41",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_1_l": {
+  "value": "0.14",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_1_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_1_pr": {
+  "value": "6.9",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_2_h": {
+  "value": "1.40",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_2_l": {
+  "value": "0.14",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_2_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_2_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_2_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_3_h": {
+  "value": "1.12",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_3_l": {
+  "value": "-0.14",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_3_pb": {
+  "value": "8.5",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_3_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_3_s": {
+  "value": "0.49",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_4_h": {
+  "value": "-0.12",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_4_l": {
+  "value": "-1.38",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_4_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_4_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_4_s": {
+  "value": "-0.75",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_5_h": {
+  "value": "-0.17",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_5_l": {
+  "value": "-1.43",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_5_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_5_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'board25'"
+ },
+ "tb_b25_5_s": {
+  "value": "-0.80",
+  "claim": "table/sentence 'board25'"
+ },
+ "wt_share_outside": {
+  "value": "9",
+  "claim": "The drill was built to show bend, so we tested whether Hoop G *is* bend on Sundays. Both tests fail. First, plus-Hoop G EDGEs do not take wider paths: Robinson,"
+ }
+}

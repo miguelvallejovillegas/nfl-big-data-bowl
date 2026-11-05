@@ -1,0 +1,14 @@
+key,value,check
+t5_ipw_b,-0.8,"Break G slope re-weighted for who reaches the NFL sample, in per sd"
+nn_b,-0.5,"Break G slope without Puka Nacua (most influential receiver), in per sd"
+qb_b,-1.2,"Break G slope with season SOE adjusted for the quarterback, in per sd"
+eiv_b,-1.2,"Break G slope, errors-in-variables (drill reliability rebuilt per resample), in per sd"
+eqm,3.6,"smallest symmetric margin the TOST rejects, in per sd"
+mde80,3.5,"minimum detectable effect, in per sd"
+mc_holm_min,0.88,smallest Holm-adjusted p over the three mechanics
+ns_g,0.31,day-3 gain with the shrinkage refitted inside each season fold
+nc_g,0.15,day-3 gain with draft-class folds
+rs_med,0.29,"day-3 gain, median over 1,000 repeated receiver splits"
+rs_pos,85,% of repeated splits with a positive day-3 gain
+inj_gain,0.44,day-3 gain without pairs flagged for 13 or fewer games
+dchk_n,116,receivers whose draft slot matches the nflverse record

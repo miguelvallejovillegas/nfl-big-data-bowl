@@ -1,0 +1,13 @@
+{
+ "angle": "DL/EDGE: Run-the-Hoop lateral force (Hoop G) and pass-rush-drill burst vs in-game get-off, sideways g and pressure rate; year-standardized; baseline = log pick + weight + EDGE share + NGS + games/season + official 10-yd split and 3-cone",
+ "metric_name": "Hoop G: peak half-second sideways (path-perpendicular) acceleration in the Run-the-Hoop drill, g, z within Combine year, corrected for one-run reliability 0.41",
+ "headline_number": "0.6 extra pressures per 450-rush season per sd [90% -0.4, 1.7], n=90 (pick 100 vs 80). Out of class: +1.3 points of variance explained [-4.7, +8.7], gain in 2023 only; shuffle p=0.01. Best-of-14 multiplicity p=0.12.",
+ "what_changed_from_previous": "Football: one metric name with on-field translation (0.62 g at 3.5 yd/s = 1.8-yd-radius turn; NFL typical peak 0.17 g); EDGE vs interior rules table with film checks; coach paragraph; calibration table with raw pressure rates for plus vs no-call by role; 7-row 2025 decision card with 3-cone column and one plain call each; 4 hits labelled as tuning-class; Phillips a film flag only; 20-rush tracking caveat. DS: plus-call count resolved (10 calls, 9 scored) and board CSV gains draft_room_call column; Hoop G vs weight within interior (-0.30) and EDGE (-0.13); within-player check vs own NFL sideways g (rho 0.10 [-0.11, 0.32], n=79, player bootstrap); max-statistic shuffle over the 14 screened pairs (p=0.12); class-by-class calibration with exact Clopper-Pearson intervals and a 2025-only line; log-score and conditional p removed. Writeup: 2-sentence lede, plain out-of-class number, why-now beat, softened 'no number' claim, 3-row checks table, jargon removed, pre-registration paragraph cut, 1,700 words. Viz: new 4x3 hero (top/bottom per role chosen by drill alone; hoop and NFL traces on one time axis aligned at peak; pressure-rate bar); Fig 2+3 merged into one validation figure with held-out class n labels and one p; calls figure with hollow 2025 markers, larger common-scale sparklines and exact-interval base-rate bars.",
+ "open_risks": [
+  "Multiplicity-adjusted p=0.12: the in-sample link alone could be luck from the 14-pair screen.",
+  "Out-of-class gain driven by 2023; 2025 clean plus calls are 0 of 2 clearly above.",
+  "Within-player check is weak (rho 0.10, interval spans zero), so mechanism is unproven.",
+  "On the 22 common rushers the 3-cone beats Hoop G; with an observed 3-cone the effect drops to 0.1.",
+  "Hero rows are extreme by construction (top/bottom per role); interior top lands on forecast."
+ ]
+}

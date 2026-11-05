@@ -1,0 +1,172 @@
+{
+ "round": 16,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_16/cand_2/",
+   "angle": "receiver Break G drill-to-route transfer null + day-3 SOE tiebreaker",
+   "score": 8.44,
+   "per_judge_scores": {
+    "football": 8.5,
+    "datascience": 8.3,
+    "writeup": 8.4,
+    "viz": 8.6
+   },
+   "fatal_flaws": [
+    "Figure numbers inconsistent with each other and text (Fig 4B +0.31 vs +0.63; 4C 53 pairs vs 20)",
+    "Fig 3 compares two hand-picked players",
+    "Fig 1 text dense and small at column width"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_16/cand_3/",
+   "angle": "DL first-step translation, Both rule, frozen 2026 pressure list",
+   "score": 8.19,
+   "per_judge_scores": {
+    "football": 8.2,
+    "datascience": 8.1,
+    "writeup": 8.2,
+    "viz": 8.3
+   },
+   "fatal_flaws": [
+    "No fatal flaw (Fig 2 title overclaims; Fig 3B/4B frozen-call counts differ)"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_16/cand_1/",
+   "angle": "Run-the-Hoop Hoop G day-3 pass-rush tiebreaker",
+   "score": 7.75,
+   "per_judge_scores": {
+    "football": 7.7,
+    "datascience": 7.4,
+    "writeup": 7.9,
+    "viz": 8.2
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_16/revised/",
+   "angle": "revision of round winner (cand_2)",
+   "score": 8.49,
+   "per_judge_scores": {
+    "football": 8.55,
+    "datascience": 8.4,
+    "writeup": 8.4,
+    "viz": 8.6
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_16/revised/",
+  "score": 8.49
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.55,
+   "top_changes": [
+    "Make the headline threshold consistent: abstract says gains above +1 inch ruled out, body tests pre-set +/-3 margin; use one margin and state what +1 inch is worth in catches.",
+    "Make shortlist decision-grade: lead with 2-3 names with go/no-go, replace thin man/zone splits with film checklist, show hit rate vs 50% base rate (7/13, 6/10).",
+    "Strengthen day-3 SOE tiebreaker: show all 24 matched pairs with bootstrap interval, separate TEs from WRs, state 2026 test underpowered (0.20) and what result would change the recommendation."
+   ],
+   "summary": "Usable 8.5, hard football data 8.8, unique 8.3, terminology 8.6. Clear do-not-pay-for-Break-G call; tiebreaker honestly weak (0.31 [-0.08,0.63], 20 pairs); frozen 2026 rule with hash; headline +1 inch vs body +/-3 margin mismatch."
+  },
+  "judge-datascience": {
+   "score": 8.4,
+   "top_changes": [
+    "Fix speed benchmark: judge got rho ~0.74 (n=100) for 40 vs NFL top speed on full-play max; 0.34 uses restricted in-cut window; state window and add reference to numbers.json.",
+    "Report baseline held-out R2/RMSE and rank correlation, and Break G increment as delta-R2 with interval.",
+    "Temper shortlist probabilities (95%/89%) with calibrated day-3 figures (40% observed vs 50% predicted); show hit rate vs base rate with binomial interval; simulate 2026 power."
+   ],
+   "summary": "Correctness 8.2, evidence 8.8, model 8.6, innovation 8.3. Numbers consistent between writeup.md and numbers.json; check.py 1885 words, 4 figures; hash matches. Weaknesses: speed benchmark window, thin day-3 evidence (20 pairs), bounded null, no baseline R2/RMSE, optimistic shortlist probabilities."
+  },
+  "judge-writeup": {
+   "score": 8.4,
+   "top_changes": [
+    "Rewrite bold lede: define Break G and SOE first, state result in ~60 words, consistent units; move hedge to table.",
+    "Move analyst machinery (72% within +/-0.2, split-half -0.06, shuffle p, one-sided p values) to appendix; split dense motivation paragraph and explain $1.08M and sixth receiver spot.",
+    "Resolve tension in action 1 (SOE tiebreaker vs interval includes zero); shorten shortlist Why column; split action 3 into finding and labelled film hypothesis."
+   ],
+   "summary": "Clarity 8.4, structure 8.6, motivation 8.0, density 8.0. check.py passes (1,885 words, 4 figures, 4 tables)."
+  },
+  "judge-viz": {
+   "score": 8.6,
+   "top_changes": [
+    "Fig 2: drop panels A/B or shrink, give C full width, legend for power below 25%, move 0.2 label, add pooled band, text >=11 pt.",
+    "Fig 1: add median-reference small multiples spanning Break G range, headline numbers in subtitle, bootstrap ribbon on speed panels.",
+    "Fig 4: split or enlarge panel C into paired-contrast dot plot of all 24 pairs; add 2026 shortlist mini-card strip."
+   ],
+   "summary": "Accessible 8.4, accurate 8.9, innovative 8.6, economy 8.7. Four figures, takeaway titles, colorblind-safe, intervals and n shown."
+  }
+ },
+ "changelog": [
+  "Resolved round-15 numeric inconsistencies: one primary estimate per claim (0.31 [-0.08,0.63] day-3 gain, 0.02 transfer) with alternatives in appendix.",
+  "Reworked figures to 4 with consistent numbering; Fig 1 two-row cards flagged as rule-chosen extremes.",
+  "Added frozen 2026 rule with sha256 hash, hit/miss history (1/3, 6/10) and power calculation.",
+  "Added errors-in-variables drill-to-route-family transfer and TOST margin for Break G null.",
+  "Kept check.py clean at 1,885 words / 4 figures; softened title toward tiebreaker framing."
+ ],
+ "previous_score": 8.51,
+ "adopted": false,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  },
+  {
+   "round": 15,
+   "score": 8.51
+  }
+ ]
+}

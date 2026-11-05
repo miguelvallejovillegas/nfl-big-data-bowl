@@ -1,0 +1,19 @@
+{
+ "forecast": {
+  "covariates": [
+   "log_pick",
+   "combine_weight_z",
+   "edge_share",
+   "ngs_athleticism_score",
+   "ten_yd_split_z",
+   "three_cone_z"
+  ],
+  "fit_rows": "other (earlier, for 2026: all 2023-25) classes, 100+ rushes",
+  "missing_times": "linear fill from combine_weight_z, edge_share, ngs_athleticism_score",
+  "model": "OLS on empirical-Bayes pressure rate"
+ },
+ "metric": "Hoop G = max over the Run-the-Hoop lap of the 0.5 s rolling mean of sideways acceleration (g), mean over runs, z-scored within Combine year",
+ "min_nfl_rushes": 30,
+ "score_after": "2027 regular season",
+ "score_class": 2026
+}

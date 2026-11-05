@@ -1,0 +1,14 @@
+{
+ "angle": "DL/EDGE: pass-rush drill and run-the-hoop kinematics (get-off burst, bend) vs in-game get-off and pressure rate; year-standardized; baseline = weight + alignment + 10-yd split + 3-cone + NGS athleticism + log pick",
+ "metric_name": "Hoop G (peak lateral/centripetal acceleration held for 0.5 s on the Run-the-Hoop drill, in g, z within Combine class)",
+ "headline_number": "Hoop G vs NFL pressure rate rho=0.41 (n=63); uncorrelated with draft pick (rho=0.02, n=109); leave-one-class-out R2 0.09 -> 0.16 over a no-tracking baseline (dR2=0.07, bootstrap CI -0.01 to 0.15, permutation p=0.016); +0.77 pp pressure rate per sd after baseline (CI 0.13-1.42). Negative result: the rush-drill burst adds -0.005 out-of-class R2 to in-game get-off, which is mostly body mass (rho=0.68 with weight).",
+ "what_changed_from_previous": "First candidate (round 1, no previous state). New: self-built bend metric from frame-level curvature, honest forest plot of all six candidate drill metrics x two outcomes, LOCO ridge plus bootstrap plus within-class permutation, named-player table and a 'market miss' group (7 players drafted after pick 100 with Hoop G >= +1 sd).",
+ "open_risks": [
+  "Metric was selected after exploring several candidates; the permutation p does not correct for that, and the rank partial correlation CI (-0.06 to 0.47) and the dR2 bootstrap CI both include zero.",
+  "Single-rep reliability is low: only 10 players ran the hoop twice, and split-half rho is 0.26 (Spearman-Brown 0.41).",
+  "Small held-out classes (20-22 players); the 2025 class has a single NFL season.",
+  "The 3-cone is missing for 75 of 118 DL, so the baseline 3-cone is mostly imputed from weight and alignment; judges may say the baseline is weak.",
+  "Pressure rate carries scheme and opponent effects that game tracking cannot see (no ball, no opponents).",
+  "The get-off definition is taken as provided in the play-level data and was not re-derived from game tracking."
+ ]
+}

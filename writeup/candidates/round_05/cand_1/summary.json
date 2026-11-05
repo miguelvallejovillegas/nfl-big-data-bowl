@@ -1,0 +1,14 @@
+{
+ "angle": "DL/EDGE: pass-rush drill get-off burst and Run-the-Hoop bend (Hoop G) vs NFL get-off and pressure rate; year-standardized; baseline = log pick + official 10-yd split + 3-cone + NGS athleticism (+ weight, EDGE share), missing times imputed without the outcome",
+ "metric_name": "Hoop G: hardest sideways push held for 0.5 s while rounding the hoops (g, z within Combine year), corrected for one-run reliability 0.41",
+ "headline_number": "Bayesian beta-binomial (90 hoop runners with an NFL rush, baseline incl. 10-yd split and 3-cone): 0.6 extra pressures per 450-rush season per sd of bend, 90% [-0.4, 1.7], P(>0.5) = 0.58; 0.8 without the stopwatch times. Fully nested out-of-class R2 change -0.026 [-0.410, 0.193]. Drill get-off burst tracks NFL first-second burst rho 0.32 (n=85) but not pressure.",
+ "what_changed_from_previous": "Revision of round_04/revised (itself the post-judging revision of round_04/cand_1 winner). (1) Baseline now the angle's: official 10-yd split and 3-cone enter both the Bayesian headline (deterministic fill from weight/role/NGS + missing-time flag) and the primary fully nested out-of-class test (stochastic imputation refit inside each fold; point estimate averages 10 draws); the four-item baseline is a reported sensitivity. Headline honestly drops from 0.9 to 0.6 pressures a season and the text says the stopwatch absorbs part of bend. (2) Get-off burst translation added: pass-rush-drill first second vs the same player's first second on random NFL snaps (rho 0.32 [0.12, 0.50], n=85), with reliability 0.22 and no pressure link. (3) Runtime cut from ~15 min to ~5 min clean (bootstrap/permutation/MCMC sizes reduced, env-var overridable; timing ticks printed) so a judge can re-run. (4) numbers.json still holds only quoted keys; nf_* keys now refer to the primary times-in-baseline test, nf4_* to the sensitivity. (5) Fig 4 subtitle and Fig 3/Fig 2 captions state which baseline they use; Fig 1 legend text says orange dot. (6) Trimmed to 1,974 words: shorter Why-DL, dropped tackle-rate and technique rows and the true-score posterior row, added an imputed-times limitation.",
+ "open_risks": [
+  "Headline is now smaller and weaker (P(>0.5) = 0.58); with an out-of-class null (-0.026) judges may read it as a null with a soft tiebreaker.",
+  "3-cone observed for only 34 of 90 runners; imputed values add little beyond weight/role/NGS, and the Bayesian model uses a single deterministic fill (understates imputation uncertainty).",
+  "Hoop is the screen's pick in only 47% of nested folds.",
+  "Board, Fig 3 residuals and in-sample rank checks still use the four-item forecast (labelled), a mild inconsistency with the headline baseline.",
+  "Bootstraps reduced to 200 nested refits and 4x16k MCMC (R-hat 1.02); intervals are Monte Carlo noisier than round 4.",
+  "Win-type check is a path proxy with no film, blockers or ball; it remains a null and does not anchor bend to technique."
+ ]
+}

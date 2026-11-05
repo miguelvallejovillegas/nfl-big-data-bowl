@@ -1,0 +1,182 @@
+{
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_11/cand_2/",
+   "angle": "WR/TE Break G drill-to-game chain, equivalence-bound null, cut-to-throw timing",
+   "score": 8.28,
+   "judge_scores": {
+    "judge-football": 8.2,
+    "judge-datascience": 8.4,
+    "judge-writeup": 8.2,
+    "judge-viz": 8.3
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_11/cand_1/",
+   "angle": "Hoop G tiebreak lead for DL who skipped the 3-cone; frozen rule vs no-tracking forecast",
+   "score": 8.27,
+   "judge_scores": {
+    "judge-football": 8.3,
+    "judge-datascience": 8.2,
+    "judge-writeup": 8.1,
+    "judge-viz": 8.5
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_11/cand_3/",
+   "angle": "Combine 40 start vs NFL first step carry-over for DL (null translation, NFL first step predicts pressure)",
+   "score": 8.18,
+   "judge_scores": {
+    "judge-football": 8.2,
+    "judge-datascience": 8.2,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_11/revised/",
+  "score": 8.29
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.2,
+   "subscores": {
+    "usable": 8.3,
+    "confounders": 8.6,
+    "unique": 8,
+    "terminology": 8.2
+   },
+   "justification": "Usable (8.3): The piece gives clear actions (keep Break G off the separation grade, run slant, dagger and comeback twice at the Combine), six named players with a cost-of-error column, and conversions to catches per season. The weakness is that the main answer is \"do nothing\", and several card actions (Smith, Bond) are generic. Confounders (8.6): It handles cushion, alignment, man/zone, slot, route family and tight end through SOE, draft slot through the pick forecast, held-out classes, rep reliability (0.53), NFL break reliability (0.23), small samples per player (4 to 14 breaks), a frozen and hashed rule, 18 alternative definitions, and the Nacua outlier. The leftovers are no quarterback adjustment, a thin 2025 class, and a \"not blind\" caveat. Unique (8.0): The question is a reframe, asking whether a drill cut carries over to the same route on NFL snaps, using the same code on both sides with a ceiling set by reliability. The null result is honest and the protocol-doubling advice is distinctive. It is still a null on a Combine-to-NFL question and sits close to the previous round's Break G candidate. Terminology (8.2): Route names, SOE, cushion, man/slot/go and press are used correctly, and Boutte, Mitchell, Hyatt and Bobo are named. The physics paragraph, the \"family-wise p\" wording, and the mixed-model and equivalence jargon are dense for a scout. The line that clubs draft high-Break G receivers 14% earlier is an association that could be read causally.",
+   "top_changes": [
+    "Differentiate the decision card: replace the generic Smith and Bond actions with per-player, scheme-specific instructions (for example, the coverage or route to test each one against) and give a clear scout-facing verdict, either 'draft on tape, ignore the drill cut' or a short list to re-watch.",
+    "Cut the statistical jargon from the main text (family-wise, equivalence, mixed-model, calibration slopes) and move it to the appendix. Open with one plain held-out result and one picture a GM can read, such as drill Break G rank against NFL SOE for the 115 players, with the six named players labelled.",
+    "Replace the 'do nothing' conclusion with a concrete positive use. Pull the targets-per-route lead out of the Limitations area and test it with a quarterback-trust or target-share proxy that does not depend on Puka Nacua. Or state the clubs-overpay price finding in dollars and picks as the main takeaway, with the caveat that it is an association."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.5,
+   "subscores": {
+    "correctness": 8.8,
+    "evidence": 8.6,
+    "model": 8.3,
+    "innovation": 8.3
+   },
+   "justification": "I copied analysis.py to a scratch tree and re-ran it end to end against data/processed. All 370 keys in the regenerated numbers.json match the candidate's numbers.json exactly. The writeup quotes these headline numbers, and I confirmed each: held-out slope -1.2 [-3.5, +1.0], n=116, shuffle p=0.38, split-half reliability 0.28, rho with the 40 = -0.01, and all three class slopes negative. The design is strong. It has a no-tracking baseline (log pick, 40, weight, NGS score, TE flag), leave-one-class-out testing with the forecast refit inside 2,000 resamples, a shuffle null, a frozen and hashed rule, and a pre-set smallest effect of interest (3 in). It also has an 18-definition robustness grid, a family-wise correction on secondary outcomes, and a mixed-model reliability analysis that leads to a concrete protocol (repeat the slant, dagger and comeback drills). Sample sizes are stated per claim. The model fits n of about 116: a mixed model plus a linear baseline, with no overfit-prone learners. Innovation is high. It detects the break from the 10 Hz signal, splits acceleration into along-path and turning parts, and runs the same code on drill and NFL snaps, with a within-player NFL test and ceilings set by reliability. Weaknesses: (1) The test is not blind, since earlier rounds saw all three classes, and the writeup admits this. (2) The primary interval is wide and the downside is open. (3) The no-tracking forecast is poorly calibrated out of class (slopes 0.40, 0.64, 1.33). (4) The two reliability figures for seven drills differ (0.58 for mean-then-shrink, 0.53 for the mixed model), and the writeup reconciles them only in the appendix. (5) Season SOE is not adjusted for the quarterback, and the 2025 class has one season. (6) The result is a null, so the headline gives little predictive lift.",
+   "top_changes": [
+    "Add a quarterback or target-quality adjustment to season SOE. A QB random effect, or a QB-season-mean covariate, would work. Then rerun the leave-one-class-out slope to see whether the -1.2 in (negative) estimate and its interval change.",
+    "Fix the weak forecast. Replace the single linear baseline with a ridge or shrunken forecast, and report held-out calibration slopes per class. Show that the Break G slope is stable when the baseline's out-of-class slope is closer to 1. Also report a leave-one-player-out or cluster-bootstrap interval, since 2023 and 2025 slopes are noisy at n of about 34 to 42.",
+    "Show the secondary price and usage claims on the same footing as the primary test. Give the 14% earlier-pick effect (p=0.06) and the targets-per-route lead (family-wise p=0.038, but 0.25 without Nacua) a held-out class test or a leave-one-player-out influence plot. State the count of tests run across the 18 definitions, three usage outcomes and price models in one table next to the headline."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8.1,
+   "subscores": {
+    "clarity": 8,
+    "structure": 8.5,
+    "motivation": 8.2,
+    "density": 7.7
+   },
+   "justification": "Check passes: 1,836 words, 4 figures, 3 tables. The title and bolded lede state a null result and the football question in plain words. The structure is close to the finalist pattern: a \"So what\" box up front, a motivation section, a coach-repeatable metric sentence, the chain, one test, a decision card, limitations and an appendix. Motivation is explicit (vendors will sell \"suddenness\", WR/TE drills are the only ones that copy a football action). The tone is confident and honest about a null. Density is the weak point. Methods and physics detail belong in the notebook (the 'physics' paragraph, the chain's dropped timing lead, the mixed-model reliability paragraph, the 18-definition grid). Statistical jargon is heavy for a scout audience (family-wise p, equivalence p, calibration slopes, mixed model, shuffle p). The lede's \"-1.2 inches ... (90% interval -3.5 to +1.0)\" is fine but it is not clear what 'expected' means to a coach. Two nulls are also stacked (drill to NFL, NFL cut to SOE), and the Boutte 'false positive' framing is odd for a null study. The targets-per-route \"lead\" muddies a clean message.",
+   "top_changes": [
+    "Cut about 250 words of notebook material. Remove the 'The physics' paragraph down to one sentence, drop the third bullet in 'The chain' (the dropped timing lead) and the Timing paragraph in the Appendix, and shrink the 'Combine-week protocol' reliability paragraph to two sentences. This leaves room for plain-language explanation of the headline.",
+    "Replace statistical jargon in body text. In 'In plain terms: ... random shuffles of Break G within class give a slope this far from zero 38% of the time ... calibration slopes 0.40, 0.64 and 1.33', and in the 'False positive' and 'One channel' paragraphs, say what it means for a scout and move family-wise p, equivalence p and calibration slopes to the Appendix. Also define SOE once in the lede as 'yards of space at the throw beyond what the route predicts'.",
+    "Sharpen the so-what. The first bullet ('Even the top of the interval is worth 0.15 catches') is hard to follow and the second bullet mixes a finding about club pricing with advice. Rewrite as three actions: do not use Break G in the grade, do not pay for it, and run reps twice. Drop or fold the targets-per-route 'lead' into Limitations so the null message stays clean. Collapse the decision card's six rows to the Action and Cost columns, with the tape read in Figure 4."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.3,
+   "subscores": {
+    "accessible": 8.4,
+    "accurate": 8.8,
+    "innovative": 8.4,
+    "economy": 8
+   },
+   "per_figure": [
+    {
+     "file": "fig1_one_cut.png",
+     "note": "Tracking-native single-cut figure: path coloured by acceleration, raw vs smoothed trace, decomposed components, window shaded. Defines the metric well and honestly shows smoothing loses the peak. Colorblind-safe, text legible. One-player only, so purely explanatory. Panel A has a large empty area, and the long title makes it heavy for column width.",
+     "keep": true
+    },
+    {
+     "file": "fig2_chain.png",
+     "note": "Three panels telling one message: repeatable in drills, null on NFL routes, no within-player dose response. Shows n and rho with CIs, and a reliability ceiling line. Accurate and honest. Panel 3 error bars are wide and the lines connect unordered fifths, so it is easy to over-read. The dashed ceiling label overlaps points. Footnote text is small.",
+     "keep": true
+    },
+    {
+     "file": "fig3_heldout.png",
+     "note": "Forest plot with a pre-registered margin band and a second axis converting to catches per season. Strong on accuracy. Coefficient-interval chart is not innovative by itself. The 18-alternatives row is an unlabelled range band. 'Round 9' in the footnote is process jargon. The second axis is detached from the first.",
+     "keep": true
+    },
+    {
+     "file": "fig4_cards.png",
+     "note": "Best figure: a six-player small multiple of drill vs NFL acceleration shape normalised by each player's own median, component bars, forecast-error intervals, and sampled-break counts. Info-dense text lines below each card are small. Legend glyph is cut off at the right edge. Intervals all wide and cross zero; up/down triangles invite over-reading. Bars have no uncertainty.",
+     "keep": true
+    }
+   ],
+   "top_changes": [
+    "Make Fig 4 the hero and move it up near the start, or fuse it with Fig 1. Keep the six-player small multiple, but plot drill and NFL cuts as overlaid trajectory paths in a common frame, with the Break G window marked on both. Replace the triangle glyphs with a dot-and-interval strip under each card, on one shared axis across the six players, so the reader can see all six intervals straddle zero. Enlarge the card text and fix the clipped legend.",
+    "Redo Fig 2 panel 3 as a ranked per-player slope plot or caterpillar. Show each of the 112 players' within-player slope as a thin line with the pooled mean in bold, and give the dose-response a single fitted slope with its interval. Drop the connected unordered fifths. Add a shuffle-null band to panel 2 so the null is visible rather than merely stated. Raise the footnote size.",
+    "Make Fig 3 self-explanatory and lighter. Collapse the three component rows and the 18-alternatives band into one labelled strip, state the n of each row in the axis labels, remove 'fixed in round 9' and write 'pre-set margin' instead, and align the catches axis directly under the inches axis as a secondary axis. Annotate the +3 in line as the smallest effect that would change a decision. Consider merging the per-class held-out rows into small-multiple dots so the figure reads at column width."
+   ],
+   "fatal_flaws": []
+  }
+ },
+ "changelog": [
+  "Round 11 winner is the revised WR/TE Break G drill-to-NFL carry-over writeup (8.29), narrowly above cand_2 (8.28) and cand_1 (8.27).",
+  "Revision built a six-player decision card (fig4) with drill vs NFL acceleration shape, component bars and forecast-error intervals.",
+  "Held-out result reported as -1.2 in SOE per sd Break G (90% CI -3.5 to +1.0, n=116, shuffle p=0.38) with a frozen hashed rule and pre-set 3 in margin.",
+  "Added Combine-week protocol (repeat slant, dagger, comeback drills) from mixed-model reliability 0.53 and 18-definition robustness grid.",
+  "Remaining asks: cut jargon and ~250 words of notebook material, QB adjustment for SOE, fix fig2 panel 3 and fig3 clarity."
+ ],
+ "round": 11,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  }
+ ],
+ "previous_score": 8.27
+}

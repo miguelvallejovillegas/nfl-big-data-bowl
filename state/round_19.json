@@ -1,0 +1,146 @@
+{
+ "round": 19,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_19/cand_2/",
+   "angle": "receiver Break G drill-to-route transfer null + day-3 SOE tiebreaker",
+   "score": 8.33,
+   "per_judge_scores": {
+    "football": 8.4,
+    "datascience": 8.3,
+    "writeup": 8.1,
+    "viz": 8.5
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_19/cand_3/",
+   "angle": "DL drill-start vs NFL-start translation, Both shortlist pass-rush tiebreak",
+   "score": 8.07,
+   "per_judge_scores": {
+    "football": 7.9,
+    "datascience": 8.4,
+    "writeup": 7.6,
+    "viz": 8.3
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_19/cand_1/",
+   "angle": "DL Hoop G bend day-3 pass-rush tiebreaker",
+   "score": 7.83,
+   "per_judge_scores": {
+    "football": 7.3,
+    "datascience": 8.0,
+    "writeup": 7.6,
+    "viz": 8.6
+   },
+   "fatal_flaws": [
+    "headline effect below own action line; not better than coin (p=0.20) or draft order",
+    "125 tied pairs from 47 rushers, non-independent",
+    "Hoop G chosen after screening drills"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_19/revised/",
+   "angle": "revision of round winner (cand_2)",
+   "score": 8.38,
+   "per_judge_scores": {
+    "football": 8.3,
+    "datascience": 8.5,
+    "writeup": 7.9,
+    "viz": 8.8
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_19/revised/",
+  "score": 8.38,
+  "verdicts": {
+   "judge-football": {
+    "score": 8.3,
+    "top_changes": [
+     "Resolve day-3 decision-rule weakness: report pick-gap rule error rate with interval, state it does not beat pick order (5 of 10 vs 5 of 10), or drop it and keep GO/HOLD film flags; add what-flips-each-name column and 2-3 more names",
+     "Add SOE split by man/zone and slot/wide with cell n; merge reliability figures into one table; fix 0.43 vs 0.46 mismatch",
+     "Cut length/density: replace Break G definition with coach-repeatable sentence, move sensitivity/TOST to appendix, trim null table to ~6 rows, one unit in lede, body under ~1,700 words"
+    ],
+    "justification": "Usable 8.0: named GO/HOLD list of six day-3 receivers with drop-off points; rule not validated (day-3 gain p=0.12, back-test ties pick order 3/5 vs 3/5 and 5/10 vs 5/10). Difficulty 8.8: repeatability, draft slot, entry speed, position, survivorship, shrinkage; only 2 of 24 split cells reach 30 snaps. Unique 8.6: drill-to-game movement translation, equivalence test, pre-registered rule; still a null-result paper. Terminology 8.0: Break G as share of body weight non-standard, dense lede, awkward phrasing."
+   },
+   "judge-datascience": {
+    "score": 8.5,
+    "top_changes": [
+     "Reconcile speed-transfer figure (0.43 n=100 vs 0.46 n=90 subset); make verify.py recompute spc_rho and CI",
+     "Fix day-3 power: pool 2023-2025 season pairs at receiver level (cluster bootstrap/permutation); LOCO hit rate with interval vs pick-only on all eligible day-3 receivers",
+     "Split 4,500-line analysis.py into core and exploratory modules; verify.py recompute TOST p-values, sensitivity range, break-even from raw NGS"
+    ],
+    "justification": "verify.py reproduced 12/12 headline numbers (baseline R2 0.00, delta R2 0.013, RMSE 8.6, slope -1.2, n=116, day-3 gain 0.31 n=20, speed rho 0.43 n=100). 0.46 [0.32,0.58] on 90 receivers traceable only via analysis.py. No-tracking baseline present; LOCO with bootstrap, hierarchical fit, TOST. Weaknesses: day-3 underpowered (p=0.12), back-test ties pick-only, rule partly chosen post hoc, analysis.py accreted."
+   },
+   "judge-writeup": {
+    "score": 7.9,
+    "top_changes": [
+     "Rewrite opening: bold plain-words finding first (-1.2 in per sd; 116 held-out receivers), coach-repeatable Break G definition, SOE definition at first use",
+     "Cut middle density: shrink Why receivers section, delete/move pooled-speed paragraph, merge Day 3 gain/back-test/Table 2 into one rule, trim 2026 table to one interval column; body ~1,500 words",
+     "Make closing recommendation decisive and consistent: reconcile 0.46 vs 0.43, state rule in one sentence, rename headings to carry results, trim null table to six rows"
+    ],
+    "justification": "check.py passes (1,756 words, 5 figures, 4 tables). Lede preceded by ~70 words of jargon; Break G definition not coach-repeatable; dense stacked correlations; Day 3 test stated three times; speed rho reported two ways; recommendation hedged to film priority."
+   },
+   "judge-viz": {
+    "score": 8.8,
+    "top_changes": [
+     "Rebuild Fig 3 as larger two-row small multiples with drill and NFL paths on shared axes, keep league-median ghost, replace pink dashed line, consistent HOLD color/marker with Fig 5, text >=10 pt",
+     "Shrink Fig 1: move panel C into Fig 3, keep A and B as single row with n=90 in caption",
+     "Fig 4: replace 15-row dumbbell with compact sorted slope/error scatter and a pick-gap threshold curve with bootstrap band"
+    ],
+    "justification": "5 figures, ~3 tables within limit; takeaway titles and n stated; uncertainty in every model figure; Okabe-Ito style palettes; 0.46 matches Fig 1A. Weak: Fig 3 tiny glyphs, pink dashed line, HOLD color inconsistency, Fig 4A long dumbbell, Fig 1 very tall."
+   }
+  }
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.3,
+   "top_changes": [
+    "Resolve day-3 decision-rule weakness: report pick-gap rule error rate with interval, state it does not beat pick order (5 of 10 vs 5 of 10), or drop it and keep GO/HOLD film flags; add what-flips-each-name column and 2-3 more names",
+    "Add SOE split by man/zone and slot/wide with cell n; merge reliability figures into one table; fix 0.43 vs 0.46 mismatch",
+    "Cut length/density: replace Break G definition with coach-repeatable sentence, move sensitivity/TOST to appendix, trim null table to ~6 rows, one unit in lede, body under ~1,700 words"
+   ],
+   "justification": "Usable 8.0: named GO/HOLD list of six day-3 receivers with drop-off points; rule not validated (day-3 gain p=0.12, back-test ties pick order 3/5 vs 3/5 and 5/10 vs 5/10). Difficulty 8.8: repeatability, draft slot, entry speed, position, survivorship, shrinkage; only 2 of 24 split cells reach 30 snaps. Unique 8.6: drill-to-game movement translation, equivalence test, pre-registered rule; still a null-result paper. Terminology 8.0: Break G as share of body weight non-standard, dense lede, awkward phrasing."
+  },
+  "judge-datascience": {
+   "score": 8.5,
+   "top_changes": [
+    "Reconcile speed-transfer figure (0.43 n=100 vs 0.46 n=90 subset); make verify.py recompute spc_rho and CI",
+    "Fix day-3 power: pool 2023-2025 season pairs at receiver level (cluster bootstrap/permutation); LOCO hit rate with interval vs pick-only on all eligible day-3 receivers",
+    "Split 4,500-line analysis.py into core and exploratory modules; verify.py recompute TOST p-values, sensitivity range, break-even from raw NGS"
+   ],
+   "justification": "verify.py reproduced 12/12 headline numbers (baseline R2 0.00, delta R2 0.013, RMSE 8.6, slope -1.2, n=116, day-3 gain 0.31 n=20, speed rho 0.43 n=100). 0.46 [0.32,0.58] on 90 receivers traceable only via analysis.py. No-tracking baseline present; LOCO with bootstrap, hierarchical fit, TOST. Weaknesses: day-3 underpowered (p=0.12), back-test ties pick-only, rule partly chosen post hoc, analysis.py accreted."
+  },
+  "judge-writeup": {
+   "score": 7.9,
+   "top_changes": [
+    "Rewrite opening: bold plain-words finding first (-1.2 in per sd; 116 held-out receivers), coach-repeatable Break G definition, SOE definition at first use",
+    "Cut middle density: shrink Why receivers section, delete/move pooled-speed paragraph, merge Day 3 gain/back-test/Table 2 into one rule, trim 2026 table to one interval column; body ~1,500 words",
+    "Make closing recommendation decisive and consistent: reconcile 0.46 vs 0.43, state rule in one sentence, rename headings to carry results, trim null table to six rows"
+   ],
+   "justification": "check.py passes (1,756 words, 5 figures, 4 tables). Lede preceded by ~70 words of jargon; Break G definition not coach-repeatable; dense stacked correlations; Day 3 test stated three times; speed rho reported two ways; recommendation hedged to film priority."
+  },
+  "judge-viz": {
+   "score": 8.8,
+   "top_changes": [
+    "Rebuild Fig 3 as larger two-row small multiples with drill and NFL paths on shared axes, keep league-median ghost, replace pink dashed line, consistent HOLD color/marker with Fig 5, text >=10 pt",
+    "Shrink Fig 1: move panel C into Fig 3, keep A and B as single row with n=90 in caption",
+    "Fig 4: replace 15-row dumbbell with compact sorted slope/error scatter and a pick-gap threshold curve with bootstrap band"
+   ],
+   "justification": "5 figures, ~3 tables within limit; takeaway titles and n stated; uncertainty in every model figure; Okabe-Ito style palettes; 0.46 matches Fig 1A. Weak: Fig 3 tiny glyphs, pink dashed line, HOLD color inconsistency, Fig 4A long dumbbell, Fig 1 very tall."
+  }
+ },
+ "changelog": [
+  "Round 19 revised winner (cand_2 receiver Break G null + day-3 SOE tiebreak) scored 8.38, below previous 8.48; not adopted.",
+  "Candidates: cand_2 8.33, cand_3 (DL start translation) 8.07, cand_1 (DL Hoop G) 7.83.",
+  "Revision gained over cand_2 on datascience (+0.2) and viz (+0.3) but writeup and football were mixed.",
+  "Judges ask: plain-words lede, coach-repeatable Break G, one speed rho (0.43 vs 0.46), less density, honest day-3 rule.",
+  "writeup/writeup.md, figures and numbers.json left unchanged from the previous best."
+ ],
+ "previous_score": 8.48,
+ "adopted": false
+}

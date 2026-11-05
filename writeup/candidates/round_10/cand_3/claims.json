@@ -1,0 +1,678 @@
+{
+ "b_benton_c": {
+  "value": "8",
+  "claim": "| Keeanu Benton (2023, 49, interior) | 8 | 30 (19) | 26 | 6.8% vs 7.3% | Film first: grade hands and power |"
+ },
+ "b_benton_fc": {
+  "value": "7.3",
+  "claim": "| Keeanu Benton (2023, 49, interior) | 8 | 30 (19) | 26 | 6.8% vs 7.3% | Film first: grade hands and power |"
+ },
+ "b_benton_go": {
+  "value": "26",
+  "claim": "| Keeanu Benton (2023, 49, interior) | 8 | 30 (19) | 26 | 6.8% vs 7.3% | Film first: grade hands and power |"
+ },
+ "b_benton_rate": {
+  "value": "6.8",
+  "claim": "| Keeanu Benton (2023, 49, interior) | 8 | 30 (19) | 26 | 6.8% vs 7.3% | Film first: grade hands and power |"
+ },
+ "b_benton_s": {
+  "value": "30",
+  "claim": "| Keeanu Benton (2023, 49, interior) | 8 | 30 (19) | 26 | 6.8% vs 7.3% | Film first: grade hands and power |"
+ },
+ "b_brinson_c": {
+  "value": "56",
+  "claim": "| Warren Brinson (2025*, 198, interior) | 56 | 93 (19) | 72 | 6.9% vs 6.2% | Plus: credit the start |"
+ },
+ "b_brinson_fc": {
+  "value": "6.2",
+  "claim": "| Warren Brinson (2025*, 198, interior) | 56 | 93 (19) | 72 | 6.9% vs 6.2% | Plus: credit the start |"
+ },
+ "b_brinson_go": {
+  "value": "72",
+  "claim": "| Warren Brinson (2025*, 198, interior) | 56 | 93 (19) | 72 | 6.9% vs 6.2% | Plus: credit the start |"
+ },
+ "b_brinson_rate": {
+  "value": "6.9",
+  "claim": "| Warren Brinson (2025*, 198, interior) | 56 | 93 (19) | 72 | 6.9% vs 6.2% | Plus: credit the start |"
+ },
+ "b_brinson_s": {
+  "value": "93",
+  "claim": "| Warren Brinson (2025*, 198, interior) | 56 | 93 (19) | 72 | 6.9% vs 6.2% | Plus: credit the start |"
+ },
+ "b_diaby_c": {
+  "value": "98",
+  "claim": "| YaYa Diaby (2023, 82, EDGE) | 98 | 94 (18) | 83 | 10.5% vs 8.0% | Plus: credit the start |"
+ },
+ "b_diaby_fc": {
+  "value": "8.0",
+  "claim": "| YaYa Diaby (2023, 82, EDGE) | 98 | 94 (18) | 83 | 10.5% vs 8.0% | Plus: credit the start |"
+ },
+ "b_diaby_go": {
+  "value": "83",
+  "claim": "| YaYa Diaby (2023, 82, EDGE) | 98 | 94 (18) | 83 | 10.5% vs 8.0% | Plus: credit the start |"
+ },
+ "b_diaby_rate": {
+  "value": "10.5",
+  "claim": "| YaYa Diaby (2023, 82, EDGE) | 98 | 94 (18) | 83 | 10.5% vs 8.0% | Plus: credit the start |"
+ },
+ "b_diaby_s": {
+  "value": "94",
+  "claim": "| YaYa Diaby (2023, 82, EDGE) | 98 | 94 (18) | 83 | 10.5% vs 8.0% | Plus: credit the start |"
+ },
+ "b_gillotte_fc": {
+  "value": "8.9",
+  "claim": "| Ashton Gillotte (2025*, 66, EDGE) | no 40 | 90 (20) | 51 | 6.4% vs 8.9% | Plus: credit the start |"
+ },
+ "b_gillotte_go": {
+  "value": "51",
+  "claim": "| Ashton Gillotte (2025*, 66, EDGE) | no 40 | 90 (20) | 51 | 6.4% vs 8.9% | Plus: credit the start |"
+ },
+ "b_gillotte_rate": {
+  "value": "6.4",
+  "claim": "| Ashton Gillotte (2025*, 66, EDGE) | no 40 | 90 (20) | 51 | 6.4% vs 8.9% | Plus: credit the start |"
+ },
+ "b_gillotte_s": {
+  "value": "90",
+  "claim": "| Ashton Gillotte (2025*, 66, EDGE) | no 40 | 90 (20) | 51 | 6.4% vs 8.9% | Plus: credit the start |"
+ },
+ "b_orhorhoro_c": {
+  "value": "35",
+  "claim": "| Ruke Orhorhoro (2024, 35, interior) | 35 | 99 (18) | 54 | 8.2% vs 8.2% | Plus: tape over the 40 |"
+ },
+ "b_orhorhoro_fc": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, interior) | 35 | 99 (18) | 54 | 8.2% vs 8.2% | Plus: tape over the 40 |"
+ },
+ "b_orhorhoro_go": {
+  "value": "54",
+  "claim": "| Ruke Orhorhoro (2024, 35, interior) | 35 | 99 (18) | 54 | 8.2% vs 8.2% | Plus: tape over the 40 |"
+ },
+ "b_orhorhoro_rate": {
+  "value": "8.2",
+  "claim": "| Ruke Orhorhoro (2024, 35, interior) | 35 | 99 (18) | 54 | 8.2% vs 8.2% | Plus: tape over the 40 |"
+ },
+ "b_orhorhoro_s": {
+  "value": "99",
+  "claim": "| Ruke Orhorhoro (2024, 35, interior) | 35 | 99 (18) | 54 | 8.2% vs 8.2% | Plus: tape over the 40 |"
+ },
+ "b_pickens_c": {
+  "value": "87",
+  "claim": "| Zacch Pickens (2023, 64, interior) | 87 | 9 (20) | 28 | 6.1% vs 7.3% | Minus flag: 40 start not on tape |"
+ },
+ "b_pickens_fc": {
+  "value": "7.3",
+  "claim": "| Zacch Pickens (2023, 64, interior) | 87 | 9 (20) | 28 | 6.1% vs 7.3% | Minus flag: 40 start not on tape |"
+ },
+ "b_pickens_go": {
+  "value": "28",
+  "claim": "| Zacch Pickens (2023, 64, interior) | 87 | 9 (20) | 28 | 6.1% vs 7.3% | Minus flag: 40 start not on tape |"
+ },
+ "b_pickens_rate": {
+  "value": "6.1",
+  "claim": "| Zacch Pickens (2023, 64, interior) | 87 | 9 (20) | 28 | 6.1% vs 7.3% | Minus flag: 40 start not on tape |"
+ },
+ "b_pickens_s": {
+  "value": "9",
+  "claim": "| Zacch Pickens (2023, 64, interior) | 87 | 9 (20) | 28 | 6.1% vs 7.3% | Minus flag: 40 start not on tape |"
+ },
+ "b_smith_c": {
+  "value": "67",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "b_smith_fc": {
+  "value": "7.7",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "b_smith_go": {
+  "value": "46",
+  "claim": "| Maason Smith (2024, 48, interior) | 67 | 100 (18) | 46 | 3.9% vs 7.7% | Plus: credit the start |"
+ },
+ "b_smith_rate": {
+  "value": "3.9",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "b_smith_s": {
+  "value": "100",
+  "claim": "| Maason Smith (2024, 48, interior) | 67 | 100 (18) | 46 | 3.9% vs 7.7% | Plus: credit the start |"
+ },
+ "b_umanmielen_c": {
+  "value": "65",
+  "claim": "| Princely Umanmielen (2025*, 77, EDGE) | 65 | 3 (16) | 86 | 5.0% vs 9.2% | Minus flag: 40 start not on tape |"
+ },
+ "b_umanmielen_fc": {
+  "value": "9.2",
+  "claim": "| Princely Umanmielen (2025*, 77, EDGE) | 65 | 3 (16) | 86 | 5.0% vs 9.2% | Minus flag: 40 start not on tape |"
+ },
+ "b_umanmielen_go": {
+  "value": "86",
+  "claim": "| Princely Umanmielen (2025*, 77, EDGE) | 65 | 3 (16) | 86 | 5.0% vs 9.2% | Minus flag: 40 start not on tape |"
+ },
+ "b_umanmielen_rate": {
+  "value": "5.0",
+  "claim": "| Princely Umanmielen (2025*, 77, EDGE) | 65 | 3 (16) | 86 | 5.0% vs 9.2% | Minus flag: 40 start not on tape |"
+ },
+ "b_umanmielen_s": {
+  "value": "3",
+  "claim": "| Princely Umanmielen (2025*, 77, EDGE) | 65 | 3 (16) | 86 | 5.0% vs 9.2% | Minus flag: 40 start not on tape |"
+ },
+ "b_watts_c": {
+  "value": "81",
+  "claim": "| Eric Watts (2024, UDFA, EDGE) | 81 | 1 (20) | 36 | 3.6% vs 7.0% | Minus flag: 40 start not on tape |"
+ },
+ "b_watts_fc": {
+  "value": "7.0",
+  "claim": "| Eric Watts (2024, UDFA, EDGE) | 81 | 1 (20) | 36 | 3.6% vs 7.0% | Minus flag: 40 start not on tape |"
+ },
+ "b_watts_go": {
+  "value": "36",
+  "claim": "| Eric Watts (2024, UDFA, EDGE) | 81 | 1 (20) | 36 | 3.6% vs 7.0% | Minus flag: 40 start not on tape |"
+ },
+ "b_watts_rate": {
+  "value": "3.6",
+  "claim": "| Eric Watts (2024, UDFA, EDGE) | 81 | 1 (20) | 36 | 3.6% vs 7.0% | Minus flag: 40 start not on tape |"
+ },
+ "b_watts_s": {
+  "value": "1",
+  "claim": "| Eric Watts (2024, UDFA, EDGE) | 81 | 1 (20) | 36 | 3.6% vs 7.0% | Minus flag: 40 start not on tape |"
+ },
+ "beat_base": {
+  "value": "35",
+  "claim": "*Table 1. Rows 1–2: partial Spearman, player bootstrap, p from 2,000 within-class shuffles. Row 3: quasi-binomial (pressures out of rushes; dispersion 2.3) with pick, weight, role,"
+ },
+ "beat_k": {
+  "value": 24,
+  "claim": "*Table 1. Rows 1–2: partial Spearman, player bootstrap, p from 2,000 within-class shuffles. Row 3: quasi-binomial (pressures out of rushes; dispersion 2.3) with pick, weight, role,"
+ },
+ "cal25_k": {
+  "value": 2,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "cal25_n": {
+  "value": 7,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "cal_bot_k": {
+  "value": 3,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "cal_bot_n": {
+  "value": 23,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "cal_top_k": {
+  "value": 14,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "cal_top_n": {
+  "value": 23,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "dr_med_40": {
+  "value": "6.8",
+  "claim": "**First step** = mean speed 0.3–0.5 s after a player first moves. In that window the 40 and a pass rush are the same movement, a lineman leaving a stance. By 1.5 s they part: the m"
+ },
+ "dr_med_sunday": {
+  "value": "3.1",
+  "claim": "**First step** = mean speed 0.3–0.5 s after a player first moves. In that window the 40 and a pass rush are the same movement, a lineman leaving a stance. By 1.5 s they part: the m"
+ },
+ "ex_disp": {
+  "value": "2.3",
+  "claim": "*Table 1. Rows 1–2: partial Spearman, player bootstrap, p from 2,000 within-class shuffles. Row 3: quasi-binomial (pressures out of rushes; dispersion 2.3) with pick, weight, role,"
+ },
+ "ex_int_p": {
+  "value": "0.77",
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "ex_low_n": {
+  "value": 16,
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "ex_n": {
+  "value": 69,
+  "claim": "| NFL first step → pressure rate, rushes as exposure | +0.6 pts per sd [0.1, 1.1] | 69 | 0.04 |"
+ },
+ "ex_p": {
+  "value": "0.04",
+  "claim": "| NFL first step → pressure rate, rushes as exposure | +0.6 pts per sd [0.1, 1.1] | 69 | 0.04 |"
+ },
+ "ex_pp": {
+  "value": "0.6",
+  "claim": "| NFL first step → pressure rate, rushes as exposure | +0.6 pts per sd [0.1, 1.1] | 69 | 0.04 |"
+ },
+ "ex_pp_hi": {
+  "value": "1.1",
+  "claim": "| NFL first step → pressure rate, rushes as exposure | +0.6 pts per sd [0.1, 1.1] | 69 | 0.04 |"
+ },
+ "ex_pp_lo": {
+  "value": "0.1",
+  "claim": "| NFL first step → pressure rate, rushes as exposure | +0.6 pts per sd [0.1, 1.1] | 69 | 0.04 |"
+ },
+ "ex_pr_season": {
+  "value": "1.7",
+  "claim": "Four other similarity measures (speed ratios, curve shape, curve distance) never exceed 0.18 in absolute value. One sd of NFL first step is worth about 1.7 pressures over a 292-rus"
+ },
+ "ex_pxr": {
+  "value": "0.00",
+  "claim": "Four other similarity measures (speed ratios, curve shape, curve distance) never exceed 0.18 in absolute value. One sd of NFL first step is worth about 1.7 pressures over a 292-rus"
+ },
+ "ex_pxr_p": {
+  "value": "0.97",
+  "claim": "Four other similarity measures (speed ratios, curve shape, curve distance) never exceed 0.18 in absolute value. One sd of NFL first step is worth about 1.7 pressures over a 292-rus"
+ },
+ "ex_s100": {
+  "value": "0.6",
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "ex_s30": {
+  "value": "1.2",
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "ex_s30_hi": {
+  "value": "4.3",
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "ex_s30_lo": {
+  "value": "-2.0",
+  "claim": "- **Exposure.** For the 16 rushers with 30–99 rushes the slope is 1.2 pts [-2.0, 4.3] vs 0.6 for 100+ (difference p = 0.77): too few to tell."
+ },
+ "exo2023_dll": {
+  "value": "0.21",
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "exo2024_dll": {
+  "value": "0.14",
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "exo2025_dll": {
+  "value": "0.18",
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "exo_pos": {
+  "value": 3,
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "fp_go": {
+  "value": "1.03",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "fp_interior": {
+  "value": "98",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "fp_lat_pct": {
+  "value": "25",
+  "claim": "- **Not a stunt artifact.** His starts are among the straightest (25th percentile sideways); sideways movement is unrelated to the first step (ρ = -0.04)."
+ },
+ "fp_lost": {
+  "value": "16",
+  "claim": "- **Cost of the wrong call.** Moving him up the rotation on the plus call would have cost about 11 pressures a season against forecast (16 over his career). One team and one scheme"
+ },
+ "fp_lost_season": {
+  "value": "11",
+  "claim": "- **Cost of the wrong call.** Moving him up the rotation on the plus call would have cost about 11 pressures a season against forecast (16 over his career). One team and one scheme"
+ },
+ "fp_pr": {
+  "value": 17,
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "fp_qp": {
+  "value": 3,
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "fp_quick": {
+  "value": "18",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "fp_rs": {
+  "value": 433,
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "g_DB_tradj": {
+  "value": "-0.10",
+  "claim": "- **Mostly nulls.** Translation is near zero after size. DL was the clearest of five groups (the 40 start after weight: WR -0.14, OL -0.31, DB -0.10, TE 0.05), and the first-step w"
+ },
+ "g_OL_tradj": {
+  "value": "-0.31",
+  "claim": "- **Mostly nulls.** Translation is near zero after size. DL was the clearest of five groups (the 40 start after weight: WR -0.14, OL -0.31, DB -0.10, TE 0.05), and the first-step w"
+ },
+ "g_TE_tradj": {
+  "value": "0.05",
+  "claim": "- **Mostly nulls.** Translation is near zero after size. DL was the clearest of five groups (the 40 start after weight: WR -0.14, OL -0.31, DB -0.10, TE 0.05), and the first-step w"
+ },
+ "g_WR_tradj": {
+  "value": "-0.14",
+  "claim": "- **Mostly nulls.** Translation is near zero after size. DL was the clearest of five groups (the 40 start after weight: WR -0.14, OL -0.31, DB -0.10, TE 0.05), and the first-step w"
+ },
+ "go_med": {
+  "value": "1.02",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "grid_max": {
+  "value": "56",
+  "claim": "- **Analysis choices.** Over halves, thirds or quartiles; 50, 100 or 150 minimum rushes; and three forecast specs, the gap is positive in 27 of 27 cells (14 to 56 points), with 17 "
+ },
+ "grid_min": {
+  "value": "14",
+  "claim": "- **Analysis choices.** Over halves, thirds or quartiles; 50, 100 or 150 minimum rushes; and three forecast specs, the gap is positive in 27 of 27 cells (14 to 56 points), with 17 "
+ },
+ "grid_n": {
+  "value": 27,
+  "claim": "- **Analysis choices.** Over halves, thirds or quartiles; 50, 100 or 150 minimum rushes; and three forecast specs, the gap is positive in 27 of 27 cells (14 to 56 points), with 17 "
+ },
+ "grid_pos": {
+  "value": 27,
+  "claim": "- **Analysis choices.** Over halves, thirds or quartiles; 50, 100 or 150 minimum rushes; and three forecast specs, the gap is positive in 27 of 27 cells (14 to 56 points), with 17 "
+ },
+ "grid_sig": {
+  "value": 17,
+  "claim": "- **Analysis choices.** Over halves, thirds or quartiles; 50, 100 or 150 minimum rushes; and three forecast specs, the gap is positive in 27 of 27 cells (14 to 56 points), with 17 "
+ },
+ "lw_b_k": {
+  "value": 3,
+  "claim": "| Window re-chosen on two classes, scored on the third | 13/20 vs 3/21, p = 0.001 | 20 + 21 |"
+ },
+ "lw_b_n": {
+  "value": 21,
+  "claim": "| Window re-chosen on two classes, scored on the third | 13/20 vs 3/21, p = 0.001 | 20 + 21 |"
+ },
+ "lw_t_k": {
+  "value": 13,
+  "claim": "| Window re-chosen on two classes, scored on the third | 13/20 vs 3/21, p = 0.001 | 20 + 21 |"
+ },
+ "lw_t_n": {
+  "value": 20,
+  "claim": "| Window re-chosen on two classes, scored on the third | 13/20 vs 3/21, p = 0.001 | 20 + 21 |"
+ },
+ "mech_late": {
+  "value": "0.28",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "mech_late_hi": {
+  "value": "0.49",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "mech_late_lo": {
+  "value": "0.05",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "mech_quick": {
+  "value": "0.11",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "mech_quick_hi": {
+  "value": "0.31",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "mech_quick_lo": {
+  "value": "-0.09",
+  "claim": "**Mechanism: an empirical correlate.** If the first step worked by winning at the snap, it should predict quick pressures best. It does not: ρ = 0.11 [-0.09, 0.31] for quick pressu"
+ },
+ "n_board": {
+  "value": 69,
+  "claim": "*Table 2. Percentiles among the 69 rushers with 100+ rushes, after weight and role; NGS get-off percentile, higher = quicker.*"
+ },
+ "n_carry": {
+  "value": 52,
+  "claim": "| Does carry-over add pressure beyond pick, weight, role? | ρ 0.18 [-0.10, 0.43] | 52 | 0.25 |"
+ },
+ "n_pay": {
+  "value": 69,
+  "claim": "*Table 1. Rows 1–2: partial Spearman, player bootstrap, p from 2,000 within-class shuffles. Row 3: quasi-binomial (pressures out of rushes; dispersion 2.3) with pick, weight, role,"
+ },
+ "n_snaps_dl": {
+  "value": 1563,
+  "claim": "**Data.** Combine: every tracked 40 rep, year-standardized. NFL: random sampled pass plays only (the top-EPA half oversamples sacks), set at the snap, alignment-adjusted: 1563 star"
+ },
+ "n_tr": {
+  "value": 67,
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "n_windows": {
+  "value": 13,
+  "claim": "| Best of 13 first-step windows (max-statistic shuffle) | p = 0.13 | 69 |"
+ },
+ "ooc_sunday_all": {
+  "value": "-0.113",
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "ooc_sunday_all_2024": {
+  "value": "-0.401",
+  "claim": "- **Likelihood vs squared error.** With rushes as exposure, adding the first step improves held-out fit in 3 of 3 classes (0.21, 0.14, 0.18 log-likelihood units per 1,000 rushes; s"
+ },
+ "p_beyond_ngs": {
+  "value": "0.33",
+  "claim": "- **NGS already sees most of it.** Season NGS get-off ranks pressure at 0.40; the first step adds 0.12 beyond it (p = 0.33). For a club with NGS this is a tiebreak."
+ },
+ "p_carry": {
+  "value": "0.25",
+  "claim": "| Does carry-over add pressure beyond pick, weight, role? | ρ 0.18 [-0.10, 0.43] | 52 | 0.25 |"
+ },
+ "p_fisher1": {
+  "value": "0.001",
+  "claim": "| Top vs bottom third beating the out-of-class forecast | 14/23 vs 3/23 | 23 + 23 | 0.001 |"
+ },
+ "p_lw_fisher": {
+  "value": "0.001",
+  "claim": "| Window re-chosen on two classes, scored on the third | 13/20 vs 3/21, p = 0.001 | 20 + 21 |"
+ },
+ "p_maxt": {
+  "value": "0.13",
+  "claim": "| Best of 13 first-step windows (max-statistic shuffle) | p = 0.13 | 69 |"
+ },
+ "p_tr_fs": {
+  "value": "0.59",
+  "claim": "| Does the 40 start preview the NFL first step (after weight, role)? | ρ 0.07 [-0.14, 0.28] | 67 | 0.59 |"
+ },
+ "p_tr_offfs": {
+  "value": "0.07",
+  "claim": "| Official 40 time → NFL first step, after weight and role | 0.23 [0.06, 0.41], p = 0.07 | 67 |"
+ },
+ "pay_beyond_ngs": {
+  "value": "0.12",
+  "claim": "- **NGS already sees most of it.** Season NGS get-off ranks pressure at 0.40; the first step adds 0.12 beyond it (p = 0.33). For a club with NGS this is a tiebreak."
+ },
+ "pay_ngs": {
+  "value": "0.40",
+  "claim": "- **NGS already sees most of it.** Season NGS get-off ranks pressure at 0.40; the first step adds 0.12 beyond it (p = 0.33). For a club with NGS this is a tiebreak."
+ },
+ "pc2023_kb": {
+  "value": 1,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2023_kt": {
+  "value": 5,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2023_midp": {
+  "value": "0.02",
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2023_nb": {
+  "value": 8,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2023_nt": {
+  "value": 7,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2024_kb": {
+  "value": 1,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2024_kt": {
+  "value": 7,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2024_midp": {
+  "value": "0.02",
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2024_nb": {
+  "value": 6,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2024_nt": {
+  "value": 9,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2025_kb": {
+  "value": 1,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2025_kt": {
+  "value": 2,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2025_midp": {
+  "value": "0.23",
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2025_nb": {
+  "value": 9,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pc2025_nt": {
+  "value": 7,
+  "claim": "- **Class by class.** 2023: 5/7 vs 1/8 (mid-p 0.02). 2024: 7/9 vs 1/6 (mid-p 0.02). 2025, never used to set the window: 2/7 vs 1/9 (mid-p 0.23). The clean class does not confirm th"
+ },
+ "pow_half": {
+  "value": "8",
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_half_pb": {
+  "value": "25",
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_half_pt": {
+  "value": "49",
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_narm": {
+  "value": 7,
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_need": {
+  "value": 58,
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_need_classes": {
+  "value": 9,
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pow_obs": {
+  "value": "34",
+  "claim": "- **Power for 2026.** One class gives about 7 rushers per third. Even if the true gap equals ours, a one-class test has 34% power; if it is half (49% vs 25%), 8%. Confirming the ha"
+ },
+ "pp25": {
+  "value": "0.04",
+  "claim": "| 2025 top third if the 2023–24 rate were true | p = 0.04 (at base rate 0.54) | 7 |"
+ },
+ "pp25_base": {
+  "value": "0.54",
+  "claim": "| 2025 top third if the 2023–24 rate were true | p = 0.04 (at base rate 0.54) | 7 |"
+ },
+ "quick_share": {
+  "value": "30",
+  "claim": "Smith (2024, pick 48) rushed 98% of his snaps inside. After weight and role his NFL first step is the cohort's best; his 40 start was 67th percentile and his NGS get-off is median "
+ },
+ "rel40_fs": {
+  "value": "0.54",
+  "claim": "| 40 first step, two-rep repeatability | 0.54 | 56 |"
+ },
+ "rel40_n": {
+  "value": 56,
+  "claim": "| 40 first step, two-rep repeatability | 0.54 | 56 |"
+ },
+ "rel_fs_1snap": {
+  "value": "0.09",
+  "claim": "- **Small, sampled tape.** About 20 random NFL starts per player; one start alone has reliability 0.09. 2025 has one season."
+ },
+ "rel_fs_game": {
+  "value": "0.64",
+  "claim": "**Is it real?** Over 19 starts the NFL first step has reliability 0.64, and snap by snap it tracks official NGS get-off at ρ = 0.51."
+ },
+ "rho_fs_ngs_snap": {
+  "value": "0.51",
+  "claim": "**Is it real?** Over 19 starts the NFL first step has reliability 0.64, and snap by snap it tracks official NGS get-off at ρ = 0.51."
+ },
+ "rho_lat_fs": {
+  "value": "-0.04",
+  "claim": "- **Not a stunt artifact.** His starts are among the straightest (25th percentile sideways); sideways movement is unrelated to the first step (ρ = -0.04)."
+ },
+ "rho_w_dr_40": {
+  "value": "0.65",
+  "claim": "Raw, the 40 at 1.5 s ranks NFL speed at 1.5 s at 0.57. That is weight: heavier linemen are slower on Sundays (ρ = 0.82) and in the 40 (0.65). After weight and role, no tenth from 0"
+ },
+ "rho_w_dr_sunday": {
+  "value": "0.82",
+  "claim": "Raw, the 40 at 1.5 s ranks NFL speed at 1.5 s at 0.57. That is weight: heavier linemen are slower on Sundays (ρ = 0.82) and in the 40 (0.65). After weight and role, no tenth from 0"
+ },
+ "rush_season": {
+  "value": "292",
+  "claim": "Four other similarity measures (speed ratios, curve shape, curve distance) never exceed 0.18 in absolute value. One sd of NFL first step is worth about 1.7 pressures over a 292-rus"
+ },
+ "sim_absmax": {
+  "value": "0.18",
+  "claim": "Four other similarity measures (speed ratios, curve shape, curve distance) never exceed 0.18 in absolute value. One sd of NFL first step is worth about 1.7 pressures over a 292-rus"
+ },
+ "sim_carry": {
+  "value": "0.18",
+  "claim": "| Does carry-over add pressure beyond pick, weight, role? | ρ 0.18 [-0.10, 0.43] | 52 | 0.25 |"
+ },
+ "sim_carry_hi": {
+  "value": "0.43",
+  "claim": "| Does carry-over add pressure beyond pick, weight, role? | ρ 0.18 [-0.10, 0.43] | 52 | 0.25 |"
+ },
+ "sim_carry_lo": {
+  "value": "-0.10",
+  "claim": "| Does carry-over add pressure beyond pick, weight, role? | ρ 0.18 [-0.10, 0.43] | 52 | 0.25 |"
+ },
+ "snaps_med": {
+  "value": 19,
+  "claim": "**Data.** Combine: every tracked 40 rep, year-standardized. NFL: random sampled pass plays only (the top-EPA half oversamples sacks), set at the snap, alignment-adjusted: 1563 star"
+ },
+ "tr_adj_absmax": {
+  "value": "0.11",
+  "claim": "Raw, the 40 at 1.5 s ranks NFL speed at 1.5 s at 0.57. That is weight: heavier linemen are slower on Sundays (ρ = 0.82) and in the 40 (0.65). After weight and role, no tenth from 0"
+ },
+ "tr_fs": {
+  "value": "0.07",
+  "claim": "**We laid each 2023–25 defensive lineman's tracked 40 start over his own random NFL pass-rush starts. After weight and role, the 40 previews the NFL first step at ρ = 0.07 (n = 67)"
+ },
+ "tr_fs_ceiling": {
+  "value": "0.47",
+  "claim": "Raw, the 40 at 1.5 s ranks NFL speed at 1.5 s at 0.57. That is weight: heavier linemen are slower on Sundays (ρ = 0.82) and in the 40 (0.65). After weight and role, no tenth from 0"
+ },
+ "tr_fs_hi": {
+  "value": "0.28",
+  "claim": "| Does the 40 start preview the NFL first step (after weight, role)? | ρ 0.07 [-0.14, 0.28] | 67 | 0.59 |"
+ },
+ "tr_fs_lo": {
+  "value": "-0.14",
+  "claim": "| Does the 40 start preview the NFL first step (after weight, role)? | ρ 0.07 [-0.14, 0.28] | 67 | 0.59 |"
+ },
+ "tr_offfs": {
+  "value": "0.23",
+  "claim": "1. **Draft room: pay for the stopwatch, not the clip.** After weight and role, the official 40 *time* ranks a rusher's NFL first step at 0.23; the tracked 40 start at 0.07. Give no"
+ },
+ "tr_offfs_hi": {
+  "value": "0.41",
+  "claim": "| Official 40 time → NFL first step, after weight and role | 0.23 [0.06, 0.41], p = 0.07 | 67 |"
+ },
+ "tr_offfs_lo": {
+  "value": "0.06",
+  "claim": "| Official 40 time → NFL first step, after weight and role | 0.23 [0.06, 0.41], p = 0.07 | 67 |"
+ },
+ "tr_prd": {
+  "value": "0.04",
+  "claim": "4. **Combine protocol.** Neither the 40 nor the pass-rush drill (ρ = 0.04, n = 84) is a snap-cued start from a rusher's stance. That is the rep to add."
+ },
+ "tr_prd_n": {
+  "value": 84,
+  "claim": "4. **Combine protocol.** Neither the 40 nor the pass-rush drill (ρ = 0.04, n = 84) is a snap-cued start from a rusher's stance. That is the rep to add."
+ },
+ "tr_raw_15": {
+  "value": "0.57",
+  "claim": "Raw, the 40 at 1.5 s ranks NFL speed at 1.5 s at 0.57. That is weight: heavier linemen are slower on Sundays (ρ = 0.82) and in the 40 (0.65). After weight and role, no tenth from 0"
+ }
+}

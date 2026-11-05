@@ -1,0 +1,6 @@
+{
+ "rule": "Within each 2026 Combine class of WR/TE with 3+ graded route-drill cuts: compute Break G exactly as in analysis.py (frozen since round 9). Soft third = bottom third within class.",
+ "prediction": "Through the 2027 season, route-weighted career SOE minus the pick+40+weight+NGS+TE forecast (fit on 2023-2025) for the soft third will be no worse than the rest by more than 3 in; the top third will not beat the rest by 3 in or more.",
+ "falsified_if": "soft third trails the rest by 3+ in, or top third leads the rest by 3+ in, with the 90% receiver bootstrap interval excluding 0.",
+ "margin_in": 3.0
+}

@@ -1,0 +1,450 @@
+{
+ "r10_epa_diff": {
+  "value": "0.53",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_hi": {
+  "value": "0.68",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_lo": {
+  "value": "0.37",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_n": {
+  "value": 1681,
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_t3_all_k": {
+  "value": 43,
+  "claim": "Day 3 is where pass rushers are cheap and boards are thin. The usual agility number, the 3-cone, makes a big man stop, plant and bend around a cone, the hip ben"
+ },
+ "r10_t3_all_n": {
+  "value": 118,
+  "claim": "Day 3 is where pass rushers are cheap and boards are thin. The usual agility number, the 3-cone, makes a big man stop, plant and bend around a cone, the hip ben"
+ },
+ "r10_t3_loco": {
+  "value": "0.36",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r10_t3_loco_hi": {
+  "value": "0.67",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r10_t3_loco_lo": {
+  "value": "-0.22",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r10_t3_loco_n": {
+  "value": 27,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r11_adebawore_pb": {
+  "value": "8.4",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_adebawore_pr": {
+  "value": "8.6",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_black_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_black_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_johnson_pb": {
+  "value": "7.2",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_johnson_pr": {
+  "value": "13.0",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_phillips_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_phillips_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_adebawore_loop": {
+  "value": "15",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_black_loop": {
+  "value": "0",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_dep_all_in": {
+  "value": "0.5",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r12_dep_all_inhi": {
+  "value": "1.9",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r12_dep_all_inlo": {
+  "value": "-0.9",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r12_johnson_loop": {
+  "value": "20",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_loop_int_med": {
+  "value": "15",
+  "claim": "**Johnson** is the case the shortlist is for (Figure 2): a day-3 EDGE who beat his forecast. **Adebawore** is the miss: top-third Hoop G, a rate on his forecast"
+ },
+ "r12_mult_p": {
+  "value": "0.12",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r12_n": {
+  "value": 78,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r12_phillips_loop": {
+  "value": "40",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_rec_8_all": {
+  "value": 69,
+  "claim": "Day 3 is where pass rushers are cheap and boards are thin. The usual agility number, the 3-cone, makes a big man stop, plant and bend around a cone, the hip ben"
+ },
+ "r12_rel_dep": {
+  "value": "0.85",
+  "claim": "Hoop G is the reverse: it predicts pressure but leaves no trace in the frames. Pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built"
+ },
+ "r12_rel_dep_n": {
+  "value": 86,
+  "claim": "Hoop G is the reverse: it predicts pressure but leaves no trace in the frames. Pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built"
+ },
+ "r12_rel_prs": {
+  "value": "0.07",
+  "claim": "Hoop G is the reverse: it predicts pressure but leaves no trace in the frames. Pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built"
+ },
+ "r12_sk_all": {
+  "value": "0.43",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r12_sk_all_hi": {
+  "value": "0.77",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r12_sk_all_lo": {
+  "value": "0.09",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r12_turn_rho": {
+  "value": "-0.04",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r12_val_rho": {
+  "value": "0.33",
+  "claim": "Hoop G is the reverse: it predicts pressure but leaves no trace in the frames. Pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built"
+ },
+ "r13_cal_2023": {
+  "value": "0.89",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r13_cal_2024": {
+  "value": "2.01",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r13_cal_2025": {
+  "value": "0.63",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r13_free_sk": {
+  "value": "0.43",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_boot_hi": {
+  "value": "0.64",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_boot_lo": {
+  "value": "0.19",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_d1_game": {
+  "value": "0.32",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_d1_game_n": {
+  "value": 85,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_d1_press": {
+  "value": "-0.03",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_d1_press_n": {
+  "value": 68,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_lopo_max": {
+  "value": "0.46",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_lopo_min": {
+  "value": "0.35",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_price_earlier_hi": {
+  "value": 11,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_price_later": {
+  "value": 3,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_price_later_hi": {
+  "value": 18,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_price_n": {
+  "value": 109,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_rcal_2023": {
+  "value": "1.39",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_rcal_2024": {
+  "value": "1.89",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_rcal_2025": {
+  "value": "0.58",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_ridge_sk": {
+  "value": "0.43",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r14_rmse_ols": {
+  "value": "2.42",
+  "claim": "**The bar.** Every lineman gets a forecast of his NFL pressure rate from what clubs already have: draft pick, weight, EDGE share, NGS athleticism score and the "
+ },
+ "r14_rmse_ridge": {
+  "value": "2.29",
+  "claim": "**The bar.** Every lineman gets a forecast of his NFL pressure rate from what clubs already have: draft pick, weight, EDGE share, NGS athleticism score and the "
+ },
+ "r14_tie_n": {
+  "value": 212,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_tie_p": {
+  "value": "0.008",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r14_tie_win": {
+  "value": 136,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2023_k": {
+  "value": 2,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2023_n": {
+  "value": 12,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2024_k": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2024_n": {
+  "value": 7,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2025_k": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_2025_n": {
+  "value": 13,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_exc": {
+  "value": "-5.3",
+  "claim": "The shortlist was ahead in 3 of 3 classes (Figure 1B). Relabelling Hoop G at random within class gives a gap this large 0.032 of the time. In pressures, the sho"
+ },
+ "r15_bs_k": {
+  "value": 8,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_bs_n": {
+  "value": 32,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_bs_pct": {
+  "value": "25",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_bs_r_k": {
+  "value": 6,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_bs_r_n": {
+  "value": 32,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_day3_cut": {
+  "value": 103,
+  "claim": "**The rule.** Pick 103 or later, or undrafted, and Hoop G in the top third of all hoop runners in his class. Thirds are set at the Combine, before anyone plays,"
+ },
+ "r15_drop_k": {
+  "value": 7,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_drop_n": {
+  "value": 14,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_drop_name": {
+  "value": "Cedric Johnson",
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_exc_gap": {
+  "value": "5.4",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_exc_gap_epa": {
+  "value": "2.9",
+  "claim": "The shortlist was ahead in 3 of 3 classes (Figure 1B). Relabelling Hoop G at random within class gives a gap this large 0.032 of the time. In pressures, the sho"
+ },
+ "r15_exc_gap_hi": {
+  "value": "11.5",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_exc_gap_lo": {
+  "value": "-0.5",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_got_bs": {
+  "value": 32,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_got_bs_n": {
+  "value": 52,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_got_sl": {
+  "value": 15,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_got_sl_n": {
+  "value": 24,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_hash": {
+  "value": "e68244604495",
+  "claim": "**The rule.** Pick 103 or later, or undrafted, and Hoop G in the top third of all hoop runners in his class. Thirds are set at the Combine, before anyone plays,"
+ },
+ "r15_sl_2023_k": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_2023_n": {
+  "value": 4,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_2024_k": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_2024_n": {
+  "value": 5,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_2025_k": {
+  "value": 2,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_2025_n": {
+  "value": 6,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_all_n": {
+  "value": 24,
+  "claim": "3. **Run the hoop twice.** 20 of 24 shortlisted linemen have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "r15_sl_cls_ahead": {
+  "value": 3,
+  "claim": "The shortlist was ahead in 3 of 3 classes (Figure 1B). Relabelling Hoop G at random within class gives a gap this large 0.032 of the time. In pressures, the sho"
+ },
+ "r15_sl_exc": {
+  "value": "0.1",
+  "claim": "The shortlist was ahead in 3 of 3 classes (Figure 1B). Relabelling Hoop G at random within class gives a gap this large 0.032 of the time. In pressures, the sho"
+ },
+ "r15_sl_k": {
+  "value": 8,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_sl_n": {
+  "value": 15,
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_sl_onerun": {
+  "value": 20,
+  "claim": "3. **Run the hoop twice.** 20 of 24 shortlisted linemen have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "r15_sl_p": {
+  "value": "0.032",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_sl_pct": {
+  "value": "53",
+  "claim": "table/sentence 'tests15'"
+ },
+ "r15_sl_r_k": {
+  "value": 8,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_r_n": {
+  "value": 15,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_sl_unscored": {
+  "value": 9,
+  "claim": "- **Small and early.** 15 shortlisted and 32 comparison rushers; 9 shortlisted linemen have under 30 NFL rushes. The 2025 class has one season and is the weakes"
+ },
+ "r15_t3_k": {
+  "value": 1,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_t3_n": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_t3b_k": {
+  "value": 3,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_t3b_n": {
+  "value": 13,
+  "claim": "table/sentence 'ledger15'"
+ },
+ "r15_th0_pk": {
+  "value": 130,
+  "claim": "1. **Build the day-3 film list from it.** Top-third Hoop G linemen went at a median pick of 158, no earlier than the bottom third (130): clubs priced Hoop G at "
+ },
+ "r15_th2_pk": {
+  "value": 158,
+  "claim": "1. **Build the day-3 film list from it.** Top-third Hoop G linemen went at a median pick of 158, no earlier than the bottom third (130): clubs priced Hoop G at "
+ },
+ "rel_hoop_2runs": {
+  "value": "0.58",
+  "claim": "3. **Run the hoop twice.** 20 of 24 shortlisted linemen have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "3. **Run the hoop twice.** 20 of 24 shortlisted linemen have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ }
+}

@@ -1,0 +1,770 @@
+{
+ "co_mi_dn": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_fc": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_hi": {
+  "value": "39",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_n": {
+  "value": 6,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_n25": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_mi_rate": {
+  "value": "4.7",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_dn": {
+  "value": 12,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_fc": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_hi": {
+  "value": "34",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_k": {
+  "value": 6,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_lo": {
+  "value": "8",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_n": {
+  "value": 32,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_n25": {
+  "value": 10,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ne_rate": {
+  "value": "8.4",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_dn": {
+  "value": 11,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_fc": {
+  "value": "7.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_hi": {
+  "value": "23",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_k": {
+  "value": 3,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_lo": {
+  "value": "3",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_n": {
+  "value": 31,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_n25": {
+  "value": 13,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_ni_rate": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_dn": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_fc": {
+  "value": "7.8",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_hi": {
+  "value": "87",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_k": {
+  "value": 4,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_lo": {
+  "value": "23",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_n": {
+  "value": 7,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pe_rate": {
+  "value": "10.0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_dn": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_fc": {
+  "value": "8.0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_hi": {
+  "value": "78",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_n": {
+  "value": 2,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach'"
+ },
+ "co_pi_rate": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach'"
+ },
+ "f9_phillips_wt": {
+  "value": 312,
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "fr_all_k": {
+  "value": 4,
+  "claim": "table/sentence 'sure'"
+ },
+ "fr_all_n": {
+  "value": 9,
+  "claim": "table/sentence 'sure'"
+ },
+ "fr_clean_n": {
+  "value": 2,
+  "claim": "table/sentence 'sure'"
+ },
+ "fr_perm_p": {
+  "value": "0.05",
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "mult_obs": {
+  "value": "0.32",
+  "claim": "table/sentence 'appx'"
+ },
+ "mult_p": {
+  "value": "0.12",
+  "claim": "table/sentence 'appx'"
+ },
+ "mx9_e": {
+  "value": "0.002",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "mx9_e_hi": {
+  "value": "0.011",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "mx9_e_lo": {
+  "value": "-0.006",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "mx9_e_n": {
+  "value": 40,
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "n_d1_game": {
+  "value": 85,
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "pr_d1_press": {
+  "value": "-0.03",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "r10_dir_n": {
+  "value": 38,
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "r10_dir_rho": {
+  "value": "0.07",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "r10_epa_diff": {
+  "value": "0.53",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps [90%: 0.37"
+ },
+ "r10_epa_hi": {
+  "value": "0.68",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps [90%: 0.37"
+ },
+ "r10_epa_lo": {
+  "value": "0.37",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps [90%: 0.37"
+ },
+ "r10_epa_n": {
+  "value": 1681,
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps [90%: 0.37"
+ },
+ "r10_lr_k": {
+  "value": 4,
+  "claim": "table/sentence 'sure'"
+ },
+ "r10_lr_n": {
+  "value": 12,
+  "claim": "table/sentence 'sure'"
+ },
+ "r10_lr_rk": {
+  "value": 9,
+  "claim": "table/sentence 'sure'"
+ },
+ "r10_lr_rn": {
+  "value": 66,
+  "claim": "table/sentence 'sure'"
+ },
+ "r10_t3_25_k": {
+  "value": 15,
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "r10_t3_25_n": {
+  "value": 44,
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "r10_t3_all_k": {
+  "value": 43,
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "r10_t3_all_n": {
+  "value": 118,
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "r10_t3_loco": {
+  "value": "0.36",
+  "claim": "**Among 2023–25 defensive linemen, the 3-cone is the Combine time most tied to NFL pressure rate, yet on a draft class it was not fit on, it reaches only ρ = 0."
+ },
+ "r10_t3_loco_hi": {
+  "value": "0.67",
+  "claim": "**Among 2023–25 defensive linemen, the 3-cone is the Combine time most tied to NFL pressure rate, yet on a draft class it was not fit on, it reaches only ρ = 0."
+ },
+ "r10_t3_loco_lo": {
+  "value": "-0.22",
+  "claim": "**Among 2023–25 defensive linemen, the 3-cone is the Combine time most tied to NFL pressure rate, yet on a draft class it was not fit on, it reaches only ρ = 0."
+ },
+ "r10_tw_better": {
+  "value": 7,
+  "claim": "Plus calls led in 7 of 9 pairs, by 3.2 points on average, but only 2 pairs clear zero alone, and the pairing was designed after the rule."
+ },
+ "r10_tw_diff": {
+  "value": "3.2",
+  "claim": "table/sentence 'appx'"
+ },
+ "r10_tw_hi": {
+  "value": "4.9",
+  "claim": "table/sentence 'appx'"
+ },
+ "r10_tw_lo": {
+  "value": "1.6",
+  "claim": "table/sentence 'appx'"
+ },
+ "r10_tw_n": {
+  "value": 9,
+  "claim": "table/sentence 'appx'"
+ },
+ "r10_tw_p": {
+  "value": "0.004",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_ade_twin_d": {
+  "value": "1.7",
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_adebawore_go": {
+  "value": "0.99",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_adebawore_gopct": {
+  "value": "70",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_adebawore_int": {
+  "value": "95",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_adebawore_pb": {
+  "value": "8.4",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_adebawore_pr": {
+  "value": "8.6",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_bad_cost_max": {
+  "value": "3.2",
+  "claim": "The price of a wrong tie-break is small: in the 2 pairs the comparison player won, he won by at most 3.2 pressures per 450 rushes, about 1.7 expected points."
+ },
+ "r11_bad_epa_max": {
+  "value": "1.7",
+  "claim": "The price of a wrong tie-break is small: in the 2 pairs the comparison player won, he won by at most 3.2 pressures per 450 rushes, about 1.7 expected points."
+ },
+ "r11_bad_n": {
+  "value": 2,
+  "claim": "The price of a wrong tie-break is small: in the 2 pairs the comparison player won, he won by at most 3.2 pressures per 450 rushes, about 1.7 expected points."
+ },
+ "r11_black_go": {
+  "value": "1.17",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_black_gopct": {
+  "value": "8",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_black_int": {
+  "value": "92",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_black_p450": {
+  "value": "3.0",
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_black_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_black_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_black_wt": {
+  "value": 336,
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_c0_s": {
+  "value": "0.94",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c0_tc": {
+  "value": "7.58",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c1_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c1_pr": {
+  "value": "6.9",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c2023_nk": {
+  "value": 5,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2023_nn": {
+  "value": 24,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2023_pk": {
+  "value": 1,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2023_pn": {
+  "value": 3,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2024_nk": {
+  "value": 4,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2024_nn": {
+  "value": 20,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2024_pk": {
+  "value": 3,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2024_pn": {
+  "value": 4,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2025_nk": {
+  "value": 0,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2025_nn": {
+  "value": 25,
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_c2025_pk": {
+  "value": 0,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2025_pn": {
+  "value": 2,
+  "claim": "By class, plus calls went 1 of 3 (others 5 of 24), 3 of 4 (4 of 20) and 0 of 2 (0 of 25). An exact test that compares within class gives mid-p 0.04; shuffling H"
+ },
+ "r11_c2_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c2_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c2_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c2_tc": {
+  "value": "6.94",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c3_pb": {
+  "value": "8.5",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c3_pr": {
+  "value": "9.7",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c3_s": {
+  "value": "0.56",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c4_pb": {
+  "value": "8.0",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c4_pr": {
+  "value": "4.4",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c4_s": {
+  "value": "-0.62",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c5_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c5_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c5_s": {
+  "value": "-0.80",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c5_tc": {
+  "value": "8.19",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c6_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c6_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c6_s": {
+  "value": "-0.75",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_c6_tc": {
+  "value": "7.63",
+  "claim": "table/sentence 'card11'"
+ },
+ "r11_cal_slope": {
+  "value": "1.17",
+  "claim": "**Frozen rule:** a plus call needs the 80% interval of a player's shrunk Hoop G above zero; a minus flag, below. Each rusher with 30+ NFL rushes gets a no-track"
+ },
+ "r11_cal_slope_hi": {
+  "value": "1.68",
+  "claim": "**Frozen rule:** a plus call needs the 80% interval of a player's shrunk Hoop G above zero; a minus flag, below. Each rusher with 30+ NFL rushes gets a no-track"
+ },
+ "r11_cal_slope_lo": {
+  "value": "0.69",
+  "claim": "**Frozen rule:** a plus call needs the 80% interval of a player's shrunk Hoop G above zero; a minus flag, below. Each rusher with 30+ NFL rushes gets a no-track"
+ },
+ "r11_fisher_midp": {
+  "value": "0.02",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_fisher_p": {
+  "value": "0.04",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_grid_n": {
+  "value": 27,
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_grid_p10": {
+  "value": 18,
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_grid_pos": {
+  "value": 18,
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_johnson_go": {
+  "value": "0.96",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_johnson_gopct": {
+  "value": "80",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_johnson_int": {
+  "value": "11",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_johnson_pb": {
+  "value": "7.2",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_johnson_pr": {
+  "value": "13.0",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_mf_inside_min": {
+  "value": 92,
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_mf_slower_min": {
+  "value": 89,
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_p10_cut": {
+  "value": "0.10",
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_pair_excl0": {
+  "value": 2,
+  "claim": "Plus calls led in 7 of 9 pairs, by 3.2 points on average, but only 2 pairs clear zero alone, and the pairing was designed after the rule."
+ },
+ "r11_phillips_go": {
+  "value": "1.17",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_phillips_gopct": {
+  "value": "10",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_phillips_int": {
+  "value": "99",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_phillips_p450": {
+  "value": "21.5",
+  "claim": "**Adebawore** is the plus-call miss: an interior rusher who met his forecast but never beat it, though he still out-rushed his comparison player, Tyler Lacy, by"
+ },
+ "r11_phillips_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_phillips_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'cases'"
+ },
+ "r11_pw_1": {
+  "value": "30",
+  "claim": "3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% "
+ },
+ "r11_pw_full_4": {
+  "value": "81",
+  "claim": "3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% "
+ },
+ "r11_pw_halfgap_4": {
+  "value": "37",
+  "claim": "3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% "
+ },
+ "r11_pw_p0": {
+  "value": "20",
+  "claim": "3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% "
+ },
+ "r11_pw_p1": {
+  "value": "57",
+  "claim": "3. **2026, stated in advance:** we score the same frozen rule and forecast after the 2027 season. Alone, that class has 30% power at the 2023–24 hit rates (57% "
+ },
+ "r11_strat_midp": {
+  "value": "0.04",
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_t3_both": {
+  "value": 42,
+  "claim": "¹ Tracking shows 45 linemen with a 3-cone attempt: 42 with an official time, 3 with tracking only; 1 official time has no tracked run. We use official times."
+ },
+ "r11_t3_off_only": {
+  "value": 1,
+  "claim": "¹ Tracking shows 45 linemen with a 3-cone attempt: 42 with an official time, 3 with tracking only; 1 official time has no tracked run. We use official times."
+ },
+ "r11_t3_tracked": {
+  "value": 45,
+  "claim": "¹ Tracking shows 45 linemen with a 3-cone attempt: 42 with an official time, 3 with tracking only; 1 official time has no tracked run. We use official times."
+ },
+ "r11_t3_trk_only": {
+  "value": 3,
+  "claim": "¹ Tracking shows 45 linemen with a 3-cone attempt: 42 with an official time, 3 with tracking only; 1 official time has no tracked run. We use official times."
+ },
+ "r11_t3cm": {
+  "value": "0.5",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3cm_hi": {
+  "value": "2.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3cm_lo": {
+  "value": "-1.0",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3cm_n": {
+  "value": 37,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2023_gain": {
+  "value": "7",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2023_n": {
+  "value": 15,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2024_gain": {
+  "value": "-19",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2024_n": {
+  "value": 9,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2025_gain": {
+  "value": "-8",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_2025_n": {
+  "value": 13,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_t3h_pos": {
+  "value": 1,
+  "claim": "table/sentence 'sure'"
+ },
+ "r11_t3h_slpos": {
+  "value": 3,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x100": {
+  "value": "1.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x100_hi": {
+  "value": "2.6",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x100_lo": {
+  "value": "-0.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x100_n": {
+  "value": 63,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x30": {
+  "value": "0.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x30_hi": {
+  "value": "1.4",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x30_lo": {
+  "value": "-1.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_x30_n": {
+  "value": 15,
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_xall": {
+  "value": "1.1",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_xall_hi": {
+  "value": "2.5",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_xall_lo": {
+  "value": "0.0",
+  "claim": "table/sentence 'appx'"
+ },
+ "r11_xall_n": {
+  "value": 78,
+  "claim": "table/sentence 'appx'"
+ },
+ "r9_hoop_all": {
+  "value": 109,
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "r9_nc_k": {
+  "value": 9,
+  "claim": "table/sentence 'sure'"
+ },
+ "r9_nc_n": {
+  "value": 69,
+  "claim": "table/sentence 'sure'"
+ },
+ "rel_hoop_2runs": {
+  "value": "0.58",
+  "claim": "2. **Publish each hoop run's peak sideways g** beside the 40, and **time two runs** (reliability rises to 0.58)."
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "The 3-cone should relate to pressure because it makes a big man stop, plant and bend around a cone low to the ground, the same hip bend and redirect he needs to"
+ },
+ "rho_d1_game": {
+  "value": "0.32",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "rho_d1_game_hi": {
+  "value": "0.50",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ },
+ "rho_d1_game_lo": {
+  "value": "0.12",
+  "claim": "Hoop G is an **empirical correlate with no mechanism we can see in games**. At matched speed, a high Hoop G does not show up as harder turning on sampled NFL ru"
+ }
+}

@@ -1,0 +1,220 @@
+{
+ "round": 18,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_18/cand_2/",
+   "angle": "receiver Break G drill-to-route transfer null + day-3 SOE tiebreaker",
+   "score": 8.42,
+   "per_judge_scores": {
+    "football": 8.4,
+    "datascience": 8.6,
+    "writeup": 7.9,
+    "viz": 8.7
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_18/cand_1/",
+   "angle": "DL Hoop G bend day-3 pass-rush tiebreaker",
+   "score": 8.07,
+   "per_judge_scores": {
+    "football": 8.2,
+    "datascience": 7.9,
+    "writeup": 7.9,
+    "viz": 8.3
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_18/cand_3/",
+   "angle": "receiver envelope use (acceleration-speed) vs 40, YPRR null",
+   "score": 8.01,
+   "per_judge_scores": {
+    "football": 7.4,
+    "datascience": 8.3,
+    "writeup": 8.2,
+    "viz": 8.3
+   },
+   "fatal_flaws": [
+    "No fatal flaws. Fig 1 is static speed-vs-acceleration envelopes rather than field paths; Fig 2C bars lack uncertainty; Figs 2 and 3B repeat the cross-position EU message."
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_18/revised/",
+   "angle": "revision of round winner (cand_2)",
+   "score": 8.48,
+   "per_judge_scores": {
+    "football": 8.4,
+    "datascience": 8.6,
+    "writeup": 8.2,
+    "viz": 8.7
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_18/revised/",
+  "score": 8.48
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.4,
+   "subscores": {
+    "usable": 8.3,
+    "football_difficulty": 8.8,
+    "unique": 8.6,
+    "terminology": 8.0
+   },
+   "top_changes": [
+    "Turn the day-3 tiebreak into a decision-grade rule: explicit pick-gap threshold, break-even and observed error rate with interval; show Fig 4B as that rule with cost of a wrong call.",
+    "Add per-receiver SOE split by man/zone and slot/wide for named GO/HOLD receivers with cell n in the text; put the 0.43, 0.28 and 0.53-0.62 reliability figures in one small table.",
+    "Tighten: single-unit lede (inches of SOE per sd), drop physics paragraph to one sentence, move Robustness appendix to README, add a 'what flips each name' paragraph and 2-3 more GO/HOLD names."
+   ],
+   "justification": "Usable 8.3: concrete drill change, priced day-3 tiebreak, named GO/HOLD list with flip conditions and decision date; tiebreak unproven (p=0.12, 20 pairs from 16 receivers), pick-gap threshold not stated as a rule. Difficulty 8.8: reps per player, reliability/shrinkage, pick baseline, survivorship, tracked-40 laser caveat, sampled-snap limits; man/zone and slot/wide tables only gestured at, injuries only as games-played filters. Unique 8.6: drill-cut-to-same-route transfer reframing, entry-speed mismatch 6.9 vs 4.7 yd/s; core result is a null. Terminology 8.0: correct usage; physics paragraph pedantic, lede mixes units, Kraft as TE in a WR table.",
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.6,
+   "subscores": {
+    "correctness": 8.7,
+    "evidence": 8.8,
+    "model": 8.5,
+    "innovation": 8.4
+   },
+   "spot_checks": [
+    {
+     "claim": "Baseline held-out R2 0.00, RMSE 8.6, delta R2 0.013",
+     "reproduced": true
+    },
+    {
+     "claim": "Break G slope -1.2 in per sd, n=116",
+     "reproduced": true
+    },
+    {
+     "claim": "Day-3 gain 0.31, 20 pairs, 16 receivers; all-pairs 0.33",
+     "reproduced": true
+    },
+    {
+     "claim": "Speed benchmark rho 0.43",
+     "reproduced": true
+    }
+   ],
+   "top_changes": [
+    "Run formal TOST against +-3 in and report smallest significant margin; add receiver-clustered permutation p for the day-3 gain.",
+    "Pre-register GO/HOLD rule and back-test leave-one-class-out on 2023 and 2024 shortlists with hit rate interval vs pick-only baseline; show 2026 list under draft-class folds.",
+    "Make verify.py recompute SOE from raw NGS in player_season_stats; add sensitivity table for shrinkage, 8-break and 100-route thresholds."
+   ],
+   "justification": "All 12 verify.py checks reproduce in under a second from shipped intermediate CSVs, so upstream SOE construction only partly independent. Strong design: no-tracking baseline, leave-one-class-out, year-standardized drills, shrinkage, MDE; equivalence inside +-3 not shown. Weak: day-3 evidence 20 pairs/16 receivers, gain halves under draft-class folds, shuffle p=0.12, forking-path risk, 2026 labels rest on a lean result.",
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8.2,
+   "subscores": {
+    "clarity": 8.2,
+    "structure": 8.4,
+    "motivation": 8.0,
+    "density": 7.8
+   },
+   "top_changes": [
+    "Rewrite the Break G definition paragraph: open with one coach-repeatable sentence; delete the force/mass derivation, the 57% body weight line and the 4%-of-a-cut aside.",
+    "Split 'What to do' item 3; move 17.2/9.9-inch payoff, 64-of-100 break-even, 0.2-inch/0.03-catch cost and TE note to a table or day-3 section; cut 'Two checks on the split', Holm p, shrinkage-rebuild interval and MDE to appendix; body under ~1,700 words.",
+    "Fix lede and hedging: single unit (inches of separation), state day-3 rule once with one confidence label, trim the 16-name null table to ~6 rows."
+   ],
+   "suggested_title": "Sharper Combine Route Cuts Don't Make NFL Receivers More Open; Use Last Season's Separation to Pick the Last Roster Spot",
+   "justification": "check.py passes (1,977 words, 5 figures, 3 tables). Finding-bearing title, ~80-word lede, finalist structure, meaningful headings. Weak: density and muddy middle (physics opening, run-on item 3, too much machinery for a coach), hedging on both sides (suggestive/Lean/p=0.12), mixed units in lede, thin 'why now', 16-row table for a null.",
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.7,
+   "subscores": {
+    "accessible": 8.5,
+    "accurate": 9.0,
+    "innovative": 8.6,
+    "economy": 8.5
+   },
+   "top_changes": [
+    "Drop Fig 2A (pooled r=0.02 repeats Fig 1 headline); fold 0.43 into an annotation on Fig 1A; keep 2B equivalence forest with TOST wording; frees a slot.",
+    "Make Fig 3 a multi-player small-multiple panel (4-6 receivers: Washington, Douglas, Iosivas, Lambert-Smith, Smith) with Break G and entry speed printed and a league-median ghost path.",
+    "Raise tick/annotation text to >=9 pt in Figs 4 and 5; relabel Fig 4B plainly; add decision date and flip marker to Fig 5A; swap HOLD pink for orange with a distinct marker shape."
+   ],
+   "justification": "Five figures plus ~3 tables within limit; one coherent story. Figs 1 and 3 tracking-native. Uncertainty shown throughout (90% intervals, +-3 in band, detection-chance sizes, cell n). Overlap: Fig 1B vs 3C, Fig 2A vs Fig 1. Weak: small tick/cell-n text, Fig 5A legend crowding, Fig 4B cramped axis label, shared axis mixes drill r and speed 0.43 estimands, HOLD pink near grey, Fig 4A pairs double-count receivers.",
+   "fatal_flaws": []
+  }
+ },
+ "changelog": [
+  "Rewrote lede and definitions in consistent inches",
+  "Reconciled speed figures 0.43 / 0.74 / 0.34 in numbers.json",
+  "Added verify.py recomputing 12 checks from shipped CSVs",
+  "Added receiver-clustered day-3 test, effective n, TOST, power for 2026",
+  "Rebuilt figures: drill-vs-game path (Fig 3) and 2026 GO/HOLD calls (Fig 5)"
+ ],
+ "previous_score": 8.52,
+ "adopted": false,
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  },
+  {
+   "round": 10,
+   "score": 8.27
+  },
+  {
+   "round": 11,
+   "score": 8.29
+  },
+  {
+   "round": 12,
+   "score": 8.41
+  },
+  {
+   "round": 13,
+   "score": 8.45
+  },
+  {
+   "round": 14,
+   "score": 8.48
+  },
+  {
+   "round": 15,
+   "score": 8.51
+  },
+  {
+   "round": 17,
+   "score": 8.52
+  }
+ ],
+ "done": false
+}

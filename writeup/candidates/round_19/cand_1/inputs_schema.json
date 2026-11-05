@@ -1,0 +1,33 @@
+{
+ "columns": {
+  "nfl_id": "player id",
+  "display_name": "player",
+  "draft_year": "Combine class (fold id for leave-one-class-out)",
+  "pick": "overall pick, undrafted = 262",
+  "log_pick": "ln(pick)",
+  "combine_weight_z": "Combine weight, z within class",
+  "edge_share": "share of NFL snaps at EDGE/OLB (0-1)",
+  "ngs_athleticism_score": "NGS athleticism score, missing filled with the DL median",
+  "ten_yd_split_z": "official 10-yd split, z within class, blank if not run (filled inside each fold)",
+  "three_cone_z": "official 3-cone, z within class, blank if not run (filled inside each fold)",
+  "hoop_z": "Hoop G, z within class",
+  "burst_z": "rush-drill burst, z within class (blank if no clean rep)",
+  "rush_snaps": "career NFL pass-rush snaps 2023-25",
+  "pressures": "career NFL pressures 2023-25",
+  "press_eb": "pressure rate %, shrunk toward 8.09% with 117.2 prior rushes",
+  "fc": "leave-one-class-out baseline forecast of press_eb (%), fit on all rows of the other two classes; blank for linemen without a hoop lap",
+  "day3": "pick >= 103 or undrafted",
+  "in_an": "in the model set (both drills, 30+ rushes)"
+ },
+ "margin_pts": 0.5,
+ "season_rushes": 450,
+ "tie_width_pts": 0.5,
+ "prior_mean": 0.0809028506339738,
+ "prior_rushes": 117.17028812792891,
+ "backtest_grid": [
+  0.25,
+  0.5,
+  1.0,
+  1.5
+ ]
+}

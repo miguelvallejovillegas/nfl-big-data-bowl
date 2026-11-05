@@ -1,0 +1,773 @@
+{
+ "signals": [
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.5,
+   "lo": 0.257,
+   "hi": 0.686,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.706,
+   "lo": 0.534,
+   "hi": 0.819,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "forty_z",
+   "label": "40-yard time",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.673,
+   "lo": 0.523,
+   "hi": 0.778,
+   "n": 70,
+   "mde": 0.33
+  },
+  {
+   "col": "ten_yd_split_z",
+   "label": "10-yd split",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.47,
+   "lo": 0.24,
+   "hi": 0.66,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "ten_yd_split_z",
+   "label": "10-yd split",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.67,
+   "lo": 0.469,
+   "hi": 0.807,
+   "n": 54,
+   "mde": 0.373
+  },
+  {
+   "col": "ten_yd_split_z",
+   "label": "10-yd split",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.7,
+   "lo": 0.548,
+   "hi": 0.803,
+   "n": 70,
+   "mde": 0.33
+  },
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.626,
+   "lo": 0.3,
+   "hi": 0.818,
+   "n": 27,
+   "mde": 0.517
+  },
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.659,
+   "lo": 0.371,
+   "hi": 0.859,
+   "n": 27,
+   "mde": 0.517
+  },
+  {
+   "col": "three_cone_z",
+   "label": "3-cone",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.686,
+   "lo": 0.434,
+   "hi": 0.835,
+   "n": 32,
+   "mde": 0.478
+  },
+  {
+   "col": "short_shuttle_z",
+   "label": "Short shuttle",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.508,
+   "lo": 0.124,
+   "hi": 0.777,
+   "n": 26,
+   "mde": 0.526
+  },
+  {
+   "col": "short_shuttle_z",
+   "label": "Short shuttle",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.53,
+   "lo": 0.102,
+   "hi": 0.839,
+   "n": 26,
+   "mde": 0.526
+  },
+  {
+   "col": "short_shuttle_z",
+   "label": "Short shuttle",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.652,
+   "lo": 0.415,
+   "hi": 0.805,
+   "n": 33,
+   "mde": 0.471
+  },
+  {
+   "col": "combine_weight_z",
+   "label": "Lighter weight",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.361,
+   "lo": 0.144,
+   "hi": 0.544,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "combine_weight_z",
+   "label": "Lighter weight",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.687,
+   "lo": 0.529,
+   "hi": 0.796,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "combine_weight_z",
+   "label": "Lighter weight",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.776,
+   "lo": 0.69,
+   "hi": 0.829,
+   "n": 86,
+   "mde": 0.298
+  },
+  {
+   "col": "ngs_athleticism_score",
+   "label": "NGS athleticism",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.349,
+   "lo": 0.138,
+   "hi": 0.525,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "ngs_athleticism_score",
+   "label": "NGS athleticism",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.198,
+   "lo": -0.052,
+   "hi": 0.423,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "ngs_athleticism_score",
+   "label": "NGS athleticism",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.119,
+   "lo": -0.103,
+   "hi": 0.322,
+   "n": 86,
+   "mde": 0.298
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "press_eb",
+   "rho": 0.327,
+   "lo": 0.074,
+   "hi": 0.543,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "quick",
+   "rho": 0.223,
+   "lo": -0.02,
+   "hi": 0.442,
+   "n": 69,
+   "mde": 0.332
+  },
+  {
+   "col": "log_pick",
+   "label": "Earlier draft pick",
+   "kind": "official",
+   "outcome": "arc_random",
+   "rho": 0.133,
+   "lo": -0.077,
+   "hi": 0.339,
+   "n": 86,
+   "mde": 0.298
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush-drill first second",
+   "kind": "tracking",
+   "outcome": "press_eb",
+   "rho": 0.045,
+   "lo": -0.188,
+   "hi": 0.263,
+   "n": 68,
+   "mde": 0.334
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush-drill first second",
+   "kind": "tracking",
+   "outcome": "quick",
+   "rho": 0.053,
+   "lo": -0.176,
+   "hi": 0.267,
+   "n": 68,
+   "mde": 0.334
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush-drill first second",
+   "kind": "tracking",
+   "outcome": "arc_random",
+   "rho": 0.16,
+   "lo": -0.071,
+   "hi": 0.374,
+   "n": 85,
+   "mde": 0.3
+  },
+  {
+   "col": "hoop_z",
+   "label": "Hoop G (bend)",
+   "kind": "tracking",
+   "outcome": "press_eb",
+   "rho": 0.434,
+   "lo": 0.212,
+   "hi": 0.621,
+   "n": 63,
+   "mde": 0.347
+  },
+  {
+   "col": "hoop_z",
+   "label": "Hoop G (bend)",
+   "kind": "tracking",
+   "outcome": "quick",
+   "rho": 0.391,
+   "lo": 0.141,
+   "hi": 0.618,
+   "n": 63,
+   "mde": 0.347
+  },
+  {
+   "col": "hoop_z",
+   "label": "Hoop G (bend)",
+   "kind": "tracking",
+   "outcome": "arc_random",
+   "rho": 0.374,
+   "lo": 0.171,
+   "hi": 0.551,
+   "n": 79,
+   "mde": 0.311
+  }
+ ],
+ "screen": [
+  {
+   "col": "hoop_z",
+   "label": "Hoop G (bend)",
+   "pr_press": 0.323,
+   "pr_getoff": 0.127,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "hoop_speed_z",
+   "label": "Hoop mean speed",
+   "pr_press": -0.036,
+   "pr_getoff": 0.151,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "hoop_time_z",
+   "label": "Hoop lap time",
+   "pr_press": 0.16,
+   "pr_getoff": 0.239,
+   "n_press": 63,
+   "n_getoff": 63
+  },
+  {
+   "col": "rush_bend_z",
+   "label": "Rush-drill turn g",
+   "pr_press": 0.032,
+   "pr_getoff": 0.063,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "rush_acc_z",
+   "label": "Rush-drill peak accel",
+   "pr_press": 0.133,
+   "pr_getoff": 0.125,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "rush_t3_z",
+   "label": "Rush-drill time to 3 yd",
+   "pr_press": -0.015,
+   "pr_getoff": 0.054,
+   "n_press": 69,
+   "n_getoff": 69
+  },
+  {
+   "col": "d1_z",
+   "label": "Rush-drill first second",
+   "pr_press": -0.026,
+   "pr_getoff": -0.096,
+   "n_press": 68,
+   "n_getoff": 68
+  }
+ ],
+ "nested_selected": {
+  "2023": "hoop_z|press_eb",
+  "2024": "hoop_z|press_eb",
+  "2025": "hoop_speed_z|press_eb"
+ },
+ "robustness": [
+  {
+   "tag": "main",
+   "label": "Main: pick, weight, EDGE share, NGS athleticism",
+   "n": 63,
+   "r": 0.323,
+   "lo": 0.056,
+   "hi": 0.537,
+   "r2b": 0.085,
+   "r2a": 0.188,
+   "dr2": 0.103,
+   "dr2_lo": -0.161,
+   "dr2_hi": 0.357
+  },
+  {
+   "tag": "notime",
+   "label": "No athletic score at all: pick, weight, EDGE share",
+   "n": 63,
+   "r": 0.384,
+   "lo": 0.149,
+   "hi": 0.575,
+   "r2b": 0.106,
+   "r2a": 0.213,
+   "dr2": 0.107,
+   "dr2_lo": -0.183,
+   "dr2_hi": 0.369
+  },
+  {
+   "tag": "mi",
+   "label": "Main + 10-yd split, multiple imputation (M=20)",
+   "n": 63,
+   "r": 0.316,
+   "lo": 0.032,
+   "hi": 0.549,
+   "r2b": 0.106,
+   "r2a": 0.189,
+   "dr2": 0.084,
+   "dr2_lo": -0.215,
+   "dr2_hi": 0.313
+  },
+  {
+   "tag": "angle",
+   "label": "Pick, 10-yd, 3-cone, NGS (+ weight, EDGE share), multiple imputation",
+   "n": 63,
+   "r": 0.265,
+   "lo": -0.039,
+   "hi": 0.514,
+   "r2b": 0.173,
+   "r2a": 0.19,
+   "dr2": 0.017,
+   "dr2_lo": -0.362,
+   "dr2_hi": 0.441
+  },
+  {
+   "tag": "single",
+   "label": "Round-3 baseline: pick, weight, 10-yd (single fill), EDGE",
+   "n": 63,
+   "r": 0.334,
+   "lo": 0.077,
+   "hi": 0.561,
+   "r2b": 0.141,
+   "r2a": 0.216,
+   "dr2": 0.075,
+   "dr2_lo": -0.232,
+   "dr2_hi": 0.336
+  },
+  {
+   "tag": "cc_main",
+   "label": "Main, only the players who ran the 40",
+   "n": 49,
+   "r": 0.187,
+   "lo": -0.114,
+   "hi": 0.453,
+   "r2b": 0.096,
+   "r2a": 0.098,
+   "dr2": 0.002,
+   "dr2_lo": -0.35,
+   "dr2_hi": 0.267
+  },
+  {
+   "tag": "cc_10",
+   "label": "Main + official 10-yd, only the players who ran the 40",
+   "n": 49,
+   "r": 0.179,
+   "lo": -0.158,
+   "hi": 0.46,
+   "r2b": 0.102,
+   "r2a": 0.101,
+   "dr2": -0.002,
+   "dr2_lo": -0.503,
+   "dr2_hi": 0.3
+  },
+  {
+   "tag": "cc_40",
+   "label": "Main + official 40, only the players who ran the 40",
+   "n": 49,
+   "r": 0.146,
+   "lo": -0.166,
+   "hi": 0.424,
+   "r2b": 0.079,
+   "r2a": 0.012,
+   "dr2": -0.067,
+   "dr2_lo": -0.566,
+   "dr2_hi": 0.155
+  },
+  {
+   "tag": "ridge",
+   "label": "Main, ridge",
+   "n": 63,
+   "r": 0.323,
+   "lo": 0.057,
+   "hi": 0.557,
+   "r2b": 0.071,
+   "r2a": 0.182,
+   "dr2": 0.111,
+   "dr2_lo": -0.068,
+   "dr2_hi": 0.308
+  },
+  {
+   "tag": "snaps50",
+   "label": "Main, 50+ rushes",
+   "n": 75,
+   "r": 0.264,
+   "lo": 0.029,
+   "hi": 0.473,
+   "r2b": 0.059,
+   "r2a": 0.162,
+   "dr2": 0.103,
+   "dr2_lo": NaN,
+   "dr2_hi": NaN
+  },
+  {
+   "tag": "snaps200",
+   "label": "Main, 200+ rushes",
+   "n": 47,
+   "r": 0.295,
+   "lo": -0.034,
+   "hi": 0.545,
+   "r2b": 0.171,
+   "r2a": 0.261,
+   "dr2": 0.09,
+   "dr2_lo": NaN,
+   "dr2_hi": NaN
+  }
+ ],
+ "no40": [
+  {
+   "display_name": "Donovan Ezeiruaku",
+   "role": "EDGE",
+   "draft_year": 2025,
+   "pick": 44.0,
+   "combine_weight": 248,
+   "hoop_z": 1.8715,
+   "res_main": -0.0103,
+   "rush_snaps": 402.0,
+   "press_rate": 0.0771
+  },
+  {
+   "display_name": "Tuli Tuipulotu",
+   "role": "EDGE",
+   "draft_year": 2023,
+   "pick": 54.0,
+   "combine_weight": 266,
+   "hoop_z": 1.7696,
+   "res_main": 0.0223,
+   "rush_snaps": 1486.0,
+   "press_rate": 0.0983
+  },
+  {
+   "display_name": "Jack Sawyer",
+   "role": "EDGE",
+   "draft_year": 2025,
+   "pick": 123.0,
+   "combine_weight": 260,
+   "hoop_z": 1.3617,
+   "res_main": 0.0092,
+   "rush_snaps": 176.0,
+   "press_rate": 0.0966
+  },
+  {
+   "display_name": "Jaylen Harrell",
+   "role": "EDGE",
+   "draft_year": 2024,
+   "pick": 252.0,
+   "combine_weight": 250,
+   "hoop_z": 0.3924,
+   "res_main": -0.0209,
+   "rush_snaps": 461.0,
+   "press_rate": 0.0456
+  },
+  {
+   "display_name": "Tonka Hemingway",
+   "role": "interior",
+   "draft_year": 2025,
+   "pick": 135.0,
+   "combine_weight": 284,
+   "hoop_z": -0.2924,
+   "res_main": 0.0026,
+   "rush_snaps": 113.0,
+   "press_rate": 0.0708
+  },
+  {
+   "display_name": "Will McDonald",
+   "role": "EDGE",
+   "draft_year": 2023,
+   "pick": 15.0,
+   "combine_weight": 239,
+   "hoop_z": -0.5506,
+   "res_main": 0.0081,
+   "rush_snaps": 1109.0,
+   "press_rate": 0.1055
+  },
+  {
+   "display_name": "Nic Scourton",
+   "role": "EDGE",
+   "draft_year": 2025,
+   "pick": 51.0,
+   "combine_weight": 257,
+   "hoop_z": -0.659,
+   "res_main": -0.0048,
+   "rush_snaps": 415.0,
+   "press_rate": 0.0771
+  },
+  {
+   "display_name": "Keion White",
+   "role": "EDGE",
+   "draft_year": 2023,
+   "pick": 46.0,
+   "combine_weight": 285,
+   "hoop_z": -0.6624,
+   "res_main": -0.0027,
+   "rush_snaps": 1178.0,
+   "press_rate": 0.0772
+  },
+  {
+   "display_name": "Dylan Horton",
+   "role": "EDGE",
+   "draft_year": 2023,
+   "pick": 109.0,
+   "combine_weight": 257,
+   "hoop_z": -0.806,
+   "res_main": -0.0183,
+   "rush_snaps": 532.0,
+   "press_rate": 0.0508
+  },
+  {
+   "display_name": "Oluwafemi Oladejo",
+   "role": "EDGE",
+   "draft_year": 2025,
+   "pick": 52.0,
+   "combine_weight": 259,
+   "hoop_z": -0.8604,
+   "res_main": -0.0231,
+   "rush_snaps": 136.0,
+   "press_rate": 0.0441
+  },
+  {
+   "display_name": "Ashton Gillotte",
+   "role": "EDGE",
+   "draft_year": 2025,
+   "pick": 66.0,
+   "combine_weight": 264,
+   "hoop_z": -0.9469,
+   "res_main": -0.0181,
+   "rush_snaps": 342.0,
+   "press_rate": 0.0643
+  },
+  {
+   "display_name": "Alfred Collins",
+   "role": "interior",
+   "draft_year": 2025,
+   "pick": 43.0,
+   "combine_weight": 332,
+   "hoop_z": -0.9908,
+   "res_main": -0.0195,
+   "rush_snaps": 260.0,
+   "press_rate": 0.0385
+  },
+  {
+   "display_name": "Deone Walker",
+   "role": "interior",
+   "draft_year": 2025,
+   "pick": 109.0,
+   "combine_weight": 331,
+   "hoop_z": -1.1052,
+   "res_main": 0.0064,
+   "rush_snaps": 240.0,
+   "press_rate": 0.0542
+  },
+  {
+   "display_name": "Jordan Phillips",
+   "role": "interior",
+   "draft_year": 2025,
+   "pick": 143.0,
+   "combine_weight": 312,
+   "hoop_z": -1.9406,
+   "res_main": -0.0255,
+   "rush_snaps": 215.0,
+   "press_rate": 0.0186
+  }
+ ],
+ "flag_all": [
+  {
+   "display_name": "Byron Murphy",
+   "draft_year": 2024,
+   "flag": "film over drill: out-produced",
+   "shr": -0.4525,
+   "press_rate": 0.0997,
+   "pb": 0.0771
+  },
+  {
+   "display_name": "Jordan Burch",
+   "draft_year": 2025,
+   "flag": "film over drill: under-produced",
+   "shr": 0.4896,
+   "press_rate": 0.0581,
+   "pb": 0.0859
+  }
+ ],
+ "example_top": "Ethan Downs",
+ "example_bottom": "Jordan Phillips",
+ "hero": [
+  {
+   "display_name": "Adetomiwa Adebawore",
+   "grp": "high",
+   "role": "interior",
+   "pick": 110.0,
+   "hoop_g": 0.6927587175003321,
+   "hoop_k": 1.0,
+   "shr": 0.9430137795496866,
+   "arc_random": 0.15263469836584598,
+   "press_rate": 0.08610567514677103,
+   "pb": 0.07508963818128794,
+   "rush_snaps": 511.0
+  },
+  {
+   "display_name": "Donovan Ezeiruaku",
+   "grp": "high",
+   "role": "EDGE",
+   "pick": 44.0,
+   "hoop_g": 0.6847280963039326,
+   "hoop_k": 1.0,
+   "shr": 0.7687391989781008,
+   "arc_random": 0.2576282703904237,
+   "press_rate": 0.07711442786069651,
+   "pb": 0.09487948031508342,
+   "rush_snaps": 402.0
+  },
+  {
+   "display_name": "Chop Robinson",
+   "grp": "high",
+   "role": "EDGE",
+   "pick": 21.0,
+   "hoop_g": 0.7219399092968994,
+   "hoop_k": 1.0,
+   "shr": 0.7320783860031271,
+   "arc_random": 0.25731370382711416,
+   "press_rate": 0.1184573002754821,
+   "pb": 0.08615732196175513,
+   "rush_snaps": 726.0
+  },
+  {
+   "display_name": "Isaiah McGuire",
+   "grp": "low",
+   "role": "EDGE",
+   "pick": 126.0,
+   "hoop_g": 0.5744294959158588,
+   "hoop_k": 1.0,
+   "shr": -0.47515668295290187,
+   "arc_random": 0.2185641666374473,
+   "press_rate": 0.07160194174757281,
+   "pb": 0.07392429029859068,
+   "rush_snaps": 824.0
+  },
+  {
+   "display_name": "T'Vondre Sweat",
+   "grp": "low",
+   "role": "interior",
+   "pick": 38.0,
+   "hoop_g": 0.5533444794433432,
+   "hoop_k": 1.0,
+   "shr": -0.7274752670315778,
+   "arc_random": 0.16816504130359336,
+   "press_rate": 0.07661290322580645,
+   "pb": 0.06498329034646182,
+   "rush_snaps": 496.0
+  },
+  {
+   "display_name": "Darius Robinson",
+   "grp": "low",
+   "role": "interior",
+   "pick": 27.0,
+   "hoop_g": 0.5515882111959255,
+   "hoop_k": 1.0,
+   "shr": -0.7426795210167182,
+   "arc_random": 0.2145778606767929,
+   "press_rate": 0.023965141612200435,
+   "pb": 0.07289826047519757,
+   "rush_snaps": 459.0
+  }
+ ],
+ "hero_rec": {
+  "Adetomiwa Adebawore": "Drill and Sundays agree (8.6% pressure vs 7.5% forecast). Plus trait: give him passing downs.",
+  "Donovan Ezeiruaku": "Bend did not become pressure (7.7% pressure vs 9.5% forecast). Check hands and finish on film.",
+  "Chop Robinson": "Drill and Sundays agree (11.8% pressure vs 8.6% forecast). Plus trait: give him passing downs.",
+  "Isaiah McGuire": "Low bend, low pressure (7.2% pressure vs 7.4% forecast). Run defender, not a pass-rush bet.",
+  "T'Vondre Sweat": "Wins without bend (7.7% pressure vs 6.5% forecast). A low hoop alone should not drop him.",
+  "Darius Robinson": "Low bend, low pressure (2.4% pressure vs 7.3% forecast). Run defender, not a pass-rush bet."
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "angle": "DL Combine pass-rush-drill first-second burst vs the same player's first second on random NFL pass rushes (WR/DB translation only; OL/TE burst dropped for negative reliability), with the 40's top speed as the positive control that does translate (TE).",
+ "metric_name": "Burst Translation (BT) = empirical-Bayes shrunk NFL first-second burst minus shrunk Combine matched-drill burst, in true-score SD units (drill x year and alignment / man-zone / press-off fixed effects, player random intercepts)",
+ "headline_number": "DL drill vs NFL burst rho = 0.02 [-0.18, 0.22], n = 97 (EDGE 0.02, interior -0.06, pre-contact 0-0.5 s 0.03); BT adds 0.005 out-of-class R2 to shrunk pressure rate (perm p 0.116); positive control: TE 40 top speed vs NFL peak speed rho = 0.57 [0.24, 0.79], n = 29, Holm p 0.025, 0.50/0.49/0.59 by class",
+ "what_changed_from_previous": "New title and 3-sentence lede; hero 2x3 DL player cards moved to the top (drill vs game traces, 1-s window shaded, raw->shrunk z, BT, pick, pressure; includes high-pressure counter-examples Will Anderson and Cedric Johnson). Random-snap half is now the primary game sample (all 12 snaps as sensitivity). Rep-level mixed model (EB posteriors) replaces raw z differences; ranked DL table with raw and shrunk drill/NFL z, BT and shrunk pressure. EDGE vs interior split and a pre-contact 0-0.5 s window address construct mismatch. WR/DB game burst adjusted for man/zone and press/off; WR/DB named examples; WR true-score correlation with CI. Pressure rate beta-binomial shrunk by rush snaps (no 100-snap cut), reliability-weighted fit; LOCO with fold-wise R2/RMSE, 500 repeated draws, within-class permutation test, Holm/BH across all 18 tests. Dropped the OL lead, the selection-trap section, DB tackles outcome and OL/TE burst rows. Added the positive TE top-speed result with per-class rho, out-of-class R2 and named TEs. Concrete scout rule (shrink drill burst ~70%, need 31 random NFL rush snaps for 0.7) and drill protocol (reps needed; spend time on the 40). Figures: 6 + 2 tables, fonts >= 10 pt, 2x3 profile grid, forest plot with zero line, quartile readout replaces colour scale.",
+ "open_risks": [
+  "Full game tracking still not on disk; game side is ~6 random snaps per player, DL single-snap reliability 0.07, so the null must be re-run on full tracking",
+  "Headline is still a null; the only test surviving correction is TE top speed (n = 29), and the official 40 time predicts as well as tracked top speed (out-of-class R2 0.30 vs 0.29)",
+  "No opponent/ball data: stunts, double teams and clean releases cannot be isolated; pre-contact window is a proxy",
+  "True-score (disattenuated) CIs are unbounded for DL and DB because single-rep reliability is near zero; only WR is reported",
+  "2025 class has one season; its held-out baseline R2 is negative, which makes pooled LOCO noisy",
+  "DB coverage outcome not available in the data; WR/DB are translation-only"
+ ]
+}

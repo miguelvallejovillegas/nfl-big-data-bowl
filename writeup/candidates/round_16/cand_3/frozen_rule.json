@@ -1,0 +1,42 @@
+{
+ "rule": {
+  "cohort": "DL, 8+ random NFL pass-rush starts set at the snap, 100+ career rushes",
+  "first_step": "mean speed 0.3-0.5 s after first movement (speed first >= 1 yd/s minus 0.2 s), alignment-adjusted",
+  "stopwatch": "official 40 time, year-standardized, residual on weight z and EDGE share",
+  "adjust": "residual on Combine weight z and EDGE share, standardized",
+  "forecast": "rush-weighted least squares of shrunk pressure rate on log pick (UDFA 262), weight z, EDGE share; fit on prior classes",
+  "test": "binomial slope with logit(forecast) offset in the new class; one-sided p < 0.05, for the 40 time and the first step",
+  "cutoffs": "set on the previous classes only (top third of first step, top half of 40 time)",
+  "both": "first step top third and 40 time top half",
+  "start_only": "first step top third, 40 time bottom half or none",
+  "speed_only": "first step bottom third, 40 time top half",
+  "neither": "first step bottom third, 40 time bottom half or none"
+ },
+ "date_frozen": "2026-10-24",
+ "data_used": "2023-2025 regular seasons only; no 2026 data on disk",
+ "list_2026": [
+  "Adetomiwa Adebawore",
+  "Byron Murphy",
+  "Byron Young",
+  "Cedric Johnson",
+  "Chop Robinson",
+  "Jordan Burch",
+  "Ruke Orhorhoro",
+  "T'Vondre Sweat",
+  "Ty Robinson",
+  "YaYa Diaby",
+  "Yasir Abdullah"
+ ],
+ "act_on": [
+  "Byron Young",
+  "Chop Robinson",
+  "YaYa Diaby"
+ ],
+ "test": "2026 season, rushers with 100+ 2026 rushes; hit = 2026 pressure rate above persistence forecast (own 2023-25 pressure shrunk to pick/weight/role forecast); list vs rest of pool; one-sided Fisher exact p < 0.05; secondary: frozen first-step slope with persistence offset, one-sided p < 0.05",
+ "power": {
+  "at_time_forward_rates": "90",
+  "at_half_gap": "32"
+ },
+ "matched_pairs_2026": "each list member vs nearest-pick non-list rusher of same class and role; share of pairs with higher 2026 pressure rate > 50%",
+ "sha256": "e3079960bd2d08c78c32c13549163030ee7611a7fe1ec2e0adf7f10f563507d3"
+}

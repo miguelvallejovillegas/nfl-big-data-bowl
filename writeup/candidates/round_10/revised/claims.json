@@ -1,0 +1,790 @@
+{
+ "co_mi_fc": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_hi": {
+  "value": "39",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_n": {
+  "value": 6,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_n25": {
+  "value": 2,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_mi_rate": {
+  "value": "4.7",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_fc": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_hi": {
+  "value": "34",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_k": {
+  "value": 6,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_lo": {
+  "value": "8",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_n": {
+  "value": 32,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_n25": {
+  "value": 10,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ne_rate": {
+  "value": "8.4",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_fc": {
+  "value": "7.2",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_hi": {
+  "value": "23",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_k": {
+  "value": 3,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_lo": {
+  "value": "3",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_n": {
+  "value": 31,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_n25": {
+  "value": 13,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_ni_rate": {
+  "value": "6.9",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_fc": {
+  "value": "7.8",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_hi": {
+  "value": "87",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_k": {
+  "value": 4,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_lo": {
+  "value": "23",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_n": {
+  "value": 7,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pe_rate": {
+  "value": "10.0",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_fc": {
+  "value": "8.0",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_hi": {
+  "value": "78",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_k": {
+  "value": 0,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_lo": {
+  "value": "0",
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_n": {
+  "value": 2,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_n25": {
+  "value": 1,
+  "claim": "table/sentence 'coach12'"
+ },
+ "co_pi_rate": {
+  "value": "8.2",
+  "claim": "table/sentence 'coach12'"
+ },
+ "fr_all_k": {
+  "value": 4,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "fr_all_n": {
+  "value": 9,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "fr_clean_n": {
+  "value": 2,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "mx9_e": {
+  "value": "0.002",
+  "claim": "table/sentence 'appx12'"
+ },
+ "mx9_e_hi": {
+  "value": "0.011",
+  "claim": "table/sentence 'appx12'"
+ },
+ "mx9_e_lo": {
+  "value": "-0.006",
+  "claim": "table/sentence 'appx12'"
+ },
+ "mx9_e_n": {
+  "value": 40,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_dir_n": {
+  "value": 38,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_dir_rho": {
+  "value": "0.07",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_epa_diff": {
+  "value": "0.53",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_hi": {
+  "value": "0.68",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_lo": {
+  "value": "0.37",
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_epa_n": {
+  "value": 1681,
+  "claim": "A pressure is what a rusher is paid for: on 1681 sampled NFL pass plays of our rookies, the offense lost 0.53 more expected points on pressured snaps (90% inter"
+ },
+ "r10_lr_k": {
+  "value": 4,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_lr_n": {
+  "value": 12,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_lr_rk": {
+  "value": 9,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_lr_rn": {
+  "value": 66,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_t3_all_k": {
+  "value": 43,
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r10_t3_all_n": {
+  "value": 118,
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r10_t3_loco": {
+  "value": "0.36",
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r10_t3_loco_hi": {
+  "value": "0.67",
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r10_t3_loco_lo": {
+  "value": "-0.22",
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r10_tw_better": {
+  "value": 7,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_tw_diff": {
+  "value": "3.2",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_tw_hi": {
+  "value": "4.9",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_tw_lo": {
+  "value": "1.6",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r10_tw_n": {
+  "value": 9,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_adebawore_pb": {
+  "value": "8.4",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_adebawore_pr": {
+  "value": "8.6",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_bad_cost_max": {
+  "value": "3.2",
+  "claim": "**Cost of a wrong call:** a tiebreak swaps players a median 20 picks apart. Where the alternative out-rushed the plus call, the loss was at most 3.2 pressures p"
+ },
+ "r11_bad_epa_max": {
+  "value": "1.7",
+  "claim": "**Cost of a wrong call:** a tiebreak swaps players a median 20 picks apart. Where the alternative out-rushed the plus call, the loss was at most 3.2 pressures p"
+ },
+ "r11_black_p450": {
+  "value": "3.0",
+  "claim": "**Johnson** is the case the tiebreak is for: a day-3 EDGE whose rate beat his forecast. **Adebawore** is the plus-call miss: an interior rusher who met his fore"
+ },
+ "r11_black_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_black_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_c0_s": {
+  "value": "0.94",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c1_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c1_pr": {
+  "value": "6.9",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c1_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c2023_nk": {
+  "value": 5,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2023_nn": {
+  "value": 24,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2023_pk": {
+  "value": 1,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2023_pn": {
+  "value": 3,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2024_nk": {
+  "value": 4,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2024_nn": {
+  "value": 20,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2024_pk": {
+  "value": 3,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2024_pn": {
+  "value": 4,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2025_nk": {
+  "value": 0,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2025_nn": {
+  "value": 25,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2025_pk": {
+  "value": 0,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2025_pn": {
+  "value": 2,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_c2_pb": {
+  "value": "9.5",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c2_pr": {
+  "value": "7.7",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c2_s": {
+  "value": "0.77",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c3_pb": {
+  "value": "8.5",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c3_pr": {
+  "value": "9.7",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c3_s": {
+  "value": "0.56",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c4_pb": {
+  "value": "8.0",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c4_pr": {
+  "value": "4.4",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c4_s": {
+  "value": "-0.62",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c5_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c5_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c5_s": {
+  "value": "-0.80",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c6_pb": {
+  "value": "5.2",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c6_pr": {
+  "value": "5.8",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_c6_s": {
+  "value": "-0.75",
+  "claim": "table/sentence 'card12'"
+ },
+ "r11_cal_slope": {
+  "value": "1.17",
+  "claim": "**Frozen rule** (written to `frozen_rule.json`, SHA-256 `4c2930111941`, before the 2026 class has NFL data): every rusher with 30+ NFL rushes gets a no-tracking"
+ },
+ "r11_cal_slope_hi": {
+  "value": "1.68",
+  "claim": "**Frozen rule** (written to `frozen_rule.json`, SHA-256 `4c2930111941`, before the 2026 class has NFL data): every rusher with 30+ NFL rushes gets a no-tracking"
+ },
+ "r11_cal_slope_lo": {
+  "value": "0.69",
+  "claim": "**Frozen rule** (written to `frozen_rule.json`, SHA-256 `4c2930111941`, before the 2026 class has NFL data): every rusher with 30+ NFL rushes gets a no-tracking"
+ },
+ "r11_grid_n": {
+  "value": 27,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_grid_pos": {
+  "value": 18,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_johnson_pb": {
+  "value": "7.2",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_johnson_pr": {
+  "value": "13.0",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_phillips_p450": {
+  "value": "21.5",
+  "claim": "**Johnson** is the case the tiebreak is for: a day-3 EDGE whose rate beat his forecast. **Adebawore** is the plus-call miss: an interior rusher who met his fore"
+ },
+ "r11_phillips_pb": {
+  "value": "6.6",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_phillips_pr": {
+  "value": "1.9",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r11_pw_1": {
+  "value": "30",
+  "claim": "- **Small and early.** 9 scored plus calls; the 2025 class has one season. The 2026 class, scored after 2027 under the frozen rule, has 30% power alone; four cl"
+ },
+ "r11_pw_full_4": {
+  "value": "81",
+  "claim": "- **Small and early.** 9 scored plus calls; the 2025 class has one season. The 2026 class, scored after 2027 under the frozen rule, has 30% power alone; four cl"
+ },
+ "r11_pw_halfgap_4": {
+  "value": "37",
+  "claim": "- **Small and early.** 9 scored plus calls; the 2025 class has one season. The 2026 class, scored after 2027 under the frozen rule, has 30% power alone; four cl"
+ },
+ "r11_strat_p": {
+  "value": "0.07",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_t3cm": {
+  "value": "0.5",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_t3cm_hi": {
+  "value": "2.1",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_t3cm_lo": {
+  "value": "-1.0",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_t3cm_n": {
+  "value": 37,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_xall": {
+  "value": "1.1",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_xall_hi": {
+  "value": "2.5",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_xall_lo": {
+  "value": "0.0",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r11_xall_n": {
+  "value": 78,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_adebawore_loop": {
+  "value": "15",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_black_loop": {
+  "value": "0",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_card_n": {
+  "value": 7,
+  "claim": "2. **Run the hoop twice.** 6 of these 7 rushers have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "r12_card_onerun": {
+  "value": 6,
+  "claim": "2. **Run the hoop twice.** 6 of these 7 rushers have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "r12_dep_all_in": {
+  "value": "0.5",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_dep_all_inhi": {
+  "value": "1.9",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_dep_all_inlo": {
+  "value": "-0.9",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_dep_pshuf": {
+  "value": "0.22",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_g70": {
+  "value": "5 of 13 vs 8 of 65",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_g80": {
+  "value": "4 of 9 vs 9 of 69",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_g90": {
+  "value": "0 of 2 vs 13 of 76",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_hash": {
+  "value": "4c2930111941",
+  "claim": "**Frozen rule** (written to `frozen_rule.json`, SHA-256 `4c2930111941`, before the 2026 class has NFL data): every rusher with 30+ NFL rushes gets a no-tracking"
+ },
+ "r12_johnson_loop": {
+  "value": "20",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_loop_int_med": {
+  "value": "15",
+  "claim": "**Johnson** is the case the tiebreak is for: a day-3 EDGE whose rate beat his forecast. **Adebawore** is the plus-call miss: an interior rusher who met his fore"
+ },
+ "r12_ls_pos": {
+  "value": 3,
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_mult_p": {
+  "value": "0.12",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_n": {
+  "value": 78,
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_pair_pickgap": {
+  "value": 20,
+  "claim": "**Cost of a wrong call:** a tiebreak swaps players a median 20 picks apart. Where the alternative out-rushed the plus call, the loss was at most 3.2 pressures p"
+ },
+ "r12_phillips_loop": {
+  "value": "40",
+  "claim": "table/sentence 'cases12'"
+ },
+ "r12_rec_2_2023": {
+  "value": 37,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_2_2024": {
+  "value": 37,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_2_2025": {
+  "value": 44,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_2_all": {
+  "value": 118,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_3_2023": {
+  "value": 18,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_3_2024": {
+  "value": 10,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_3_2025": {
+  "value": 15,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_3_all": {
+  "value": 43,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_4_2023": {
+  "value": 19,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_4_2024": {
+  "value": 12,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_4_2025": {
+  "value": 14,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_4_all": {
+  "value": 45,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_5_2023": {
+  "value": 18,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_5_2024": {
+  "value": 10,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_5_2025": {
+  "value": 14,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_5_all": {
+  "value": 42,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_6_2023": {
+  "value": 1,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_6_2024": {
+  "value": 2,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_6_2025": {
+  "value": 0,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_6_all": {
+  "value": 3,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_7_2023": {
+  "value": 0,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_7_2024": {
+  "value": 0,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_7_2025": {
+  "value": 1,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_7_all": {
+  "value": 1,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_8_2023": {
+  "value": 15,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_8_2024": {
+  "value": 27,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_8_2025": {
+  "value": 27,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rec_8_all": {
+  "value": 69,
+  "claim": "table/sentence 'recon'"
+ },
+ "r12_rel_dep": {
+  "value": "0.85",
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_rel_dep_n": {
+  "value": 86,
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_rel_prs": {
+  "value": "0.07",
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_rel_turn": {
+  "value": "0.22",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_sk_2023": {
+  "value": "0.23",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_2024": {
+  "value": "0.21",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_2025": {
+  "value": "0.09",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_all": {
+  "value": "0.43",
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "r12_sk_all_450": {
+  "value": "1.9",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_all_hi": {
+  "value": "0.77",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_all_lo": {
+  "value": "0.09",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_sk_pos": {
+  "value": 3,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "r12_sk_pshuf": {
+  "value": "0.003",
+  "claim": "The slope is positive in 2023 (0.23), 2024 (0.21) and 2025 (0.09) pressures per 100 rushes per sd; each class alone spans zero. Pooled over 78 rushers it is 0.4"
+ },
+ "r12_t3_2025_n": {
+  "value": 8,
+  "claim": "The 3-cone makes a big man stop, plant and bend around a cone low to the ground, the hip bend he needs to dip under a tackle's hands. But only 43 of 118 linemen"
+ },
+ "r12_turn_n": {
+  "value": 78,
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_turn_rho": {
+  "value": "-0.04",
+  "claim": "Hoop G does not move it. With the same held-out design, one sd of Hoop G is worth 0.5 inches of depth (90% interval -0.9 to 1.9; shuffle p = 0.22; Figure 3B). T"
+ },
+ "r12_val_hi": {
+  "value": "0.49",
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_val_lo": {
+  "value": "0.15",
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_val_n": {
+  "value": 85,
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_val_rho": {
+  "value": "0.33",
+  "claim": "Season pressure on 20 sampled rushes is noisy (split-half reliability 0.07), so we built a steadier outcome from the same 10 Hz game frames: **depth upfield 1.5"
+ },
+ "r12_wd_all": {
+  "value": "0.91",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_wd_all_hi": {
+  "value": "1.37",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_wd_all_lo": {
+  "value": "0.44",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r12_wd_pshuf": {
+  "value": "0.002",
+  "claim": "table/sentence 'appx12'"
+ },
+ "r9_nc_k": {
+  "value": 9,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "r9_nc_n": {
+  "value": 69,
+  "claim": "**Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Scored against a no-tracking forecast built on oth"
+ },
+ "rel_hoop_2runs": {
+  "value": "0.58",
+  "claim": "2. **Run the hoop twice.** 6 of these 7 rushers have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ },
+ "rel_hoop_sb": {
+  "value": "0.41",
+  "claim": "2. **Run the hoop twice.** 6 of these 7 rushers have one run; a second, at a pro day or in a camp tracker, lifts reliability from 0.41 to 0.58."
+ }
+}

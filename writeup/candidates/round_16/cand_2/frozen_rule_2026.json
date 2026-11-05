@@ -1,0 +1,122 @@
+{
+ "rule": {
+  "frozen_on": "2026-10-24",
+  "data_through": "2025 regular season (NGS full-season separation)",
+  "pool": "2025 day-3 (round 4+) or undrafted WR/TE with 100+ routes; outcome = 2026 route-weighted SOE",
+  "forecast_m1": {
+   "cols": [
+    "1",
+    "logpick",
+    "te",
+    "lr1",
+    "y1s"
+   ],
+   "coef": [
+    -0.255884,
+    0.00211,
+    -0.142496,
+    0.048121,
+    0.89565
+   ],
+   "resid_sd": 0.237285
+  },
+  "forecast_m0": {
+   "cols": [
+    "1",
+    "logpick",
+    "te",
+    "lr1"
+   ],
+   "coef": [
+    0.075745,
+    0.007569,
+    -0.14831,
+    -0.012339
+   ],
+   "resid_sd": 0.276355
+  },
+  "shrinkage": {
+   "tau2": 0.06959302,
+   "s2": 9.41988139,
+   "mean": 0.00184
+  },
+  "platt_m1": [
+   -0.630081,
+   1.191903
+  ],
+  "threshold_in": 0.165,
+  "list": [
+   {
+    "name": "Malik Washington",
+    "nfl_id": 57304,
+    "p_recal": 94.9
+   },
+   {
+    "name": "Demario Douglas",
+    "nfl_id": 56075,
+    "p_recal": 88.9
+   },
+   {
+    "name": "Tez Johnson",
+    "nfl_id": 58440,
+    "p_recal": 84.9
+   },
+   {
+    "name": "Arian Smith",
+    "nfl_id": 58315,
+    "p_recal": 80.6
+   },
+   {
+    "name": "Troy Franklin",
+    "nfl_id": 57223,
+    "p_recal": 61.2
+   },
+   {
+    "name": "A.J. Barner",
+    "nfl_id": 57242,
+    "p_recal": 60.2
+   },
+   {
+    "name": "Gunnar Helm",
+    "nfl_id": 58325,
+    "p_recal": 58.8
+   },
+   {
+    "name": "Isaiah Bond",
+    "nfl_id": 59278,
+    "p_recal": 55.8
+   },
+   {
+    "name": "Jaylin Lane",
+    "nfl_id": 58333,
+    "p_recal": 46.6
+   },
+   {
+    "name": "Kayshon Boutte",
+    "nfl_id": 56052,
+    "p_recal": 44.2
+   },
+   {
+    "name": "Mitch Tinsley",
+    "nfl_id": 56559,
+    "p_recal": 38.7
+   },
+   {
+    "name": "Mitchell Evans",
+    "nfl_id": 58368,
+    "p_recal": 34.5
+   },
+   {
+    "name": "Ja'Tavion Sanders",
+    "nfl_id": 57222,
+    "p_recal": 29.1
+   }
+  ],
+  "primary_test": "day-3 2025->26 pairs with 100+ routes in both seasons: Spearman(M1 forecast, 2026 SOE) minus Spearman(M0 forecast, 2026 SOE) > 0, receiver bootstrap 90% interval",
+  "secondary": "hits (2026 SOE > 0) among the listed names vs the pick-and-routes list of the same size",
+  "expected_pairs": 18,
+  "power_at_observed_gain": 0.37,
+  "power_at_gain_0_2": 0.22
+ },
+ "sha256": "5c1beda70454f4b006cf431642eaff4a2c4db23fb6e5d4a7fe51b64bc78d2c51"
+}

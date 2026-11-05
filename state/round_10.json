@@ -1,0 +1,187 @@
+{
+ "round": 10,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_10/cand_1/",
+   "angle": "Hoop G tiebreak lead for DL who skipped the 3-cone; frozen rule scored vs no-tracking forecast",
+   "score": 8.27,
+   "judge_scores": {
+    "judge-football": 8.3,
+    "judge-datascience": 8.2,
+    "judge-writeup": 8.2,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_10/cand_2/",
+   "angle": "WR/TE Break G drill-to-game chain, equivalence-bound null, cut-to-throw timing",
+   "score": 8.2,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.5,
+    "judge-writeup": 8.1,
+    "judge-viz": 8.3
+   },
+   "fatal_flaws": [
+    "Writeup 1,973 words by wc, near 2,000 cap; Fig 3 repeats Fig 4 null message",
+    "Hero figure shows only two hand-picked players; 0.07 vs 0.02 g gap is a two-player contrast"
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_10/cand_3/",
+   "angle": "Combine 40 start vs NFL first step carry-over for DL (honest null, false-positive case)",
+   "score": 8.15,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.4,
+    "judge-writeup": 7.9,
+    "judge-viz": 8.4
+   },
+   "fatal_flaws": []
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_10/cand_1/",
+  "score": 8.27
+ },
+ "winner_feedback": {
+  "judge-football": {
+   "score": 8.3,
+   "subscores": {
+    "usable": 8.5,
+    "football_confounders": 8.2,
+    "unique": 8.2,
+    "terminology": 8.3
+   },
+   "justification": "Usable 8.5: Named 2025 decision card, an explicit protocol ask (every DL runs the 3-cone, publish hoop g, time two runs), film checklists and named tie-break comparisons can be used in a draft room. The evidence is thin (4 of 9, 0 of 2 in 2025, intervals span zero), but the writeup says so, and the lede and verdicts match that.\n\nConfounders 8.2: It handles pick, weight, EDGE vs interior, a no-tracking forecast, one-run reliability (0.41), rotation proxied by rushes per game, exposure in the count model, a best-of-14 screening p (0.12) and the size confound for 312 to 336 lb tackles. Scheme and blocker context are still only noted as unmodeled, and the matched-pair test was designed after the rule.\n\nUnique 8.2: Using Run-the-Hoop lateral g as a stand-in where the 3-cone is missing is a real reframing, as is the frozen rule scored against a forecast. Stating that Hoop G has no in-game mechanism (0.002 g per sd, rho 0.07) is unusually candid, though it leaves the core claim as an unexplained correlate.\n\nTerminology 8.3: Terms are correct (EDGE vs interior, get-off, stunt, tie-break, film first) and many named players appear. Minor issues are the ambiguous \"twin\" and \"comparison player\" wording and heavy statistical jargon (mid-p, shuffle p, exact 90%) for a scout reader. The 2025 card has five of seven rows with the same \"hold his role, re-score\" action, which is generic.",
+   "top_changes": [
+    "Differentiate the decision card. Five of seven rows read 'hold role, re-score after 2026'. Give concrete actions per player: snap-share or role changes, a second hoop run at the pro day or in a camp tracker, and what film cut to pull (e.g. wide-arc rushes for Ezeiruaku). Add a cost-of-error line for a wrong call (roster slot or pick value), and a real scheme context (4-3 vs 3-4, stunt rate) for Phillips vs Black.",
+    "Make the evidence one clean test. Cut the stacked, overlapping stats (mid-p 0.04, shuffle p 0.05, pair p 0.004, 27-variant grid, pooled Fisher, best-of-14). Lead with the held-out result (4 of 12 vs 9 of 66, 0 of 2 in 2025), label the pair test as post hoc, and move the rest to the appendix. Cut jargon such as 'mid-p' and 'twin' from the main text.",
+    "Give Hoop G a football mechanism or drop the framing. Try one more in-game proxy with n stated (e.g. pressure win on outside-arc rushes vs inside counters, or the post-snap direction-change rate for 100+ rush players). If it is null again, say plainly that the scout use is a tiebreak after the 3-cone and film. Also show Adebawore and Cedric Johnson film cues, since the 'when the call is wrong' table gives only one-line reads."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.2,
+   "subscores": {
+    "correctness": 8.4,
+    "evidence": 8.6,
+    "model": 8.1,
+    "innovation": 7.6
+   },
+   "spot_checks": [
+    {
+     "claim": "118 DL, 44 in 2025, 109 ran Run-the-Hoop",
+     "reproduced": true,
+     "note": "players.parquet and combine_events.parquet give 118 DL, 44 in the 2025 class and 109 with a hoop attempt."
+    },
+    {
+     "claim": "45 DL with a tracked 3-cone attempt (footnote 1)",
+     "reproduced": true,
+     "note": "45 tracked, 14 of them in 2025. Footnote splits official and tracking-only times (42/3/1), not checked. Body's 43 official (15 of 44 in 2025) not independently reproduced; tracked 2025 count 14 differs from official 15."
+    },
+    {
+     "claim": "Plus calls 4 of 9 vs 9 of 69, pooled one-sided Fisher p 0.04",
+     "reproduced": true,
+     "note": "scipy fisher_exact on [[4,5],[9,60]] gives 0.0376. Exact 90% CI for 4 of 7 is 23-87%, matching the table. Per-player hit flags not re-derived."
+    },
+    {
+     "claim": "numbers.json against the writeup",
+     "reproduced": true,
+     "note": "Every cited value checked (r10_t3_loco 0.36 [-0.22, 0.67], x100 1.1, 18 of 27 grid cells, per-class 1/3, 3/4, 0/2) matches the text. Table counts internally consistent."
+    },
+    {
+     "claim": "Held-out 3-cone rho 0.36, count models, shuffle p 0.05/0.12",
+     "reproduced": false,
+     "note": "From a 3,014-line analysis.py with Laplace and bootstrap fits; not re-run, only checked for consistency with numbers.json."
+    }
+   ],
+   "justification": "The checkable counts reproduce: sample sizes, the Fisher p of 0.04 and the exact binomial intervals. No fatal flaw found. The model-based numbers were not re-run.\n\nStrengths:\n- A no-tracking baseline (log pick, weight, EDGE share, NGS score, 10-yd split, 3-cone) is fit leave-one-class-out. Calibration is reported with a weighted slope of 1.17 [0.69, 1.68].\n- Addresses the previous round's data-science requests: Fisher/mid-p by class, a 27-cell sensitivity grid, a count model with rushes as exposure and a pick x rotation term, and a power statement for 2026.\n- Reliability of the single-attempt hoop run is handled by shrinkage (0.41, rising to 0.58 with two runs). Drill metrics are year-standardized.\n- Reports the multiplicity problem honestly: best of 14 screened pairs, p = 0.12.\n- Candid that the evidence is weak. The held-out 3-cone interval spans zero, 2025 is 0 of 2, and the 3-cone improved the held-out forecast in only 1 of 3 classes.\n- The plus-minus comparison-player pairing (p = 0.004) was designed after the rule; correctly labelled and put in the appendix.\n\nWeaknesses:\n- The headline test is 4 of 9 vs 9 of 69, with a mid-p of 0.04 and a shuffle p of 0.05. Marginal, with many researcher degrees of freedom (80% interval, 30-rush minimum, forecast spec). The grid shows the edge vanishes at 90%. Re-chosen on two classes and scored on the third, the result is 4 of 12 vs 9 of 66.\n- Pressure rate comes from only about 20 sampled rushes per player in tracking. Season counts for the outcome ignore opponent and scheme.\n- Hoop G has no demonstrated in-game mechanism: 0.002 g per sd, and rho 0.07 for outside rushes. Honest, but weakens the finding.\n- Innovation is moderate. Hoop G is a peak half-second of lateral acceleration from the 10 Hz signal; the drill-to-game carry-over check is a good idea, but there is no break-detection or movement-similarity construction, and the rule is evaluated with counts.\n- Model is appropriate to n (Bayesian shrinkage, count models, no deep nets).\n- Minor reporting issue: the 43 vs 45 3-cone reconciliation sits in a footnote, and tracked 2025 attempts (14) differ from the official 15 of 44 in the text.",
+   "top_changes": [
+    "Replace the hit-count test with a continuous out-of-class test: leave-one-class-out Bayesian shrinkage of pressure rate on Hoop G, with the baseline forecast as an offset. Report the per-class slope with its interval and a shuffle null for the slope. Counts of 4/9 vs 9/69 depend on the 80% cutoff and the 30-rush minimum, and the edge vanishes at 90%.",
+    "Add a lower-variance pressure outcome on the same sampled plays. Use a within-rusher get-off or win-time metric from the 10 Hz game frames, and test Hoop G against it with the same held-out design and per-class signs. Otherwise the outcome is about 20 rushes per player of noisy sampled pressure, and no mechanism is demonstrated.",
+    "Put the pre-registration on firmer ground and tidy the reporting. Freeze the rule (cutoff, minimum, forecast spec) in a hashed config before 2026 data. State the multiplicity adjustment (best of 14, p = 0.12) next to the headline p. Move the 43-vs-45 3-cone reconciliation, including the 15 vs 14 gap for 2025, from the footnote into one reconciled table."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8.2,
+   "subscores": {
+    "clarity": 7.8,
+    "structure": 8.5,
+    "motivation": 8.2,
+    "density": 7.9
+   },
+   "justification": "check.py passes: 1,782 words, 4 figures, 5 tables, no problems. The title now states the finding (Hoop G is a tiebreak lead for rushers who skip the 3-cone), which is an improvement. Structure is strong: ask, honest negative (\"What Hoop G is not\"), track record, a wrong-call case study, decision card, a 4-row \"How sure we are\", limitations and an appendix. The motivation paragraph now explains why the 3-cone should relate to pressure and why the stand-in is needed (43 of 118 ran it). Tone is confident and avoids overclaiming. Weaknesses are in the lede, the metric definition and density. The bold lede is about 75 words but crammed with brackets, rho and ratios, and it leads with the 3-cone, not the Hoop G finding in the title. The coach-repeatable sentence defining Hoop G is buried in a long paragraph and carries stats jargon. The \"ask\" comes before the evidence, which is unusual, and its item 3 holds a dense power calculation. Several tables hold stacked intervals and mid-p values. The sensitivity paragraph is a run-on (27 variants, count model, exposure terms). The decision card repeats the same \"hold his role, re-score\" phrase five times. Terms such as \"mid-p\", \"pick x rotation\", \"shuffle p\" and \"partial rho\" remain in the body text. The Fig 3 pair design was admitted to be post hoc, and leaning on it still invites doubt.",
+   "top_changes": [
+    "Rewrite the bold lede around the title's finding, with no brackets or jargon. For example: 'Hoop G, a measure of sideways force in Run-the-Hoop, is a tiebreak for pass rushers who skipped the 3-cone. Its plus calls beat a no-tracking forecast in 4 of 9 cases versus 9 of 69 for other rushers, but 0 of 2 in 2025, and the 3-cone itself is unconfirmed out of class (rho 0.36, interval spans zero). A lead, not a rule.' Move the 3-cone interval into 'Why it matters'.",
+    "Split the Hoop G definition out of the long 'Why it matters' paragraph into its own sentence a coach could repeat: 'Hoop G is how hard a lineman can push sideways while turning the hoop curve, compared with his Combine class.' Move shrinkage and reliability to the appendix. Then replace the 'The ask' section (and its power calculation in item 3) with a short 'So what for a team' section after the results, and move the power statement to Limitations.",
+    "Cut density in the track-record section. Compress the sensitivity paragraph (27 variants, count model, exposure) to two plain sentences and push the details into the appendix. Drop 'mid-p', 'shuffle p' and 'pick x rotation' from the body. Collapse the five identical decision-card action cells into three short actions, and drop the 'Clearly below' column or explain it. Remove the Fig 3 pair-design claim, or label it exploratory in the figure caption."
+   ],
+   "suggested_title": "Hoop G: A Tiebreak Lead for Pass Rushers Who Skip the 3-Cone (4 of 9 Plus Calls Beat Forecast, 0 of 2 in 2025)",
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.4,
+   "subscores": {
+    "accessible": 8.5,
+    "accurate": 8.8,
+    "innovative": 8.3,
+    "economy": 7.6
+   },
+   "justification": "Four figures plus five tables gives 9 items, at the cap. The hero figure puts drill-vs-game paths side by side with the metric as colour, a shared colour key and a pressure-vs-forecast interval panel. That is the tracking-native style finalists use. Figs 2-4 are clean, labeled, colorblind-safe, and show uncertainty, n and a shuffle null. Weak points: the Fig 1 right panel is sparse and has only 3 players. Fig 4 is a 3x3 text grid that works better as a table or appendix item. Fig 3 and Fig 4 both argue the same plus-call-edge claim as the shuffle p in Fig 2, so there is overlap. Fig 2 lacks per-class held-out sign and 3-cone calibration. Small text in the hero (subtitle lines) may fall under 9 pt at Kaggle width.",
+   "top_changes": [
+    "Fig 1: turn it into a small multiple of 6 players (3 plus calls who hit, 2025 misses, Adebawore, Phillips). Keep drill vs NFL path with shared colour. Add a column of pressure-minus-forecast with 80% intervals for all six, and print the sampled-play count in each row. Shrink the path panels so the interval panel has real width.",
+    "Fig 4: demote it to an appendix table or a single-row strip (three cutoffs at the frozen 30+ rushes). Merge the shuffle-p row into Fig 3, which already has one. Total items go from 9 to 7-8 and the repeated plus-call-edge message goes away.",
+    "Fig 2: add a held-out calibration companion panel, with 3-cone rho and its sign and interval in each held-out class (2023, 2024, 2025) as a dot-and-interval plot. Mark the 2025 plus calls (0 of 2) explicitly. Replace the 'no-call thirds' crosses with a labeled binned-calibration line."
+   ],
+   "fatal_flaws": []
+  }
+ },
+ "changelog": [
+  "Round 10 candidates: Hoop G tiebreak (8.27), WR/TE Break G null (8.20), DL 40-start carry-over null (8.15).",
+  "Winner cand_1 retitled around the finding: Hoop G as tiebreak lead for DL who skipped the 3-cone; 1,782 words, 4 figures, 5 tables.",
+  "Added frozen rule scored vs no-tracking forecast, held-out 4/12 vs 9/66, best-of-14 screening p 0.12, 27-cell grid, count model with exposure.",
+  "Judges converge on 8.2-8.4; remaining asks: lede rewrite without jargon, differentiated decision card, continuous out-of-class test, Fig 1 small multiple.",
+  "Gain over round 9 is +0.01 (8.26 -> 8.27); plateau near 8.3."
+ ],
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  },
+  {
+   "round": 6,
+   "score": 8.12
+  },
+  {
+   "round": 7,
+   "score": 8.18
+  },
+  {
+   "round": 8,
+   "score": 8.21
+  },
+  {
+   "round": 9,
+   "score": 8.26
+  }
+ ]
+}

@@ -1,0 +1,75 @@
+{
+ "fig1_slope_speed": "0.44",
+ "fig1_slope": "-0.03",
+ "fig1_gap_0": "+0.4",
+ "fig1_0": "Johnny Wilson",
+ "fig1_gap_1": "+1.3",
+ "fig1_1": "Malik Washington",
+ "fig1_gap_2": "-1.0",
+ "fig1_2": "Gunnar Helm",
+ "fig1_gap_3": "+0.4",
+ "fig1_3": "Jacob Cowing",
+ "fig1_gap_4": "+1.5",
+ "fig1_4": "KeAndre Lambert-Smith",
+ "fig2_tost_bg": "0.10",
+ "fig2_tost_decel": "0.20",
+ "fig2_tost_v_apex": "0.18",
+ "fig2_tost_reaccel": "0.40",
+ "fig2_tost_hm": "0.04",
+ "fig3_vap_0": "2.0",
+ "fig3_bg_0": "0.56",
+ "fig3_vap_1": "0.8",
+ "fig3_bg_1": "0.50",
+ "fig3_washington": {
+  "fam": "HITCH",
+  "dvin": "7.1",
+  "nvin": "5.5",
+  "dbg": "0.61",
+  "nbg": "0.45",
+  "flag": false
+ },
+ "fig3_douglas": {
+  "fam": "HITCH",
+  "dvin": "7.5",
+  "nvin": "5.2",
+  "dbg": "0.50",
+  "nbg": "0.36",
+  "flag": false
+ },
+ "fig3_franklin": {
+  "fam": "HITCH",
+  "dvin": "7.2",
+  "nvin": "6.2",
+  "dbg": "0.68",
+  "nbg": "0.45",
+  "flag": false
+ },
+ "fig3_johnson": {
+  "fam": "IN",
+  "dvin": "8.1",
+  "nvin": "6.8",
+  "dbg": "0.57",
+  "nbg": "0.49",
+  "flag": false
+ },
+ "fig3_smith": {
+  "fam": "HITCH",
+  "dvin": "7.8",
+  "nvin": "5.9",
+  "dbg": "0.73",
+  "nbg": "0.47",
+  "flag": false
+ },
+ "fig3_bond": {
+  "fam": "HITCH",
+  "dvin": "7.1",
+  "nvin": "5.1",
+  "dbg": "0.63",
+  "nbg": "0.37",
+  "flag": false
+ },
+ "fig4_wr_closer": 10,
+ "fig4_row0": "+5.9 [-6.1, +20.0]",
+ "fig4_row1": "+7.4 [-2.9, +18.1]",
+ "fig4_row2": "+9.1 [-2.5, +18.2]"
+}

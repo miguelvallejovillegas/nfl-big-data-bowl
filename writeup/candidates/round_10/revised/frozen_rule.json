@@ -1,0 +1,31 @@
+{
+ "continuous_test": {
+  "class_intercept": true,
+  "likelihood": "beta-binomial",
+  "offset": "logit(forecast)",
+  "slope_prior_sd_logit": 0.0374,
+  "statistic": "slope on Hoop G z, one per class"
+ },
+ "forecast": {
+  "covariates": [
+   "log_pick",
+   "combine_weight_z",
+   "edge_share",
+   "ngs_athleticism_score",
+   "ten_yd_split_z",
+   "three_cone_z"
+  ],
+  "fit_rows": "other classes, 100+ rushes",
+  "missing_times": "linear fill from combine_weight_z, edge_share, ngs_athleticism_score",
+  "model": "OLS on empirical-Bayes pressure rate"
+ },
+ "hit": "10th percentile of Beta(pressures+0.5, rushes-pressures+0.5) > forecast",
+ "metric": "Hoop G = max over the Run-the-Hoop lap of the 0.5 s rolling mean of sideways acceleration (g), mean over runs, z-scored within Combine year",
+ "min_nfl_rushes": 30,
+ "minus_flag": "shr + 1.2816*sd < 0 (interior: film flag only)",
+ "one_run_reliability": 0.41,
+ "plus_call": "shr - 1.2816*sd > 0",
+ "score_after": "2027 regular season",
+ "score_class": 2026,
+ "shrinkage": "lam = k*rel/(1+(k-1)*rel); shr = lam*z; sd = sqrt(lam*(1-lam))"
+}

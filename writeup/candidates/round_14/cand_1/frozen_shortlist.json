@@ -1,0 +1,8 @@
+{
+ "base_rate": "other day-3/undrafted hoop runners with 30+ rushes",
+ "hit": "NFL pressure rate > no-tracking forecast fit on earlier classes (frozen_rule.json forecast)",
+ "min_nfl_rushes": 30,
+ "score_after": "2027 regular season",
+ "score_class": 2026,
+ "shortlist": "pick >= 103 or undrafted AND Hoop G in the top third of all Run-the-Hoop runners in his Combine year (Hoop G as in frozen_rule.json)"
+}

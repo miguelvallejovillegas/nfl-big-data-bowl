@@ -1,0 +1,28 @@
+{
+ "metric": "Hoop G: hardest 0.5 s of sideways acceleration on Run-the-Hoop, z within Combine year",
+ "use": "film flag for day-3/undrafted (pick>=103) rushers in the class top third of Hoop G; never moves the board order on its own",
+ "test": "2026 Combine class after its first NFL season: slope of Hoop G (mean of graded laps) on (pressure rate - pick + role forecast frozen on the 2023-25 classes), within-class permutation, one-sided p<0.10; slope <= 0 retires the flag",
+ "baseline": "pick + role (log draft pick, NFL EDGE share): the strongest no-tracking forecast held out on 2023-25",
+ "calls_2026_board": {
+  "Cedric Johnson": "Go",
+  "Javon Solomon": "Go",
+  "Warren Brinson": "Go",
+  "Austin Booker": "Go",
+  "Jack Sawyer": "Go",
+  "Eric Watts": "No-go",
+  "Tyrion Ingram-Dawkins": "No-go",
+  "Jaylen Harrell": "No-go",
+  "Zeek Biggers": "Hold",
+  "Nazir Stackhouse": "Hold",
+  "Kyle Kennard": "Hold",
+  "Mohamed Kamara": "Audition",
+  "Gabe Hall": "Audition",
+  "Nelson Ceaser": "Audition",
+  "Tim Smith": "Audition",
+  "Antwaun Powell-Ryland": "Audition",
+  "Jah Joyner": "Audition",
+  "Ethan Downs": "Audition"
+ },
+ "decision_date": "after Week 18 of the 2026 regular season",
+ "sha256": "a8f5e5be6e51a9543b044fd63e3aef30b47bea6b3184ef463b0da5333998c9e8"
+}

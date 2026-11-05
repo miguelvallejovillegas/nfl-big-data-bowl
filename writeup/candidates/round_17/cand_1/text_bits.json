@@ -1,0 +1,29 @@
+{
+ "nogo": "Tyrion Ingram-Dawkins",
+ "nogo_team": "MIN",
+ "teams": [
+  "PIT",
+  "GB",
+  "MIA"
+ ],
+ "names": [
+  "Jack Sawyer",
+  "Warren Brinson",
+  "Zeek Biggers"
+ ],
+ "calls": [
+  "Go",
+  "Go",
+  "Go"
+ ],
+ "cards": "| **Jack Sawyer** (123, PIT) | EDGE | +1.4 | 176 | 9.0% vs 8.4% | Go |\n| **Warren Brinson** (198, GB) | interior | +1.3 | 173 | 7.4% vs 6.5% | Go |\n| **Zeek Biggers** (253, MIA) | interior | +0.9 | 142 | 6.4% vs 6.2% | Go |\n| **Tyrion Ingram-Dawkins** (139, MIN) | EDGE | +1.0 | 113 | 6.7% vs 7.9% | No-go |\n| **Nazir Stackhouse** (UDFA, TEN) | interior | +0.4 | 71 | 5.6% vs 5.8% | Watch |\n| **Kyle Kennard** (125, LAC) | EDGE | +1.2 | 50 | 6.3% vs 8.2% | Watch |\n| **Ethan Downs** (UDFA, KC) | EDGE | +2.3 | 7 | under 30 rushes | Audition |\n| **Tim Smith** (190, IND) | interior | +0.4 | 0 | under 30 rushes | Audition |\n| **Antwaun Powell-Ryland** (209, CIN) | EDGE | +1.1 | 0 | under 30 rushes | Audition |\n| **Jah Joyner** (UDFA, FA) | EDGE | +1.5 | 0 | under 30 rushes | Audition |",
+ "hist_hit": "Javon Solomon, Adetomiwa Adebawore, Nick Hampton, Austin Booker, Isaiah Land",
+ "hist_miss": "Robert Beal, Jaylen Harrell, Eric Watts",
+ "best": "Cedric Johnson",
+ "hash": "48512deeddaa",
+ "laps": [
+  "Jerrod Clark",
+  "Ty Robinson",
+  "Tuli Tuipulotu"
+ ]
+}

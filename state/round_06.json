@@ -1,0 +1,260 @@
+{
+ "round": 6,
+ "candidates": [
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_06/cand_1",
+   "angle": "DL hoop-drill bend tiebreaker",
+   "score": 8.12,
+   "judge_scores": {
+    "judge-football": 7.9,
+    "judge-datascience": 8.3,
+    "judge-writeup": 8.0,
+    "judge-viz": 8.3
+   },
+   "fatal_flaws": [
+    "No fatal flaws. Main weaknesses: Fig 1 oversized with small text; Figs 3, 4 and Fig 2 diamonds repeat the same message.",
+    "Fig 2 captions describe rather than state takeaway.",
+    "Fig 2 compares rho across panels with different n (27 to 69).",
+    "Fig 4 violins truncated at axis edges; arrow percentages unusual to read."
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_06/cand_3",
+   "angle": "Get-Off Translation (40 start vs NFL get-off)",
+   "score": 7.45,
+   "judge_scores": {
+    "judge-football": 6.6,
+    "judge-datascience": 7.9,
+    "judge-writeup": 7.6,
+    "judge-viz": 7.9
+   },
+   "fatal_flaws": [
+    "Headline association (1.0 pressure per season) not supported out of class (R2 change -0.083); translation adds nothing beyond NFL get-off.",
+    "Table 1 translation values (+0.55 to -0.45) inconsistent with stated sd 0.20 and p10-p90 (-0.20 to 0.23); some 40 first-second yardages implausible."
+   ]
+  },
+  {
+   "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_06/cand_2",
+   "angle": "WR/TE Break G targets per route",
+   "score": 7.42,
+   "judge_scores": {
+    "judge-football": 6.6,
+    "judge-datascience": 8.0,
+    "judge-writeup": 7.6,
+    "judge-viz": 7.6
+   },
+   "fatal_flaws": [
+    "Fig 1 title and 'all positive' panel overstate a result whose pooled CI touches zero and whose held-out R2 is negative in 2024.",
+    "Fig 4 SOE slope (-4.5 in per sd) runs opposite to Fig 1's positive tilt with no reconciliation.",
+    "Fig 2 compares a single drill rep with the median of game routes, not like for like."
+   ]
+  }
+ ],
+ "winner": {
+  "path": "/home/user/nfl-big-data-bowl/writeup/candidates/round_06/revised/",
+  "score": 8.12,
+  "verdicts": {
+   "judge-football": {
+    "score": 7.9,
+    "subscores": {
+     "usable": 7.6,
+     "difficulty": 8.6,
+     "unique": 7.8,
+     "terminology": 7.6
+    },
+    "justification": "Usable (7.6): Named 2025 board, head-to-head pairs, and an \"ask for 3-4 hoop runs\" protocol are actionable. But the effect is 0.6 pressures per season [-0.4, 1.7], the nested out-of-class R\u00b2 is null, and the stated use is tie-break only, so a GM gets little leverage. Difficulty (8.6): Handles draft slot, EDGE vs interior, reliability (0.41), missing 10-yd and 3-cone times, imputation, prior dependence, small n per class, placebo tests, and a failed mechanism test. It still ignores injuries and snap role beyond games and EDGE share, and has no scheme or man/zone context. Unique (7.8): Using the Hoop drill as a lateral-force marker, with in-game mechanism tests and pre-registration, is a fresh angle. The honest null on corner mechanism is credible but leaves \"lateral force\" vague. Terminology (7.6): Football language is mostly right and the headline now matches the evidence. Weak points are the invented \"Hoop G\" metric with no film or trace validation, and \"bend\" is still used on the board even though the mechanism test failed. Round 5 judges asked for film validation of Chop Robinson, Tuipulotu and others, and it is not here.",
+    "top_changes": [
+     "Add trace or film-style validation for 3-4 named rushers. Use Ezeiruaku and Phillips, plus Chop Robinson or Tuipulotu if they are in the cohort. Show their hoop lateral-g traces next to one in-game rush path each, so a scout sees what Hoop G is. Drop 'bend' from the board columns, since your own mechanism tests failed.",
+     "Split the call rules by role (interior vs EDGE) and put pressure rates, not rush counts, in every board row. Add a rule table: when to break the tie, when to retest, when to ignore. Include one concrete draft-room example, such as picks 100 vs 80 for a named EDGE pair. Name the 2023-24 plus calls and show which ones missed.",
+     "Cut the appendix and check clutter, and fold the 63 vs 90 sample explanation into the lede. State the failed pre-reg power (0.12) as a reason the board is low-stakes. Add a one-line comparison against what a team already gets from the 3-cone and 10-yd split, because the nested gain was -0.002 on the 49. Cut the 8-of-14 and 7-of-8 pair statistics to one honest sentence."
+    ],
+    "fatal_flaws": []
+   },
+   "judge-datascience": {
+    "score": 8.3,
+    "subscores": {
+     "correctness": 8.7,
+     "evidence": 8.5,
+     "model": 8.2,
+     "innovation": 7.8
+    },
+    "justification": "Correctness: I re-ran analysis.py in a scratch copy, with ROOT pointed at the repo. It finished in 209 s and wrote all 189 numbers.json keys. Every value was identical to the candidate's numbers.json, and the rendered writeup.md was identical. The spot-checked values were the headline 0.6 [-0.4, 1.7], the nested R\u00b2 change -0.026 [-0.286, 0.185] on n=63, the per-class values -0.042 / -0.014 / -0.151 on 21 / 22 / 20 players, the log score +1.36 \u00b1 0.50 on n=90, the 10-yd nested change -0.002 on n=49, and the 8 of 14 pair win rate. Caveat: the run used the cached hoop_r5 fits in data/cache, so I did not recompute the MCMC fits from scratch, and I did not independently recompute any figure from the raw parquets. The headline, the pick-equivalent figure (80) and the planning number (0.6) are now consistent, which fixes the round-5 drift. Evidence: sample sizes are stated per row, and the table separates the 90-player Bayesian fit from the 63-player nested R\u00b2 test with a stated reason. Held-out classes are shown separately. There is a no-tracking baseline (log pick, weight, NGS score, official times, EDGE share). The writeup includes a prior-sensitivity analysis, reliability of 0.41 with shrinkage, multiple imputation, complete-case checks on the 71 who ran the 10-yd and 34 who ran the 3-cone, placebo drills, and a pre-registered test with power 0.12. It states plainly that the out-of-class gain is null. Weaknesses: the log score is not fully nested because the hoop was selected on all three classes, and the 2025-only check of the plus calls is 1 of 2. The 14-pair screen is scored out of class only loosely. The headline interval includes zero, so the claim is effectively a null with a modest prior-driven upside. Model: a beta-binomial model with a class random intercept and an errors-in-variables correction for the single-run drill reliability is appropriate for n=63 to 90. The design is honest about the limits of this sample. Remaining issues are the imputation of missing 3-cone and 10-yd times, a headline that depends on the skeptical prior, and some model complexity for the sample size. Innovation: Hoop G is a new metric built from the 10 Hz signal, peak sustained lateral acceleration. It is tied to game-tracking path classification and is tested against in-game rush-path direction, where it fails. That falsification of the bend interpretation is good practice. The metric's meaning is still unclear, so its football value is limited.",
+    "top_changes": [
+     "Run the hoop-selection screen inside each held-out fold (nested screen across the 14 pairs) and report the nested out-of-class log score with per-class values. This replaces the not-fully-nested +1.36 nats and removes the main selection-bias caveat. The writeup says the hoop is chosen in only 47% of folds, so report the log score for the fold-selected metric.",
+     "Slim numbers.json to the numbers that actually appear in the text. It still has 189 keys, many of them unused or *_abs duplicates, which makes audit harder. Add a checked claim-to-key map so check.py flags orphans.",
+     "Add a calibration or posterior-predictive check, and a prior-sensitivity row in the main table instead of the body text. Show the headline at the skeptical, doubled and wide priors with the nested R\u00b2 change next to each, and a per-class cross-fitted sign table. Also test a simple ridge alternative on the 63 to show the conclusion does not depend on the beta-binomial."
+    ],
+    "fatal_flaws": []
+   },
+   "judge-writeup": {
+    "score": 8,
+    "subscores": {
+     "clarity": 8.3,
+     "structure": 7.8,
+     "motivation": 7.3,
+     "density": 7.8
+    },
+    "justification": "check.py passes (1,593 words, 4 figures, 4 tables, no problems). The title and bolded lede now state one result and one hedge: 0.6 pressures per season [-0.4, 1.7], no out-of-class R2, tiebreaker only. This fixes the main round 5 complaint. The 63/90 sample split is explained directly under the summary table. Structure follows the finalist pattern, with a question, a metric definition, a short data section, findings, a team-use board, a pre-registered test, limitations and an appendix. Weaknesses: (1) The title is a 20-word sentence that gives away its own caveat; the lede runs about 70 words and is dense with units and intervals. (2) Motivation is a single paragraph. It says why bend, but gives little on why DL now or what a team loses without the metric. (3) The paper is partly self-undermining. Figure 1 and Finding 1 say Hoop G is not bend and burst does not carry to pressure, so the reader is left with a metric of unknown meaning. The 'Bend' labels in the board and Figure 2 conflict with the 'lateral force, not bend' reframing. (4) The top table has five rows with mixed estimands (pressures, R2, nats), which is heavy for a lede. The team-use section carries two more tables, and the board plus head-to-head section is long for a tiebreaker the text calls unproven. (5) The appendix paragraph mixes in a 7-of-8 result that it then labels 'This is not evidence', which invites a cut. (6) Some terminology is statistical rather than scout language (beta-binomial, Laplace, R-hat, nats, partial rho). Tone is honest and not overclaiming, which is a strength.",
+    "top_changes": [
+     "Shorten the title to state the finding in plain words and move the caveats into the lede. The current sentence 'Hoop G: A Lateral-Force Tiebreaker for Pass Rushers, Worth 0.6 Pressures a Season and Unproven Out of Class' is too long. Use something like 'A Combine Hoop Drill Hints at Extra Pass Rush: 0.6 Pressures a Season, Not Yet Confirmed Out of Class'. Rewrite the bold lede as two plain sentences of about 60 words: the football question, the result with the interval, and the verdict. Cut the top table to three rows (headline, nested out-of-class R2 with per-class values, log score) and move the 10-yd nested row to the appendix.",
+     "Resolve the bend versus lateral-force naming conflict. Rename the metric consistently (for example 'Hoop lateral force') in the board columns, Figure 2 and the Why section. Rewrite 'Why this question' as three explicit beats: why DL pressure, why a drill with no published time, and why now with three tracked classes and no tracking baseline yet. Add one coach-repeatable sentence for the metric, such as 'the hardest sideways push he sustains for half a second while rounding the hoop'.",
+     "Trim the team-use section and the appendix. Keep the six-row 2025 board, then fold the head-to-head table into one sentence ('8 of 14 pairs, 57%, no better than shuffled') or move it to the appendix. Delete the 7-of-8 plus-call sentence and its 'This is not evidence' line. Swap or gloss the statistical jargon (beta-binomial, Laplace, R-hat, nats, partial rho) with a plain-language reading or an appendix pointer."
+    ],
+    "fatal_flaws": []
+   },
+   "judge-viz": {
+    "score": 8.3,
+    "subscores": {
+     "accessible": 8,
+     "accurate": 8.5,
+     "innovative": 8.6,
+     "economy": 8.4
+    },
+    "per_figure": [
+     {
+      "file": "fig1_four_rushers.png",
+      "note": "Strong hero: tracking-native drill trace (hoop colored by sideways g, ring on the Hoop G half-second) beside 20 NFL rush traces and a lateral-offset strip per player, with a 79-DL scatter. The takeaway is stated in the title and caption. Weak points: at Kaggle width the small-panel labels (hoop 0.72 g, yd out, 8% out) and the subtitle are about 7-8 pt. Orange is used both for the pressure dot and for Robinson's name and scatter marker. The Phillips row is mostly empty. The first Robinson trace is clipped at the top-left. The message is slightly double, since the left side is traces and the right side is a null scatter.",
+      "keep": true
+     },
+     {
+      "file": "fig2_signal_map.png",
+      "note": "Clean three-panel forest of Spearman rho with 95% CIs, per-row n and a no-power band. Showing raw and adjusted values together (diamond with arrow) is good practice. It is the most conventional chart of the four, close to a correlation bar chart. Rows have different n, which is flagged in the subtitle. The legend is a bit scattered and the x-axis runs to 1.0 with empty space. The title makes two claims, which stretches the one-message rule.",
+      "keep": true
+     },
+     {
+      "file": "fig3_headline.png",
+      "note": "Honest uncertainty: three priors, nested out-of-class R^2 by class, and log score. The 2025 R^2 interval is clipped at the axis edge. The n mismatch (63 for R^2, 90 for the log score) is explained only in the subtitle. The title headlines 0.6 per sd while the middle panel shows no gain, which is a tension for the reader. The dense three-panel layout and the 'nats' unit are hard for a lay reader. This figure supports the model but is not visually distinctive.",
+      "keep": true
+     },
+     {
+      "file": "fig4_calls.png",
+      "note": "Good decision-board dumbbell: forecast tick to actual rate, 80% interval band, and color plus arrow direction for above or below. It is colorblind-safe (blue and orange) and the counts in the panel titles match the caption (4+2 above, 0+3 below). Names carry rate and rushes. It is a bit dense and the title is a little vague ('half land inside noise'). The film-first asterisk is easy to miss.",
+      "keep": true
+     }
+    ],
+    "top_changes": [
+     "Fig 1: raise all in-panel text to at least 9 pt. Drop the empty Phillips lateral-offset strip or fill it with an interior metric such as get-off. Recolor so the pressure dot and the player-name colors do not share orange. Add a small scale bar in yards to the NFL traces. Fix the clipped Robinson trace. Keep one message by moving the 79-DL scatter to a thin inset or to Fig 2.",
+     "Fig 3: replace the left-panel prior stack and the right-panel log score with one forest plot on a common n (63 or 90). Clip the 2025 R^2 interval with an arrow and an annotation instead of silently cutting it. Retitle it neutrally, for example 'Planning number 0.6 pressures per sd; out-of-class gain about zero', so the headline and the evidence agree.",
+     "Fig 4 and Fig 2: turn the Fig 4 board into the player-card figure. Add a tiny hoop-trace sparkline to each row for the top 3 plus and top 3 minus calls. Mark the film-first flag with a distinct symbol and a legend entry. In Fig 2, drop the empty x-range above 0.8 and merge the title claims into one."
+    ],
+    "fatal_flaws": []
+   }
+  }
+ },
+ "history": [
+  {
+   "round": 1,
+   "score": 7.01
+  },
+  {
+   "round": 2,
+   "score": 7.51
+  },
+  {
+   "round": 3,
+   "score": 7.86
+  },
+  {
+   "round": 4,
+   "score": 8.05
+  },
+  {
+   "round": 5,
+   "score": 7.96
+  }
+ ],
+ "changelog": [
+  "Round 6 candidates: cand_1 DL hoop bend tiebreaker (8.12), cand_3 Get-Off Translation (7.45), cand_2 WR/TE Break G targets (7.42).",
+  "Winner is cand_1 revised: retitled and re-ledeed around 0.6 pressures/season [-0.4, 1.7] with null out-of-class R2, tiebreaker only.",
+  "Hoop G reframed as lateral force; 63 vs 90 sample split explained under the summary table.",
+  "Cut to 1,593 words, 4 figures, 4 tables; check.py passes.",
+  "Remaining: film/trace validation of named rushers, nested hoop screen, shorter lede, slimmer numbers.json, Fig 1 fonts."
+ ],
+ "winner_feedback": {
+  "judge-football": {
+   "score": 7.9,
+   "subscores": {
+    "usable": 7.6,
+    "difficulty": 8.6,
+    "unique": 7.8,
+    "terminology": 7.6
+   },
+   "justification": "Usable (7.6): Named 2025 board, head-to-head pairs, and an \"ask for 3-4 hoop runs\" protocol are actionable. But the effect is 0.6 pressures per season [-0.4, 1.7], the nested out-of-class R\u00b2 is null, and the stated use is tie-break only, so a GM gets little leverage. Difficulty (8.6): Handles draft slot, EDGE vs interior, reliability (0.41), missing 10-yd and 3-cone times, imputation, prior dependence, small n per class, placebo tests, and a failed mechanism test. It still ignores injuries and snap role beyond games and EDGE share, and has no scheme or man/zone context. Unique (7.8): Using the Hoop drill as a lateral-force marker, with in-game mechanism tests and pre-registration, is a fresh angle. The honest null on corner mechanism is credible but leaves \"lateral force\" vague. Terminology (7.6): Football language is mostly right and the headline now matches the evidence. Weak points are the invented \"Hoop G\" metric with no film or trace validation, and \"bend\" is still used on the board even though the mechanism test failed. Round 5 judges asked for film validation of Chop Robinson, Tuipulotu and others, and it is not here.",
+   "top_changes": [
+    "Add trace or film-style validation for 3-4 named rushers. Use Ezeiruaku and Phillips, plus Chop Robinson or Tuipulotu if they are in the cohort. Show their hoop lateral-g traces next to one in-game rush path each, so a scout sees what Hoop G is. Drop 'bend' from the board columns, since your own mechanism tests failed.",
+    "Split the call rules by role (interior vs EDGE) and put pressure rates, not rush counts, in every board row. Add a rule table: when to break the tie, when to retest, when to ignore. Include one concrete draft-room example, such as picks 100 vs 80 for a named EDGE pair. Name the 2023-24 plus calls and show which ones missed.",
+    "Cut the appendix and check clutter, and fold the 63 vs 90 sample explanation into the lede. State the failed pre-reg power (0.12) as a reason the board is low-stakes. Add a one-line comparison against what a team already gets from the 3-cone and 10-yd split, because the nested gain was -0.002 on the 49. Cut the 8-of-14 and 7-of-8 pair statistics to one honest sentence."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-datascience": {
+   "score": 8.3,
+   "subscores": {
+    "correctness": 8.7,
+    "evidence": 8.5,
+    "model": 8.2,
+    "innovation": 7.8
+   },
+   "justification": "Correctness: I re-ran analysis.py in a scratch copy, with ROOT pointed at the repo. It finished in 209 s and wrote all 189 numbers.json keys. Every value was identical to the candidate's numbers.json, and the rendered writeup.md was identical. The spot-checked values were the headline 0.6 [-0.4, 1.7], the nested R\u00b2 change -0.026 [-0.286, 0.185] on n=63, the per-class values -0.042 / -0.014 / -0.151 on 21 / 22 / 20 players, the log score +1.36 \u00b1 0.50 on n=90, the 10-yd nested change -0.002 on n=49, and the 8 of 14 pair win rate. Caveat: the run used the cached hoop_r5 fits in data/cache, so I did not recompute the MCMC fits from scratch, and I did not independently recompute any figure from the raw parquets. The headline, the pick-equivalent figure (80) and the planning number (0.6) are now consistent, which fixes the round-5 drift. Evidence: sample sizes are stated per row, and the table separates the 90-player Bayesian fit from the 63-player nested R\u00b2 test with a stated reason. Held-out classes are shown separately. There is a no-tracking baseline (log pick, weight, NGS score, official times, EDGE share). The writeup includes a prior-sensitivity analysis, reliability of 0.41 with shrinkage, multiple imputation, complete-case checks on the 71 who ran the 10-yd and 34 who ran the 3-cone, placebo drills, and a pre-registered test with power 0.12. It states plainly that the out-of-class gain is null. Weaknesses: the log score is not fully nested because the hoop was selected on all three classes, and the 2025-only check of the plus calls is 1 of 2. The 14-pair screen is scored out of class only loosely. The headline interval includes zero, so the claim is effectively a null with a modest prior-driven upside. Model: a beta-binomial model with a class random intercept and an errors-in-variables correction for the single-run drill reliability is appropriate for n=63 to 90. The design is honest about the limits of this sample. Remaining issues are the imputation of missing 3-cone and 10-yd times, a headline that depends on the skeptical prior, and some model complexity for the sample size. Innovation: Hoop G is a new metric built from the 10 Hz signal, peak sustained lateral acceleration. It is tied to game-tracking path classification and is tested against in-game rush-path direction, where it fails. That falsification of the bend interpretation is good practice. The metric's meaning is still unclear, so its football value is limited.",
+   "top_changes": [
+    "Run the hoop-selection screen inside each held-out fold (nested screen across the 14 pairs) and report the nested out-of-class log score with per-class values. This replaces the not-fully-nested +1.36 nats and removes the main selection-bias caveat. The writeup says the hoop is chosen in only 47% of folds, so report the log score for the fold-selected metric.",
+    "Slim numbers.json to the numbers that actually appear in the text. It still has 189 keys, many of them unused or *_abs duplicates, which makes audit harder. Add a checked claim-to-key map so check.py flags orphans.",
+    "Add a calibration or posterior-predictive check, and a prior-sensitivity row in the main table instead of the body text. Show the headline at the skeptical, doubled and wide priors with the nested R\u00b2 change next to each, and a per-class cross-fitted sign table. Also test a simple ridge alternative on the 63 to show the conclusion does not depend on the beta-binomial."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-writeup": {
+   "score": 8,
+   "subscores": {
+    "clarity": 8.3,
+    "structure": 7.8,
+    "motivation": 7.3,
+    "density": 7.8
+   },
+   "justification": "check.py passes (1,593 words, 4 figures, 4 tables, no problems). The title and bolded lede now state one result and one hedge: 0.6 pressures per season [-0.4, 1.7], no out-of-class R2, tiebreaker only. This fixes the main round 5 complaint. The 63/90 sample split is explained directly under the summary table. Structure follows the finalist pattern, with a question, a metric definition, a short data section, findings, a team-use board, a pre-registered test, limitations and an appendix. Weaknesses: (1) The title is a 20-word sentence that gives away its own caveat; the lede runs about 70 words and is dense with units and intervals. (2) Motivation is a single paragraph. It says why bend, but gives little on why DL now or what a team loses without the metric. (3) The paper is partly self-undermining. Figure 1 and Finding 1 say Hoop G is not bend and burst does not carry to pressure, so the reader is left with a metric of unknown meaning. The 'Bend' labels in the board and Figure 2 conflict with the 'lateral force, not bend' reframing. (4) The top table has five rows with mixed estimands (pressures, R2, nats), which is heavy for a lede. The team-use section carries two more tables, and the board plus head-to-head section is long for a tiebreaker the text calls unproven. (5) The appendix paragraph mixes in a 7-of-8 result that it then labels 'This is not evidence', which invites a cut. (6) Some terminology is statistical rather than scout language (beta-binomial, Laplace, R-hat, nats, partial rho). Tone is honest and not overclaiming, which is a strength.",
+   "top_changes": [
+    "Shorten the title to state the finding in plain words and move the caveats into the lede. The current sentence 'Hoop G: A Lateral-Force Tiebreaker for Pass Rushers, Worth 0.6 Pressures a Season and Unproven Out of Class' is too long. Use something like 'A Combine Hoop Drill Hints at Extra Pass Rush: 0.6 Pressures a Season, Not Yet Confirmed Out of Class'. Rewrite the bold lede as two plain sentences of about 60 words: the football question, the result with the interval, and the verdict. Cut the top table to three rows (headline, nested out-of-class R2 with per-class values, log score) and move the 10-yd nested row to the appendix.",
+    "Resolve the bend versus lateral-force naming conflict. Rename the metric consistently (for example 'Hoop lateral force') in the board columns, Figure 2 and the Why section. Rewrite 'Why this question' as three explicit beats: why DL pressure, why a drill with no published time, and why now with three tracked classes and no tracking baseline yet. Add one coach-repeatable sentence for the metric, such as 'the hardest sideways push he sustains for half a second while rounding the hoop'.",
+    "Trim the team-use section and the appendix. Keep the six-row 2025 board, then fold the head-to-head table into one sentence ('8 of 14 pairs, 57%, no better than shuffled') or move it to the appendix. Delete the 7-of-8 plus-call sentence and its 'This is not evidence' line. Swap or gloss the statistical jargon (beta-binomial, Laplace, R-hat, nats, partial rho) with a plain-language reading or an appendix pointer."
+   ],
+   "fatal_flaws": []
+  },
+  "judge-viz": {
+   "score": 8.3,
+   "subscores": {
+    "accessible": 8,
+    "accurate": 8.5,
+    "innovative": 8.6,
+    "economy": 8.4
+   },
+   "per_figure": [
+    {
+     "file": "fig1_four_rushers.png",
+     "note": "Strong hero: tracking-native drill trace (hoop colored by sideways g, ring on the Hoop G half-second) beside 20 NFL rush traces and a lateral-offset strip per player, with a 79-DL scatter. The takeaway is stated in the title and caption. Weak points: at Kaggle width the small-panel labels (hoop 0.72 g, yd out, 8% out) and the subtitle are about 7-8 pt. Orange is used both for the pressure dot and for Robinson's name and scatter marker. The Phillips row is mostly empty. The first Robinson trace is clipped at the top-left. The message is slightly double, since the left side is traces and the right side is a null scatter.",
+     "keep": true
+    },
+    {
+     "file": "fig2_signal_map.png",
+     "note": "Clean three-panel forest of Spearman rho with 95% CIs, per-row n and a no-power band. Showing raw and adjusted values together (diamond with arrow) is good practice. It is the most conventional chart of the four, close to a correlation bar chart. Rows have different n, which is flagged in the subtitle. The legend is a bit scattered and the x-axis runs to 1.0 with empty space. The title makes two claims, which stretches the one-message rule.",
+     "keep": true
+    },
+    {
+     "file": "fig3_headline.png",
+     "note": "Honest uncertainty: three priors, nested out-of-class R^2 by class, and log score. The 2025 R^2 interval is clipped at the axis edge. The n mismatch (63 for R^2, 90 for the log score) is explained only in the subtitle. The title headlines 0.6 per sd while the middle panel shows no gain, which is a tension for the reader. The dense three-panel layout and the 'nats' unit are hard for a lay reader. This figure supports the model but is not visually distinctive.",
+     "keep": true
+    },
+    {
+     "file": "fig4_calls.png",
+     "note": "Good decision-board dumbbell: forecast tick to actual rate, 80% interval band, and color plus arrow direction for above or below. It is colorblind-safe (blue and orange) and the counts in the panel titles match the caption (4+2 above, 0+3 below). Names carry rate and rushes. It is a bit dense and the title is a little vague ('half land inside noise'). The film-first asterisk is easy to miss.",
+     "keep": true
+    }
+   ],
+   "top_changes": [
+    "Fig 1: raise all in-panel text to at least 9 pt. Drop the empty Phillips lateral-offset strip or fill it with an interior metric such as get-off. Recolor so the pressure dot and the player-name colors do not share orange. Add a small scale bar in yards to the NFL traces. Fix the clipped Robinson trace. Keep one message by moving the 79-DL scatter to a thin inset or to Fig 2.",
+    "Fig 3: replace the left-panel prior stack and the right-panel log score with one forest plot on a common n (63 or 90). Clip the 2025 R^2 interval with an arrow and an annotation instead of silently cutting it. Retitle it neutrally, for example 'Planning number 0.6 pressures per sd; out-of-class gain about zero', so the headline and the evidence agree.",
+    "Fig 4 and Fig 2: turn the Fig 4 board into the player-card figure. Add a tiny hoop-trace sparkline to each row for the top 3 plus and top 3 minus calls. Mark the film-first flag with a distinct symbol and a legend entry. In Fig 2, drop the empty x-range above 0.8 and merge the title claims into one."
+   ],
+   "fatal_flaws": []
+  }
+ }
+}

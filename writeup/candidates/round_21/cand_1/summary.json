@@ -1,0 +1,14 @@
+{
+ "angle": "DL/EDGE: Run-the-Hoop bend (Hoop G) and pass-rush-drill burst, year-standardized, followed drill -> NFL bend / NGS get-off -> career pressure rate; baseline = log pick + weight + EDGE share + NGS athleticism + official 10-yd split + 3-cone, leave-one-class-out; six pre-listed drill measures tested jointly; day-3 film-order use with a stated bar for board use; 2026 player cards",
+ "metric_name": "Hoop G: sideways lean at the tightest half-second of the Run-the-Hoop figure-eight (speed squared / turn radius, in g), z within Combine year",
+ "headline_number": "Held out (n=77): Hoop G +1.8 pressures per 450-rush season per sd [0.2, 3.4], family-wise p=0.23 across six drill measures; IPW 1.9; independent verify.py 2.4 [0.7, 4.2] (n=78). Drill burst -0.5. Transfer: Hoop G -> NFL bend 0.14 vs stopwatch 3-cone 0.22; drill burst -> NGS get-off -0.14 vs 10-yd split 0.12. Day 3 (47): ordering rho 0.29 vs draft order 0.01, but top-third hit gap 0 pts [-20, 33] vs a +20 bar, so film order only.",
+ "what_changed_from_previous": "Revision of round 20 cand_1 (8.20), applying the round 20 judges' cross-angle top_changes: single-clause title with the Hoop G definition right under the bold finding; new hero figure (drill lap vs sampled NFL rushes on one yard and colour scale for 4 named rushers, with pressure-over-forecast intervals); no-tracking benchmark column for every transfer link (3-cone -> NFL bend, 10-yd split -> NGS get-off); IPW for being in the analysis set; independent verify.py (different smoothing, beta-binomial ML shrinkage, sklearn median-impute LOCO, different seed) quoted in text; day-3 top-third hit gap vs pick order with class-stratified rusher bootstrap against a stated +20-point bar; explicit count of 24 tests; Fig 4 turned into player cards with sampled-rush splits (wide/inside/3rd down, cell n) and what flips each call; dark-neutral reference lines; both tables cut to 4 rows; n and interval definition in every caption; 1,416 words (from 1,627).",
+ "open_risks": [
+  "Headline is still a null after the six-measure correction (family-wise p=0.23); action is film order only",
+  "verify.py slope (2.4) differs from the main estimate (1.8) by about a third, mostly via imputation choice; text says the size moves",
+  "The +20-point board bar is stated this round but the 9-of-15 vs 9-of-15 result was already known from round 20, so it is not a pre-registration",
+  "Stopwatch benchmark for bend rests on 31 3-cone runners with a wide interval; Hoop G on the same 29 is -0.12",
+  "Card splits are 20 sampled rushes per player; actions are role-rule based, not scheme-specific",
+  "Byron Murphy (a first-rounder) is the low-Hoop-G counter-example in the hero, not a day-3 player"
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "md": {
+  "roles": "| NFL first step (third) | EDGE: n, pressure vs forecast, beat | Interior: n, pressure vs forecast, beat |\n|---|---|---|\n| Top third (credit) | 14: {{rt_top_e_rate}}% vs {{rt_top_e_fc}}%, 8 of 14 | 9: {{rt_top_i_rate}}% vs {{rt_top_i_fc}}%, 6 of 9 |\n| Middle (no call) | 12: {{rt_mid_e_rate}}% vs {{rt_mid_e_fc}}%, 3 of 12 | 11: {{rt_mid_i_rate}}% vs {{rt_mid_i_fc}}%, 4 of 11 |\n| Bottom third (no credit) | 10: {{rt_bot_e_rate}}% vs {{rt_bot_e_fc}}%, 1 of 10 | 13: {{rt_bot_i_rate}}% vs {{rt_bot_i_fc}}%, 2 of 13 |",
+  "groups": "| Group | Players (40 + 8 NFL starts) | Sunday first step, reliability | Combine \u2192 Sunday, raw | Combine \u2192 Sunday, after size | Sunday first step \u2192 production beyond pick [90%] (n) |\n|---|---|---|---|---|---|\n| **DL** | 67 | {{g_DL_rel}} | {{g_DL_trraw}} | {{g_DL_tradj}} | **{{g_DL_pay}}** [{{g_DL_paylo}}, {{g_DL_payhi}}] (69, pressure rate) |\n| WR | 61 | {{g_WR_rel}} | {{g_WR_trraw}} | {{g_WR_tradj}} | {{g_WR_pay}} [{{g_WR_paylo}}, {{g_WR_payhi}}] (58, yards per route) |\n| OL | 58 | {{g_OL_rel}} | {{g_OL_trraw}} | {{g_OL_tradj}} | {{g_OL_pay}} [{{g_OL_paylo}}, {{g_OL_payhi}}] (64, fewer pressures allowed) |\n| DB | 58 | {{g_DB_rel}} | {{g_DB_trraw}} | {{g_DB_tradj}} | {{g_DB_pay}} [{{g_DB_paylo}}, {{g_DB_payhi}}] (65, solo tackles per 100 snaps) |\n| TE | 20 | {{g_TE_rel}} | {{g_TE_trraw}} | {{g_TE_tradj}} | {{g_TE_pay}} [{{g_TE_paylo}}, {{g_TE_payhi}}] (24, snaps per season) |",
+  "card": "| Rusher (class, pick, role) | 40 first step, pct | NFL first step, pct (starts) | Pressure rate vs forecast | Call |\n|---|---|---|---|---|\n| Warren Brinson (2025*, 198, interior) | {{b_brinson_c}} | {{b_brinson_s}} (19) | {{b_brinson_rate}}% vs {{b_brinson_fc}}% | Plus: credit the start |\n| Ashton Gillotte (2025*, 66, EDGE) | no 40 | {{b_gillotte_s}} (20) | {{b_gillotte_rate}}% vs {{b_gillotte_fc}}% | Plus: credit the start |\n| Princely Umanmielen (2025*, 77, EDGE) | {{b_umanmielen_c}} | {{b_umanmielen_s}} (16) | {{b_umanmielen_rate}}% vs {{b_umanmielen_fc}}% | Minus flag: 40 start not on tape |\n| Maason Smith (2024, 48, interior) | {{b_smith_c}} | {{b_smith_s}} (18) | {{b_smith_rate}}% vs {{b_smith_fc}}% | Plus: credit the start |\n| Ruke Orhorhoro (2024, 35, interior) | {{b_orhorhoro_c}} | {{b_orhorhoro_s}} (18) | {{b_orhorhoro_rate}}% vs {{b_orhorhoro_fc}}% | Plus: tape over the 40 |\n| YaYa Diaby (2023, 82, EDGE) | {{b_diaby_c}} | {{b_diaby_s}} (18) | {{b_diaby_rate}}% vs {{b_diaby_fc}}% | Plus: credit the start |\n| Keeanu Benton (2023, 49, interior) | {{b_benton_c}} | {{b_benton_s}} (19) | {{b_benton_rate}}% vs {{b_benton_fc}}% | Film first: grade hands and power |\n| Zacch Pickens (2023, 64, interior) | {{b_pickens_c}} | {{b_pickens_s}} (20) | {{b_pickens_rate}}% vs {{b_pickens_fc}}% | Minus flag: 40 start not on tape |\n| Eric Watts (2024, UDFA, EDGE) | {{b_watts_c}} | {{b_watts_s}} (20) | {{b_watts_rate}}% vs {{b_watts_fc}}% | Minus flag: 40 start not on tape |"
+ },
+ "loco_window": [
+  {
+   "yr": 2023,
+   "best": 0.5,
+   "kt": 4,
+   "nt": 5,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2024,
+   "best": 0.3,
+   "kt": 7,
+   "nt": 9,
+   "kb": 1,
+   "nb": 6
+  },
+  {
+   "yr": 2025,
+   "best": 1.3,
+   "kt": 2,
+   "nt": 6,
+   "kb": 1,
+   "nb": 9
+  }
+ ],
+ "groups": [
+  {
+   "grp": "DL",
+   "n_tr": 67,
+   "tr_raw": 0.155,
+   "tr_adj": 0.022,
+   "tr_lo": -0.177,
+   "tr_hi": 0.23,
+   "rel": 0.641,
+   "n_pay": 69,
+   "pay": 0.22,
+   "pay_lo": 0.013,
+   "pay_hi": 0.419,
+   "lab": "Pressure rate"
+  },
+  {
+   "grp": "WR",
+   "n_tr": 61,
+   "tr_raw": -0.132,
+   "tr_adj": -0.135,
+   "tr_lo": -0.335,
+   "tr_hi": 0.056,
+   "rel": 0.717,
+   "n_pay": 58,
+   "pay": -0.051,
+   "pay_lo": -0.26,
+   "pay_hi": 0.173,
+   "lab": "Yards per route"
+  },
+  {
+   "grp": "OL",
+   "n_tr": 58,
+   "tr_raw": -0.16,
+   "tr_adj": -0.311,
+   "tr_lo": -0.508,
+   "tr_hi": -0.1,
+   "rel": 0.136,
+   "n_pay": 64,
+   "pay": -0.023,
+   "pay_lo": -0.258,
+   "pay_hi": 0.215,
+   "lab": "Fewer pressures allowed"
+  },
+  {
+   "grp": "DB",
+   "n_tr": 58,
+   "tr_raw": -0.061,
+   "tr_adj": -0.1,
+   "tr_lo": -0.318,
+   "tr_hi": 0.123,
+   "rel": 0.204,
+   "n_pay": 65,
+   "pay": 0.136,
+   "pay_lo": -0.086,
+   "pay_hi": 0.343,
+   "lab": "Solo tackles per 100 snaps"
+  },
+  {
+   "grp": "TE",
+   "n_tr": 20,
+   "tr_raw": 0.123,
+   "tr_adj": 0.052,
+   "tr_lo": -0.31,
+   "tr_hi": 0.422,
+   "rel": 0.189,
+   "n_pay": 24,
+   "pay": -0.183,
+   "pay_lo": -0.576,
+   "pay_hi": 0.145,
+   "lab": "Snaps per season"
+  }
+ ],
+ "card_names": [
+  "Warren Brinson",
+  "Ashton Gillotte",
+  "Princely Umanmielen",
+  "Maason Smith",
+  "Ruke Orhorhoro",
+  "YaYa Diaby",
+  "Keeanu Benton",
+  "Zacch Pickens",
+  "Eric Watts"
+ ],
+ "hero": {
+  "sunday_only": "Byron Young",
+  "fast_both": "YaYa Diaby",
+  "combine_only": "Eric Watts"
+ }
+}

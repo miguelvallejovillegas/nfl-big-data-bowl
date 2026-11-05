@@ -1,0 +1,14 @@
+{
+ "angle": "WR/TE break mechanics: Break G (average g over the second around the first cut: brake in, turn, drive out), graded by the same code on Combine route drills and on sampled NFL snaps of the same route family (slant/out/hitch/in/corner), tested against full-season NGS separation over expected on held-out draft classes. Revision of round 25 cand_2 (7.86), reframed around the actionable side: do not dock soft drill cutters.",
+ "metric_name": "Break G (how hard a receiver plants: mean g over 1.0 s centred on his first real cut; z-scored within drill and Combine year, averaged over drills, shrunk for few drills)",
+ "headline_number": "Softest-cutting third of each class goes 26 picks later (median 160 vs 134) yet is +2.2 in more open than the rest relative to a held-out no-tracking forecast [90%: -1.2, +5.7]; 9 of 2000 resamples put them 3+ in worse (n=40 vs 76). Underlying slope -1.2 in per sd [-3.7, +1.0], n=116; coverage-adjusted -1.2, 10+ game seasons -1.2.",
+ "what_changed_from_previous": "Addresses the round-25 fatal flaws. (1) Positive testable prescription: Section 4 'soft cutters are a discount' (thirds of each class, held-out residual, median pick, share beating forecast) plus a frozen 2026 falsification rule written to frozen_rule.json by analysis.py; title and lede rewritten in scout language around it. (2) Coverage and availability: SOE rebuilt with man-coverage share in the expected model (man share vs SOE rho 0.01) and a 10+ game injury filter, both rerun through the full held-out test with bootstrap. (3) Fig 1 suptitle shortened so it no longer crops; note moved to caption. (4) Fig 3: redundant placebo histogram dropped, replaced by the draft-room thirds panel with 90% bars and median picks; legend moved into a clear band. (5) Fig 4 and Table 2: names chosen by rule (three hardest, three softest drill cutters among 49 eligible WRs) instead of hand-picked, with 90% intervals on each man's drill and NFL Break G and on his career SOE. Section 4 same-snap analysis (failed timing placebo) cut. All intervals 90%. 1,989 words, 4 figures + 2 tables.",
+ "open_risks": [
+  "The soft-third result is the mirror image of a null slope; its interval includes zero (-1.2 to +5.7) and day-3-only is noisier (+1.4, -4.1 to +7.5). Judges may read 'take the discount' as overclaiming.",
+  "Thirds view, coverage and availability checks were added after the main test was frozen and all classes were seen; only the 2026 frozen rule is truly out of sample.",
+  "Coverage control is a season man share, not per snap; injuries only via a games filter; scheme only via team resampling.",
+  "Table 2 reads come from tracking and the play log, not watched film.",
+  "Game tracking is a 40-play sample per player, half top-EPA, no defenders or ball; analysis.py takes about 2.5 minutes.",
+  "The WR Break G angle has scored 7.8-8.5 for many rounds; the DL Hoop G line is likely to stay ahead."
+ ]
+}
